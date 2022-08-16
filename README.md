@@ -13,8 +13,10 @@
 This Script is for everyone, original base by [`BochilGaming`](https://github.com/BochilGaming/games-wabot-md)
 
 <p align="center">
-      <img src="https://i.ibb.co/DR4vjVN/nother.jpg" width="35%" style="margin-left: auto;margin-right: auto;display: block;">
+      <img src="https://i.ibb.co/DR4vjVN/nother.jpg" width="55%" style="margin-left: auto;margin-right: auto;display: block;">
 </p>
+
+Download Node Modules here : [`node_modules`](cutt.ly/azamibot-md-modules)
 
 This is Script of WhatsApp multi device, working with [`@adiwajshing/baileys`](https://github.com/adiwajshing/baileys)
 
