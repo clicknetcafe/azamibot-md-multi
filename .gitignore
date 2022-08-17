@@ -6,7 +6,6 @@ tmp/*
 # Dependency directories
 .git/
 node_modules/
-handler.js
 
 # punya orang
 plugins/New folder/
