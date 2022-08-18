@@ -1,7 +1,5 @@
 import { sticker } from '../lib/sticker.js'
 import uploadFile from '../lib/uploadFile.js'
-import uploadImage from '../lib/uploadImage.js'
-import { webp2png } from '../lib/webp2mp4.js'
 import { Sticker, createSticker, StickerTypes } from 'wa-sticker-formatter'
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
