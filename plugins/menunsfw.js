@@ -1,3 +1,4 @@
+import db from '../lib/database.js'
 import { plugins } from '../lib/plugins.js'
 import { promises } from 'fs'
 import { join } from 'path'
@@ -34,7 +35,7 @@ const defaultMenu = {
 }
 let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 	try {
-		let chat = global.db.data.chats[m.chat]
+		let chat = db.data.chats[m.chat]
 		let meh = padLead(ranNumb(23), 3)
 		let nais
 		if (m.isGroup && !chat.nsfw) {

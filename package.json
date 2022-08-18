@@ -1,5 +1,5 @@
 {
-	"name": "azamibot-md",
+	"name": "azamibot-md-multi",
 	"version": "6.0.0",
 	"description": "WhatsApp Bot - Recoded by Zerenity",
 	"main": "index.js",
@@ -26,16 +26,16 @@
 		"MD",
 		"baileys-md"
 	],
-	"homepage": "https://github.com/clicknetcafe/azamibot-md",
+	"homepage": "https://github.com/clicknetcafe/azamibot-md-multi",
 	"author": {
 		"name": "clicknetcafe"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/clicknetcafe/azamibot-md.git"
+		"url": "git+https://github.com/clicknetcafe/azamibot-md-multi.git"
 	},
 	"bugs": {
-		"url": "https://github.com/clicknetcafe/azamibot-md/issues"
+		"url": "https://github.com/clicknetcafe/azamibot-md-multi/issues"
 	},
 	"license": "GPL-3.0-or-later",
 	"dependencies": {

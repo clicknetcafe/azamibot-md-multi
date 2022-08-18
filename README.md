@@ -1,13 +1,13 @@
-# azamibot-md
+# azamibot-md-multi
 
-<a href="https://github.com/clicknetcafe/azamibot-md/network/members"><img title="Forks" src="https://img.shields.io/github/forks/clicknetcafe/azamibot-md?label=Forks&color=blue&style=flat-square"></a>
-<a href="https://github.com/clicknetcafe/azamibot-md/watchers"><img title="Watchers" src="https://img.shields.io/github/watchers/clicknetcafe/azamibot-md?label=Watchers&color=green&style=flat-square"></a>
-<a href="https://github.com/clicknetcafe/azamibot-md/stargazers"><img title="Stars" src="https://img.shields.io/github/stars/clicknetcafe/azamibot-md?label=Stars&color=yellow&style=flat-square"></a>
-<a href="https://github.com/clicknetcafe/azamibot-md/graphs/contributors"><img title="Contributors" src="https://img.shields.io/github/contributors/clicknetcafe/azamibot-md?label=Contributors&color=blue&style=flat-square"></a>
-<a href="https://github.com/clicknetcafe/azamibot-md/issues"><img title="Issues" src="https://img.shields.io/github/issues/clicknetcafe/azamibot-md?label=Issues&color=success&style=flat-square"></a>
-<a href="https://github.com/clicknetcafe/azamibot-md/issues?q=is%3Aissue+is%3Aclosed"><img title="Issues" src="https://img.shields.io/github/issues-closed/clicknetcafe/azamibot-md?label=Issues&color=red&style=flat-square"></a>
-<a href="https://github.com/clicknetcafe/azamibot-md/pulls"><img title="Pull Request" src="https://img.shields.io/github/issues-pr/clicknetcafe/azamibot-md?label=PullRequest&color=success&style=flat-square"></a>
-<a href="https://github.com/clicknetcafe/azamibot-md/pulls?q=is%3Apr+is%3Aclosed"><img title="Pull Request" src="https://img.shields.io/github/issues-pr-closed/clicknetcafe/azamibot-md?label=PullRequest&color=red&style=flat-square"></a>
+<a href="https://github.com/clicknetcafe/azamibot-md-multi/network/members"><img title="Forks" src="https://img.shields.io/github/forks/clicknetcafe/azamibot-md-multi?label=Forks&color=blue&style=flat-square"></a>
+<a href="https://github.com/clicknetcafe/azamibot-md-multi/watchers"><img title="Watchers" src="https://img.shields.io/github/watchers/clicknetcafe/azamibot-md-multi?label=Watchers&color=green&style=flat-square"></a>
+<a href="https://github.com/clicknetcafe/azamibot-md-multi/stargazers"><img title="Stars" src="https://img.shields.io/github/stars/clicknetcafe/azamibot-md-multi?label=Stars&color=yellow&style=flat-square"></a>
+<a href="https://github.com/clicknetcafe/azamibot-md-multi/graphs/contributors"><img title="Contributors" src="https://img.shields.io/github/contributors/clicknetcafe/azamibot-md-multi?label=Contributors&color=blue&style=flat-square"></a>
+<a href="https://github.com/clicknetcafe/azamibot-md-multi/issues"><img title="Issues" src="https://img.shields.io/github/issues/clicknetcafe/azamibot-md-multi?label=Issues&color=success&style=flat-square"></a>
+<a href="https://github.com/clicknetcafe/azamibot-md-multi/issues?q=is%3Aissue+is%3Aclosed"><img title="Issues" src="https://img.shields.io/github/issues-closed/clicknetcafe/azamibot-md-multi?label=Issues&color=red&style=flat-square"></a>
+<a href="https://github.com/clicknetcafe/azamibot-md-multi/pulls"><img title="Pull Request" src="https://img.shields.io/github/issues-pr/clicknetcafe/azamibot-md-multi?label=PullRequest&color=success&style=flat-square"></a>
+<a href="https://github.com/clicknetcafe/azamibot-md-multi/pulls?q=is%3Apr+is%3Aclosed"><img title="Pull Request" src="https://img.shields.io/github/issues-pr-closed/clicknetcafe/azamibot-md-multi?label=PullRequest&color=red&style=flat-square"></a>
 
 
 This Script is for everyone, original base by [`BochilGaming`](https://github.com/BochilGaming/games-wabot-md)
@@ -26,7 +26,7 @@ This is Script of WhatsApp multi device, working with [`@adiwajshing/baileys`](h
 
 
 #### Deploy to Heroku (Not Working)
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/clicknetcafe/azamibot-md)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/clicknetcafe/azamibot-md-multi)
 
 #### Heroku Buildpack
 | BuildPack | LINK |
@@ -43,11 +43,11 @@ $ pkg install nodejs -y
 $ pkg install ffmpeg -y
 $ pkg install imagemagick -y
 $ pkg install libwebp -y
-$ git clone https://github.com/clicknetcafe/azamibot-md
-$ cd azamibot-md
+$ git clone https://github.com/clicknetcafe/azamibot-md-multi
+$ cd azamibot-md-multi
 $ npm i 
 ```
-If error try using yarn instead of npm, see [here](https://github.com/clicknetcafe/azamibot-md/tree/multi-device#if-npm-install-failed--try--using-yarn-instead-of-npm)
+If error try using yarn instead of npm, see [here](https://github.com/clicknetcafe/azamibot-md-multi/tree/multi-device#if-npm-install-failed--try--using-yarn-instead-of-npm)
 ```sh
 $ node .
 ```
@@ -91,8 +91,8 @@ apt install wget curl git ffmpeg imagemagick build-essential libcairo2-dev libpa
 ubuntu
 curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
 apt install -y nodejs gcc g++ make
-git clone https://github.com/clicknetcafe/azamibot-md -b multi-device
-cd azamibot-md
+git clone https://github.com/clicknetcafe/azamibot-md-multi
+cd azamibot-md-multi
 npm install
 npm update
 ```
@@ -107,8 +107,8 @@ npm update
 * Download And Install ImageMagick [`Click Here`](https://imagemagick.org/script/download.php)
 
 ```bash
-git clone https://github.com/clicknetcafe/azamibot-md -b multi-device
-cd azamibot-md
+git clone https://github.com/clicknetcafe/azamibot-md-multi
+cd azamibot-md-multi
 npm install
 npm update
 ```
@@ -214,7 +214,7 @@ conn.sendButton(m.chat, 'Hello world!', '@clicknetcafe', 'https://github.com/cli
 ### Why my plugins not working in this multi-device?
       
 > Please cek syntax error on your plugins. and maybe your script still using CJS
-> This multi-device script use ESM and CJS [(legacy code)](https://github.com/clicknetcafe/azamibot-md/tree/main) not support yet. Learn more about [ESM](https://nodejs.org/api/esm.html)
+> This multi-device script use ESM and CJS [(legacy code)](https://github.com/clicknetcafe/azamibot-md-multi/tree/main) not support yet. Learn more about [ESM](https://nodejs.org/api/esm.html)
 
 ### How to delete session?
 
@@ -222,7 +222,7 @@ conn.sendButton(m.chat, 'Hello world!', '@clicknetcafe', 'https://github.com/cli
 
 ### Why i can't scan qr code?
 
-> if your error like this ```(node:7016) UnhandledPromiseRejectionWarning: TypeError [ERR_INVALID_ARG_TYPE]: The "key" argument must be of type string or an instance of Buffer, TypedArray, DataView, or KeyObject. Received undefined``` you can use [multi-device branch](https://github.com/clicknetcafe/azamibot-md/tree/multi-device)
+> if your error like this ```(node:7016) UnhandledPromiseRejectionWarning: TypeError [ERR_INVALID_ARG_TYPE]: The "key" argument must be of type string or an instance of Buffer, TypedArray, DataView, or KeyObject. Received undefined``` you can use [multi-device branch](https://github.com/clicknetcafe/azamibot-md-multi/tree/multi-device)
 
 ### How to change owner number?
 

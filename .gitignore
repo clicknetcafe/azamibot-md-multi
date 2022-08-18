@@ -85,6 +85,7 @@ plugins/entertain-randomduck.js
 plugins/entertain-ransfw.js
 plugins/entertain-spamcall.js
 plugins/entertain-speedtest.js
+plugins/entertain-stalk.js
 plugins/entertain-zodiak.js
 plugins/ephoto-1.js
 plugins/ephoto-2.js
