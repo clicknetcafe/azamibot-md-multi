@@ -1,30 +1,19 @@
 import Connection from '../lib/connection.js'
 
-let handler = async (m, { conn }) => {
-    const chats = Object.entries(Connection.store.chats).filter(([id, data]) => id && data.isChats)
-    const groupsIn = chats.filter(([id]) => id.endsWith('@g.us')) //groups.filter(v => !v.read_only)
-    const chats2 = Object.entries(Connection.store.chats).filter(([id, data]) => id && data.isChats && data.subject == '')
-    const groupsOut = chats2.filter(([id]) => id.endsWith('@g.us')) //groups.filter(v => !v.read_only)
-    let ini_txt = `*List Group :*\n${groupsIn.length} group in total, ${groupsOut.length} group left`
-    for (let x of groupsIn) {
-        for (let y in Object.keys(x)) {
-            if (x[y].id == undefined || x[y].subject == undefined) {
-                
-            } else {
-                if (x[y].id.includes('-')) {
-                    ini_txt += `\n\nID : ${x[y].id.split('-')[1]}\n`
-                } else {
-                    ini_txt += `\n\nID : ${x[y].id}\n`
-                }
-                if (x[y].subject == '') {
-                    ini_txt += `Status :  [ Bot Leave ]`
-                } else {
-                    ini_txt += `Name : ${x[y].subject}`
-                }
-            }
-        }
-    }
-    m.reply(ini_txt)
+let handler = async (m, { conn, isOwner }) => {
+	let groups = Object.values(await conn.groupFetchAllParticipating())
+	let txt = `*GROUPS LIST*\n\n*Total:* ${groups.length}`
+	for (let i = 0; i < groups.length; i++) {
+		txt += `\n\n*⭔ Subject :* ${groups[i].subject}\n`
+    	txt += `*⭔ Owner :* ${groups[i].owner ? "@" + groups[i].owner.split("@")[0] : "Unknown"}\n`
+		txt += `*⭔ ID :* ${groups[i].id}\n`
+		txt += `${isOwner ? `*⭔ Participants :* ${groups[i].participants.length}\n` : ''}`
+		txt += `${isOwner ? `*⭔ isBotAdmin :* [ ${!!groups[i].participants.find(v => v.id == conn.user.jid).admin} ]` : ''}\n`
+		txt += `*⭔ Created :* ${new Date(groups[i].subjectTime* 1000).toDateString()}\n`
+		txt += `───────────────────`
+	}
+	let users = groups.map(u => u.owner).filter(v => v !== conn.user.jid)
+    m.reply(txt.trim().replace(/@s\.whatsapp\.net/g, ''), null, { mentions: users })
 }
 
 handler.menugroup = ['groups', 'grouplist']

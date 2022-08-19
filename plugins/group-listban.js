@@ -23,6 +23,6 @@ let handler = async (m, { conn, isOwner }) => {
 
 handler.menugroup = ['bannedlist']
 handler.tagsgroup = ['group']
-handler.command = /^(listban(ned)?|ban(ned)?list|daftarban(ned)?)$/i
+handler.command = /^(list(ban(ned)?|bloc?k)|(ban(ned)?|bloc?k)list|daftar(ban(ned)?|bloc?k))$/i
 
 export default handler
