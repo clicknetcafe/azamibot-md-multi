@@ -1,5 +1,4 @@
 import db from '../lib/database.js'
-import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
     if (!text || isNaN(text)) throw `Masukkan nominal !\n\nContoh : *${usedPrefix + command} 10000*`

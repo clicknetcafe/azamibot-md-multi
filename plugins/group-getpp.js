@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 let handler = async(m) => {
 	let who
 	if (m.isGroup) who = m.quoted ? m.quoted.sender : m.mentionedJid[0] ? m.mentionedJid[0] : m.sender

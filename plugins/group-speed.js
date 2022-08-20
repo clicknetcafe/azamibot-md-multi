@@ -1,6 +1,5 @@
 import Connection from '../lib/connection.js'
 import { cpus as _cpus, totalmem, freemem } from 'os'
-// import util from 'util'
 import { performance } from 'perf_hooks'
 import { sizeFormatter } from 'human-readable'
 
@@ -23,7 +22,9 @@ let format = sizeFormatter({
 	keepTrailingZeroes: false,
 	render: (literal, symbol) => `${literal} ${symbol}B`,
 })
+
 let handler = async (m, { conn }) => {
+	const groups = Object.values(await conn.groupFetchAllParticipating())
 	const chats = Object.entries(Connection.store.chats).filter(([id, data]) => id && data.isChats)
 	const groupsIn = chats.filter(([id]) => id.endsWith('@g.us')) //groups.filter(v => !v.read_only)
 	const used = process.memoryUsage()
@@ -60,9 +61,9 @@ Kecepatan Respon ${speed.toFixed(4)} detik
 Runtime :\n*${runtime(process.uptime())}*
 
 💬 Status :
-- *${groupsIn.length}* Group Chats
-- *${groupsIn.length}* Groups Joined
-- *${groupsIn.length - groupsIn.length}* Groups Left
+- *${groupsIn.length < groups.length ? groups.length : groupsIn.length}* Group Chats
+- *${groups.length}* Groups Joined
+- *${groupsIn.length < groups.length ? 0 : groupsIn.length - groups.length}* Groups Left
 - *${chats.length - groupsIn.length}* Personal Chats
 - *${chats.length}* Total Chats
 
@@ -74,6 +75,6 @@ RAM: ${format(totalmem() - freemem())} / ${format(totalmem())}
 
 handler.menugroup = ['ping']
 handler.tagsgroup = ['group']
-handler.command = /^(ping|tes|test|info|ingfo|runtime)$/i
 
+handler.command = /^(ping|tes|test|info|ingfo|runtime)$/i
 export default handler

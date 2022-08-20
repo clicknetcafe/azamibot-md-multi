@@ -1,5 +1,4 @@
 import fs from 'fs'
-import syntaxError from 'syntax-error'
 import path from 'path'
 
 const _fs = fs.promises

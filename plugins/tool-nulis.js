@@ -1,5 +1,4 @@
 import { format } from 'util'
-// let path = require('path')
 import { spawn } from 'child_process'
 
 // Font By MFarelS:V

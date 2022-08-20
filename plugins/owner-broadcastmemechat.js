@@ -1,8 +1,5 @@
 import Connection from '../lib/connection.js'
-import uploadImage from '../lib/uploadImage.js'
 import { randomBytes } from 'crypto'
-//import imgbbUploader from 'imgbb-uploader'
-import fetch from 'node-fetch'
 
 function ranNumb(min = null, max = null) {
 	if (max !== null) {
@@ -22,12 +19,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (/image/g.test(mime) || /video/g.test(mime)) {
 		if (!text) throw `teks nya mana ?`
 		let img = await q.download?.()
-		/*let out = await uploadImage(img)
-		const options = { apiKey: global.imgbb, expiration: 3600, imageUrl: out}
-		let anu = await imgbbUploader(options)
-		let fimg = await fetch(anu.display_url)
-		if (!fimg.ok) throw 'Error Upload Imgbb'
-		let fimgb = Buffer.from(await fimg.arrayBuffer())*/
 		conn.reply(m.chat, `_Mengirim pesan broadcast ke ${chats.length} chat_`, m)
 		let wkt
 		for (let id of chats) {

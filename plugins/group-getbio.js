@@ -1,5 +1,3 @@
-import { areJidsSameUser } from '@adiwajshing/baileys'
-
 let handler = async (m, { conn, text, args, isOwner, participants }) => {
 	if (m.quoted) {
 		try {

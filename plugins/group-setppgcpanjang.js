@@ -9,12 +9,11 @@ let handler = async (m, { conn, command, usedPrefix }) => {
 	if (/image/g.test(mime) && !/webp/g.test(mime)) {
 		try {
 			let media = await q.download()
-			let botNumber = await conn.user.jid
 			let { img } = await pepe(media)
 			await conn.query({
 				tag: 'iq',
 				attrs: {
-					to: botNumber,
+					to: m.chat,
 					type:'set',
 					xmlns: 'w:profile:picture'
 				},
@@ -26,7 +25,7 @@ let handler = async (m, { conn, command, usedPrefix }) => {
 					}
 				]
 			})
-			m.reply(`Sukses mengganti PP Bot`)
+			m.reply(`Admin @${(m.sender || '').replace(/@s\.whatsapp\.net/g, '')} telah mengganti Icon Group!`, null, { mentions: [m.sender] })
 		} catch (e) {
 			console.log(e)
 			m.reply(`Terjadi kesalahan, coba lagi nanti.`)
@@ -36,11 +35,13 @@ let handler = async (m, { conn, command, usedPrefix }) => {
 	}
 }
 
-handler.menugroup = ['setbotpp2']
-handler.tagsgroup = ['owner']
-handler.command = /^(set(botpp|ppbot)2)$/i
+handler.menugroup = ['setppgc2']
+handler.tagsgroup = ['group']
+handler.command = /^(set((gro?up|gc)pp(2|panjang)|pp(gro?up|gc)(2|panjang)))$/i
 
-handler.owner = true
+handler.admin = true
+handler.botAdmin = true
+handler.group = true
 
 export default handler
 

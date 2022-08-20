@@ -1,5 +1,3 @@
-let { downloadContentFromMessage } = (await import('@adiwajshing/baileys'));
-
 let handler = async (m, { conn }) => {
     if (!m.quoted) throw 'where\'s message?'
     if (m.quoted.mtype !== 'viewOnceMessage') throw 'Itu bukan pesan viewOnce'

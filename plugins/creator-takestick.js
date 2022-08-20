@@ -1,6 +1,5 @@
 import { addExif } from '../lib/sticker.js'
 
-
 let handler = async (m, { conn, text, usedPrefix, command }) => {
   if (!m.quoted) throw `Reply / Tag Stiker Sesuai Format :\n*${usedPrefix + command} <packname>|<author>*`
   let stiker = false

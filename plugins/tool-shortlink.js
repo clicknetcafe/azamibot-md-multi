@@ -1,5 +1,4 @@
 import uploadImage from '../lib/uploadImage.js'
-import imgbbUploader from 'imgbb-uploader'
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, args, usedPrefix, text, command }) => {

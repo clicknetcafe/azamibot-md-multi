@@ -10,7 +10,7 @@ let handler = async (m, { conn, args }) => {
 	let me = groupMetadata.participants.find(user => areJidsSameUser(user.id, conn.user.id))
 	if (!me) throw 'Aku tidak ada di grup itu :('
 	if (!me.admin) throw 'Aku bukan admin T_T'
-	conn.sendMessage(m.chat, {
+	/*conn.sendMessage(m.chat, {
 		text: `[ LINK GROUP ]\n\nhttps://chat.whatsapp.com/${await conn.groupInviteCode(group)}`,
 		templateButtons: [{
 			index: 1,
@@ -20,8 +20,8 @@ let handler = async (m, { conn, args }) => {
 			}
 		}],
 		footer: packname + ' - ' + author
-	})
-	//m.reply('[ LINK GROUP ]\n\nhttps://chat.whatsapp.com/' + await conn.groupInviteCode(group))
+	})*/
+	m.reply('[ LINK GROUP ]\n\nhttps://chat.whatsapp.com/' + await conn.groupInviteCode(group))
 }
 handler.menugroup = ['linkgroup']
 handler.tagsgroup = ['group']

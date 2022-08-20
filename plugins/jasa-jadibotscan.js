@@ -1,5 +1,3 @@
-// TODO: fix jadibot
-
 import Connection from '../lib/connection.js'
 import Store from '../lib/store.js'
 import qrcode from 'qrcode'

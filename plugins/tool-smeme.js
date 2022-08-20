@@ -1,9 +1,6 @@
 import uploadImage from '../lib/uploadImage.js'
-import imgbbUploader from 'imgbb-uploader'
-import fetch from 'node-fetch'
-import { sticker } from '../lib/sticker.js'
 import fs from 'fs'
-import { Sticker, createSticker, StickerTypes } from 'wa-sticker-formatter'
+import { Sticker, StickerTypes } from 'wa-sticker-formatter'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	let q = m.quoted ? m.quoted : m

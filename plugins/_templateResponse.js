@@ -1,5 +1,4 @@
 import { plugins } from '../lib/plugins.js'
-import Connection from '../lib/connection.js'
 
 const {
     proto,

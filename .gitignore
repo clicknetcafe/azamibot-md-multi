@@ -43,6 +43,9 @@ plugins/download-joox320.js
 plugins/download-likee.js
 plugins/download-likeenowm.js
 plugins/download-mediafire.js
+plugins/download-pinterest.js
+plugins/download-pinterestimage.js
+plugins/download-pinterestvideo.js
 plugins/download-sfilemobi.js
 plugins/download-smule.js
 plugins/download-smulemp3.js

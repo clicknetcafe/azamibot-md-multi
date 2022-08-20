@@ -1,5 +1,3 @@
-import Connection from '../lib/connection.js'
-
 let handler = async (m, { conn, isOwner }) => {
 	let groups = Object.values(await conn.groupFetchAllParticipating())
 	let txt = `*GROUPS LIST*\n\n*Total:* ${groups.length}`

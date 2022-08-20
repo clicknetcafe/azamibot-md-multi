@@ -1,5 +1,4 @@
-import * as fs from 'fs'
-import { exec, spawn } from 'child_process'
+import { spawn } from 'child_process'
 
 let handler = async (m, { conn, usedPrefix }) => {
 	if (m.quoted && /sticker/.test(m.quoted.mtype) && !m.quoted.isAnimated) {
