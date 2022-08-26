@@ -658,6 +658,8 @@ export async function handler(chatUpdate) {
 					chat.antiLink = false
 				if (!('nsfw' in chat))
 					chat.nsfw = false
+				if (!('pdf' in chat))
+					chat.pdf = false
 				if (!('game' in chat))
 					chat.game = true
 				if (!('viewonce' in chat))
@@ -680,6 +682,7 @@ export async function handler(chatUpdate) {
 					delete: true,
 					antiLink: false,
 					nsfw: false,
+					pdf: false,
 					game: true,
 					viewonce: false,
 					antiToxic: true,

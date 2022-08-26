@@ -1,16 +1,23 @@
 import uploadImage from '../lib/uploadImage.js'
+import uploadFile from '../lib/uploadFile.js'
 
 let handler = async (m, { conn, args, usedPrefix, text, command }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''
-	if (/image/g.test(mime) && !/webp/g.test(mime)) {
+	if (/image|webp|sticker|video/g.test(mime)) {
+		let img = await q.download?.()
 		try {
-			let img = await q.download?.()
 			let out = await uploadImage(img)
 			m.reply(`[ LINK ]\n${out}`)
 		} catch (e) {
 			console.log(e)
-			m.reply(`Terjadi kesalahan, coba lagi nanti.`)
+			try {
+				let out = await uploadFile(img)
+				m.reply(`[ LINK ]\n${out}`)
+			} catch (e) {
+				console.log(e)
+				m.reply(`Terjadi kesalahan, coba lagi nanti.`)
+			}
 		}
 	} else {
 		m.reply(`Kirim gambar dengan caption *${usedPrefix + command}* atau tag gambar yang sudah dikirim`)

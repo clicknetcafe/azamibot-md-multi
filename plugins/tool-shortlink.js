@@ -2,54 +2,98 @@ import uploadImage from '../lib/uploadImage.js'
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, args, usedPrefix, text, command }) => {
+	command = command.toLowerCase()
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''
 	if (/image/g.test(mime) && !/webp/g.test(mime)) {
 		let img = await q.download?.()
-		console.log(img)
 		let out = await uploadImage(img)
-		try {
-			let res = await fetch(`https://api-xcoders.xyz/api/tools/shorturl?url=${out}&apikey=${global.xco}`)
-			let json = await res.json()
-			m.reply(`[ LINK ]\n${json.result}`)
-		} catch (e) {
-			console.log(e)
+		if (command.includes('cutt')) {
 			try {
-				let res = await fetch(`https://api-xcoders.xyz/api/tools/cuttly?url=${out}&apikey=${global.xco}`)
-				let json = await res.json()
-				m.reply(`[ LINK ]\n${json.result}`)
+				let res = await fetch(`https://api.lolhuman.xyz/api/shortlink3?apikey=${global.api}&url=${out}`)
+				if (!res.ok) throw new e()
+				let anu = await await res.json()
+				m.reply(`[ LINK ]\n${anu.result}`)
 			} catch (e) {
-				console.log(e)
+				m.reply(`[ LINK ]\n=> invalid url source`)
+			}
+		} else if (command.includes('ouo')) {
+			try {
+				let res = await fetch(`https://api.lolhuman.xyz/api/ouoshortlink?apikey=${global.api}&url=${out}`)
+				if (!res.ok) throw new e()
+				let anu = await await res.json()
+				m.reply(`[ LINK ]\n${anu.result}`)
+			} catch (e) {
+				m.reply(`[ LINK ]\n=> invalid url source`)
+			}
+		} else if (command.includes('shrtco')) {
+			try {
+				let res = await fetch(`https://api.lolhuman.xyz/api/shortlink2?apikey=${global.api}&url=${out}`)
+				if (!res.ok) throw new e()
+				let anu = await await res.json()
+				m.reply(`[ LINK ]\n${anu.result}`)
+			} catch (e) {
+				m.reply(`[ LINK ]\n=> invalid url source`)
+			}
+		} else {
+			try {
+				let res = await fetch(`https://betabotz-api.herokuapp.com/api/tools/tinyurl?url=${out}&apikey=${global.bb}`)
+				let anu = await await res.json()
+				if (anu.result == undefined) throw new e()
+				m.reply(`[ LINK ]\n${anu.result}`)
+			} catch (e) {
 				try {
-					let res = await fetch(`https://betabotz-api.herokuapp.com/api/tools/tinyurl?url=${out}&apikey=${global.bb}`)
-					let json = await res.json()
-					m.reply(`[ LINK ]\n${json.result}`)
+					let res = await fetch(`https://api.lolhuman.xyz/api/shortlink3?apikey=${global.api}&url=${out}`)
+					if (!res.ok) throw new e()
+					let anu = await await res.json()
+					m.reply(`[ LINK ]\n${anu.result}`)
 				} catch (e) {
-					console.log(e)
-					m.reply(`Terjadi kesalahan, coba lagi nanti.`)
+					m.reply(`[ LINK ]\n=> invalid url source`)
 				}
 			}
 		}
 	} else if (text && (!/image/g.test(mime) || !/webp/g.test(mime))) {
-		try {
-			let res = await fetch(`https://betabotz-api.herokuapp.com/api/tools/tinyurl?url=${text}&apikey=${global.bb}`)
-			let json = await res.json()
-			m.reply(`[ LINK ]\n${json.result}`)
-		} catch (e) {
-			console.log(e)
+		if (command.includes('cutt')) {
 			try {
-				let res = await fetch(`https://api-xcoders.xyz/api/tools/shorturl?url=${text}&apikey=${global.xco}`)
-				let json = await res.json()
-				m.reply(`[ LINK ]\n${json.result}`)
+				let res = await fetch(`https://api.lolhuman.xyz/api/shortlink3?apikey=${global.api}&url=${text}`)
+				if (!res.ok) throw new e()
+				let anu = await await res.json()
+				m.reply(`[ LINK ]\n${anu.result}`)
 			} catch (e) {
-				console.log(e)
+				m.reply(`[ LINK ]\n=> invalid url source`)
+			}
+		} else if (command.includes('ouo')) {
+			try {
+				let res = await fetch(`https://api.lolhuman.xyz/api/ouoshortlink?apikey=${global.api}&url=${text}`)
+				if (!res.ok) throw new e()
+				let anu = await await res.json()
+				m.reply(`[ LINK ]\n${anu.result}`)
+			} catch (e) {
+				m.reply(`[ LINK ]\n=> invalid url source`)
+			}
+		} else if (command.includes('shrtco')) {
+			try {
+				let res = await fetch(`https://api.lolhuman.xyz/api/shortlink2?apikey=${global.api}&url=${text}`)
+				if (!res.ok) throw new e()
+				let anu = await await res.json()
+				m.reply(`[ LINK ]\n${anu.result}`)
+			} catch (e) {
+				m.reply(`[ LINK ]\n=> invalid url source`)
+			}
+		} else {
+			try {
+				let res = await fetch(`https://betabotz-api.herokuapp.com/api/tools/tinyurl?url=${text}&apikey=${global.bb}`)
+				let anu = await await res.json()
+				if (anu.result == undefined) throw new e()
+				m.reply(`[ LINK ]\n${anu.result}`)
+			} catch (e) {
 				try {
-					let res = await fetch(`https://api-xcoders.xyz/api/tools/cuttly?url=${text}&apikey=${global.xco}`)
-					let json = await res.json()
-					m.reply(`[ LINK ]\n${json.result}`)
+					let res = await fetch(`https://api.lolhuman.xyz/api/shortlink3?apikey=${global.api}&url=${text}`)
+					if (!res.ok) throw new e()
+					let anu = await await res.json()
+					m.reply(`[ LINK ]\n${anu.result}`)
 				} catch (e) {
-					console.log(e)
-					m.reply(`Terjadi kesalahan, coba lagi nanti.`)
+					m.reply(`[ LINK ]\n=> invalid url source`)
 				}
 			}
 		}
@@ -58,9 +102,9 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
 	}
 }
 
-handler.help = ['shortlink']
+handler.help = ['cuttly','ouo','shortlink','shrtco','tinyurl']
 handler.tags = ['tools']
-handler.command = /^(shortlink|tinyurl)$/i
+handler.command = /^(short(link|url)|cuttly|ouo(io)?|shrtco|tiny(url)?)$/i
 
 handler.limit = true
 
