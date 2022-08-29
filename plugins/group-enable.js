@@ -1,4 +1,6 @@
 import db from '../lib/database.js'
+import pkg from '@adiwajshing/baileys';
+const { WA_DEFAULT_EPHEMERAL, groupToggleEphemeral } = pkg;
 
 let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, isAdmin, isROwner }) => {
 	let isEnable = /true|enable|(turn)?on|1/i.test(command)
@@ -136,8 +138,22 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			}
 			global.opts['gconly'] = isEnable
 			break
+		case 'ep':
+		case 'ephem':
+		case 'ephemeral':
+		case 'psgc':
+			if ((isAdmin || isOwner) && isBotAdmin) {
+				if (isEnable) {
+					conn.groupToggleEphemeral(m.chat, WA_DEFAULT_EPHEMERAL)
+				} else {
+					conn.groupToggleEphemeral(m.chat, 0)
+				}
+			} else {
+				m.reply(isBotAdmin ? `*「ADMIN GROUP ONLY」*` : `*「BOT HARUS JADI ADMIN」*`)
+			}
+			break
 		default:
-			if (!/[01]/.test(command)) return m.reply(`*List option :*\n| welcome | delete | antidelete | nsfw | game | antilink | public | self | restrict | autoread | pconly | gconly |
+			if (!/[01]/.test(command)) return m.reply(`*List option :*\n| welcome | delete | antidelete | ephemeral | nsfw | game | antilink | public | self | restrict | autoread | pconly | gconly |
 
 Example :
 *${usedPrefix + command} welcome*

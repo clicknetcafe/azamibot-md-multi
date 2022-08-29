@@ -65,7 +65,7 @@ Runtime :\n*${runtime(process.uptime())}*
 - *${groups.length}* Groups Joined
 - *${groupsIn.length < groups.length ? 0 : groupsIn.length - groups.length}* Groups Left
 - *${chats.length - groupsIn.length}* Personal Chats
-- *${chats.length}* Total Chats
+- *${chats.length - ( groupsIn.length < groups.length ? 0 : groupsIn.length - groups.length )}* Total Chats
 
 💻 *Server Info*
 ${cpus[0] ? `_${cpus[0].model.trim()} (${cpu.speed} MHZ)_\n` : ''}

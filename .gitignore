@@ -16,7 +16,6 @@ plugins/anime-chara.js
 plugins/anime-kusonime.js
 plugins/anime-manga.js
 plugins/anime-mynimeku.js
-plugins/anime-neko.js
 plugins/anime-neonime.js
 plugins/anime-randomstory.js
 plugins/anime-ransfw.js
@@ -46,7 +45,6 @@ plugins/download-mediafire.js
 plugins/download-pinterest.js
 plugins/download-pinterestimage.js
 plugins/download-pinterestvideo.js
-plugins/download-sfilemobi.js
 plugins/download-smule.js
 plugins/download-smulemp3.js
 plugins/download-smulemp4.js
@@ -65,9 +63,6 @@ plugins/download-yta.js
 plugins/download-ytplay.js
 plugins/download-yts.js
 plugins/download-ytv.js
-plugins/download-ytv1080.js
-plugins/download-ytv480.js
-plugins/download-ytv720.js
 plugins/download-zippyshare.js
 plugins/editor-1.js
 plugins/editor-2.js
@@ -85,7 +80,6 @@ plugins/entertain-meme.js
 plugins/entertain-randomanimal.js
 plugins/entertain-randomanimal2.js
 plugins/entertain-randomcar.js
-plugins/entertain-randomduck.js
 plugins/entertain-ransfw.js
 plugins/entertain-spamcall.js
 plugins/entertain-speedtest.js
@@ -105,9 +99,7 @@ plugins/gi-enemy.js
 plugins/gi-food.js
 plugins/gi-material.js
 plugins/gi-namecard.js
-plugins/gi-nation.js
 plugins/gi-outfit.js
-plugins/gi-potion.js
 plugins/gi-talent.js
 plugins/gi-weapon.js
 plugins/info-beasiswa.js
@@ -121,8 +113,6 @@ plugins/info-cuaca.js
 plugins/info-gempa.js
 plugins/info-hero.js
 plugins/info-heroml.js
-plugins/info-hoax.js
-plugins/info-imdb.js
 plugins/info-jadwalbola.js
 plugins/info-jadwaltv.js
 plugins/info-jadwaltvnow.js
@@ -132,14 +122,12 @@ plugins/info-kodepos.js
 plugins/info-lirik.js
 plugins/info-mlstalk.js
 plugins/info-nik.js
-plugins/info-ocr.js
 plugins/info-osu.js
 plugins/info-readbarcode.js
 plugins/info-readqr.js
 plugins/info-ssweb.js
 plugins/info-translate.js
 plugins/info-wikipedia.js
-plugins/nsfw-bigtid.js
 plugins/nsfw-blowjob.js
 plugins/nsfw-cersex.js
 plugins/nsfw-cosplay.js
@@ -159,13 +147,13 @@ plugins/nsfw-ran4.js
 plugins/nsfw-ran5.js
 plugins/nsfw-ran6.js
 plugins/nsfw-ran7.js
+plugins/nsfw-tiktok.js
 plugins/nsfw-waifu.js
 plugins/nsfw-xhamster.js
 plugins/nsfw-xnxx.js
 plugins/nsfw-xvideos.js
 plugins/oxy-1.js
 plugins/oxy-2.js
-plugins/primbon-jadian.js
 plugins/primbon-jodoh.js
 plugins/primbon-mimpi.js
 plugins/primbon-nama.js
@@ -176,7 +164,6 @@ plugins/random-fakta.js
 plugins/random-nama.js
 plugins/random-people.js
 plugins/random-quote.js
-plugins/random-quotedilan.js
 plugins/random-quoteimage.js
 plugins/random-quotenime.js
 plugins/search-apk.js
@@ -188,7 +175,6 @@ plugins/search-mirror.js
 plugins/search-pinterest.js
 plugins/search-pinterest2.js
 plugins/search-pixiv.js
-plugins/search-playstore.js
 plugins/search-ppcouple.js
 plugins/search-semoji.js
 plugins/search-stikerbetabotz.js
