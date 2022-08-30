@@ -36,7 +36,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 }
 
 handler.menugroup = ['mulaivote [alasan]']
-handler.tagsgroup = ['vote']
+handler.tagsgroup = ['group']
 handler.command = /^((start|mulai)?vote)$/i
 
 handler.group = true

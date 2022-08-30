@@ -1,11 +1,9 @@
-let handler = async (m, { conn, text, command, usedPrefix, participants, isAdmin, isOwner }) => {
-    if (!text) throw `Example : ${usedPrefix + command} ganti admin baru`
-    if (text.length <= 11) throw `Kependekan oi, kalo tagall gak penting mending gausah`
-    if (text.includes('chat.whatsapp.com')) throw `Maaf, tidak boleh send link group`
-    let users = participants.map(u => u.id).filter(v => v !== conn.user.jid)
-    m.reply(`${text ? `${text}\n` : ''}┌─「 Tag All 」\n` + users.map(v => '│◦❒ @' + v.replace(/@.+/, '')).join`\n` + '\n└────', null, {
-        mentions: users
-    })
+let handler = async (m, { conn, text, participants }) => {
+    let teks = `⋙ *Pesan dari Admin Group* ⋘ \n\n${text ? text : '*Nothing'}\n\n`
+    for (let mem of participants) {
+        teks += ` @${mem.id.split('@')[0]}\n`
+    }
+    conn.sendMessage(m.chat, { text: teks, mentions: participants.map(a => a.id) })
 }
 
 handler.menugroup = ['tagall']
