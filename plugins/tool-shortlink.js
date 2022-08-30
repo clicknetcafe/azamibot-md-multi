@@ -54,13 +54,12 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
 		} catch (e) {
 			m.reply(`[ LINK ]\n=> invalid source`)
 		}
-	}
-	/*} else {
+	} else {
 		m.reply(`Kirim Teks URL atau gambar dengan caption *${usedPrefix + command}* atau tag gambar yang sudah dikirim`)
-	}*/
+	}
 }
 
-handler.help = ['cuttly','ouo','shortlink','shrtco','tinyurl']
+handler.help = ['bitly','cuttly','ouo','shortlink','shrtco','tinyurl']
 handler.tags = ['tools']
 handler.command = /^(short(link|url)|(cutt|bit)ly|ouo(io)?|shrtco|tiny(url)?)$/i
 

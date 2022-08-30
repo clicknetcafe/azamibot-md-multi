@@ -88,6 +88,14 @@ plugins/entertain-zodiak.js
 plugins/ephoto-1.js
 plugins/ephoto-2.js
 plugins/ephoto-3.js
+plugins/game-tebakchara.js
+plugins/game-tebakchara_ans.js
+plugins/game-tebakkabupaten.js
+plugins/game-tebakkabupaten_ans.js
+plugins/game-tebakkimia.js
+plugins/game-tebakkimia_ans.js
+plugins/game-tekateki.js
+plugins/game-tekateki_ans.js
 plugins/gi-animal.js
 plugins/gi-area.js
 plugins/gi-arte.js
@@ -160,6 +168,7 @@ plugins/primbon-nama.js
 plugins/primbon-tebakumur.js
 plugins/primbon-weton.js
 plugins/privcmd.js
+plugins/random-cerpen.js
 plugins/random-fakta.js
 plugins/random-nama.js
 plugins/random-people.js

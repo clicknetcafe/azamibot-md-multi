@@ -25,7 +25,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
 
 handler.help = ['playstore'].map(v => v + ' <query>')
 handler.tags = ['searching']
-handler.command = /^(playstore)$/i
+handler.command = /^(playstore|apk)$/i
 
 handler.premium = true
 handler.limit = true

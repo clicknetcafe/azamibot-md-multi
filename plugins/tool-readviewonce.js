@@ -8,6 +8,6 @@ let handler = async (m, { conn }) => {
 
 handler.help = ['readviewonce']
 handler.tags = ['tools']
-handler.command = /^readviewonce/i
+handler.command = /^((read)?viewonce)$/i
 
 export default handler
