@@ -12,7 +12,7 @@ let handler = async (m, { conn, isOwner }) => {
 `.trim()).join('\n') : ''}
 └────
 
-`}${users2.length == 0 ? `` : `┌〔 Daftar +62 Mengresahkan 〕
+`}${users2.length == 0 ? `` : `┌〔 Warga +62 Mengresahkan 〕
 ├ Total : ${users2.length} Pengguna${users2 ? '\n' + users2.map(([jid], i) => `
 ├ ${i + 1}. ${conn.getName(jid) == undefined ? 'Unknown' : conn.getName(jid)}
 ├ ${isOwner ? '@' + jid.split`@`[0] : jid}

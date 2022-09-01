@@ -4,7 +4,7 @@ import uploadFile from '../lib/uploadFile.js'
 let handler = async (m, { conn, args, usedPrefix, text, command }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''
-	if (/image|webp|sticker|video/g.test(mime)) {
+	if (/image|webp|sticker|audio|video/g.test(mime)) {
 		let img = await q.download?.()
 		try {
 			let out = await uploadImage(img)
@@ -20,7 +20,7 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
 			}
 		}
 	} else {
-		m.reply(`Kirim gambar dengan caption *${usedPrefix + command}* atau tag gambar yang sudah dikirim`)
+		m.reply(`Kirim media dengan caption *${usedPrefix + command}* atau tag media yang sudah dikirim`)
 	}
 }
 
