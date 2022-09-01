@@ -4,6 +4,7 @@ import { promises } from 'fs'
 import { join } from 'path'
 import { xpRange } from '../lib/levelling.js'
 import fs from 'fs'
+import os from 'os'
 
 function ranNumb(min, max = null) {
 	if (max !== null) {
@@ -44,8 +45,15 @@ const defaultMenu = {
 ⦿ 💵 Money : *%money*
 ⦿ 💫 Total XP : %totalexp ✨
 
-⦿ 📊 Database: %totalreg User
-⦿ 📈 Uptime: *%uptime*
+⦿ 📊 Database : %totalreg User
+⦿ 📈 Runtime : *%uptime*
+
+#OS CPU : %oscpu#
+#OS Speed : %osspeed#
+#OS Arch : %osarch - %oscore Core#
+#OS Version : %osversion#
+#OS Release : %osrelease#
+#OS Uptime : %osuptime#
 
 _Claim *.daily* atau mainkan game di *.funmenu* untuk mendapatkan exp / money_
 `.trimStart(),
@@ -60,14 +68,18 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPr
 		//let meh2 = ranNumb(2)
 		let meh2 = 2
 		let nais = fs.readFileSync(`./media/picbot/menus/menus_${meh}.jpg`)
-		let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
 		let { exp, money, limit, level, role } = db.data.users[m.sender]
 		let { min, xp, max } = xpRange(level, global.multiplier)
 		let name = await conn.getName(m.sender)
-		let _uptime = process.uptime() * 1000
-		let uptime = runtime(process.uptime())
+		let uptime = runtime(process.uptime()).trim()
+		let osarch = os.arch()
+		let oscpu = os.cpus().slice(0,1).map(v => v.model.split('@')[0].replace(' CPU','').replace('Intel(R) ','').trim())
+		let osspeed = os.cpus().slice(0,1).map(v => v.model.split('@')[1].trim())
+		let oscore = os.cpus().length
+		let osversion = os.version().split(/single|datacenter/gi)[0].trim()
+		let osrelease = os.release()
+		let osuptime = runtime(os.uptime()).trim()
 		let totalreg = Object.keys(db.data.users).length
-		let rtotalreg = Object.values(db.data.users).filter(user => user.registered == true).length
 		let helpm = Object.values(plugins).filter(plugin => !plugin.disabled).map(plugin => {
 			return {
 				helpm: Array.isArray(plugin.tagsm) ? plugin.helpm : [plugin.helpm],
@@ -106,7 +118,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPr
 		let text = typeof conn.menu == 'string' ? conn.menu : typeof conn.menu == 'object' ? _text : ''
 		let replace = {
 			'%': '%',
-			p: _p, uptime,
+			p: _p, uptime, osuptime, osarch, oscpu, osspeed, oscore, osrelease, osversion,
 			me: conn.getName(conn.user.jid),
 			npmname: _package.name,
 			npmdesc: _package.description,
@@ -116,14 +128,13 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPr
 			maxexp: xp,
 			totalexp: exp,
 			xp4levelup: max - exp,
-			github: _package.homepage ? _package.homepage.url || _package.homepage : '[unknown github url]',
-			level, limit, name, totalreg, rtotalreg, role,
+			level, limit, name, totalreg, role,
 			readmore: readMore
 		}
 		text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
 		const pp = await conn.profilePictureUrl(conn.user.jid).catch(_ => './src/avatar_contact.png')
 		if (meh2 == 1) {
-			conn.sendHydrated(m.chat, text.trim(), packname + ' - ' + author, nais, 'https://cutt.ly/azamilaifuu', 'Minimalist ツ Sweet', null, null, [
+			conn.sendHydrated(m.chat, text.replaceAll('#','```').trim(), packname + ' - ' + author, nais, 'https://cutt.ly/azamilaifuu', 'Minimalist ツ Sweet', null, null, [
 				['Premium', '.premium'],
 				['Contact', '.owner'],
 				['⦿ ALL MENU ⦿', '.menuall']
@@ -163,7 +174,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPr
 					}
 				]
 				const listMessage = {
-					text: text.trim(),
+					text: text.replaceAll('#','```').trim(),
 					footer: global.wm,
 					//title: `⎔───「 ${packname} 」───⎔`,
 					buttonText: `SUB MENU 🎫`,

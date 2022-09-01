@@ -10,7 +10,7 @@ let handler = async (m, { conn, text, participants }) => {
 
 handler.menugroup = ['tagall']
 handler.tagsgroup = ['group']
-handler.command = ['tagall']
+handler.command = /^(tagall)$/i
 
 handler.admin = true
 handler.botAdmin = true

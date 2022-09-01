@@ -31,6 +31,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
 handler.help = ['totalfitur']
 handler.tags = ['tools']
-handler.command = /^(ft|total(ft|fitur|cmd|command)?)$/i
+handler.command = /^(ft|total(ft?|fitur|cmd|command))$/i
 
 export default handler
