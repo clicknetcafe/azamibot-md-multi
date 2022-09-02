@@ -1,28 +1,31 @@
-import { sticker } from '../lib/sticker.js'
-import uploadFile from '../lib/uploadFile.js'
-import { Sticker, StickerTypes } from 'wa-sticker-formatter'
+import { createSticker, StickerTypes } from 'wa-sticker-formatter'
+import { addExif, videoToWebp } from '../lib/sticker.js'
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-	let stiker = false
 	try {
 		let q = m.quoted ? m.quoted : m
 		let mime = (q.msg || q).mimetype || q.mediaType || ''
-		if (/webp|image/g.test(mime)) {
-			let img = await q.download?.()
-			if (!img) throw `Kirim Gambar/Video Dengan Caption *${usedPrefix + command}*\nDurasi Video 1-9 Detik`
-			const sticker = new Sticker(img, { pack: packname, author: author, type: StickerTypes.FULL })
-			const buffer = await sticker.toBuffer()
+		let img = await q.download?.()
+		if (/webp|image/g.test(mime) || q.gifPlayback == true) {
+			let buffer = await createSticker(img, { pack: packname, author: author, type: StickerTypes.FULL })
 			await conn.sendFile(m.chat, buffer, 'sticker.webp', '', m)
 		} else if (/video/g.test(mime)) {
 			if ((q.msg || q).seconds > 11) return m.reply('Maksimal 10 detik!')
-			let img = await q.download?.()
-			stiker = await sticker(img, false, global.packname, global.author)
-			if (!stiker) {
-				out = await uploadFile(img)
-				console.log(out)
-				stiker = await sticker(false, out, global.packname, global.author)
+			try {
+				if (q.message.videoMessage.gifPlayback == true) {
+					let buffer = await createSticker(img, { pack: packname, author: author, type: StickerTypes.FULL })
+					await conn.sendFile(m.chat, buffer, 'sticker.webp', '', m)
+				} else {
+					let buff = await videoToWebp(img)
+					let buffer = await addExif(buff, packname, author)
+					await conn.sendFile(m.chat, buffer, 'sticker.webp', '', m)
+				}
+			} catch (e) {
+				console.log(e)
+				let buff = await videoToWebp(img)
+				let buffer = await addExif(buff, packname, author)
+				await conn.sendFile(m.chat, buffer, 'sticker.webp', '', m)
 			}
-			await conn.sendFile(m.chat, stiker, 'sticker.webp', '', m)
 		} else {
 			m.reply(`Kirim Gambar/Video Dengan Caption *${usedPrefix + command}*\nDurasi Video 1-9 Detik`)
 		}
