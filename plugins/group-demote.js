@@ -7,11 +7,11 @@ let handler = async (m, { conn, text, args, isOwner, participants }) => {
 		try {
 			await delay(1000)
 			await conn.groupParticipantsUpdate(m.chat, [user], 'demote')
-			m.reply(`@${(user || '').replace(/@s\.whatsapp\.net/g, '')} sekarang bukan Admin.`, null, { mentions: [user] })
+			await conn.sendMessage(m.chat, { text: `@${(user || '').replace(/@s\.whatsapp\.net/g, '')} sekarang bukan Admin.`, mentions: [user] }, { quoted: fkontak })
 		} catch (e) {
 			console.log(e)
 			let user = m.quoted.sender;
-			await m.reply(`*!* Gagal demote @${(user || '').replace(/@s\.whatsapp\.net/g, '')}`, null, { mentions: [user] })
+			await conn.sendMessage(m.chat, { text: `*!* Gagal demote @${(user || '').replace(/@s\.whatsapp\.net/g, '')}`, mentions: [user] }, { quoted: fkontak })
 		}
 	} else {
 		if (!text) return m.reply(`*@tag* yang ingin di demote!`)
@@ -22,13 +22,13 @@ let handler = async (m, { conn, text, args, isOwner, participants }) => {
 				if (user.endsWith('@s.whatsapp.net') && (participants.find(v => areJidsSameUser(v.id, user)) || { admin: true }).admin) {
 					await delay(1000)
 					const res = await conn.groupParticipantsUpdate(m.chat, [user], 'demote')
-					await m.reply(`@${(user || '').replace(/@s\.whatsapp\.net/g, '')} sekarang bukan Admin.`, null, { mentions: [user] })
+					await conn.sendMessage(m.chat, { text: `@${(user || '').replace(/@s\.whatsapp\.net/g, '')} sekarang bukan Admin.`, mentions: [user] }, { quoted: fkontak })
 				}
 			}
 		} catch (e) {
 			console.log(e)
 			let user = m.mentionedJid[0]
-			m.reply(`*!* Gagal demote @${(user || '').replace(/@s\.whatsapp\.net/g, '')}`, null, { mentions: [user] })
+			await conn.sendMessage(m.chat, { text: `*!* Gagal demote @${(user || '').replace(/@s\.whatsapp\.net/g, '')}`, mentions: [user] }, { quoted: fkontak })
 		}
 	}
 }

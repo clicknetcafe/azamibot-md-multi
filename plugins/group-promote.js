@@ -7,11 +7,12 @@ let handler = async (m, { conn, text, args, participants }) => {
 		try {
 			await delay(1000)
 			await conn.groupParticipantsUpdate(m.chat, [user], 'promote')
-			m.reply(`Sukses, @${(user || '').replace(/@s\.whatsapp\.net/g, '')} sekarang Admin.`, null, { mentions: [user] })
+			await conn.sendMessage(m.chat, { text: `Sukses, @${(user || '').replace(/@s\.whatsapp\.net/g, '')} sekarang Admin.`, mentions: [user] }, { quoted: fkontak })
 		} catch (e) {
 			console.log(e)
 			let user = m.quoted.sender;
 			await m.reply(`*!* Gagal promote @${(user || '').replace(/@s\.whatsapp\.net/g, '')}`, null, { mentions: [user] })
+			await conn.sendMessage(m.chat, { text: `*!* Gagal promote @${(user || '').replace(/@s\.whatsapp\.net/g, '')}`, mentions: [user] }, { quoted: fkontak })
 		}
 	} else {
 		if (!text) return m.reply(`*@tag* yang ingin di promote!`)
@@ -22,13 +23,13 @@ let handler = async (m, { conn, text, args, participants }) => {
 				if (user.endsWith('@s.whatsapp.net') && !(participants.find(v => areJidsSameUser(v.id, user)) || { admin: true }).admin) {
 					await delay(1000)
 					const res = await conn.groupParticipantsUpdate(m.chat, [user], 'promote')
-					await m.reply(`Sukses, @${(user || '').replace(/@s\.whatsapp\.net/g, '')} sekarang Admin.`, null, { mentions: [user] })
+					await conn.sendMessage(m.chat, { text: `Sukses, @${(user || '').replace(/@s\.whatsapp\.net/g, '')} sekarang Admin.`, mentions: [user] }, { quoted: fkontak })
 				}
 			}
 		} catch (e) {
 			console.log(e)
 			let user = m.mentionedJid[0]
-			m.reply(`*!* Gagal promote @${(user || '').replace(/@s\.whatsapp\.net/g, '')}`, null, { mentions: [user] })
+			await conn.sendMessage(m.chat, { text: `*!* Gagal promote @${(user || '').replace(/@s\.whatsapp\.net/g, '')}`, mentions: [user] }, { quoted: fkontak })
 		}
 	}
 }

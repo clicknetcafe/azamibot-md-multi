@@ -2,7 +2,7 @@ import fs from 'fs'
 import { zip, COMPRESSION_LEVEL } from 'zip-a-folder';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-	if (m.isGroup) return m.reply(`[ private chat only ]`)
+	m.reply(`_[!] Wait, sending database. . ._`)
 	try {
 		await zip('./sessions', './media/backup.zip', {compression: COMPRESSION_LEVEL.high})
 		let date_ob = new Date();
@@ -17,9 +17,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 		let database = await fs.readFileSync(`./database.json`)
 		let session = await fs.readFileSync(`./data.store.json`)
 		let sessions = await fs.readFileSync(`./media/backup.zip`)
-		await conn.sendMessage(m.chat, {document: database, mimetype: 'application/json', fileName: `database_azami_${ini_txt}.json`}, { quoted : m })
-		await conn.sendMessage(m.chat, {document: session, mimetype: 'application/json', fileName: `data.store_azami_${ini_txt}.json`}, { quoted : m })
-		await conn.sendMessage(m.chat, {document: sessions, mimetype: 'application/zip', fileName: `sessions_azami_${ini_txt}.zip`}, { quoted : m })
+		await conn.sendMessage(m.sender, {document: database, mimetype: 'application/json', fileName: `database_azami_${ini_txt}.json`}, { quoted : m })
+		await conn.sendMessage(m.sender, {document: session, mimetype: 'application/json', fileName: `data.store_azami_${ini_txt}.json`}, { quoted : m })
+		await conn.sendMessage(m.sender, {document: sessions, mimetype: 'application/zip', fileName: `sessions_azami_${ini_txt}.zip`}, { quoted : m })
 	} catch (e) {
 		console.log(e)
 		m.reply(`Terjadi kesalahan, coba lagi.`)

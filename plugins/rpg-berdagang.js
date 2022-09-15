@@ -25,9 +25,9 @@ let handler = async (m, { conn, text }) => {
 	let user = db.data.users[m.sender]
 	let user2 = db.data.users[who]
 	if (new Date - user.lastdagang <= cooldown) return m.reply(`Kamu Sudah Berdagang , tunggu 🕖 *${((user.lastdagang + cooldown) - new Date()).toTimeString()}* lagi . . .`)
-	if (10000 > user2.money) return m.reply('Modal Diperlukan !!\nAnda tidak memiliki 💵 10000 Money')
+	if (10000 > user.money) return m.reply('Modal Diperlukan !!\nAnda tidak memiliki 💵 10000 Money')
 	if (new Date - user2.lastdagang <= cooldown) return m.reply(`Teman anda sedang berdagang , cari partner lain atau tunggu 🕖 *${((user2.lastdagang + cooldown) - new Date()).toTimeString()}* lagi . . .`)
-	if (10000 > user.money) return m.reply('Modal Diperlukan !!\nRekanmu tidak memiliki 💵 10000 Money')
+	if (10000 > user2.money) return m.reply('Modal Diperlukan !!\nRekanmu tidak memiliki 💵 10000 Money')
 	let dapat
 	user.money -= 10000
 	user2.money -= 10000

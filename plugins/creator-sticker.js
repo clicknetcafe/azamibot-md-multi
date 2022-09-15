@@ -1,11 +1,14 @@
 import { createSticker, StickerTypes } from 'wa-sticker-formatter'
-import { addExif, videoToWebp, videoToWebp2 } from '../lib/sticker.js'
+import { addExif, video2webp, video2webp30, video2webp45, video2webp60 } from '../lib/sticker.js'
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
 	try {
 		let q = m.quoted ? m.quoted : m
 		let mime = (q.msg || q).mimetype || q.mediaType || ''
-	    let waluh = /60|halus|smoo?th/.test(command.toLowerCase())
+		command = command.toLowerCase()
+	    let enam = /60|halus|smoo?th/.test(command)
+	    let empat = /45/.test(command)
+	    let tiga = /30/.test(command)
 		if (/webp|image/g.test(mime) || q.gifPlayback == true) {
 			let img = await q.download?.()
 			let buffer = await createSticker(img, { pack: packname, author: author, type: StickerTypes.FULL })
@@ -18,13 +21,13 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 					let buffer = await createSticker(img, { pack: packname, author: author, type: StickerTypes.FULL })
 					await conn.sendFile(m.chat, buffer, 'sticker.webp', '', m)
 				} else {
-					let buff = waluh ? await videoToWebp2(img) : await videoToWebp(img)
+					let buff = enam ? await video2webp60(img) : empat ? await video2webp45(img) : tiga ? await video2webp30(img) : await video2webp(img)
 					let buffer = await addExif(buff, packname, author)
 					await conn.sendFile(m.chat, buffer, 'sticker.webp', '', m)
 				}
 			} catch (e) {
 				console.log(e)
-				let buff = waluh ? await videoToWebp2(img) : await videoToWebp(img)
+				let buff = enam ? await video2webp60(img) : empat ? await video2webp45(img) : tiga ? await video2webp30(img) : await video2webp(img)
 				let buffer = await addExif(buff, packname, author)
 				await conn.sendFile(m.chat, buffer, 'sticker.webp', '', m)
 			}
@@ -37,8 +40,8 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 	}
 }
 
-handler.help = ['stiker (caption|reply media)', 'stiker <url>']
+handler.help = ['stiker', 'stiker30fps', 'stiker45fps', 'stiker60fps']
 handler.tags = ['creator']
-handler.command = /^(s(tic?ker)?(gif)?(60|halus|smoo?th)?(fps)?)$/i
+handler.command = /^(s(tic?ker)?(gif)?(30|45|60|halus|smoo?th)?(fps)?)$/i
 
 export default handler

@@ -4,7 +4,7 @@ import moment from 'moment-timezone'
 
 let handler = m => m
 	handler.all = async function (m) {
-	let name = await this.getName(m.sender) 
+	let name = await this.getName(m.sender)
 	let pp = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
 	let sgc = `https://i.postimg.cc/CM34YRFb/photo-2021-02-05-10-13-39.jpg`
 	let d = new Date(new Date + 3600000)
@@ -62,7 +62,7 @@ let handler = m => m
 		}
 		// Fake 🤥
 		global.ftroli = { key: {participant : '0@s.whatsapp.net'}, message: { orderMessage: { itemCount: 2022, status: 1, surface: 1, message: timeh, orderTitle: author, sellerJid: '0@s.whatsapp.net' } } }
-		global.fkontak = { key: {participant : '0@s.whatsapp.net'}, message: { 'contactMessage': { 'displayName': author, 'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;${author},;;;\nFN:${author},\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabell:Ponsel\nEND:VCARD`, 'jpegThumbnail': fs.readFileSync('./media/thumbnail.jpg'), thumbnail: fs.readFileSync('./media/thumbnail.jpg'),sendEphemeral: true}}}
+		global.fkontak = { key: {participant : '0@s.whatsapp.net'}, message: { 'contactMessage': { 'displayName': this.getName(m.sender), 'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;${packname},;;;\nFN:${packname},\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabell:Ponsel\nEND:VCARD`, 'jpegThumbnail': fs.readFileSync('./media/thumbnail.jpg'), thumbnail: fs.readFileSync('./media/thumbnail.jpg'),sendEphemeral: true}}}
 		global.fvn = {
 			key: { participant : '0@s.whatsapp.net'},
 			message: { 
