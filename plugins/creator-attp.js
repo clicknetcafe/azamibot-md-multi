@@ -4,8 +4,8 @@ import fs from 'fs'
 let handler = async (m, { conn, args, text, usedPrefix, command }) => {
     text = text ? text : m.quoted && m.quoted.text ? m.quoted.text : m.quoted && m.quoted.caption ? m.quoted.caption : m.quoted && m.quoted.description ? m.quoted.description : ''
     if (!text) throw `Example : ${usedPrefix + command} Lagi Ruwet`
-    const res = `https://api.lolhuman.xyz/api/${command}?apikey=${global.api}&text=${encodeURIComponent(text)}`
-    const res2 = `https://xteam.xyz/attp?file&text=${encodeURIComponent(text)}`
+    const res = `https://api.lolhuman.xyz/api/${command}?apikey=${global.api}&text=${encodeURIComponent(text.substring(0, 151))}`
+    const res2 = `https://xteam.xyz/attp?file&text=${encodeURIComponent(text.substring(0, 151))}`
     let ztick = fs.readFileSync(`./media/sticker/bronya.webp`)
     try {
         if (command == 'attp' || command == 'attp2') {

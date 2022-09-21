@@ -70,7 +70,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems }) => {
 	let nais = fs.readFileSync(`./media/picbot/menus/menus_${meh}.jpg`)
 	let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
 	let { limit, role } = db.data.users[m.sender]
-	let name = await conn.getName(m.sender)
+	let name = await conn.getName(m.sender).replaceAll('\n','')
 	let uptime = runtime(process.uptime())
 	let osuptime = runtime(os.uptime())
 	let help = Object.values(plugins).filter(plugin => !plugin.disabled).map(plugin => {

@@ -67,7 +67,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPr
 		let nais = fs.readFileSync(`./media/picbot/menus/menus_${meh}.jpg`)
 		let { exp, money, limit, level, role } = db.data.users[m.sender]
 		let { min, xp, max } = xpRange(level, global.multiplier)
-		let name = await conn.getName(m.sender)
+		let name = await conn.getName(m.sender).replaceAll('\n','')
 		let uptime = runtime(process.uptime()).trim()
 		let osarch = os.arch()
 		let oscpu = os.cpus().slice(0,1).map(v => v.model.split('@')[0].replace(' CPU','').replace('Intel(R) ','').trim())
