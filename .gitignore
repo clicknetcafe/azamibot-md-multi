@@ -110,6 +110,7 @@ plugins/gi-namecard.js
 plugins/gi-outfit.js
 plugins/gi-talent.js
 plugins/gi-weapon.js
+plugins/group-pool.js
 plugins/info-beasiswa.js
 plugins/info-brainly.js
 plugins/info-ceknsfw.js

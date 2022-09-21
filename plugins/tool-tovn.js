@@ -8,7 +8,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
     if (!media) throw 'Can\'t download media'
     let audio = await toPTT(media, 'mp4')
     if (!audio.data) throw 'Can\'t convert media to audio'
-    conn.sendFile(m.chat, audio.data, 'audio.mp3', '', m, true, { mimetype: 'audio/mp4' })
+	await conn.sendMessage(m.chat, { audio: audio.data, mimetype: 'audio/mpeg', ptt: true }, { quoted: m })
 }
 handler.help = ['tovn (reply)']
 handler.tags = ['tools']

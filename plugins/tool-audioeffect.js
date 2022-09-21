@@ -24,13 +24,11 @@ let handler = async (m, { conn, args, __dirname, usedPrefix, command }) => {
 			let filename = join(__dirname, '../tmp/' + ran)
 			let media = await q.download(true)
 			exec(`ffmpeg -i ${media} ${set} ${filename}`, async (err, stderr, stdout) => {
-			await unlinkSync(media)
-			if (err) throw `_*Error!*_`
-			let buff = await readFileSync(filename)
-			conn.sendFile(m.chat, buff, ran, null, m, true, {
-			type: 'audioMessage', 
-			ptt: true 
-			})})
+				await unlinkSync(media)
+				if (err) throw `_*Error!*_`
+				let buff = await readFileSync(filename)
+				await conn.sendMessage(m.chat, { audio: buff, mimetype: 'audio/mpeg', ptt: true }, { quoted: m })
+			})
 		} else throw `Reply / tag audio!`
 	} catch (e) {
 		throw e

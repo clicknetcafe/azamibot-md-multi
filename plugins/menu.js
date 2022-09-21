@@ -48,11 +48,8 @@ const defaultMenu = {
 ⦿ 📊 Database : %totalreg User
 ⦿ 📈 Runtime : *%uptime*
 
-#OS CPU : %oscpu#
-#OS Speed : %osspeed#
-#OS Arch : %osarch - %oscore Core#
 #OS Version : %osversion#
-#OS Release : %osrelease#
+#OS Arch : %osarch | %oscore Core | %osspeed#
 #OS Uptime : %osuptime#
 
 _Claim *.daily* atau mainkan game di *.funmenu* untuk mendapatkan exp / money_
