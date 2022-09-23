@@ -41,6 +41,7 @@ plugins/download-twitter.js
 plugins/download-twitterhd.js
 plugins/download-twittermid.js
 plugins/download-twittersd.js
+plugins/download-yts.js
 plugins/download-zippyshare.js
 plugins/editor-1.js
 plugins/editor-2.js

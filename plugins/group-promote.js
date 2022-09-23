@@ -1,36 +1,11 @@
-import { areJidsSameUser } from '@adiwajshing/baileys'
-
-let handler = async (m, { conn, text, args, participants }) => {
-	if (m.quoted) {
-		if (m.quoted.sender === conn.user.jid) return m.reply(`jangan saya min *-_-*`)
-		let user = m.quoted.sender;
-		try {
-			await delay(1000)
-			await conn.groupParticipantsUpdate(m.chat, [user], 'promote')
-			await conn.sendMessage(m.chat, { text: `Sukses, @${(user || '').replace(/@s\.whatsapp\.net/g, '')} sekarang Admin.`, mentions: [user] }, { quoted: fkontak })
-		} catch (e) {
-			console.log(e)
-			let user = m.quoted.sender;
-			await m.reply(`*!* Gagal promote @${(user || '').replace(/@s\.whatsapp\.net/g, '')}`, null, { mentions: [user] })
-			await conn.sendMessage(m.chat, { text: `*!* Gagal promote @${(user || '').replace(/@s\.whatsapp\.net/g, '')}`, mentions: [user] }, { quoted: fkontak })
-		}
-	} else {
-		if (!text) return m.reply(`*@tag* yang ingin di promote!`)
-		try {
-			let users = m.mentionedJid.filter(u => !areJidsSameUser(u, conn.user.id))
-			let users2 = [`${users[0]}`]
-			for (let user of users2) {
-				if (user.endsWith('@s.whatsapp.net') && !(participants.find(v => areJidsSameUser(v.id, user)) || { admin: true }).admin) {
-					await delay(1000)
-					const res = await conn.groupParticipantsUpdate(m.chat, [user], 'promote')
-					await conn.sendMessage(m.chat, { text: `Sukses, @${(user || '').replace(/@s\.whatsapp\.net/g, '')} sekarang Admin.`, mentions: [user] }, { quoted: fkontak })
-				}
-			}
-		} catch (e) {
-			console.log(e)
-			let user = m.mentionedJid[0]
-			await conn.sendMessage(m.chat, { text: `*!* Gagal promote @${(user || '').replace(/@s\.whatsapp\.net/g, '')}`, mentions: [user] }, { quoted: fkontak })
-		}
+let handler = async (m, { conn }) => {
+	let who = m.quoted ? m.quoted.sender : m.mentionedJid ? m.mentionedJid[0] : ''
+	if (!who || who.includes(conn.user.jid)) throw `*quote / @tag* salah satu !`
+	try {
+		await conn.groupParticipantsUpdate(m.chat, [who], 'promote')
+		await conn.sendMessage(m.chat, { text: `Sukses, @${who.replace(/@s\.whatsapp\.net/g, '')} sekarang Admin.`, mentions: [who] }, { quoted: fkontak })
+	} catch (e) {
+		console.log(e)
 	}
 }
 
@@ -43,5 +18,3 @@ handler.botAdmin = true
 handler.group = true
 
 export default handler
-
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))

@@ -161,9 +161,9 @@ Example :
 `.trim())
 			throw false
 	}
-	m.reply(`
+	await conn.sendMessage(m.chat, { text: `
 *${type}* berhasil di *${isEnable ? 'nyala' : 'mati'}kan* ${isAll ? 'untuk bot ini' : isUser ? '' : 'untuk chat ini'}
-`.trim())
+`.trim() }, { quoted: fkontak })
 }
 
 handler.menugroup = ['en', 'dis'].map(v => v + 'able <option>')
