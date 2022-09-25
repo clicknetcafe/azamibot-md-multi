@@ -35,9 +35,9 @@ let handler = async (m, { conn, command, usedPrefix }) => {
 	}
 }
 
-handler.menugroup = ['setppgc2']
+handler.menugroup = ['setppgcpanjang']
 handler.tagsgroup = ['group']
-handler.command = /^(set((gro?up|gc)pp(2|panjang)|pp(gro?up|gc)(2|panjang|full?)))$/i
+handler.command = /^(set((gro?up|gc)pp|pp(gro?up|gc))(2|panjang|full?))$/i
 
 handler.admin = true
 handler.botAdmin = true

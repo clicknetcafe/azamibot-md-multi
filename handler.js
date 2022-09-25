@@ -11,7 +11,8 @@ import Helper from './lib/helper.js'
 import db, { loadDatabase } from './lib/database.js'
 import Queque from './lib/queque.js'
 import fetch from 'node-fetch'
-import can from 'knights-canvas'
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 //Prems
 global.prems = ['6282151652728','6285714216711','6285640417385','6282187352115','6285803583481','6288215689772','6285651062576','77075196824'] // Premium user has unlimited limit
@@ -658,6 +659,8 @@ export async function handler(chatUpdate) {
 					chat.delete = true
 				if (!('antiLink' in chat))
 					chat.antiLink = false
+				if (!('antivirus' in chat))
+					chat.antivirus = false
 				if (!('nsfw' in chat))
 					chat.nsfw = false
 				if (!('pdf' in chat))
@@ -683,6 +686,7 @@ export async function handler(chatUpdate) {
 					sDemote: '',
 					delete: true,
 					antiLink: false,
+					antivirus: false,
 					nsfw: false,
 					pdf: false,
 					game: true,
@@ -1037,6 +1041,7 @@ export async function participantsUpdate({ id, participants, action }) {
 							uname = await this.getName(user)
 							gname = await this.getName(id)
 							try {
+								const can = require('knights-canvas')
 								if (action === 'add') {
 									image = await new can.Welcome().setUsername(uname).setGuildName(gname).setGuildIcon(bufppgc).setMemberCount(groupMetadata.size).setAvatar(bufpp).setBackground('https://i.ibb.co/z2QQnqm/wp.jpg').toAttachment()
 								} else {
