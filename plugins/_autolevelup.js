@@ -1,7 +1,8 @@
 import db from '../lib/database.js'
 import { canLevelUp } from '../lib/levelling.js'
+import can from 'knights-canvas'
 
-export function before(m) {
+export async function before(m) {
     let user = db.data.users[m.sender]
     if (!user.autolevelup)
         return !0
@@ -298,11 +299,20 @@ export function before(m) {
     }
 
     if (before !== user.level) {
-        m.reply(`
-Selamat 🥳, anda telah naik level!
-
-• 🧬 Level Up : *${before}* -> *${user.level}*
-	`.trim())
+        let ini_txt = `Selamat 🥳, anda telah naik level!\n\n• 🧬 Level Up : *${before}* -> *${user.level}*`.trim()
+        try {
+            let image, data, pp
+            try {
+                pp = await conn.profilePictureUrl(m.sender, 'image')
+            } catch {
+                pp = 'https://i.ibb.co/m53WF9N/avatar-contact.png'
+            }
+            image = await new can.Up().setAvatar(pp).toAttachment()
+            data = image.toBuffer()
+            await conn.sendFile(m.chat, data, '', ini_txt, m)
+        } catch {
+            await m.reply(ini_txt)
+        }
     }
 }
 export const disabled = false

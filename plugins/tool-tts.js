@@ -12,7 +12,6 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 		text = args.join(' ')
 	}
 	if (!text && m.quoted?.text) text = m.quoted.text
-
 	let res
 	try { res = await tts(text, lang) }
 	catch (e) {
@@ -37,10 +36,17 @@ function tts(text, lang = 'id') {
 		try {
 			let tts = gtts(lang)
 			let filePath = join(global.__dirname(import.meta.url), '../tmp', (1 * new Date) + '.wav')
-			tts.save(filePath, text, () => {
-				resolve(readFileSync(filePath))
-				unlinkSync(filePath)
-			})
+			try {
+				tts.save(filePath, text, () => {
+					resolve(readFileSync(filePath))
+					unlinkSync(filePath)
+				})
+			} catch (e) {
+				tts.save(filePath, 'error', () => {
+					resolve(readFileSync(filePath))
+					unlinkSync(filePath)
+				})
+			}
 		} catch (e) { reject(e) }
 	})
 }

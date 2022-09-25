@@ -16,7 +16,7 @@ let handler = async (m, { conn, text }) => {
 
 handler.help = ['inspect <url>']
 handler.tags = ['tools']
-handler.command = /^(inspect)$/i
+handler.command = /^(inspect(link(gc|group)?)?)$/i
 
 export default handler
 

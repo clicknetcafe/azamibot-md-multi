@@ -11,6 +11,7 @@ import Helper from './lib/helper.js'
 import db, { loadDatabase } from './lib/database.js'
 import Queque from './lib/queque.js'
 import fetch from 'node-fetch'
+import can from 'knights-canvas'
 
 //Prems
 global.prems = ['6282151652728','6285714216711','6285640417385','6282187352115','6285803583481','6288215689772','6285651062576','77075196824'] // Premium user has unlimited limit
@@ -1025,20 +1026,28 @@ export async function participantsUpdate({ id, participants, action }) {
 				for (let user of participants) {
 					let pp = './src/avatar_contact.png'
 					try {
+						let bufpp, image, lurl, bufppgc, uname, gname
 						try {
-							let bufpp
 							try {
 								bufpp = await this.profilePictureUrl(user, 'image')
 							} catch {
 								bufpp = 'https://i.ibb.co/m53WF9N/avatar-contact.png'
 							}
-							let bufppgc = await this.profilePictureUrl(id, 'image')
-							let uname = await this.getName(user)
-							let gname = await this.getName(id)
-							let lurl = await fetch(`https://api.lolhuman.xyz/api/base/${action === 'add' ? 'welcome' : 'leave'}?apikey=${global.api}&img1=${bufpp}&img2=${bufppgc}&background=https://i.ibb.co/z2QQnqm/wp.jpg&username=${uname ? encodeURIComponent(uname) : '-'}&member=${groupMetadata.size}&groupname=${encodeURIComponent(gname)}`)
-							pp = Buffer.from(await lurl.arrayBuffer())
-							if (Buffer.byteLength(pp) < 22000) throw new e()
-						} catch (e) {
+							bufppgc = await this.profilePictureUrl(id, 'image')
+							uname = await this.getName(user)
+							gname = await this.getName(id)
+							try {
+								if (action === 'add') {
+									image = await new can.Welcome().setUsername(uname).setGuildName(gname).setGuildIcon(bufppgc).setMemberCount(groupMetadata.size).setAvatar(bufpp).setBackground('https://i.ibb.co/z2QQnqm/wp.jpg').toAttachment()
+								} else {
+									image = await new can.Goodbye().setUsername(uname).setGuildName(gname).setGuildIcon(bufppgc).setMemberCount(groupMetadata.size).setAvatar(bufpp).setBackground('https://i.ibb.co/z2QQnqm/wp.jpg').toAttachment()
+								}
+								pp = await image.toBuffer()
+							} catch {
+								lurl = await fetch(`https://api.lolhuman.xyz/api/base/${action === 'add' ? 'welcome' : 'leave'}?apikey=${global.api}&img1=${bufpp}&img2=${bufppgc}&background=https://i.ibb.co/z2QQnqm/wp.jpg&username=${uname ? encodeURIComponent(uname) : '-'}&member=${groupMetadata.size}&groupname=${encodeURIComponent(gname)}`)
+								pp = Buffer.from(await lurl.arrayBuffer())
+							}
+						} catch {
 							pp = await this.profilePictureUrl(user, 'image')
 						}
 					} catch (e) {

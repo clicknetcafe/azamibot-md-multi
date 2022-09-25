@@ -71,7 +71,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPr
 		let uptime = runtime(process.uptime()).trim()
 		let osarch = os.arch()
 		let oscpu = os.cpus().slice(0,1).map(v => v.model.split('@')[0].replace(' CPU','').replace('Intel(R) ','').trim())
-		let osspeed = os.cpus().slice(0,1).map(v => v.model.split('@')[1].trim())
+		let osspeed = os.cpus().slice(0,1).map(v => v.model.split('@')[1])
 		let oscore = os.cpus().length
 		let osversion = os.version().split(/single|datacenter/gi)[0].trim()
 		let osrelease = os.release()
