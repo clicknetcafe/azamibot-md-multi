@@ -25,7 +25,7 @@ This is Script of WhatsApp multi device, working with [`@adiwajshing/baileys`](h
 **MAX BOT : 4**
 
 
-#### - Suport deploy to Heroku (Thx to Ibeng)
+#### - Support deploy to Heroku (Thx to Ibeng)
 #### - Should work with Railway (Thx to Ibeng)
 
 #### Heroku Buildpack

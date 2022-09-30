@@ -8,7 +8,7 @@ export async function before(m, { conn, isAdmin, isBotAdmin }) {
 	let chat = db.data.chats[m.chat]
 	const isvirus = virus.exec(m.text)
 
-	if (!m.fromMe && chat.antivirus && isvirus && isBotAdmin) {
+	if (chat.antivirus && isvirus && isBotAdmin && !m.fromMe) {
 		await this.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: false, id: m.id, participant: m.sender } })
 		await this.sendMessage(m.chat, { text: `@${(m.sender || '').replace(/@s\.whatsapp\.net/g, '')} *terdeteksi* mengirim Virus !`, mentions: [m.sender] }, { quoted: fkontak })
 		await this.groupParticipantsUpdate(m.chat, [m.sender], "remove")
