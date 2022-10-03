@@ -53,6 +53,8 @@ plugins/entertain-avatar.js
 plugins/entertain-cecan.js
 plugins/entertain-changemymind.js
 plugins/entertain-darkmeme.js
+plugins/entertain-menfess.js
+plugins/entertain-menfess_ans.js
 plugins/entertain-randomanimal.js
 plugins/entertain-randomanimal2.js
 plugins/entertain-ransfw.js
@@ -135,6 +137,12 @@ plugins/random-cerpen.js
 plugins/random-fakta.js
 plugins/random-people.js
 plugins/random-quotenime.js
+plugins/rpg-bansos.js
+plugins/rpg-duel.js
+plugins/rpg-dungeon.js
+plugins/rpg-nambang.js
+plugins/rpg-nebang.js
+plugins/rpg-ojek.js
 plugins/search-apk.js
 plugins/search-gimage.js
 plugins/search-google.js

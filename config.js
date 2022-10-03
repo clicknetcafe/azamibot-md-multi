@@ -9,7 +9,6 @@ global.owner = [
 	// [number, dia creator/owner?, dia developer?]
 ] // Put your number here
 global.mods = [] // Want some help?
-//global.prems = [] // Premium user has unlimited limit
 global.APIs = { // API Prefix
 	// name: 'https://website'
 	nrtm: 'https://nurutomo.herokuapp.com',
@@ -30,10 +29,6 @@ global.APIKeys = { // APIKey Here
 	'https://leyscoders-api.herokuapp.com': 'dappakntlll',
 	'https://api.lolhuman.xyz': 'apikeylu'
 }
-
-// Sticker WM
-/*global.packname = 'wa.me/6285713964963'
-global.author = 'Metro Bot'*/
 
 global.multiplier = 69 // The higher, The harder levelup
 

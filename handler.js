@@ -263,10 +263,16 @@ export async function handler(chatUpdate) {
 					user.lastmining = 0
 				if (!isNumber(user.lasthunt))
 					user.lasthunt = 0
+				if (!isNumber(user.lastlumber))
+					user.lastlumber = 0
+				if (!isNumber(user.lastngojek))
+					user.lastngojek = 0
 				if (!isNumber(user.lastweekly))
 					user.lastweekly = 0
 				if (!isNumber(user.lastmonthly))
 					user.lastmonthly = 0
+				if (!isNumber(user.lastbansos))
+					user.lastbansos = 0
 				if (!isNumber(user.lastdagang))
 					user.lastdagang = 0
 				if (!isNumber(user.lastberkebon))
@@ -281,6 +287,10 @@ export async function handler(chatUpdate) {
 					user.adventurecount = 0
 				if (!isNumber(user.mancingcount))
 					user.mancingcount = 0
+				if (!isNumber(user.lumbercount))
+					user.lumbercount = 0
+				if (!isNumber(user.ngojekcount))
+					user.ngojekcount = 0
 
 				if (!isNumber(user.bibitmangga))
 					user.bibitmangga = 0
@@ -545,8 +555,11 @@ export async function handler(chatUpdate) {
 					lastduel: 0,
 					lastmining: 0,
 					lasthunt: 0,
+					lastlumber: 0,
+					lastngojek: 0,
 					lastweekly: 0,
 					lastmonthly: 0,
+					lastbansos: 0,
 					lastdagang: 0,
 					lastberkebon: 0,
 					lastmasak: 0,
@@ -554,6 +567,8 @@ export async function handler(chatUpdate) {
 					craftcount: 0,
 					adventurecount: 0,
 					mancingcount: 0,
+					lumbercount: 0,
+					ngojekcount: 0,
 
 					bibitmangga: 0,
 					bibitapel: 0,
@@ -701,10 +716,12 @@ export async function handler(chatUpdate) {
 				if (!('self' in settings)) settings.self = false
 				if (!('autoread' in settings)) settings.autoread = false
 				if (!('restrict' in settings)) settings.restrict = false
+				if (!Array.isArray(settings.menfess)) settings.menfess = []
 			} else db.data.settings[this.user.jid] = {
 				self: false,
 				autoread: false,
-				restrict: false
+				restrict: false,
+				menfess: []
 			}
 		} catch (e) {
 			console.error(e)
