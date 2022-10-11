@@ -374,7 +374,7 @@ String.prototype.includesOneOf = function(arrayOfStrings) {
 	return arrayOfStrings.some(str => this.includes(str))
 }
 
-let handler = async (m, { command, usedPrefix, args }) => {
+let handler = async (m, { command, usedPrefix, args, isPrems }) => {
 	let user = db.data.users[m.sender]
 	const listItems = Object.fromEntries(Object.entries(items[`${command.toLowerCase().includesOneOf(["buy", "shop", "beli"]) ? 'buy' : 'sell'}`]).filter(([v]) => v && v in user))
 	let info = `Format : *${usedPrefix + command} [item] [jumlah]*\n`
@@ -469,6 +469,7 @@ let handler = async (m, { command, usedPrefix, args }) => {
 	if (!listItems[item] && command.toLowerCase().includesOneOf(["sell", "jual"])) return m.reply(infos.replaceAll('%', '```'))
 	let paymentMethod = Object.keys(listItems[item]).find(v => v in user)
 	if (command.toLowerCase().includesOneOf(["buy", "shop", "beli"])) {
+		if (isPrems && item == 'limit') throw `[!] Premium User tidak perlu limit.`
 		if (args[0].toLowerCase().includesOneOf(["horse", "cat", "fox", "dog", "wolf", "centaur", "phoenix", "dragon", "rumahsakit", "restoran", "pabrik", "tambang", "pelabuhan"])) {
 			if (user[`${item}`] == 0) {
 				if (total > 1) return m.reply(`Kamu belum memiliki *${global.rpg.emoticon(item)}${item}*, hanya dapat beli 1`)

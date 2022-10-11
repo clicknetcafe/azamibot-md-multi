@@ -90,6 +90,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			break
 		case 'antivirus':
 		case 'antivirtex':
+		case 'antivirtext':
 			if (!m.isGroup) {
 				global.dfail('group', m, conn)
 				throw false
@@ -136,6 +137,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			break
 		case 'pconly':
 		case 'privateonly':
+			if (isEnable && global.opts['gconly']) throw `[!] Matikan dulu *gconly !*`
 			isAll = true
 			if (!isROwner) {
 				global.dfail('rowner', m, conn)
@@ -145,6 +147,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			break
 		case 'gconly':
 		case 'grouponly':
+			if (isEnable && global.opts['pconly']) throw `[!] Matikan dulu *pconly !*`
 			isAll = true
 			if (!isROwner) {
 				global.dfail('rowner', m, conn)

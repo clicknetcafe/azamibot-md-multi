@@ -3,7 +3,6 @@ let handler = async (m, { conn }) => {
 	if (!who || who.includes(conn.user.jid)) throw `*quote / @tag* salah satu !`
 	try {
 		await conn.groupParticipantsUpdate(m.chat, [who], 'promote')
-		await conn.sendMessage(m.chat, { text: `Sukses, @${who.replace(/@s\.whatsapp\.net/g, '')} sekarang Admin.`, mentions: [who] }, { quoted: fkontak })
 	} catch (e) {
 		console.log(e)
 	}

@@ -12,8 +12,8 @@ let handler = async (m, { conn, args, usedPrefix, isPrems, isOwner, command }) =
     if (!args[0]) return m.reply(`Format : ${usedPrefix + command} <timer>\n1 = 1 menit\n5 = 5 menit ... dst.\n\nContoh : *${usedPrefix + command} 10*`)
     const item = (args[0] || '').toLowerCase()
     const total = Math.floor(isNumber(args[0]) ? Math.min(Math.max(parseInt(args[0]), 1), Number.MAX_SAFE_INTEGER) : 1) * 1
-    if (total > 20 && !isPrems) return m.reply(`_... >> not premium ..._\n[!] Maksimal ${command} : 20 menit.`)
-    if (total > 70 && !isOwner) return m.reply(`[!] Maksimal ${command} : 70 menit.`)
+    if (total > 100 && !isPrems) return m.reply(`_... >> not premium ..._\n[!] Maksimal ${command} : 100 menit.`)
+    if (total > 200 && !isOwner) return m.reply(`[!] Maksimal ${command} : 200 menit.`)
     let chat = db.data.chats[m.chat]
     chat.isBanned = true
     m.reply(`Bot senyap selama ${total} menit!`)

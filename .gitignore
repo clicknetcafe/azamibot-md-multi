@@ -11,7 +11,10 @@ node_modules/
 plugins/New folder/
 
 # ntar aja bang bagi-bagi pluginnya :v
+plugins/anime-anime.js
+plugins/anime-chara.js
 plugins/anime-kusonime.js
+plugins/anime-manga.js
 plugins/anime-mynimeku.js
 plugins/anime-randomstory.js
 plugins/anime-ransfw5.js
@@ -19,6 +22,7 @@ plugins/anime-ransfw6.js
 plugins/anime-ransfw8.js
 plugins/anime-saucenao.js
 plugins/anime-wait.js
+plugins/creator-pasfoto.js
 plugins/download-cocofun.js
 plugins/download-cocofunnowm.js
 plugins/download-fb.js
@@ -137,12 +141,18 @@ plugins/random-cerpen.js
 plugins/random-fakta.js
 plugins/random-people.js
 plugins/random-quotenime.js
-plugins/rpg-bansos.js
-plugins/rpg-duel.js
-plugins/rpg-dungeon.js
-plugins/rpg-nambang.js
-plugins/rpg-nebang.js
-plugins/rpg-ojek.js
+plugins/req-autohai.js
+plugins/req-bansos.js
+plugins/req-duel.js
+plugins/req-dungeon.js
+plugins/req-how.js
+plugins/req-nambang.js
+plugins/req-nebang.js
+plugins/req-ojek.js
+plugins/rpg-bank.js
+plugins/rpg-banknabung.js
+plugins/rpg-banknarik.js
+plugins/rpg-bank_heh.js
 plugins/search-apk.js
 plugins/search-gimage.js
 plugins/search-google.js

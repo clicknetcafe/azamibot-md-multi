@@ -39,6 +39,7 @@ ${rpg.emoticon(v)}${v}
 `.trim()).join('\n')}
 `.trim()
   if (!leaderboard.includes(type)) return m.reply(wrong)
+  let prems = global.prems
   let page = isNumber(args[1]) ? Math.min(Math.max(parseInt(args[1]), 0), getPage(type)) : 0
   let sortedItem = users.map(toNumber(type)).sort(sort(type))
   let userItem = sortedItem.map(enumGetKey)
@@ -47,7 +48,7 @@ ${rpg.emoticon(v)}${v}
 • *${rpg.emoticon(type)}${type} Leaderboard page ${page} of ${getPage(type)}* •
 You: *${userItem.indexOf(m.sender) + 1}* of *${userItem.length}*
 
-${sortedItem.slice(page * 25, page * 25 + 25).map((user, i) => `*[${i + 1}]* ${participants.some(p => areJidsSameUser(user.jid, p.id)) ? `(${conn.getName(user.jid).replaceAll('\n',' ')}) wa.me/` : '@'}${user.jid.split`@`[0]}\n┗⊱ *${user[type]} ${rpg.emoticon(type)}${type}*`).join`\n`}
+${sortedItem.slice(page * 25, page * 25 + 25).map((user, i) => `*[${i + 1}]* ${participants.some(p => areJidsSameUser(user.jid, p.id)) ? `(${conn.getName(user.jid).replaceAll('\n',' ')}) wa.me/` : '@'}${user.jid.split`@`[0]}\n┗⊱ *${type == 'limit' && prems.some(sub=>user.jid.split`@`[0].includes(sub)) ? '~ Infinity ~' : user[type]} ${rpg.emoticon(type)}${type}*`).join`\n`}
 `.trim()
   return m.reply(text, null, {
     mentions: [...userItem.slice(page * 25, page * 25 + 25)].filter(v => !participants.some(p => areJidsSameUser(v, p.id)))
