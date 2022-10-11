@@ -22,7 +22,7 @@ global.packname = 'Azami x Byoru'
 global.author = 'Bot V5'
 
 //apikey
-global.api = 'm3ngsademoj1ter0s'		// https://api.lolhuman.xyz/docs apikeylu
+global.api = 'apikeylu'		// https://api.lolhuman.xyz/docs apikeylu
 global.bb = 'BetaBotz'		// https://betabotz-api.herokuapp.com/docs
 global.xco = 'xcoders'		// https://api-xcoders.xyz/docs
 global.yog = 'YogGanz'		// https://yog-apikey.herokuapp.com/docs
@@ -1023,7 +1023,7 @@ export async function handler(chatUpdate) {
 			console.log(m, m.quoted, e)
 		}
 		if (opts['autoread'])
-			await this.readMessages([m.key])
+			await this.readMessages([m.key]).catch(() => { })
 
 	}
 }
