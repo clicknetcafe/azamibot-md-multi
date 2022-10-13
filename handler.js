@@ -685,6 +685,10 @@ export async function handler(chatUpdate) {
 					chat.pdf = false
 				if (!('game' in chat))
 					chat.game = true
+				if (!('simi' in chat))
+					chat.simi = false
+				if (!('lastsimi' in chat))
+					chat.lastsimi = false
 				if (!('viewonce' in chat))
 					chat.viewonce = false
 				if (!('antiToxic' in chat))
@@ -708,6 +712,8 @@ export async function handler(chatUpdate) {
 					nsfw: false,
 					pdf: false,
 					game: true,
+					simi: false,
+					lastsimi: false,
 					viewonce: false,
 					antiToxic: true,
 					expired: 0,
@@ -1023,7 +1029,7 @@ export async function handler(chatUpdate) {
 			console.log(m, m.quoted, e)
 		}
 		if (opts['autoread'])
-			await this.readMessages([m.key]).catch(() => { })
+			await this.readMessages([m.key]).catch(() => { }) // WARNING : easy to get banned
 
 	}
 }
