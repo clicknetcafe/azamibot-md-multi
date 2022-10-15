@@ -55,8 +55,8 @@ let handler = async (m, { conn, text, args }) => {
 	]
 	spawn(_spawnprocess, _spawnargs)
 		.on('error', e => m.reply(format(e)))
-		.on('close', () => {
-			conn.sendFile(m.chat, Buffer.concat(bufs), 'nulis.jpg', 'Hati² ketahuan:v', m)
+		.on('close', async () => {
+			await conn.sendMessage(m.chat, { image: Buffer.concat(bufs), caption: 'Hati² ketahuan:v' }, { quoted: m })
 		})
 		.stdout.on('data', chunk => bufs.push(chunk))
 }

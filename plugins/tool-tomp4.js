@@ -8,10 +8,11 @@ let handler = async (m, { conn, usedPrefix, command }) => {
     if (!/sticker/.test(mime)) throw notStickerMessage
     let media = await q.download()
     let out = await webp2mp4(media).catch(_ => null) || Buffer.alloc(0)
-    await conn.sendFile(m.chat, out, 'out.mp4', '*DONE*', m)
+    await conn.sendMessage(m.chat, { image: out, caption: `* DONE*` }, { quoted: m })
 }
+
 handler.help = ['tomp4']
 handler.tags = ['tools']
-handler.command = /^(tomp4|tovideo)$/i
+handler.command = /^tomp4|tovideo$/i
 
 export default handler

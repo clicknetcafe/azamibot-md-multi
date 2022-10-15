@@ -29,7 +29,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 		ini_txt += `⭔ Watch : ${anu.meta.source}\n`
 		ini_txt += `⭔ Resolution : ${anu.url[x].quality}p\n`
 		ini_txt += `⭔ Size : ${niceBytes(anu.url[x].filesize)}`
-		await conn.sendFile(m.chat, fimgb, 'ytv.mp4', ini_txt, m)
+		await conn.sendMessage(m.chat, { video: fimgb, caption: ini_txt }, { quoted: m })
 	} catch (e) {
 		try {
 			let res = await fetch(`https://api.lolhuman.xyz/api/ytvideo?apikey=${global.api}&url=${text}`)
@@ -44,7 +44,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 			ini_txt += `⭔ Watch : ${text}\n`
 			ini_txt += `⭔ Resolution : ${anu.result.link.resolution}\n`
 			ini_txt += `⭔ Size : ${anu.result.link.size}`
-			await conn.sendFile(m.chat, fimgb, 'ytv.mp4', ini_txt, m)
+			await conn.sendMessage(m.chat, { video: fimgb, caption: ini_txt }, { quoted: m })
 		} catch (e) {
 			try {
 				let res = await fetch(`https://api.lolhuman.xyz/api/ytvideo2?apikey=${global.api}&url=${text}`)
@@ -58,7 +58,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 				let ini_txt = `*${anu.result.title}*\n\n`
 				ini_txt += `⭔ Watch : ${text}\n`
 				ini_txt += `⭔ Size : ${anu.result.size}`
-				await conn.sendFile(m.chat, fimgb, 'ytv.mp4', ini_txt, m)
+				await conn.sendMessage(m.chat, { video: fimgb, caption: ini_txt }, { quoted: m })
 			} catch (e) {
 				try {
 					const xa = require('xfarr-api')
@@ -72,7 +72,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 					ini_txt += `⭔ Username : ${anu.username}\n`
 					ini_txt += `⭔ Quality : ${anu.fquality}\n`
 					ini_txt += `⭔ Size : ${anu.size}`
-					await conn.sendFile(m.chat, fimgb, 'ytv.mp4', ini_txt, m)
+					await conn.sendMessage(m.chat, { video: fimgb, caption: ini_txt }, { quoted: m })
 				} catch (e) {
 					try {
 						const { thumbnail, video: _video, title } = await youtubedl(args[0]).catch(async _ => await youtubedlv2(args[0])).catch(async _ => await youtubedlv3(args[0]))
@@ -89,7 +89,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 						fimg = await fetch(link)
 						fimgb = Buffer.from(await fimg.arrayBuffer())
 						if (Buffer.byteLength(fimgb) < 22000) throw new e()
-						await conn.sendFile(m.chat, fimgb, 'ytv.mp4', ini_txt, m)
+						await conn.sendMessage(m.chat, { video: fimgb, caption: ini_txt }, { quoted: m })
 					} catch (e) {
 						try {
 							const { thumbnail, video: _video, title } = await youtubedl(args[0]).catch(async _ => await youtubedlv2(args[0])).catch(async _ => await youtubedlv3(args[0]))
@@ -106,7 +106,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 							fimg = await fetch(link)
 							fimgb = Buffer.from(await fimg.arrayBuffer())
 							if (Buffer.byteLength(fimgb) < 22000) throw new e()
-							await conn.sendFile(m.chat, fimgb, 'ytv.mp4', ini_txt, m)
+							await conn.sendMessage(m.chat, { video: fimgb, caption: ini_txt }, { quoted: m })
 						} catch (e) {
 							m.reply(`Invalid Youtube URL / terjadi kesalahan.`)
 						}

@@ -12,8 +12,8 @@ let handler = async (m, { conn, usedPrefix }) => {
 		im.stdout.on('data', chunk => bufs.push(chunk))
 		im.stdin.write(sticker)
 		im.stdin.end()
-		im.on('exit', () => {
-			conn.sendFile(m.chat, Buffer.concat(bufs), 'image.png', packname + ' - ' + author, m)
+		im.on('exit', async () => {
+		    await conn.sendMessage(m.chat, { image: Buffer.concat(bufs), caption: `*DONE*` }, { quoted: m })
 		})
 	} else if (m.quoted && /sticker/.test(m.quoted.mtype) && m.quoted.isAnimated) {
 		return m.reply(`yah gagal\nCoba gunakan *${usedPrefix}tomp4* untuk stiker bergerak`)

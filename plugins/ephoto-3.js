@@ -10,7 +10,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 		let fimg = await fetch(`https://api.lolhuman.xyz/api/ephoto3/${command}?apikey=${global.api}&text1=${encodeURIComponent(l)}&text2=${encodeURIComponent(r)}&text3=${encodeURIComponent(s)}`)
 		if (!fimg.ok) throw new e()
 	    let fimgb = Buffer.from(await fimg.arrayBuffer())
-		conn.sendFile(m.chat, fimgb, 'ephoto3.jpg', `_Ephoto 360 : ${command}_`, m)
+		await conn.sendMessage(m.chat, { image: fimgb, caption: `_Ephoto 360 : ${command}_` }, { quoted: m })
 	} catch (e) {
 		m.reply(`Terjadi kesalahan, coba lagi nanti.`)
 	}

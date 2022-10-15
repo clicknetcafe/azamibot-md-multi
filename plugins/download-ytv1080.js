@@ -29,7 +29,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 		fimg = await fetch(link)
 		fimgb = Buffer.from(await fimg.arrayBuffer())
 		if (Buffer.byteLength(fimgb) < 22000) throw new e()
-		await conn.sendFile(m.chat, fimgb, 'ytv.mp4', ini_txt, m)
+		await conn.sendMessage(m.chat, { video: fimgb, caption: ini_txt }, { quoted: m })
 	} catch (e) {
 		try {
 			let anu = await savefrom(`${text}`)
@@ -42,7 +42,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 			ini_txt += `⭔ Watch : ${anu.meta.source}\n`
 			ini_txt += `⭔ Resolution : ${anu.url[x].quality}p\n`
 			ini_txt += `⭔ Size : ${niceBytes(anu.url[x].filesize)}`
-			await conn.sendFile(m.chat, fimgb, 'ytv.mp4', ini_txt, m)
+			await conn.sendMessage(m.chat, { video: fimgb, caption: ini_txt }, { quoted: m })
 		} catch (e) {
 			m.reply(`Invalid Youtube URL / terjadi kesalahan.`)
 		}

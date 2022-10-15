@@ -5,7 +5,7 @@ let timeout = 120000
 let poin = 1999
 let handler = async (m, { conn, usedPrefix, isPrems }) => {
     let chat = db.data.chats[m.chat]
-    if (!chat.game && m.isGroup) return
+    if (chat.game == false && m.isGroup) return
     conn.tebakbendera = conn.tebakbendera ? conn.tebakbendera : {}
     let id = m.chat
     if (id in conn.tebakbendera) {
@@ -27,7 +27,7 @@ let handler = async (m, { conn, usedPrefix, isPrems }) => {
 ⭔ Bonus: ${poin} Exp
 `.trim()
     conn.tebakbendera[id] = [
-        await conn.sendFile(m.chat, json.img, 'tebakbendera.jpg', caption, m),
+        await conn.sendMessage(m.chat, { image: { url: json.img }, caption: caption }, { quoted: m }),
         json, poin,
         setTimeout(() => {
             if (conn.tebakbendera[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.name}*`, packname + ' - ' + author, ['tebakbendera', `${usedPrefix}tebakbendera`], conn.tebakbendera[id][0])

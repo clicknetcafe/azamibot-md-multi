@@ -207,7 +207,7 @@ Example :
 			throw false
 	}
 	await conn.sendMessage(m.chat, { text: `
-*${type}* berhasil di *${isEnable ? 'nyala' : 'mati'}kan* ${isAll ? 'untuk bot ini' : isUser ? '' : 'untuk chat ini'}
+*${type}* berhasil di *${isEnable ? 'nyala' : 'mati'}kan* ${isAll ? 'untuk bot ini' : isUser ? '' : 'untuk chat ini'}${(type.includes('simi') && isEnable) ? '\n\nAuto OFF dalam *5 menit* ( menghindari spam )' : ''}
 `.trim() }, { quoted: fkontak })
 }
 
