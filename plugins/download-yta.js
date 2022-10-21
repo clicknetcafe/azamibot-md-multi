@@ -1,11 +1,12 @@
 import fetch from 'node-fetch'
 import { youtubedl, youtubedlv2, youtubedlv3 } from '@bochilteam/scraper'
 
-let handler = async (m, { conn, text, args }) => {
+let handler = async (m, { conn, text, args, command }) => {
 	//if (!args || !args[0]) throw 'Uhm... urlnya mana?'
 	if (!text.match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))) return m.reply(`Invalid Youtube URL.`)
 	const isY = /y(es)/gi.test(args[1])
 	let fimg, fimgb
+	command = command.toLowerCase()
 	try {
 		const { audio: _audio, title } = await youtubedl(args[0]).catch(async _ => await youtubedlv2(args[0])).catch(async _ => await youtubedlv3(args[0]))
 		let audio, source, res, link, lastError, sizeh
@@ -26,7 +27,11 @@ let handler = async (m, { conn, text, args }) => {
 		fimg = await fetch(link)
 		fimgb = Buffer.from(await fimg.arrayBuffer())
 		if (Buffer.byteLength(fimgb) < 22000) throw new e()
-		await conn.sendMessage(m.chat, {document: fimgb, mimetype: 'audio/mpeg', fileName: `${title}.mp3`}, { quoted : m })
+		if (command.includes('mp3')) {
+			await conn.sendMessage(m.chat, { document: fimgb, mimetype: 'audio/mpeg', fileName: `${title}.mp3`}, { quoted : m })
+		} else {
+			await conn.sendMessage(m.chat, { audio: fimgb, mimetype: 'audio/mp4' }, { quoted : m })
+		}
 	} catch (e) {
 		try {
 			let res = await fetch(`https://api.lolhuman.xyz/api/ytaudio?apikey=${global.api}&url=${text}`)
@@ -36,7 +41,11 @@ let handler = async (m, { conn, text, args }) => {
 			fimg = await fetch(anu.result.link.link)
 			fimgb = Buffer.from(await fimg.arrayBuffer())
 			if (Buffer.byteLength(fimgb) < 22000) throw new e()
-			await conn.sendMessage(m.chat, {document: fimgb, mimetype: 'audio/mpeg', fileName: `${anu.result.title}.mp3`}, { quoted : m })
+			if (command.includes('mp3')) {
+				await conn.sendMessage(m.chat, {document: fimgb, mimetype: 'audio/mpeg', fileName: `${anu.result.title}.mp3`}, { quoted : m })
+			} else {
+				await conn.sendMessage(m.chat, { audio: fimgb, mimetype: 'audio/mp4' }, { quoted : m })
+			}
 		} catch (e) {
 			try {
 				let res = await fetch(`https://api.lolhuman.xyz/api/ytaudio2?apikey=${global.api}&url=${text}`)
@@ -46,7 +55,11 @@ let handler = async (m, { conn, text, args }) => {
 				fimg = await fetch(anu.result.link)
 				fimgb = Buffer.from(await fimg.arrayBuffer())
 				if (Buffer.byteLength(fimgb) < 22000) throw new e()
-				await conn.sendMessage(m.chat, {document: fimgb, mimetype: 'audio/mpeg', fileName: `${anu.result.title}.mp3`}, { quoted : m })
+				if (command.includes('mp3')) {
+					await conn.sendMessage(m.chat, {document: fimgb, mimetype: 'audio/mpeg', fileName: `${anu.result.title}.mp3`}, { quoted : m })
+				} else {
+					await conn.sendMessage(m.chat, { audio: fimgb, mimetype: 'audio/mp4' }, { quoted : m })
+				}
 			} catch (e) {
 				throw `Invalid Youtube URL / terjadi kesalahan.`
 			}

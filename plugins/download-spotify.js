@@ -5,6 +5,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     if (!(text.includes('http://') || text.includes('https://'))) throw `url invalid, please input a valid url. Try with add http:// or https://`
 	let res = await fetch(`https://api.lolhuman.xyz/api/spotify?apikey=${global.api}&url=${text}`)
     if (!res.ok) throw `Invalid Spotify url / terjadi kesalahan.`
+    command = command.toLowerCase()
     let json = await res.json()
     if (json.status != '200') throw `Terjadi kesalahan, coba lagi nanti.`
 	let get_result = json.result
@@ -15,12 +16,16 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	ini_txt += `Popularity : ${get_result.popularity}\n`
 	ini_txt += `${get_result.preview_url ? `Preview : ${get_result.preview_url}\n` : ''}`
 	await conn.sendFile(m.chat, get_result.thumbnail, 'spot.jpg', ini_txt, m)
-	await conn.sendMessage(m.chat, {document: { url: get_result.link }, mimetype: 'audio/mpeg', fileName: `${get_result.artists} - ${get_result.title}.mp3`}, { quoted : m })
+	if (command.includes('mp3')) {
+		await conn.sendMessage(m.chat, {document: { url: get_result.link }, mimetype: 'audio/mpeg', fileName: `${get_result.artists} - ${get_result.title}.mp3`}, { quoted : m })
+	} else {
+		await conn.sendMessage(m.chat, { audio: { url: get_result.link }, mimetype: 'audio/mp4' }, { quoted : m })
+	}
 }
 
 handler.menudownload = ['spotify <url>']
 handler.tagsdownload = ['search']
-handler.command = /^spotify$/i
+handler.command = /^(spotify(a(audio)?|mp3)?)$/i
 
 handler.premium = true
 handler.limit = true
