@@ -14,10 +14,11 @@ function niceBytes(x) {
 let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 	if (!text.match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))) return m.reply(`Invalid Youtube URL.`)
 	let fimg, fimgb
+	let za = command.includes('480') ? '480' : command.includes('720') ? '720' : '1080'
 	try {
 		const { thumbnail, video: _video, title } = await youtubedl(args[0]).catch(async _ => await youtubedlv2(args[0])).catch(async _ => await youtubedlv3(args[0]))
 		let video, source, res, link, lastError
-		video = _video[`1080p`]
+		video = _video[`${za}p`]
 		if (video.fileSize > 200000) return m.reply(`Filesize: ${video.fileSizeH}\nTidak dapat mengirim, maksimal file 200 MB`)
 		link = await video.download()
 		if (link) res = await fetch(link)
@@ -32,8 +33,8 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 		await conn.sendMessage(m.chat, { video: fimgb, caption: ini_txt }, { quoted: m })
 	} catch (e) {
 		try {
-			let anu = await savefrom(`${text}`)
-			var x = anu.url.findIndex(y => y.quality ==="1080" && y.ext==="mp4")
+			let anu = await savefrom(text)
+			var x = anu.url.findIndex(y => y.quality ===za && y.ext==="mp4")
 			if (anu.url[x].filesize > 209715200) return m.reply(`Filesize: ${niceBytes(anu.url[x].filesize)}\nTidak dapat mengirim, maksimal file 200 MB`)
 			fimg = await fetch(anu.url[x].url)
 			fimgb = Buffer.from(await fimg.arrayBuffer())
@@ -44,14 +45,14 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 			ini_txt += `⭔ Size : ${niceBytes(anu.url[x].filesize)}`
 			await conn.sendMessage(m.chat, { video: fimgb, caption: ini_txt }, { quoted: m })
 		} catch (e) {
-			m.reply(`Invalid Youtube URL / terjadi kesalahan.`)
+			m.reply(`[!] ${za}p tidak tersedia / terjadi kesalahan.`)
 		}
 	}
 }
 
-handler.menudownload = ['ytvideo1080 <url>']
+handler.menudownload = ['ytvideo480','ytvideo720','ytvideo1080'].map(v => v + ' <url>')
 handler.tagsdownload = ['search']
-handler.command = /^(yt(v(ideo)?|mp4)1080p?)$/i
+handler.command = /^(yt(v(ideo)?|mp4)(480|720|1080)p?)$/i
 
 handler.premium = true
 handler.limit = true

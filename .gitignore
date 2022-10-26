@@ -160,7 +160,6 @@ plugins/search-happymod.js
 plugins/search-konachan.js
 plugins/search-mirror.js
 plugins/search-pinterest.js
-plugins/search-pinterest2.js
 plugins/search-pixiv.js
 plugins/search-semoji.js
 plugins/search-stikerbetabotz.js
@@ -171,6 +170,7 @@ plugins/search-wallhaven.js
 plugins/search-wallpaper.js
 plugins/textpro-1.js
 plugins/textpro-2.js
+plugins/tool-dashboard.js
 
 # data-single-auth
 session.data.json

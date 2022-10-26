@@ -31,7 +31,7 @@ ${item.map(v => `${rpg.emoticon(v)}${v}`.trim()).join('\n')}
 Are you sure you want to transfer *${count}* ${rpg.emoticon(type)}${type}${special(type)} to *@${(who || '').replace(/@s\.whatsapp\.net/g, '')}*
 Timeout *60* detik
 `.trim()
-    let c = '©games-wabot'
+    let c = packname + ' - ' + author
     conn.sendButton(m.chat, confirm, c, null, [['y'], ['n']], m, { mentions: [who] })
     confirmation[m.sender] = {
         sender: m.sender,
