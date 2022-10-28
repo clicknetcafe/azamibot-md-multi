@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 let handler = async (m, { conn, usedPrefix, command }) => {
 	await delay(2000)
 	try {
-		let res = await fetch(`https://betabotz-api.herokuapp.com/api/random/katadilan?apikey=${global.bb}`)
+		let res = await fetch(`https://betabotzz-api.herokuapp.com/api/random/katadilan?apikey=${global.bb}`)
 		let json = await res.json()
 		if (json.status != '200') throw new e()
 		conn.sendButton(m.chat, `${json.dilan}`, `⭔ Dilan Quotes ⭔`, null, [[`⧑ next ${command} ⧑`, `${usedPrefix + command}`]], m)

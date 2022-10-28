@@ -20,6 +20,7 @@ let handler = async (m, { conn, usedPrefix, isPrems }) => {
 
     }
     let res = await fetch(`https://api.lolhuman.xyz/api/tebak/provinsi?apikey=${global.api}`)
+    if (!res.ok) throw 'Fitur Error!'
     const json = await res.json()
     let caption = `
 🎮 *Tebak Provinsi* 🎮

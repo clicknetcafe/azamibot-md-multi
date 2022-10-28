@@ -7,7 +7,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     if (!text) throw `Just type query what u need :\nUsage : *${usedPrefix + command} step mother*`
     if (text.includes('http://') || text.includes('https://')) return m.reply(`Only accept query, not url.`)
     try {
-        let res = await fetch(`https://betabotz-api.herokuapp.com/api/search/xvideos?query=${encodeURIComponent(text)}&apikey=${global.bb}`)
+        let res = await fetch(`https://betabotzz-api.herokuapp.com/api/search/xvideos?query=${encodeURIComponent(text)}&apikey=${global.bb}`)
         let json = await res.json()
         let get_result = json.result
         let ini_txt = `Found : *${text}*`
