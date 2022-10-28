@@ -233,6 +233,12 @@ global.owner = [
 ]
 ```
 > First argument on array is number like `6282337245566`, second argument is name like `BG` (if this argument pass, if using `owner` command, this number will send as owner), third argument is developer like `true` (if this argument pass, if there have plugins error (not syntax error) the error will send to developer)
+
+
+### How to read folder in folder plugins as plugin file?
+> change option `'recursiveRead'` to `'true'` in file main.js in `loadPluginFiles` function
+
+
 ---------
 
 ### want to contribute?

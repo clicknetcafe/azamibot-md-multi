@@ -2,9 +2,6 @@ import db from '../lib/database.js'
 import PhoneNumber from 'awesome-phonenumber'
 import { xpRange } from '../lib/levelling.js'
 
-import PhoneNumber from 'awesome-phonenumber'
-import { xpRange } from '../lib/levelling.js'
-
 let handler = async (m, { conn, isPrems }) => {
 	let pp = './src/avatar_contact.png'
 	let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
