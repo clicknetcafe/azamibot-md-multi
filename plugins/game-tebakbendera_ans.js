@@ -15,7 +15,7 @@ export async function before(m) {
         let json = JSON.parse(JSON.stringify(this.tebakbendera[id][1]))
         if (m.text.toLowerCase() == json.result.name.toLowerCase().trim()) {
             user.exp += this.tebakbendera[id][2]
-            conn.sendButton(m.chat, `*Benar!* 🎉\n\n+${this.tebakbendera[id][2]} Exp`, packname + ' - ' + author, ['tebakbendera', '/tebakbendera'], m)
+            this.sendButton(m.chat, `*Benar!* 🎉\n\n+${this.tebakbendera[id][2]} Exp`, packname + ' - ' + author, ['tebakbendera', '/tebakbendera'], m)
             clearTimeout(this.tebakbendera[id][3])
             delete this.tebakbendera[id]
         } else if (similarity(m.text.toLowerCase(), json.result.name.toLowerCase().trim()) >= threshold)
