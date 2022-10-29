@@ -73,6 +73,8 @@ plugins/game-tebakkabupaten.js
 plugins/game-tebakkabupaten_ans.js
 plugins/game-tebakkimia.js
 plugins/game-tebakkimia_ans.js
+plugins/game-tebaklagu.js
+plugins/game-tebaklagu_ans.js
 plugins/game-tekateki.js
 plugins/game-tekateki_ans.js
 plugins/gi-animal.js

@@ -3,7 +3,7 @@ import { format } from 'util'
 
 let debugMode = !1
 
-let winScore = 4999
+let winScore = 1999
 let playScore = 99
 
 export async function before(m) {

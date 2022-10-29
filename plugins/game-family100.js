@@ -1,10 +1,10 @@
 import db from '../lib/database.js'
 import { family100 } from '@bochilteam/scraper'
-const winScore = 4999
+const winScore = 1499
 
 async function handler(m, { conn, usedPrefix, isPrems }) {
     let chat = db.data.chats[m.chat]
-    if (!chat.game && m.isGroup) return
+    if (chat.game == false && m.isGroup) return
     this.game = this.game ? this.game : {}
     let id = 'family100_' + m.chat
     if (id in this.game) {
