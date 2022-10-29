@@ -23,7 +23,7 @@ global.author = 'Bot V5'
 
 //apikey
 global.api = 'apikeylu'		// https://api.lolhuman.xyz/docs apikeylu
-global.bb = 'BetaBotz'		// https://betabotz-api.herokuapp.com/docs
+global.bb = 'AzamiApi'		// https://azami-api.herokuapp.com/docs
 global.xco = 'xcoders'		// https://api-xcoders.xyz/docs
 global.yog = 'YogGanz'		// https://yog-apikey.herokuapp.com/docs
 global.imgbb = '3a247f2296ade39d87e71b92ae0256c9'	// https://api.imgbb.com/

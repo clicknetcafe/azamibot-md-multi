@@ -25,7 +25,7 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
 				let anu = await await res.json()
 				m.reply(`[ LINK ]\n${anu.result}`)
 			} else if (command.includes('bitly')) {
-				let res = await fetch(`https://botcahx-rest-api.herokuapp.com/api/linkshort/bitly?link=${out}`)
+				let res = await fetch(`https://botcahx.ddns.net/api/linkshort/bitly?link=${out}`)
 				let anu = await await res.json()
 				m.reply(`[ LINK ]\n${anu.result}`)
 			} else if (command.includes('ouo')) {
@@ -40,7 +40,7 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
 				m.reply(`[ LINK ]\n${anu.result}`)
 			} else {
 				try {
-					let res = await fetch(`https://betabotzz-api.herokuapp.com/api/tools/tinyurl?url=${out}&apikey=${global.bb}`)
+					let res = await fetch(`https://azami-api.herokuapp.com/api/tools/tinyurl?url=${out}&apikey=${global.bb}`)
 					let anu = await await res.json()
 					if (anu.result == undefined) throw new e()
 					m.reply(`[ LINK ]\n${anu.result}`)

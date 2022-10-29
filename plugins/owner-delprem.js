@@ -7,6 +7,7 @@ let handler = async (m, { conn, text }) => {
 	} else {
 		who = m.quoted ? m.quoted.sender : text ? text : m.chat ? m.chat : ''
 	}
+	who = who.replace(/\D/g,'')
 	if (!who) return m.reply(`tag orangnya!`)
 	let prems = global.prems
 	if (!prems.includes(who.split`@`[0])) throw 'dia ngga premium!'
