@@ -4,7 +4,7 @@ const winScore = 1499
 
 async function handler(m, { conn, usedPrefix, isPrems }) {
     let chat = db.data.chats[m.chat]
-    if (chat.game == false && m.isGroup) return
+    if (!chat.game && m.isGroup) return
     this.game = this.game ? this.game : {}
     let id = 'family100_' + m.chat
     if (id in this.game) {

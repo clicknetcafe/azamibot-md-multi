@@ -67,6 +67,8 @@ plugins/entertain-stalk.js
 plugins/entertain-zodiak.js
 plugins/ephoto-1.js
 plugins/ephoto-2.js
+plugins/game-sambungkata.js
+plugins/game-sambungkata_ans.js
 plugins/game-tebakchara.js
 plugins/game-tebakchara_ans.js
 plugins/game-tebakkabupaten.js
