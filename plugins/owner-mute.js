@@ -1,9 +1,4 @@
 import db from '../lib/database.js'
-//const cooldown = 1000 // 1 detik
-//const cooldown = 60000 // 1 menit
-//const cooldown = 3600000 // 1 jam
-//const cooldown = 86400000 // 1 hari
-//const cooldown = 2592000000 // 1 bulan
 
 const cooldown = 60000
 
@@ -14,15 +9,9 @@ let handler = async (m, { conn, args, usedPrefix, isOwner, command }) => {
     if (total > 1000 && !isOwner) return m.reply(`[!] Maksimal ${command} : 1000 menit.`)
     let chat = db.data.chats[m.chat]
     chat.isBanned = true
+    chat.lastmute = new Date * 1
+    chat.mutecd = cooldown * total
     m.reply(`Bot senyap selama ${total} menit!`)
-    setTimeout(() => {
-        chat.isBanned = false
-    }, cooldown * total)
-    setTimeout(() => {
-        chat.isBanned = false
-        m.reply(`Bot dapat digunakan kembali.`)
-    }, (cooldown * total) + 2000)
-    chat.lastmute = new Date * 1 + (cooldown * total)
 }
 
 handler.menugroup = ['omute']

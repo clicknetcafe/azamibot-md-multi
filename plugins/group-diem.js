@@ -1,9 +1,4 @@
 import db from '../lib/database.js'
-//const cooldown = 1000 // 1 detik
-//const cooldown = 60000 // 1 menit
-//const cooldown = 3600000 // 1 jam
-//const cooldown = 86400000 // 1 hari
-//const cooldown = 2592000000 // 1 bulan
 
 const cooldown = 60000
 const data = global.owner.filter(([id, isCreator]) => id && isCreator)
@@ -36,14 +31,9 @@ let handler = async (m, { conn, participants, usedPrefix, command, args, isOwner
 		if (users[who].banned == true) throw `Dia sudah di *mute* sebelumnya.`
 		try {
 			users[who].banned = true
-			await conn.sendMessage(m.chat, { text: `@${(who || '').replace(/@s\.whatsapp\.net/g, '')} di *mute* selama ${total} menit.`, mentions: [who] })
-			setTimeout(() => {
-				users[who].banned = false
-			}, cooldown * total)
-			setTimeout(() => {
-				users[who].banned = false
-				conn.sendMessage(m.chat, { text: `@${(who || '').replace(/@s\.whatsapp\.net/g, '')} udh gk di ban slur, jan spam lagi yak!`, mentions: [who] })
-			}, (cooldown * total) + 2000)
+		    users[who].lastbanned = new Date * 1
+		    users[who].bannedcd = cooldown * total
+			await conn.sendMessage(m.chat, { text: `@${(who || '').replace(/@s\.whatsapp\.net/g, '')} di *mute* selama ${total} menit.`, mentions: [who] }, { quoted: m })
 		} catch (e) {
 			console.log(e)
 			m.reply(`User tidak ada dalam database.`)
@@ -55,7 +45,7 @@ let handler = async (m, { conn, participants, usedPrefix, command, args, isOwner
 
 handler.menugroup = ['diem @tag <timer>']
 handler.tagsgroup = ['owner']
-handler.command = /^(diem|silent)$/i
+handler.command = /^(di(e|a)m|silent)$/i
 
 handler.group = true
 
