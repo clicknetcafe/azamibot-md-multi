@@ -182,5 +182,6 @@ database.json
 package-lock.json
 
 #data-multi-auth
+eng.traineddata
 data.store.json
 sessions/

@@ -27,12 +27,13 @@ let handler = async (m, { conn, participants, usedPrefix, command, args, isOwner
 		if (who.includesOneOf(admins) && !isOwner) throw `Gaboleh gitu sesama admin :v`
 		if (total > 60 && !isPrems) throw `_... >> not premium ..._\n[!] Maksimal ${command} : 60 menit.`
 		if (total > 140 && !isOwner) throw `[!] Maksimal ${command} : 140 menit.`
-		let users = db.data.users
-		if (users[who].banned == true) throw `Dia sudah di *mute* sebelumnya.`
+		let users = db.data.users[who]
+	    if (users.permaban) return m.reply(`[!] Tidak perlu *${command}* karena sudah di *ban*`)
+		if (users.banned == true) throw `Dia sudah di *mute* sebelumnya.`
 		try {
-			users[who].banned = true
-		    users[who].lastbanned = new Date * 1
-		    users[who].bannedcd = cooldown * total
+			users.banned = true
+		    users.lastbanned = new Date * 1
+		    users.bannedcd = cooldown * total
 			await conn.sendMessage(m.chat, { text: `@${(who || '').replace(/@s\.whatsapp\.net/g, '')} di *mute* selama ${total} menit.`, mentions: [who] }, { quoted: m })
 		} catch (e) {
 			console.log(e)

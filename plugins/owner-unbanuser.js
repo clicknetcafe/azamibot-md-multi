@@ -9,6 +9,7 @@ let handler = async (m, { conn }) => {
         let user = db.data.users[who]
         if (user.bannedcd != 0) return conn.sendMessage(m.chat, { text: `[!] Tidak dapat unban @${(who || '').replace(/@s\.whatsapp\.net/g, '')} karena sudah di *silent*`, mentions: [who] }, { quoted: m })
         user.banned = false
+        user.permaban = false
         conn.reply(m.chat, `berhasil unbanned`, m)
     } catch (e) {
         console.log(e)

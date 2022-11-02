@@ -9,6 +9,7 @@ let handler = async (m, { text }) => {
 		let chat = db.data.chats[id]
 		if (chat.mutecd != 0) return m.reply(`[!] Tidak dapat *unbanchat* karena sudah di *mute*`)
 		chat.isBanned = false
+		chat.permaBan = false
 		m.reply('Bot dapat digunakan kembali.')
 	} catch (e) {
 		console.log(e)

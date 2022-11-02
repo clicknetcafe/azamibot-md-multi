@@ -7,8 +7,8 @@ let handler = async (m, { text }) => {
 	try {
 		if (!text && !m.isGroup) return m.reply(`*「GROUP ONLY」*`)
 		let chat = db.data.chats[id]
-		if (chat.mutecd != 0) return m.reply(`[!] Tidak dapat *unbanchat* karena sudah di *mute*`)
 		chat.isBanned = true
+		chat.permaBan = true
 		m.reply('Bot dalam mode nyimak.')
 	} catch (e) {
 		console.log(e)
