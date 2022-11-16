@@ -1,12 +1,31 @@
-let handler = async (m, { conn, args, usedPrefix, command }) => {
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
+const jimp_1 = require('jimp')
+
+let handler = async (m, { conn, command, usedPrefix }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''
 	if (/image/g.test(mime) && !/webp/g.test(mime)) {
 		try {
-			let img = await q.download()
-			if (!img) throw 'gagal mengambil gambar'
-			await conn.updateProfilePicture(m.chat, img)
-			await conn.reply(m.chat, 'Sukses Mengganti Icon Group!', m)
+			let media = await q.download()
+			let { img } = await pepe(media)
+			await conn.query({
+				tag: 'iq',
+				attrs: {
+					to: m.chat,
+					type:'set',
+					xmlns: 'w:profile:picture'
+				},
+				content: [
+					{
+						tag: 'picture',
+						attrs: { type: 'image' },
+						content: img
+					}
+				]
+			})
+			m.reply(`Admin @${(m.sender || '').replace(/@s\.whatsapp\.net/g, '')} telah mengganti Icon Group!`, null, { mentions: [m.sender] })
 		} catch (e) {
 			console.log(e)
 			m.reply(`Terjadi kesalahan, coba lagi nanti.`)
@@ -16,12 +35,23 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 	}
 }
 
-handler.menugroup = ['setppgc']
+handler.menugroup = ['setppgcpanjang']
 handler.tagsgroup = ['group']
-handler.command = /^(set((gro?up|gc)pp|pp(gro?up|gc)))$/i
+handler.command = /^(set((gro?up|gc)pp|pp(gro?up|gc))(2|panjang|full?)?)$/i
 
 handler.admin = true
 handler.botAdmin = true
 handler.group = true
 
 export default handler
+
+async function pepe(media) {
+	const jimp = await jimp_1.read(media)
+	const min = jimp.getWidth()
+	const max = jimp.getHeight()
+	const cropped = jimp.crop(0, 0, min, max)
+	return {
+		img: await cropped.scaleToFit(720, 720).getBufferAsync(jimp_1.MIME_JPEG),
+		preview: await cropped.normalize().getBufferAsync(jimp_1.MIME_JPEG)
+	}
+}

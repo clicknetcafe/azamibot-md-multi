@@ -2,7 +2,7 @@ import db from '../lib/database.js'
 import { siapakahaku } from '@bochilteam/scraper'
 
 let timeout = 120000
-let poin = 4999
+let poin = 3499
 let handler = async (m, { conn, usedPrefix, isPrems }) => {
     let chat = db.data.chats[m.chat]
     if (!chat.game && m.isGroup) return
