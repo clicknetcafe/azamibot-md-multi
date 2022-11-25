@@ -35,7 +35,7 @@ let handler = async (m, { conn, command, usedPrefix }) => {
 	}
 }
 
-handler.menugroup = ['setppgcpanjang']
+handler.menugroup = ['setppgc']
 handler.tagsgroup = ['group']
 handler.command = /^(set((gro?up|gc)pp|pp(gro?up|gc))(2|panjang|full?)?)$/i
 

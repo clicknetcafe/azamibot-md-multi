@@ -4,7 +4,7 @@ let handler = async(m) => {
 	else who = m.sender
 	try {
 		let url = await conn.profilePictureUrl(who, 'image')
-		await conn.sendFile(m.chat, url, 'profile.jpg', `pp from @${who.split`@`[0]}`, m, null, { mentions: [who]})
+		await conn.sendMessage(m.chat, { image: { url: url }, caption: `pp from @${who.split`@`[0]}`, mentions: [who] }, { quoted: m })
 	} catch (e) {
 		console.log(e)
 		m.reply(`Gagal mengambil pp user.`)

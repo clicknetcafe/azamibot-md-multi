@@ -5,7 +5,7 @@ let handler = async (m, { conn, isOwner }) => {
 		txt += `\n\n*⭔ Subject :* ${groups[i].subject}\n`
 		txt += `*⭔ Owner :* ${groups[i].owner ? "@" + groups[i].owner.split("@")[0] : "Unknown"}\n`
 		txt += `*⭔ ID :* ${groups[i].id}\n`
-		txt += `*⭔ Members :* ${groups[i].participants.length}${!!groups[i].participants.find(v => v.id == conn.user.jid).admin ? ' [ BotAdmin ]' : ''}\n`
+		txt += `*⭔ Members :* ${groups[i].participants.length}\n`
 		txt += `*⭔ Created :* ${new Date(groups[i].subjectTime* 1000).toDateString()}\n`
 		txt += `───────────────────`
 	}
