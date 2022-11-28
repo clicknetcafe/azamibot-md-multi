@@ -1,5 +1,7 @@
+import db from '../lib/database.js'
+
 function handler(m) {
-  const data = global.owner.filter(([id, isCreator]) => id && isCreator)
+  const data = [...global.owner.filter(([id, isCreator]) => id && isCreator), ...db.data.owner.filter(([id, isCreator]) => id && isCreator)]
   this.sendContact(m.chat, data.map(([id, name]) => [id, name]), m)
 }
 handler.menugroup = ['owner', 'creator']
