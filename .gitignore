@@ -115,6 +115,7 @@ plugins/info-readqr.js
 plugins/info-ssweb.js
 plugins/info-translate.js
 plugins/info-wikipedia.js
+plugins/menustore.js
 plugins/nsfw-blowjob.js
 plugins/nsfw-cersex.js
 plugins/nsfw-cosplay.js
@@ -175,6 +176,10 @@ plugins/search-stikertele.js
 plugins/search-stikerwa.js
 plugins/search-wallhaven.js
 plugins/search-wallpaper.js
+plugins/store-list.js
+plugins/store-listadd.js
+plugins/store-listdelete.js
+plugins/store-listupdate.js
 plugins/textpro-1.js
 plugins/textpro-2.js
 plugins/tool-dashboard.js

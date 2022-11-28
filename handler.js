@@ -757,6 +757,8 @@ export async function handler(chatUpdate) {
 			if (!Array.isArray(prems)) db.data.prems = [{user: '', date: 0}]
 			let owner = db.data.owner
 			if (!Array.isArray(owner)) db.data.owner = [['zzz']]
+			let store = db.data.store
+			if (!Array.isArray(store)) db.data.store = []
 		} catch (e) {
 			console.error(e)
 		}
