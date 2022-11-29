@@ -746,19 +746,24 @@ export async function handler(chatUpdate) {
 				if (!('self' in settings)) settings.self = false
 				if (!('autoread' in settings)) settings.autoread = false
 				if (!('restrict' in settings)) settings.restrict = false
-				if (!Array.isArray(settings.menfess)) settings.menfess = []
 			} else db.data.settings[this.user.jid] = {
 				self: false,
 				autoread: false,
-				restrict: false,
-				menfess: []
+				restrict: false
 			}
 			let prems = db.data.prems
 			if (!Array.isArray(prems)) db.data.prems = [{user: '', date: 0}]
 			let owner = db.data.owner
 			if (!Array.isArray(owner)) db.data.owner = [['zzz']]
 			let store = db.data.store
-			if (!Array.isArray(store)) db.data.store = []
+			if (typeof store !== 'object') db.data.store = {}
+			if (store) {
+				if (!Array.isArray(store.store)) store.store = []
+				if (!Array.isArray(store.menfess)) store.menfess = []
+			} else db.data.store = {
+				store: [],
+				menfess: []
+			}
 		} catch (e) {
 			console.error(e)
 		}

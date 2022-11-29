@@ -35,6 +35,10 @@ function runtime(seconds) {
 	return dDisplay + hDisplay + mDisplay + sDisplay;
 }
 
+/*`#OS Version : %osversion#
+#OS Arch : %osarch | %oscore Core | %osspeed#
+#OS Uptime : %osuptime#`*/
+
 let tagsm = {}
 const defaultMenu = {
 	before: `%name!
@@ -47,10 +51,6 @@ const defaultMenu = {
 
 ⦿ 📊 Database : %totalreg User
 ⦿ 📈 Runtime : *%uptime*
-
-#OS Version : %osversion#
-#OS Arch : %osarch | %oscore Core | %osspeed#
-#OS Uptime : %osuptime#
 
 _Claim *.daily* atau mainkan game di *.funmenu* untuk mendapatkan exp / money_
 `.trimStart(),
@@ -147,6 +147,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPr
 						title: `━ ━ ━ ━ 『 SUB MENU 』 ━ ━ ━ ━`,
 						rows: [
 							{title: '🎪 ALL MENU', rowId: usedPrefix + 'menuall', description: '● Menampilkan Semua Menu'},
+							{title: '🪙 STORE', rowId: usedPrefix + 'menustore', description: '🛒 Bot Store : List Items'},
 							{title: '🎎 ANIME', rowId: usedPrefix + 'menuanime', description: '◉ Cari Manga, Anime, Random Pic'},
 							{title: '⌛ DOWNLOAD', rowId: usedPrefix + 'menudownload',  description: '◎ Youtube, Facebook, Tiktok, Dll...'},
 							{title: '🎮 GAMES & FUN', rowId: usedPrefix + 'menufun', description: '⊛ RPG, Kuis, Anonymous'},
