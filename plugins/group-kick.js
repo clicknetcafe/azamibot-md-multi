@@ -1,6 +1,8 @@
+import db from '../lib/database.js'
 import { areJidsSameUser } from '@adiwajshing/baileys'
 
 let handler = async (m, { conn, text, args, participants }) => {
+	if (db.data.settings[conn.user.jid].restrict) throw `[ RESTRICT ENABLED ]`
 	if (m.quoted) {
 		if (m.quoted.sender === conn.user.jid) throw `yahaha`
 		let usr = m.quoted.sender;
@@ -21,10 +23,10 @@ let handler = async (m, { conn, text, args, participants }) => {
 }
 
 handler.menugroup = ['kick']
-handler.tagsgroup = ['owner']
+handler.tagsgroup = ['group']
 handler.command = /^(kick|tendang)$/i
 
-handler.owner = true
+handler.admin = true
 handler.botAdmin = true
 handler.group = true
 

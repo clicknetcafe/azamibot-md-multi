@@ -3,7 +3,7 @@ import chalk from 'chalk'
 import { fileURLToPath } from 'url'
 
 global.owner = [['6282337245566', 'Syahrul A.S', true]] // Put your number here
-global.mods = [] // Want some help?
+global.mods = ['6282337245566'] // Developer / Mods Number
 global.APIs = { // API Prefix
 	// name: 'https://website'
 	nrtm: 'https://nurutomo.herokuapp.com',

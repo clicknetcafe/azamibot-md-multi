@@ -1,9 +1,11 @@
+import db from '../lib/database.js'
 import fetch from 'node-fetch'
 /**
  * @type {import('@adiwajshing/baileys')}
  */
 const { getBinaryNodeChild, getBinaryNodeChildren } = (await import('@adiwajshing/baileys')).default
 let handler = async (m, { conn, text, args, participants }) => {
+	if (db.data.settings[conn.user.jid].restrict) throw `[ RESTRICT ENABLED ]`
 	let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : args[0] ? (args[0].replace(/[@ .+-]/g, '') + '@s.whatsapp.net') : ''
 	if (!who) throw `Yang mau di add siapa ? Jin ya ?`
 	try {
@@ -52,10 +54,10 @@ let handler = async (m, { conn, text, args, participants }) => {
 }
 
 handler.menugroup = ['add']
-handler.tagsgroup = ['owner']
+handler.tagsgroup = ['group']
 handler.command = /^(o?add)$/i
 
-handler.owner = true
+handler.admin = true
 handler.botAdmin = true
 handler.group = true
 

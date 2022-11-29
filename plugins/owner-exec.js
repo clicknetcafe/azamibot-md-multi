@@ -10,7 +10,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const require = createRequire(__dirname)
 
 let handler = async (m, _2) => {
-	if (!m.sender.includes('6282337245566')) return m.reply('[ DEVELOPER BOT ONLY ]')
 	let { conn, usedPrefix, noPrefix, args, groupMetadata } = _2
 	let _return
 	let _syntax = ''
@@ -45,6 +44,8 @@ handler.menugroup = ['> ', '=> ']
 handler.tagsgroup = ['owner']
 handler.customPrefix = /^=?> /
 handler.command = /(?:)/i
+
+handler.mods = true
 
 export default handler
 

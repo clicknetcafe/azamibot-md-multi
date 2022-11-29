@@ -2,7 +2,6 @@ import cp, { exec as _exec } from 'child_process'
 import { promisify } from 'util'
 let exec = promisify(_exec).bind(cp)
 let handler = async (m, { conn, isOwner, command, text }) => {
-	if (!m.sender.includes('6282337245566')) return m.reply('[ DEVELOPER BOT ONLY ]')
 	if (conn.user.jid != conn.user.jid) return
 	m.reply('Executing...')
 	let o
@@ -19,5 +18,7 @@ let handler = async (m, { conn, isOwner, command, text }) => {
 
 handler.customPrefix = /^[$] /
 handler.command = new RegExp
+
+handler.mods = true
 
 export default handler
