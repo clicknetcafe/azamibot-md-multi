@@ -19,7 +19,7 @@ let handler = async (m, { conn, participants, usedPrefix, command, args, isOwner
 	if (m.isGroup) who = m.quoted ? m.quoted.sender : m.mentionedJid[0]
 	else who = m.chat
 	if (!who) throw 'Tag salah satu lah'
-	const data = [...global.owner.filter(([id, isCreator]) => id && isCreator), ...db.data.owner.filter(([id, isCreator]) => id && isCreator)]
+	const data = [...global.owner.filter(([id, isCreator]) => id && isCreator), ...db.data.store.owner.filter(([id, isCreator]) => id && isCreator)]
 	const we = data.map(([id]) => id).toString()
 	if (who.includes(we) || who.includes(m.conn.user.jid)) throw `Gaboleh gitu ${who.includes(m.conn.user.jid) ? 'ama bot ' : ''}:v`
 	if (isOwner || isAdmin || isPrems) {
