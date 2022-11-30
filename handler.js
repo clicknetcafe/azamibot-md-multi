@@ -767,10 +767,10 @@ export async function handler(chatUpdate) {
 		} catch (e) {
 			console.error(e)
 		}
-
-		const isROwner = [this.decodeJid(this.user.id), ...global.owner.map(([number]) => number)].map(v => v?.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-		const isOwner = isROwner || m.fromMe || db.data.owner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+		
 		const isMods = global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+		const isROwner = isMods || [this.decodeJid(this.user.id), ...global.owner.map(([number]) => number)].map(v => v?.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+		const isOwner = isROwner || m.fromMe || db.data.owner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
 		const isPrems = isOwner || db.data.prems.map(v => v.user).includes(m.sender)
 
 		if (opts['nyimak'])
