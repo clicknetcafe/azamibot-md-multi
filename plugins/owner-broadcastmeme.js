@@ -1,8 +1,9 @@
+import Connection from '../lib/connection.js'
 import { delay, ranNumb, readMore } from '../lib/others.js'
 import { randomBytes } from 'crypto'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-	let chats = await Object.entries(conn.chats).filter(([_, chat]) => chat.isChats && !_.startsWith('212')).map(v => v[0])
+	let chats = await Object.entries(Connection.store.chats).filter(([_, chat]) => chat.isChats && !_.startsWith('212')).map(v => v[0])
 	let cc = conn.serializeM(text ? m : m.quoted ? await m.getQuotedObj() : false || m)
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''

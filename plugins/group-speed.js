@@ -1,3 +1,4 @@
+import Connection from '../lib/connection.js'
 import { cpus as _cpus, totalmem, freemem } from 'os'
 import os from 'os'
 import { performance } from 'perf_hooks'
@@ -14,7 +15,7 @@ let format = sizeFormatter({
 let handler = async (m, { conn }) => {
 	try {
 		const groups = Object.values(await conn.groupFetchAllParticipating())
-		const chats = Object.entries(conn.chats).filter(([id, data]) => id && data.isChats)
+		const chats = Object.entries(Connection.store.chats).filter(([id, data]) => id && data.isChats)
 		const groupsIn = chats.filter(([id]) => id.endsWith('@g.us')) //groups.filter(v => !v.read_only)
 		const used = process.memoryUsage()
 		const cpus = _cpus().map(cpu => {
