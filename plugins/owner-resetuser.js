@@ -13,6 +13,7 @@ let handler = async (m, { conn, args, command, usedPrefix }) => {
 	ini_txt += `Data yang dapat di reset :\n`
 	ini_txt += `- exp\n`
 	ini_txt += `- money\n`
+	ini_txt += `- atm\n`
 	ini_txt += `- limit\n`
 	ini_txt += `- potion\n`
 	ini_txt += `- emerald\n`
@@ -22,9 +23,10 @@ let handler = async (m, { conn, args, command, usedPrefix }) => {
     if (!who) return m.reply(ini_txt)
     let user = db.data.users
     if (!(who in user)) return m.reply(`User ${who} not in database`)
-	if (isNaN(args[1]) || !args[1]) return m.reply(`set jumlah dengan angka\n\nContoh : *${usedPrefix + command} limit 100 @tag*`)
-	if (item.toLowerCase().includesOneOf(['exp','money','limit','potion','emerald','diamond','gold'])) {
-		user[who][item] = parseInt(args[1])
+	args[1] = Math.floor(isNumber(args[1]) ? Math.min(Math.max(parseInt(args[1]), 1), Number.MAX_SAFE_INTEGER) : 1) * 1
+	if (args[1] > 999999999999999) args[1] = 999999999999999
+	if (item.toLowerCase().includesOneOf(['exp','money','atm','limit','potion','emerald','diamond','gold'])) {
+		user[who][item] = args[1]
 		if (item == 'exp') user[who].level = 0
 		await m.reply(`Berhasi mengubah ${item} *@${(who || '').replace(/@s\.whatsapp\.net/g, '')}* menjadi ${args[1]}`, null, { mentions: [who] })
 	} else {
@@ -34,8 +36,14 @@ let handler = async (m, { conn, args, command, usedPrefix }) => {
 
 handler.mengroup = ['setuser <data>']
 handler.tagsgroup = ['owner']
-handler.command = /^(setuser)$/i
+handler.command = /^((re)?setuser)$/i
 
 handler.owner = true
 
 export default handler
+
+function isNumber(number) {
+	if (!number) return number
+	number = parseInt(number)
+	return typeof number == 'number' && !isNaN(number)
+}

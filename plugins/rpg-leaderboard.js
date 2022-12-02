@@ -1,5 +1,4 @@
 import db from '../lib/database.js'
-
 import { areJidsSameUser } from '@adiwajshing/baileys'
 const leaderboards = [
   'level',
@@ -39,7 +38,7 @@ ${rpg.emoticon(v)}${v}
 `.trim()).join('\n')}
 `.trim()
   if (!leaderboard.includes(type)) return m.reply(wrong)
-  let prems = db.data.store.prems
+  let prems = db.data.prems
   let page = isNumber(args[1]) ? Math.min(Math.max(parseInt(args[1]), 0), getPage(type)) : 0
   let sortedItem = users.map(toNumber(type)).sort(sort(type))
   let userItem = sortedItem.map(enumGetKey)

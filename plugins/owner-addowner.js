@@ -7,9 +7,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!who) throw `tag atau ketik nomornya!`
 	let meh = await conn.onWhatsApp(who)
 	who = meh[0].jid.split('@')[0]
-	if (db.data.store.owner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(meh[0].jid)) return m.reply('[ ! ] Dia sudah jadi owner.')
+	if (db.data.owner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(meh[0].jid)) return m.reply('[ ! ] Dia sudah jadi owner.')
 	if (meh.length == 0) return m.reply(`[!] Failed, @${(who || '')} bukan pengguna WhatsApp.`, null, { mentions: [meh[0].jid] })
-	db.data.store.owner.push([who, text[1], true])
+	db.data.owner.push([who, text[1], true])
 	await conn.sendMessage(m.chat, { text: `Sukses menjadikan @${(who || '').replace(/@s\.whatsapp\.net/g, '')} sebagai *owner*.`, mentions: [meh[0].jid] }, { quoted: m })
 }
 

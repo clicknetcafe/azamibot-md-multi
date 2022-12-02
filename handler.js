@@ -751,25 +751,20 @@ export async function handler(chatUpdate) {
 				autoread: false,
 				restrict: false
 			}
+			let prems = db.data.prems
+			if (!Array.isArray(prems)) db.data.prems = [{user: '', date: 0}]
+			let owner = db.data.owner
+			if (!Array.isArray(owner)) db.data.owner = [['zzz']]
 			let store = db.data.store
-			if (typeof store !== 'object') db.data.store = {}
-			if (store) {
-				if (!Array.isArray(store.prems)) store.prems = [{user: '', date: 0}]
-				if (!Array.isArray(store.owner)) store.owner = [['zzz']]
-				if (!Array.isArray(store.store)) store.store = []
-				if (!Array.isArray(store.menfess)) store.menfess = []
-			} else db.data.store = {
-				prems: [{user: '', date: 0}],
-				owner: [['zzz']],
-				store: [],
-				menfess: []
-			}
+			if (!Array.isArray(store)) db.data.store = []
+			let menfess = db.data.menfess
+			if (!Array.isArray(menfess)) db.data.menfess = []
 		} catch (e) {
 			console.error(e)
 		}
-		
+
 		const isMods = global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-		const isROwner = isMods || [this.decodeJid(this.user.id), ...global.owner.map(([number]) => number)].map(v => v?.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+		const isROwner = isMods || [this.decodeJid(this.user.id), ...global.owner.map(([number]) => number)].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
 		const isOwner = isROwner || m.fromMe || db.data.owner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
 		const isPrems = isOwner || db.data.prems.map(v => v.user).includes(m.sender)
 

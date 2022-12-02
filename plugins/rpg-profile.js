@@ -25,7 +25,7 @@ let handler = async (m, { conn, isPrems }) => {
 		str += `*EXP :* ${exp} (${exp - min} / ${xp})\n`
 		str += `*Money :* ${money}\n`
 		let who2 = who.split`@`[0]
-		str += `*Limit :* ${(db.data.store.prems.some(v=>who2.includes(v)) || global.owner.map(v => v[0]).some(x=>who2.includes(x)) || db.data.store.owner.map(v => v[0]).some(x=>who2.includes(x))) ? '~ Infinity ~' : limit}\n`
+		str += `*Limit :* ${(db.data.prems.some(v=>who2.includes(v)) || global.owner.map(v => v[0]).some(x=>who2.includes(x)) || db.data.owner.map(v => v[0]).some(x=>who2.includes(x))) ? '~ Infinity ~' : limit}\n`
 		str += `${lastclaim > 0 ? `\n*Last Claim :* ${new Date(lastclaim)}` : ''}`
 		conn.sendMessage(m.chat, { caption: str, image: { url: pp, fileName: 'pp.jpg'}, mentions: [who]}, { quoted: m})
 	} catch (e) {
