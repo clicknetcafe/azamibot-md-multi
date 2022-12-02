@@ -1,3 +1,5 @@
+import { delay } from '../lib/others.js'
+
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	conn.vote = conn.vote ? conn.vote : {}
 	let id = m.chat
@@ -43,5 +45,3 @@ handler.group = true
 handler.admin = true
 
 export default handler
-
-const delay = time => new Promise(res => setTimeout(res, time))

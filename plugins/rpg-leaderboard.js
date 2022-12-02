@@ -1,4 +1,5 @@
 import db from '../lib/database.js'
+import { isNumber } from '../lib/others.js'
 import { areJidsSameUser } from '@adiwajshing/baileys'
 const leaderboards = [
   'level',
@@ -73,15 +74,4 @@ function toNumber(property, _default = 0) {
 
 function enumGetKey(a) {
   return a.jid
-}
-
-
-/**
- * Detect Number
- * @param {Number} x 
- */
-function isNumber(number) {
-  if (!number) return number
-  number = parseInt(number)
-  return typeof number == 'number' && !isNaN(number)
 }

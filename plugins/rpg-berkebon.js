@@ -1,5 +1,5 @@
 import db from '../lib/database.js'
-
+import { ranNumb } from '../lib/others.js'
 //const cooldown = 1000 // 1 detik
 //const cooldown = 60000 // 1 menit
 //const cooldown = 3600000 // 1 jam
@@ -8,16 +8,6 @@ import db from '../lib/database.js'
 
 const cooldown = 4500000
 const cooldownn = 120000
-
-function ranNumb(min = null, max = null) {
-	if (max !== null) {
-		min = Math.ceil(min);
-		max = Math.floor(max);
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	} else {
-		return Math.floor(Math.random() * min) + 1
-	}
-}
 
 const need = 100
 

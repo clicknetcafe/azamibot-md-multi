@@ -1,4 +1,5 @@
 import db from '../lib/database.js'
+import { delay } from '../lib/others.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
     Number.prototype.noExponents = function() {
@@ -37,5 +38,3 @@ handler.tagsgroup = ['group']
 handler.command = /^((fix|reset)money)$/i
 
 export default handler
-
-const delay = time => new Promise(res => setTimeout(res, time))

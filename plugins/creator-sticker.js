@@ -1,5 +1,6 @@
 import { createSticker, StickerTypes } from 'wa-sticker-formatter'
 import { sticker, addExif, video2webp, video2webp30, video2webp45, video2webp60 } from '../lib/sticker.js'
+import { isUrl } from '../lib/others.js'
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
 	try {
@@ -50,7 +51,3 @@ handler.tags = ['creator']
 handler.command = /^(s(tic?ker)?(gif)?(30|45|60|halus|smoo?th)?(fps)?)$/i
 
 export default handler
-
-const isUrl = (text) => {
-  return text.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)(jpe?g|gif|png)/, 'gi'))
-}

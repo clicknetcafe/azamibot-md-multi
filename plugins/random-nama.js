@@ -1,3 +1,4 @@
+import { delay } from '../lib/others.js'
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, usedPrefix, command }) => {
@@ -19,5 +20,3 @@ handler.command = /^randomnama$/i
 handler.limit = true
 
 export default handler
-
-const delay = time => new Promise(res => setTimeout(res, time))

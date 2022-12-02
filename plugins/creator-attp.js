@@ -30,5 +30,3 @@ handler.command = /^((ttp(2|3|4|5|6)?)|(attp(2|3)?))$/i
 handler.limit = true
 
 export default handler
-
-const delay = time => new Promise(res => setTimeout(res, time))

@@ -1,3 +1,4 @@
+import { padLead, ranNumb, readMore, runtime } from '../lib/others.js'
 import db from '../lib/database.js'
 import { plugins } from '../lib/plugins.js'
 import { promises } from 'fs'
@@ -5,35 +6,6 @@ import { join } from 'path'
 import { xpRange } from '../lib/levelling.js'
 import fs from 'fs'
 import os from 'os'
-
-function ranNumb(min, max = null) {
-	if (max !== null) {
-		min = Math.ceil(min);
-		max = Math.floor(max);
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	} else {
-		return Math.floor(Math.random() * min) + 1
-	}
-}
-
-function padLead(num, size) {
-	var s = num+"";
-	while (s.length < size) s = "0" + s;
-	return s;
-}
-
-function runtime(seconds) {
-	seconds = Number(seconds);
-	var d = Math.floor(seconds / (3600 * 24));
-	var h = Math.floor(seconds % (3600 * 24) / 3600);
-	var m = Math.floor(seconds % 3600 / 60);
-	var s = Math.floor(seconds % 60);
-	var dDisplay = d > 0 ? d + (d == 1 ? " day, " : " days, ") : "";
-	var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
-	var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
-	var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
-	return dDisplay + hDisplay + mDisplay + sDisplay;
-}
 
 /*`#OS Version : %osversion#
 #OS Arch : %osarch | %oscore Core | %osspeed#
@@ -188,13 +160,3 @@ handler.command = /^((m(enu)?|help)(list)?|\?)$/i
 handler.exp = 3
 
 export default handler
-
-const more = String.fromCharCode(8206)
-const readMore = more.repeat(4001)
-
-function clockString(ms) {
-	let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000)
-	let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
-	let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
-	return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
-}

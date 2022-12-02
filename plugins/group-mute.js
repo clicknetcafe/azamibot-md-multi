@@ -1,4 +1,6 @@
 import db from '../lib/database.js'
+import { isNumber } from '../lib/others.js'
+
 const cooldown = 60000
 
 let handler = async (m, { conn, args, usedPrefix, isPrems, isOwner, command }) => {
@@ -26,9 +28,3 @@ handler.group = true
 handler.cooldown = cooldown
 
 export default handler
-
-function isNumber(number) {
-    if (!number) return number
-    number = parseInt(number)
-    return typeof number == 'number' && !isNaN(number)
-}

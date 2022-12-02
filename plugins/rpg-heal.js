@@ -1,4 +1,5 @@
 import db from '../lib/database.js'
+import { isNumber } from '../lib/others.js'
 
 let handler = async (m, { args, usedPrefix }) => {
     let user = db.data.users[m.sender]
@@ -23,9 +24,3 @@ handler.tagsfun = ['rpg']
 handler.command = /^(heal)$/i
 
 export default handler
-
-function isNumber(number) {
-    if (!number) return number
-    number = parseInt(number)
-    return typeof number == 'number' && !isNaN(number)
-}

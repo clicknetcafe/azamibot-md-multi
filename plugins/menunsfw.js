@@ -1,24 +1,9 @@
+import { padLead, ranNumb, readMore } from '../lib/others.js'
 import db from '../lib/database.js'
 import { plugins } from '../lib/plugins.js'
 import { promises } from 'fs'
 import { join } from 'path'
 import fs from 'fs'
-
-function ranNumb(min, max = null) {
-	if (max !== null) {
-		min = Math.ceil(min);
-		max = Math.floor(max);
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	} else {
-		return Math.floor(Math.random() * min) + 1
-	}
-}
-
-function padLead(num, size) {
-	var s = num+"";
-	while (s.length < size) s = "0" + s;
-	return s;
-}
 
 let tagsnsfw = {
 	'search': '🚀 *SEARCH*',
@@ -102,6 +87,3 @@ handler.tags = ['submenu']
 handler.command = /^(nsfwm(enu)?|m(enu)?nsfw)$/i
 
 export default handler
-
-const more = String.fromCharCode(8206)
-const readMore = more.repeat(4001)

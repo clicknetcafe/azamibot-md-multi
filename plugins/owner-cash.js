@@ -1,4 +1,5 @@
 import db from '../lib/database.js'
+import { delay } from '../lib/others.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
     if (!text || isNaN(text)) throw `Masukkan nominal !\n\nContoh : *${usedPrefix + command} 10000*`
@@ -22,5 +23,3 @@ handler.command = /^(cash)$/i
 handler.owner = true
 
 export default handler
-
-const delay = time => new Promise(res => setTimeout(res, time))

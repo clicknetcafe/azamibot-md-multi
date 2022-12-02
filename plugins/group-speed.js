@@ -1,21 +1,8 @@
-import Connection from '../lib/connection.js'
 import { cpus as _cpus, totalmem, freemem } from 'os'
 import os from 'os'
 import { performance } from 'perf_hooks'
 import { sizeFormatter } from 'human-readable'
-
-function runtime(seconds) {
-	seconds = Number(seconds);
-	var d = Math.floor(seconds / (3600 * 24));
-	var h = Math.floor(seconds % (3600 * 24) / 3600);
-	var m = Math.floor(seconds % 3600 / 60);
-	var s = Math.floor(seconds % 60);
-	var dDisplay = d > 0 ? d + (d == 1 ? " day, " : " days, ") : "";
-	var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
-	var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
-	var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
-	return dDisplay + hDisplay + mDisplay + sDisplay;
-}
+import { runtime } from '../lib/others.js'
 
 let format = sizeFormatter({
 	std: 'JEDEC', // 'SI' (default) | 'IEC' | 'JEDEC'
@@ -27,7 +14,7 @@ let format = sizeFormatter({
 let handler = async (m, { conn }) => {
 	try {
 		const groups = Object.values(await conn.groupFetchAllParticipating())
-		const chats = Object.entries(Connection.store.chats).filter(([id, data]) => id && data.isChats)
+		const chats = Object.entries(conn.chats).filter(([id, data]) => id && data.isChats)
 		const groupsIn = chats.filter(([id]) => id.endsWith('@g.us')) //groups.filter(v => !v.read_only)
 		const used = process.memoryUsage()
 		const cpus = _cpus().map(cpu => {
@@ -57,7 +44,7 @@ let handler = async (m, { conn }) => {
 		let old = performance.now()
 		let neww = performance.now()
 		let speed = neww - old
-		m.reply(`
+		await m.reply(`
 Kecepatan Respon ${speed.toFixed(4)} detik
 
 Runtime :\n*${runtime(process.uptime())}*
@@ -82,6 +69,6 @@ RAM: ${format(totalmem() - freemem())} / ${format(totalmem())}
 
 handler.menugroup = ['ping']
 handler.tagsgroup = ['group']
-
 handler.command = /^(p(i|o)ng|tes|test|info|ingfo|runtime)$/i
+
 export default handler

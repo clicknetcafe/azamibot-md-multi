@@ -1,20 +1,5 @@
+import { ranNumb, padLead } from '../lib/others.js'
 import { toAudio } from '../lib/converter.js'
-
-function ranNumb(min, max = null) {
-	if (max !== null) {
-		min = Math.ceil(min);
-		max = Math.floor(max);
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	} else {
-		return Math.floor(Math.random() * min) + 1
-	}
-}
-
-function padLead(num, size) {
-	var s = num+"";
-	while (s.length < size) s = "0" + s;
-	return s;
-}
 
 let handler = async (m, { conn, usedPrefix, command }) => {
 		let q = m.quoted ? m.quoted : m
@@ -24,7 +9,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 		if (!media) throw 'Can\'t download media'
 		let audio = await toAudio(media, 'mp4')
 		if (!audio.data) throw 'Can\'t convert media to audio'
-		if (command == 'toaudio' || command == 'toa') {
+		if (command.includes('toa')) {
 			await conn.sendMessage(m.chat, { audio: audio.data, mimetype: 'audio/mp4' }, { quoted: m })
 		} else {
 			let date = new Date().toISOString().replace('-', '').split('T')[0].replace('-', '')

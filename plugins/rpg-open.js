@@ -1,20 +1,11 @@
 import db from '../lib/database.js'
+import { isNumber, ranNumb } from '../lib/others.js'
 
 String.prototype.includesOneOf = function(arrayOfStrings) {
 	if(!Array.isArray(arrayOfStrings)) {
 		throw new Error('includesOneOf only accepts an array')
 	}
 	return arrayOfStrings.some(str => this.includes(str))
-}
-
-function ranNumb(min = null, max = null) {
-	if (max !== null) {
-		min = Math.ceil(min);
-		max = Math.floor(max);
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	} else {
-		return Math.floor(Math.random() * min) + 1
-	}
 }
 
 let handler = async (m, { command, args, usedPrefix }) => {
@@ -210,9 +201,3 @@ handler.command = /^(open|buka|gacha)$/i
 handler.premium = true
 
 export default handler
-
-function isNumber(number) {
-	if (!number) return number
-	number = parseInt(number)
-	return typeof number == 'number' && !isNaN(number)
-}

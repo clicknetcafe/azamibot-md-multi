@@ -1,5 +1,5 @@
 import db from '../lib/database.js'
-
+import { isNumber } from '../lib/others.js'
 //const cooldown = 1000 // 1 detik
 //const cooldown = 60000 // 1 menit
 //const cooldown = 3600000 // 1 jam
@@ -194,9 +194,3 @@ handler.cooldown = cooldown
 handler.premium = true
 
 export default handler
-
-function isNumber(number) {
-	if (!number) return number
-	number = parseInt(number)
-	return typeof number == 'number' && !isNaN(number)
-}

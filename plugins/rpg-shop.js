@@ -1,4 +1,5 @@
 import db from '../lib/database.js'
+import { isNumber, readMore } from '../lib/others.js'
 
 const items = {
 	buy: {
@@ -519,12 +520,3 @@ handler.command = /^(buy|beli|shop|sell|jual)$/i
 handler.disabled = false
 
 export default handler
-
-const more = String.fromCharCode(8206)
-const readMore = more.repeat(4001)
-
-function isNumber(number) {
-	if (!number) return number
-	number = parseInt(number)
-	return typeof number == 'number' && !isNaN(number)
-}

@@ -1,3 +1,4 @@
+import { delay } from '../lib/others.js'
 import fs from 'fs'
 import { Sticker, StickerTypes } from 'wa-sticker-formatter'
 
@@ -32,5 +33,3 @@ handler.premium = true
 handler.limit = true
 
 export default handler
-
-const delay = time => new Promise(res => setTimeout(res, time))

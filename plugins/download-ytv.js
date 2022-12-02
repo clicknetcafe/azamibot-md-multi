@@ -1,23 +1,14 @@
 import fetch from 'node-fetch'
 import { savefrom, youtubedl, youtubedlv2, youtubedlv3 } from '@bochilteam/scraper'
+import { niceBytes } from '../lib/others.js'
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
-
-const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-   
-function niceBytes(x) {
-	let l = 0, n = parseInt(x, 10) || 0;
-	while(n >= 1024 && ++l){
-		n = n/1024;
-	}
-	return(n.toFixed(n < 10 && l > 0 ? 1 : 0) + ' ' + units[l]);
-}
 
 let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 	if (!text.match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))) return m.reply(`Invalid Youtube URL.`)
 	let fimg, fimgb
 	try {
-		let anu = await savefrom(`${text}`)
+		let anu = await savefrom(text)
 		var x = anu.url.findIndex(y => y.quality ==="360" && y.ext==="mp4")
 		if (x == -1) x = anu.medias.findIndex(y => y.quality ==="240" && y.ext==="mp4")
 		if (x == -1) x == 0
