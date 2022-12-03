@@ -9,8 +9,8 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 	let fimg, fimgb
 	try {
 		let anu = await savefrom(text)
-		var x = anu.url.findIndex(y => y.quality ==="360" && y.ext==="mp4")
-		if (x == -1) x = anu.medias.findIndex(y => y.quality ==="240" && y.ext==="mp4")
+		var x = anu.url.findIndex(y => y.quality ==='360' && y.ext==='mp4')
+		if (x == -1) x = anu.medias.findIndex(y => y.quality ==='240' && y.ext==='mp4')
 		if (x == -1) x == 0
 		if (anu.url[x].filesize > 209715200) return m.reply(`Filesize: ${niceBytes(anu.url[x].filesize)}\nTidak dapat mengirim, maksimal file 200 MB`)
 		fimg = await fetch(anu.url[x].url)
@@ -26,36 +26,38 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 			let res = await fetch(`https://api.lolhuman.xyz/api/ytvideo?apikey=${global.api}&url=${text}`)
 			if (!res.ok) throw new e()
 			let anu = await res.json()
-			if (anu.result.link.size.slice(-2) == "GB") return m.reply(`Ngotak dong.\nMana bisa ngirim video ${anu.result.link.size}`)
-			if (anu.result.link.size.slice(-2) != "KB" && parseInt(anu.result.link.size.replace(" MB", "")) > 200) return m.reply(`Filesize: ${anu.result.link.size}\nTidak dapat mengirim, maksimal file 200 MB`)
-			fimg = await fetch(anu.result.link.link)
+			anu = anu.result
+			if (anu.link.size.slice(-2) == 'GB') return m.reply(`Ngotak dong.\nMana bisa ngirim video ${anu.link.size}`)
+			if (anu.link.size.slice(-2) != 'KB' && anu.link.size.slice(-2) != 'kB' && parseInt(anu.link.size) > 200) return m.reply(`Filesize: ${anu.link.size}\nTidak dapat mengirim, maksimal file 200 MB`)
+			fimg = await fetch(anu.link.link)
 			fimgb = Buffer.from(await fimg.arrayBuffer())
 			if (Buffer.byteLength(fimgb) < 22000) throw new e()
-			let ini_txt = `*${anu.result.title}*\n\n`
+			let ini_txt = `*${anu.title}*\n\n`
 			ini_txt += `⭔ Watch : ${text}\n`
-			ini_txt += `⭔ Resolution : ${anu.result.link.resolution}\n`
-			ini_txt += `⭔ Size : ${anu.result.link.size}`
+			ini_txt += `⭔ Resolution : ${anu.link.resolution}\n`
+			ini_txt += `⭔ Size : ${anu.link.size}`
 			await conn.sendMessage(m.chat, { video: fimgb, caption: ini_txt }, { quoted: m })
 		} catch (e) {
 			try {
 				let res = await fetch(`https://api.lolhuman.xyz/api/ytvideo2?apikey=${global.api}&url=${text}`)
 				if (!res.ok) throw new e()
 				let anu = await res.json()
-				if (anu.result.size.slice(-2) == "GB") return m.reply(`Ngotak dong.\nMana bisa ngirim video ${anu.result.size}`)
-				if (anu.result.size.slice(-2) != "KB" && parseInt(anu.result.size.replace(" MB", "")) > 200) return m.reply(`Filesize: ${anu.result.size}\nTidak dapat mengirim, maksimal file 200 MB`)
-				fimg = await fetch(anu.result.link)
+				anu = anu.result
+				if (anu.size.slice(-2) == 'GB') return m.reply(`Ngotak dong.\nMana bisa ngirim video ${anu.size}`)
+				if (anu.size.slice(-2) != 'KB' && anu.size.slice(-2) != 'kB' && parseInt(anu.size) > 200) return m.reply(`Filesize: ${anu.size}\nTidak dapat mengirim, maksimal file 200 MB`)
+				fimg = await fetch(anu.link)
 				fimgb = Buffer.from(await fimg.arrayBuffer())
 				if (Buffer.byteLength(fimgb) < 22000) throw new e()
-				let ini_txt = `*${anu.result.title}*\n\n`
+				let ini_txt = `*${anu.title}*\n\n`
 				ini_txt += `⭔ Watch : ${text}\n`
-				ini_txt += `⭔ Size : ${anu.result.size}`
+				ini_txt += `⭔ Size : ${anu.size}`
 				await conn.sendMessage(m.chat, { video: fimgb, caption: ini_txt }, { quoted: m })
 			} catch (e) {
 				try {
 					const xa = require('xfarr-api')
-					let anu = await xa.downloader.youtube(`${text}`)
-					if (anu.size.slice(-2) == "GB") return m.reply(`Ngotak dong.\nMana bisa ngirim video ${anu.size}`)
-					if (anu.size.slice(-2) != "KB" && parseInt(anu.size.replace(" MB", "")) > 200) return m.reply(`Filesize: ${anu.size}\nTidak dapat mengirim, maksimal file 200 MB`)
+					let anu = await xa.downloader.youtube(text)
+					if (anu.size.slice(-2) == 'GB') return m.reply(`Ngotak dong.\nMana bisa ngirim video ${anu.size}`)
+					if (anu.size.slice(-2) != 'KB' && anu.size.slice(-2) != 'kB' && parseInt(anu.size) > 200) return m.reply(`Filesize: ${anu.size}\nTidak dapat mengirim, maksimal file 200 MB`)
 					fimg = await fetch(anu.download_url)
 					fimgb = Buffer.from(await fimg.arrayBuffer())
 					if (Buffer.byteLength(fimgb) < 22000) throw new e()

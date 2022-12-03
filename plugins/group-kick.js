@@ -3,7 +3,7 @@ import { areJidsSameUser } from '@adiwajshing/baileys'
 import { delay } from '../lib/others.js'
 
 let handler = async (m, { conn, text, args, participants }) => {
-    if (db.data.settings[this.user.jid].restrict) throw `[ RESTRICT ENABLED ]`
+    if (db.data.settings[conn.user.jid].restrict) throw `[ RESTRICT ENABLED ]`
     if (m.quoted) {
         if (m.quoted.sender === conn.user.jid) throw `yahaha`
         let usr = m.quoted.sender;
