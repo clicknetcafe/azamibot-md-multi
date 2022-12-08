@@ -1,4 +1,4 @@
-import { padLead, ranNumb, readMore, runtime } from '../lib/others.js'
+import { padLead, ranNumb, readMore, runtimes } from '../lib/others.js'
 import db from '../lib/database.js'
 import { plugins } from '../lib/plugins.js'
 import { promises } from 'fs'
@@ -43,8 +43,8 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems }) => {
 	let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
 	let { limit, role } = db.data.users[m.sender]
 	let name = await conn.getName(m.sender).replaceAll('\n','')
-	let uptime = runtime(process.uptime())
-	let osuptime = runtime(os.uptime())
+	let uptime = runtimes(process.uptime())
+	let osuptime = runtimes(os.uptime())
 	let help = Object.values(plugins).filter(plugin => !plugin.disabled).map(plugin => {
 		return {
 			help: Array.isArray(plugin.tags) ? plugin.help : [plugin.help],

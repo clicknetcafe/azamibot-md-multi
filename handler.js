@@ -746,10 +746,12 @@ export async function handler(chatUpdate) {
 				if (!('self' in settings)) settings.self = false
 				if (!('autoread' in settings)) settings.autoread = false
 				if (!('restrict' in settings)) settings.restrict = false
+				if (!('linkgc' in settings)) settings.linkgc = ''
 			} else db.data.settings[this.user.jid] = {
 				self: false,
 				autoread: false,
-				restrict: false
+				restrict: false,
+				linkgc: ''
 			}
 			let prems = db.data.prems
 			if (!Array.isArray(prems)) db.data.prems = [{user: '', date: 0}]
@@ -774,7 +776,7 @@ export async function handler(chatUpdate) {
 			return
 		if (opts['pconly'] && m.chat.endsWith('g.us'))
 			return
-		if (opts['gconly'] && !m.chat.endsWith('g.us'))
+		if (opts['gconly'] && !m.chat.endsWith('g.us') && !isPrems)
 			return
 		if (opts['swonly'] && m.chat !== 'status@broadcast')
 			return
@@ -1174,12 +1176,7 @@ export async function deleteUpdate(message) {
 			}
 
 			const participant = msg.participant || msg.key.participant || msg.key.remoteJid
-
-			await this.reply(key.remoteJid, `
-		Terdeteksi @${participant.split`@`[0]} telah menghapus pesan
-Untuk mematikan fitur ini, ketik
-*.enable delete*
-`.trim(), msg, { mentions: [participant] })
+			await this.reply(key.remoteJid, `Terdeteksi @${participant.split`@`[0]} telah menghapus pesan\nUntuk mematikan fitur ini, ketik\n*.off antidelete*`, msg, { mentions: [participant] })
 			return await this.copyNForward(key.remoteJid, msg).catch(e => console.log(e, msg))
 		}))
 		tasks.map(t => t.status === 'rejected' && console.error(t.reason))

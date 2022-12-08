@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 
 let handler = async (m, { conn, usedPrefix, command }) => {
     try {
-        let res = await fetch(`https://api.waifu.im/random/?selected_tags=${command}`)
+        let res = await fetch(`https://api.waifu.im/search/?included_tags=${command}`)
         let json = await res.json()
         conn.sendButton(m.chat, `_Random pic : ${command}_`, packname + ' - ' + author, json.images[0].url, [[`⧑ next ${command} ⧑`, `${usedPrefix + command}`]], m)
     } catch (e) {
