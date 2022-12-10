@@ -1,12 +1,11 @@
-import { padLead, ranNumb, readMore } from '../lib/others.js'
+import { readMore, ranNumb, padLead } from '../lib/others.js'
 import { plugins } from '../lib/plugins.js'
 import { promises } from 'fs'
 import { join } from 'path'
 import fs from 'fs'
 
 let tagsgroup = {
-	'group': 'Some Admin Privilages',
-	'owner': '*Owner Bot Only*',
+	'group': '*Some Admin Privilages*'
 }
 const defaultMenu = {
 	before: `

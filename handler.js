@@ -15,8 +15,8 @@ import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
 // Sticker WM
-global.packname = 'Azami x Byoru'
-global.author = 'Bot V5'
+global.packname = '-'
+global.author = '-'
 
 //apikey
 global.api = 'apikeylu'		// https://api.lolhuman.xyz/docs apikeylu
@@ -746,29 +746,49 @@ export async function handler(chatUpdate) {
 				if (!('self' in settings)) settings.self = false
 				if (!('autoread' in settings)) settings.autoread = false
 				if (!('restrict' in settings)) settings.restrict = false
-				if (!('linkgc' in settings)) settings.linkgc = ''
 			} else db.data.settings[this.user.jid] = {
 				self: false,
 				autoread: false,
-				restrict: false,
-				linkgc: ''
+				restrict: false
 			}
-			let prems = db.data.prems
-			if (!Array.isArray(prems)) db.data.prems = [{user: '', date: 0}]
-			let owner = db.data.owner
-			if (!Array.isArray(owner)) db.data.owner = [['zzz']]
-			let store = db.data.store
-			if (!Array.isArray(store)) db.data.store = []
-			let menfess = db.data.menfess
-			if (!Array.isArray(menfess)) db.data.menfess = []
+			let datas = db.data.datas
+			if (typeof datas !== 'object') db.data.datas = {}
+			if (datas) {
+				if (!('packname' in datas)) datas.packname = ''
+				if (!('author' in datas)) datas.author = ''
+				if (!('linkgc' in datas)) datas.linkgc = ''
+				if (!('teksdonasi' in datas)) datas.teksdonasi = ''
+				if (!('tekssewa' in datas)) datas.tekssewa = ''
+				if (!('teksjadibot' in datas)) datas.teksjadibot = ''
+				if (!('tekstopup' in datas)) datas.tekstopup = ''
+				if (!('linkgc' in datas)) datas.linkgc = ''
+				if (!('prems' in datas)) datas.prems = [{user: '', date: 0}]
+				if (!('rowner' in datas)) datas.rowner = []
+				if (!('owner' in datas)) datas.owner = []
+				if (!('store' in datas)) datas.store = []
+				if (!('menfess' in datas)) datas.menfess = []
+			} else db.data.datas = {
+				packname: '',
+				author: '',
+				linkgc: '',
+				teksdonasi: '',
+				tekssewa: '',
+				teksjadibot: '',
+				tekstopup: '',
+				prems: [{user: '', date: 0}],
+				rowner: [],
+				owner: [],
+				store: [],
+				menfess: []
+			}
 		} catch (e) {
 			console.error(e)
 		}
 
 		const isMods = global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-		const isROwner = isMods || [this.decodeJid(this.user.id), ...global.owner.map(([number]) => number)].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-		const isOwner = isROwner || m.fromMe || db.data.owner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-		const isPrems = isOwner || db.data.prems.map(v => v.user).includes(m.sender)
+		const isROwner = isMods || [conn.decodeJid(global.conn.user.id), ...db.data.datas.rowner.map(([number]) => number)].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+		const isOwner = isROwner || m.fromMe || db.data.datas.owner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+		const isPrems = isOwner || db.data.datas.prems.map(v => v.user).includes(m.sender)
 
 		if (opts['nyimak'])
 			return
@@ -822,10 +842,12 @@ export async function handler(chatUpdate) {
 				} catch (e) {
 					// if (typeof e === 'string') continue
 					console.error(e)
-					for (let [jid] of global.owner.filter(([number, _, isDeveloper]) => isDeveloper && number)) {
-						let data = (await this.onWhatsApp(jid))[0] || {}
-						if (data.exists)
-							m.reply(`*Plugin:* ${name}\n*Sender:* ${m.sender}\n*Chat:* ${m.chat}\n*Command:* ${m.text}\n\n\`\`\`${format(e)}\`\`\``.trim(), data.jid)
+					if (db.data.datas.rowner.length > 0) {
+						for (let [jid] of db.data.datas.rowner.filter(([number, _, isDeveloper]) => isDeveloper && number)) {
+							let data = (await conn.onWhatsApp(jid))[0] || {}
+							if (data.exists)
+								m.reply(`*Plugin:* ${name}\n*Sender:* ${m.sender}\n*Chat:* ${m.chat}\n*Command:* ${m.text}\n\n\`\`\`${format(e)}\`\`\``.trim(), data.jid)
+						}
 					}
 				}
 			}
@@ -989,10 +1011,12 @@ export async function handler(chatUpdate) {
 						for (let key of Object.values(global.APIKeys))
 							text = text.replace(new RegExp(key, 'g'), '#HIDDEN#')
 						if (e.name)
-							for (let [jid] of global.owner.filter(([number, _, isDeveloper]) => isDeveloper && number)) {
-								let data = (await this.onWhatsApp(jid))[0] || {}
-								if (data.exists)
-									m.reply(`*Plugin:* ${m.plugin}\n*Sender:* ${m.sender}\n*Chat:* ${m.chat}\n*Command:* ${usedPrefix}${command} ${args.join(' ')}\n\n\`\`\`${text}\`\`\``.trim(), data.jid)
+							if (db.data.datas.rowner.length > 0) {
+								for (let [jid] of db.data.datas.rowner.filter(([number, _, isDeveloper]) => isDeveloper && number)) {
+									let data = (await conn.onWhatsApp(jid))[0] || {}
+									if (data.exists)
+										m.reply(`*Plugin:* ${m.plugin}\n*Sender:* ${m.sender}\n*Chat:* ${m.chat}\n*Command:* ${usedPrefix}${command} ${args.join(' ')}\n\n\`\`\`${text}\`\`\``.trim(), data.jid)
+								}
 							}
 						m.reply(text)
 					}
@@ -1189,7 +1213,7 @@ global.dfail = (type, m, conn) => {
 		rowner: `*「OWNERR BOT ONLY」*`,
 		owner: `*「OWNER BOT ONLY」*`,
 		mods: `*「DEV / MODS ONLY」*`,
-		premium: `*「PREMIUM USER ONLY」*\n\n*Or Get Full Access Here :*\n${db.data.settings[conn.user.jid].linkgc || 'https://chat.whatsapp.com/KH2teKqiSpq3GPZbXgNchs'}\n\nOtherwise type this : *.privatecmd*`,
+		premium: `*「PREMIUM USER ONLY」*\n\n*Or Get Full Access Here :*\n${db.data.datas.linkgc || 'https://chat.whatsapp.com/KH2teKqiSpq3GPZbXgNchs'}\n\nOtherwise type this : *.privatecmd*`,
 		group: `*「GROUP ONLY」*`,
 		private: `*「PRIVATE CHAT ONLY」*`,
 		admin: `*「ADMIN GROUP ONLY」*`,

@@ -35,8 +35,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     }
 }
 
-handler.menugroup = ['broadcastchat'].map(v => v + ' <teks>')
-handler.tagsgroup = ['owner']
+handler.menuowner = ['broadcastchat'].map(v => v + ' <teks>')
+handler.tagsowner = ['owner']
 handler.command = /^((bc|broadcast)chats?|bcc)$/i
 
 handler.owner = true

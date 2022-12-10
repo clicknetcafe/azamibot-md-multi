@@ -11,8 +11,8 @@ let handler = async (m, { text }) => {
 }
 
 
-handler.menugroup = ['cmddel <teks>']
-handler.tagsgroup = ['owner']
+handler.menuowner = ['cmddel <teks>']
+handler.tagsowner = ['owner']
 handler.command = /^(delcmd|cmddel)$/i
 
 handler.owner = true

@@ -17,8 +17,8 @@ let handler = async (m, { text }) => {
 	}
 }
 
-handler.menugroup = ['unbanchat']
-handler.tagsgroup = ['owner']
+handler.menuowner = ['unbanchat']
+handler.tagsowner = ['owner']
 handler.command = /^(unbanchat)$/i
 
 handler.owner = true

@@ -8,16 +8,16 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	let meh = await conn.onWhatsApp(who)
 	if (meh.length == 0) return m.reply(`[!] Failed, @${(who.split('@')[0] || '')} bukan pengguna WhatsApp.`, null, { mentions: [who] })
 	who = meh[0].jid.split('@')[0]
-	if (meh[0].jid == conn.user.jid) return m.reply(`[ ! ] Nomor Bot sudah otomatis menjadi owner.`)
-	if (db.data.datas.owner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(meh[0].jid)) return m.reply('[ ! ] Dia sudah jadi owner.')
+	if (meh[0].jid == conn.user.jid) return m.reply(`[ ! ] Nomor Bot sudah otomatis menjadi real owner.`)
 	if (db.data.datas.rowner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(meh[0].jid)) return m.reply('[ ! ] Dia sudah jadi real owner.')
-	db.data.datas.owner.push([who, text[1], true])
-	await conn.sendMessage(m.chat, { text: `Sukses menjadikan @${(who || '').replace(/@s\.whatsapp\.net/g, '')} sebagai *owner*.`, mentions: [meh[0].jid] }, { quoted: m })
+	if (db.data.datas.owner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(meh[0].jid)) return m.reply('[ ! ] Dia sudah ada di list owner.')
+	db.data.datas.rowner.push([who, text[1], true])
+	await conn.sendMessage(m.chat, { text: `Sukses menjadikan @${(who || '').replace(/@s\.whatsapp\.net/g, '')} sebagai *real owner*.`, mentions: [meh[0].jid] }, { quoted: m })
 }
 
-handler.menuowner = ['addowner']
+handler.menuowner = ['addrealowner']
 handler.tagsowner = ['ownerr']
-handler.command = /^(addowner)$/i
+handler.command = /^(addr(eal)?owner)$/i
 
 handler.rowner = true
 

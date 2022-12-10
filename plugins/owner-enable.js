@@ -1,10 +1,10 @@
 import db from '../lib/database.js'
 
 String.prototype.includesOneOf = function(arrayOfStrings) {
-	if(!Array.isArray(arrayOfStrings)) {
+  if(!Array.isArray(arrayOfStrings)) {
 	throw new Error('includesOneOf only accepts an array')
-	}
-	return arrayOfStrings.some(str => this.includes(str))
+  }
+  return arrayOfStrings.some(str => this.includes(str))
 }
 
 let handler = async (m, { conn, usedPrefix, command, isOwner, args }) => {
@@ -26,6 +26,6 @@ let handler = async (m, { conn, usedPrefix, command, isOwner, args }) => {
 	}
 }
 
-handler.command = /^(welcome|nsfw|game|antilink)$/i
+handler.command = /^(welcome|nsfw|game|antilink|antivirus)$/i
 
 export default handler

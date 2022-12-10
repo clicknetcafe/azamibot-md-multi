@@ -36,8 +36,8 @@ let handler = async (m, { conn, command, usedPrefix }) => {
 	}
 }
 
-handler.menugroup = ['setppbot']
-handler.tagsgroup = ['owner']
+handler.menuowner = ['setppbot']
+handler.tagsowner = ['owner']
 handler.command = /^(set(botpp|ppbot)(2|panjang|full?)?)$/i
 
 handler.owner = true

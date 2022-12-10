@@ -1,7 +1,8 @@
 import db from '../lib/database.js'
 
-let handler = async (m) => {
-	const data = [...global.owner.filter(([id, isCreator]) => id && isCreator), ...db.data.owner.filter(([id, isCreator]) => id && isCreator)]
+let handler = async (m, { command, usedPrefix}) => {
+	const data = [...db.data.datas.rowner.filter(([id, isCreator]) => id && isCreator), ...db.data.datas.owner.filter(([id, isCreator]) => id && isCreator)]
+	if (data.length == 0) throw `*[ ! ] Real Owner belum di set.*\n\n*${usedPrefix}addrealowner* untuk menambahkan Owner Asli.\n\n*${usedPrefix}addowner* untuk menambahkan Owner Biasa.`
 	await conn.sendContact(m.chat, data.map(([id, name]) => [id, name]), m)
 }
 

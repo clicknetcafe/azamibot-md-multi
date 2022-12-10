@@ -11,8 +11,8 @@ let handler = async (m, { usedPrefix, command, text, __dirname }) => {
     m.reply(fs.readFileSync(filename, 'utf8'))
 }
 
-handler.menugroup = ['getplugin']
-handler.tagsgroup = ['owner']
+handler.menuowner = ['getplugin']
+handler.tagsowner = ['mods']
 handler.command = /^(gp|getplugin|pg|pluginget)$/i
 
 handler.mods = true

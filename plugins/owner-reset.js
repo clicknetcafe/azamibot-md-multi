@@ -39,10 +39,10 @@ let handler = async (m, { conn, args, command, usedPrefix }) => {
 	}
 }
 
-handler.mengroup = ['setall <data>']
-handler.tagsgroup = ['owner']
+handler.menuowner = ['setall <data>']
+handler.tagsowner = ['ownerr']
 handler.command = /^((re)?setall)$/i
 
-handler.owner = true
+handler.rowner = true
 
 export default handler

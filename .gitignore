@@ -149,14 +149,6 @@ plugins/random-cerpen.js
 plugins/random-fakta.js
 plugins/random-people.js
 plugins/random-quotenime.js
-plugins/req-autohai.js
-plugins/req-bansos.js
-plugins/req-duel.js
-plugins/req-dungeon.js
-plugins/req-how.js
-plugins/req-nambang.js
-plugins/req-nebang.js
-plugins/req-ojek.js
 plugins/rpg-bank.js
 plugins/rpg-banknabung.js
 plugins/rpg-banknarik.js

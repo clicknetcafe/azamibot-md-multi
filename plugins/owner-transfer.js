@@ -61,12 +61,6 @@ handler.before = async m => {
         let _previous = _user[type] * 1
         user[type] -= count * 1
         _user[type] += count * 1
-        /*if (previous > user[type] * 1 && _previous < _user[type] * 1) m.reply(`Succes transfer *${count}* ${rpg.emoticon(type)}${type}${special(type)} to *@${(to || '').replace(/@s\.whatsapp\.net/g, '')}*`, null, { mentions: [to] })
-        else {
-            user[type] = previous
-            _user[type] = _previous
-            m.reply(`Failted to transfer *${count}* ${rpg.emoticon(type)}${type}${special(type)} to *@${(to || '').replace(/@s\.whatsapp\.net/g, '')}*`, null, { mentions: [to] })
-        }*/
         if (count.toString().includes('-')) {
             m.reply(`Succes take *${count.toString().replace('-', '')}* ${rpg.emoticon(type)}${type}${special(type)} from *@${(to || '').replace(/@s\.whatsapp\.net/g, '')}*`, null, { mentions: [to] })
         } else {
@@ -77,8 +71,8 @@ handler.before = async m => {
     }
 }
 
-handler.menugroup = ['tfowner'].map(v => v + ' [type] [jumlah] [@tag]')
-handler.tagsgroup = ['owner']
+handler.menuowner = ['tfowner'].map(v => v + ' [type] [jumlah] [@tag]')
+handler.tagsowner = ['owner']
 handler.command = /^((transfer|tf)owner)$/i
 
 handler.owner = true

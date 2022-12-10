@@ -16,8 +16,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     }
 }
 
-handler.menugroup = ['cash <nominal>']
-handler.tagsgroup = ['owner']
+handler.menuowner = ['cash <nominal>']
+handler.tagsowner = ['owner']
 handler.command = /^(cash)$/i
 
 handler.owner = true

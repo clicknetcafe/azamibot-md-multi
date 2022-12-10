@@ -1,4 +1,5 @@
 import db from '../lib/database.js'
+
 import pkg from '@adiwajshing/baileys';
 const { WA_DEFAULT_EPHEMERAL, groupToggleEphemeral } = pkg;
 
@@ -225,7 +226,7 @@ Example :
 }
 
 handler.menugroup = ['en', 'dis'].map(v => v + 'able <option>')
-handler.tagsgroup = ['group', 'owner']
+handler.tagsgroup = ['group']
 handler.command = /^((en|dis)able|(tru|fals)e|(turn)?o(n|ff)|[01])$/i
 
 export default handler

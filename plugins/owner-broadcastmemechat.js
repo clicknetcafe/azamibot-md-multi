@@ -26,8 +26,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 		m.reply(`Kirim gambar dengan caption *${usedPrefix + command}* atau tag gambar yang sudah dikirim`)
 	}
 }
-handler.menugroup = ['bcmemechat'].map(v => v + ' <teks>')
-handler.tagsgroup = ['owner']
+handler.menuowner = ['bcmemechat'].map(v => v + ' <teks>')
+handler.tagsowner = ['owner']
 handler.command = /^((broadcast|bc)memechats?)$/i
 
 handler.owner = true

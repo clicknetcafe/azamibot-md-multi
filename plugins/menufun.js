@@ -1,4 +1,4 @@
-import { padLead, ranNumb, readMore } from '../lib/others.js'
+import { readMore, ranNumb, padLead } from '../lib/others.js'
 import { plugins } from '../lib/plugins.js'
 import { promises } from 'fs'
 import { join } from 'path'
@@ -77,6 +77,6 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 }
 handler.help = ['*menufun*']
 handler.tags = ['submenu']
-handler.command = /^((fun|rpg)m(enu)?|m(enu)?(fun|rpg))$/i
+handler.command = /^((fun|rpg|games?)m(enu)?|m(enu)?(fun|rpg|games?))$/i
 
 export default handler

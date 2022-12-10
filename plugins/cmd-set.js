@@ -18,8 +18,8 @@ let handler = async (m, { text, usedPrefix, command }) => {
     m.reply(`Berhasil!`)
 }
 
-handler.menugroup = ['cmdset']
-handler.tagsgroup = ['owner']
+handler.menuowner = ['cmdset']
+handler.tagsowner = ['owner']
 handler.command = /^((set|add)cmd|cmd(set|add))$/i
 
 handler.owner = true

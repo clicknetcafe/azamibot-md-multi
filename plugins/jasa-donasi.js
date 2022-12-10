@@ -1,17 +1,10 @@
-let handler =  m => m.reply(`
-╭─「 🧚🏻‍♂️ *DONASI* 」
-│
-├ PULSA / OVO / DANA / GOPAY :
-├ • *082337245566*
-│
-├ SAWERIA
-├ _https://saweria.co/clicknetcafe_
-│
-├ Ownerku
-├ _wa.me/6282337245566_
-│
-╰───「 ${packname} 」
-`.trim()) // Tambah sendiri kalo mau
+import db from '../lib/database.js'
+
+let handler = async (m, { conn, usedPrefix, command }) => {
+	let p = db.data.datas.teksdonasi
+	if (!p) throw `[ ! ] Belum di set oleh owner.\n\nCommand *${usedPrefix}setteksdonasi* untuk menambahkan teks ${command}`
+	await m.reply(p)
+}
 
 handler.menugroup = ['donasi']
 handler.tagsgroup = ['group']

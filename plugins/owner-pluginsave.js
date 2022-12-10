@@ -2,7 +2,6 @@ import fs from 'fs'
 
 let handler = async (m, { usedPrefix, command, text }) => {
 	if (!text) return m.reply(`Nama plugin nya apa ?\n\nContoh : *${usedPrefix + command} sc*`)
-	if (text.includes('owner-pluginget') || text.includes('owner-pluginsave')) return m.reply(`dilarang edit plugin ${text}`)
 	const files = fs.readdirSync('./plugins')
 	let listall = `${files}`
 	try {
@@ -19,8 +18,8 @@ let handler = async (m, { usedPrefix, command, text }) => {
 	}
 }
 
-handler.menugroup = ['saveplugin']
-handler.tagsgroup = ['owner']
+handler.menuowner = ['saveplugin']
+handler.tagsowner = ['mods']
 handler.command = /^((save|sf)(plugins?)?|pluginsave)$/i
 
 handler.mods = true

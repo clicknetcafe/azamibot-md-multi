@@ -7,10 +7,6 @@ import { xpRange } from '../lib/levelling.js'
 import fs from 'fs'
 import os from 'os'
 
-/*`#OS Version : %osversion#
-#OS Arch : %osarch | %oscore Core | %osspeed#
-#OS Uptime : %osuptime#`*/
-
 let tagsm = {}
 const defaultMenu = {
 	before: `%name!
@@ -120,6 +116,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPr
 						rows: [
 							{title: '🎪 ALL MENU', rowId: usedPrefix + 'menuall', description: '● Menampilkan Semua Menu'},
 							{title: '🪙 STORE', rowId: usedPrefix + 'menustore', description: '🛒 Bot Store : List Items'},
+							{title: '🪷 OWNER', rowId: usedPrefix + 'menuowner', description: '◉ Owner, ROwner, Mods Privilages'},
 							{title: '🎎 ANIME', rowId: usedPrefix + 'menuanime', description: '◉ Cari Manga, Anime, Random Pic'},
 							{title: '⌛ DOWNLOAD', rowId: usedPrefix + 'menudownload',  description: '◎ Youtube, Facebook, Tiktok, Dll...'},
 							{title: '🎮 GAMES & FUN', rowId: usedPrefix + 'menufun', description: '⊛ RPG, Kuis, Anonymous'},
@@ -142,7 +139,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPr
 				]
 				const listMessage = {
 					text: text.replaceAll('#','```').trim(),
-					footer: global.wm,
+					footer: packname + ' - ' + author,
 					//title: `⎔───「 ${packname} 」───⎔`,
 					buttonText: `SUB MENU 🎫`,
 					sections
@@ -155,8 +152,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPr
 		throw e
 	}
 }
-handler.command = /^((m(enu)?|help)(list)?|\?)$/i
 
-handler.exp = 3
+handler.command = /^((m(enu)?|help)(list)?|\?)$/i
 
 export default handler

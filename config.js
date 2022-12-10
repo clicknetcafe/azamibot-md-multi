@@ -2,7 +2,7 @@ import { watchFile, unwatchFile } from 'fs'
 import chalk from 'chalk'
 import { fileURLToPath } from 'url'
 
-global.owner = [['6282337245566', 'Syahrul A.S', true]] // Put your number here
+// Real Owner moved to db.data.datas.rowner
 global.mods = ['6282337245566'] // Developer / Mods Number
 global.APIs = { // API Prefix
 	// name: 'https://website'

@@ -11,8 +11,8 @@ ${Object.entries(db.data.sticker).map(([key, value], index) => `${index + 1}. ${
     })
 }
 
-handler.menugroup = ['cmdlist']
-handler.tagsgroup = ['owner']
+handler.menuowner = ['cmdlist']
+handler.tagsowner = ['owner']
 handler.command = /^(listcmd|cmdlist)$/i
 
 export default handler

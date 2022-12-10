@@ -8,8 +8,8 @@ let handler = async (m, { command, usedPrefix, text }) => {
     m.reply(`Berhasil menghapus pesan di daftar pesan dengan nama '${text}'`)
 }
 
-handler.menugroup = ['msg'].map(v => 'del' + v + ' <teks>')
-handler.tagsgroup = ['owner']
+handler.menuowner = ['msg'].map(v => 'del' + v + ' <teks>')
+handler.tagsowner = ['owner']
 handler.command = /^(delmsg|msgdel)$/i
 
 handler.owner = true

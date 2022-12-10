@@ -13,8 +13,8 @@ Akses/ambil dengan mengetik namanya
 `.trim())
 }
 
-handler.menugroup = ['msg'].map(v => 'list' + v)
-handler.tagsgroup = ['owner']
+handler.menuowner = ['msg'].map(v => 'list' + v)
+handler.tagsowner = ['owner']
 handler.command = /^(listmsg|msglist)$/i
 
 handler.owner = true

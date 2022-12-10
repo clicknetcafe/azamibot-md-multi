@@ -10,8 +10,8 @@ let handler = async (m, { command }) => {
 	m.reply('Done!')
 }
 
-handler.menugroup = ['cmdlock','cmdunlock']
-handler.tagsgroup = ['owner']
+handler.menuowner = ['cmdlock','cmdunlock']
+handler.tagsowner = ['owner']
 handler.command = /^((un)?lockcmd|cmd(un)?lock)$/i
 
 handler.owner = true

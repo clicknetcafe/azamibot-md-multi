@@ -21,8 +21,8 @@ let handler = async (m, { conn, args, command }) => {
 
 }
 
-handler.menugroup = ['gc', 'gcall', 'group'].map(v => 'leave' + v)
-handler.tagsgroup = ['owner']
+handler.menuowner = ['gc', 'gcall', 'group'].map(v => 'leave' + v)
+handler.tagsowner = ['ownerr']
 handler.command = /^(leaveg(c|ro?up)(all|semua)?)$/i
 
 handler.rowner = true

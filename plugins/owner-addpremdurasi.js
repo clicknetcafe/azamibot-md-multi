@@ -8,7 +8,7 @@ let handler = async (m, { conn, command, args }) => {
 	else who = m.quoted ? m.quoted.sender : m.chat ? m.chat : ''
 	if (!who) return m.reply(`tag orangnya!`)
 	let user = db.data.users
-	let prems = db.data.prems
+	let prems = db.data.datas.prems
 	who = who.replace(/\D/g,'') + '@s.whatsapp.net'
 	if (!user[who]) return m.reply(`[!] User tidak ada dalam database.`)
 	if (!prems.map(v => v.user).includes(who)) return m.reply(`[ ! ] User tidak ada dalam list premium.`)
@@ -23,12 +23,12 @@ let handler = async (m, { conn, command, args }) => {
 		prems[idx].date += durasi * cooldown
 		user[who].expired += durasi * cooldown
 	}
-	db.data.prems = prems
+	db.data.datas.prems = prems
 	await conn.sendMessage(m.chat, { text: `${(command.includes('min') || command.includes('kurang')) ? 'Mengurangi' : 'Menambah'} durasi premium @${(who || '').replace(/@s\.whatsapp\.net/g, '')} sebanyak *${durasi} hari*`, mentions: [who] }, { quoted: m })
 }
 
 handler.mengroup = ['addpremdurasi <@tag>']
-handler.tagsgroup = ['owner']
+handler.tagsowner = ['owner']
 handler.command = /^(((t|n)ambah|add|plus|min|kurang)(prem(ium)?dura(si|tion)|dura(si|tion)prem(ium)?))$/i
 
 handler.owner = true

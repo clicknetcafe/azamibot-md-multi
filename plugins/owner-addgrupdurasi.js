@@ -1,4 +1,5 @@
 import db from '../lib/database.js'
+
 const cooldown = 86400000
 
 let handler = async (m, { conn, command, text }) => {
@@ -18,8 +19,8 @@ let handler = async (m, { conn, command, text }) => {
 	await conn.sendMessage(m.chat, { text: `${(command.includes('min') || command.includes('kurang')) ? 'Mengurangi' : 'Menambah'} durasi join di grup sebanyak *${durasi} hari*` }, { quoted: m })
 }
 
-handler.mengroup = ['addjoindurasi']
-handler.tagsgroup = ['owner']
+handler.menuowner = ['addjoindurasi']
+handler.tagsowner = ['owner']
 handler.command = /^(((t|n)ambah|add|plus|min|kurang)((gro?up|join|sewa)dura(si|tion)|dura(si|tion)(gro?up|join|sewa)))$/i
 
 handler.owner = true

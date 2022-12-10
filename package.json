@@ -44,6 +44,7 @@
 		"@ibaraki-douji/pixivts": "^2.0.2",
 		"@shineiichijo/nhentai-ts": "^1.0.0",
 		"@vitalets/google-translate-api": "^9.0.0",
+		"@xct007/tiktok-scraper": "^0.0.1",
 		"aki-api": "^6.0.8",
 		"awesome-phonenumber": "^4.0.0",
 		"axios": "^1.2.1",

@@ -17,8 +17,8 @@ let handler = async (m, { conn }) => {
     }
 }
 
-handler.menugroup = ['ban @tag']
-handler.tagsgroup = ['owner']
+handler.menuowner = ['ban @tag']
+handler.tagsowner = ['owner']
 handler.command = /^(unban)$/i
 
 handler.owner = true

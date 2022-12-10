@@ -1,5 +1,4 @@
 import db from '../lib/database.js'
-
 const { proto } = (await import('@adiwajshing/baileys')).default
 
 let handler = async (m, { conn, command, usedPrefix, text }) => {
@@ -12,8 +11,8 @@ let handler = async (m, { conn, command, usedPrefix, text }) => {
     m.reply(`Berhasil menambahkan pesan '${text}'\n\nAkses dengan mengetik namanya`.trim())
 }
 
-handler.menugroup = ['msg'].map(v => 'add' + v + ' <teks>')
-handler.tagsgroup = ['owner']
+handler.menuowner = ['msg'].map(v => 'add' + v + ' <teks>')
+handler.tagsowner = ['owner']
 handler.command = /^(addmsg|msgadd)$/i
 
 handler.owner = true

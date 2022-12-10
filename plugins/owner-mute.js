@@ -15,8 +15,8 @@ let handler = async (m, { conn, args, usedPrefix, isOwner, command }) => {
     m.reply(`Bot senyap selama ${total} menit!`)
 }
 
-handler.menugroup = ['omute']
-handler.tagsgroup = ['owner']
+handler.menuowner = ['omute']
+handler.tagsowner = ['owner']
 handler.command = /^(o(mute|senyap))$/i
 
 handler.owner = true
