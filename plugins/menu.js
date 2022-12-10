@@ -7,6 +7,10 @@ import { xpRange } from '../lib/levelling.js'
 import fs from 'fs'
 import os from 'os'
 
+/*`#OS Version : %osversion#
+#OS Arch : %osarch | %oscore Core | %osspeed#
+#OS Uptime : %osuptime#`*/
+
 let tagsm = {}
 const defaultMenu = {
 	before: `%name!

@@ -13,9 +13,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 		let ini_txt = `${year + month + date + "_" + hours + minutes + seconds}`
 
 		let database = await fs.readFileSync(`./database.json`)
-		let session = await fs.readFileSync(`./session.data.json`)
+		let session = await fs.readFileSync(`./sessions/creds.json`)
 		await conn.sendMessage(m.sender, {document: database, mimetype: 'application/json', fileName: `database_azami_${ini_txt}.json`}, { quoted : m })
-		await conn.sendMessage(m.sender, {document: session, mimetype: 'application/json', fileName: `session_azami_${ini_txt}.json`}, { quoted : m })
+		await conn.sendMessage(m.sender, {document: session, mimetype: 'application/json', fileName: `creds_azami_${ini_txt}.json`}, { quoted : m })
 	} catch (e) {
 		console.log(e)
 		m.reply(`Terjadi kesalahan, coba lagi.`)
