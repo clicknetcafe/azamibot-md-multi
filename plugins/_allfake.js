@@ -6,7 +6,7 @@ import { pickRandom } from '../lib/others.js'
 
 let handler = m => m
 	handler.all = async function (m) {
-	let name = await conn.getName(m.sender)
+	let name = await this.getName(m.sender)
 	let d = new Date(new Date + 3600000)
 	let locale = 'id'
 	let timeh = `🕰️ ${d.toLocaleTimeString(locale, { hour: 'numeric', minute: 'numeric', second: 'numeric' }).replaceAll('.',':')}`
@@ -27,7 +27,7 @@ let handler = m => m
 		global.ftroli = { key: {participant : '0@s.whatsapp.net'}, message: { orderMessage: { itemCount: 2023, status: 1, surface: 1, message: timeh, ordertitle: packname + author, sellerJid: '0@s.whatsapp.net' } } }
 
 		// fake kontak
-		global.fkontak = { key: {participant : '0@s.whatsapp.net'}, message: { 'contactMessage': { 'displayName': conn.getName(m.sender), 'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;${packname},;;;\nFN:${packname},\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabell:Ponsel\nEND:VCARD`, 'jpegThumbnail': fs.readFileSync('./media/thumbnail.jpg'), thumbnail: fs.readFileSync('./media/thumbnail.jpg'),sendEphemeral: true}}}
+		global.fkontak = { key: {participant : '0@s.whatsapp.net'}, message: { 'contactMessage': { 'displayName': this.getName(m.sender), 'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;${packname},;;;\nFN:${packname},\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabell:Ponsel\nEND:VCARD`, 'jpegThumbnail': fs.readFileSync('./media/thumbnail.jpg'), thumbnail: fs.readFileSync('./media/thumbnail.jpg'),sendEphemeral: true}}}
 		
 		// fake vn
 		global.fvn = {
