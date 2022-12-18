@@ -1,15 +1,9 @@
 import db from '../lib/database.js'
-
-String.prototype.includesOneOf = function(arrayOfStrings) {
-  if(!Array.isArray(arrayOfStrings)) {
-	throw new Error('includesOneOf only accepts an array')
-  }
-  return arrayOfStrings.some(str => this.includes(str))
-}
+import { somematch } from '../lib/others.js'
 
 let handler = async (m, { conn, usedPrefix, command, isOwner, args }) => {
 	if (isOwner && m.isGroup) {
-		if (!args[0] || !args[0].toLowerCase().includesOneOf(["on", "off"])) return m.reply(`Usage : ${usedPrefix + command} on / off\n\nExample : *${usedPrefix + command} on*`)
+		if (!args[0] || !somematch(['on','off'], args[0].toLowerCase())) return m.reply(`Usage : ${usedPrefix + command} on / off\n\nExample : *${usedPrefix + command} on*`)
 		if (command == 'antilink') {
 			if (args[0] == 'on') {
 				db.data.chats[m.chat].antiLink = true

@@ -1,5 +1,5 @@
 import db from '../lib/database.js'
-import { isNumber, readMore } from '../lib/others.js'
+import { isNumber, readMore, somematch } from '../lib/others.js'
 
 const items = {
 	buy: {
@@ -368,16 +368,9 @@ const items = {
 	}
 }
 
-String.prototype.includesOneOf = function(arrayOfStrings) {
-	if(!Array.isArray(arrayOfStrings)) {
-	throw new Error('includesOneOf only accepts an array')
-	}
-	return arrayOfStrings.some(str => this.includes(str))
-}
-
 let handler = async (m, { command, usedPrefix, args, isPrems }) => {
 	let user = db.data.users[m.sender]
-	const listItems = Object.fromEntries(Object.entries(items[`${command.toLowerCase().includesOneOf(["buy", "shop", "beli"]) ? 'buy' : 'sell'}`]).filter(([v]) => v && v in user))
+	const listItems = Object.fromEntries(Object.entries(items[`${somematch(['buy','shop','beli'], command.toLowerCase()) ? 'buy' : 'sell'}`]).filter(([v]) => v && v in user))
 	let info = `Format : *${usedPrefix + command} [item] [jumlah]*\n`
 	info += `Contoh : *${usedPrefix}${command} limit 10*\n\n`
 	info += `*━━━[ DAILY ITEMS ]━━━*\n%🌌 limit%\n%🥤 potion%\n%🍖 petfood%\n\n`
@@ -466,12 +459,12 @@ let handler = async (m, { command, usedPrefix, args, isPrems }) => {
 	
 	const item = (args[0] || '').toLowerCase()
 	const total = Math.floor(isNumber(args[1]) ? Math.min(Math.max(parseInt(args[1]), 1), Number.MAX_SAFE_INTEGER) : 1) * 1
-	if (!listItems[item] && command.toLowerCase().includesOneOf(["buy", "shop", "beli"])) return m.reply(info.replaceAll('%', '```'))
-	if (!listItems[item] && command.toLowerCase().includesOneOf(["sell", "jual"])) return m.reply(infos.replaceAll('%', '```'))
+	if (!listItems[item] && somematch(['buy','shop','beli'], command.toLowerCase())) return m.reply(info.replaceAll('%', '```'))
+	if (!listItems[item] && somematch(['sell','jual'], command.toLowerCase())) return m.reply(infos.replaceAll('%', '```'))
 	let paymentMethod = Object.keys(listItems[item]).find(v => v in user)
-	if (command.toLowerCase().includesOneOf(["buy", "shop", "beli"])) {
+	if (somematch(['buy','shop','beli'], command.toLowerCase())) {
 		if (isPrems && item == 'limit') throw `[!] Premium User tidak perlu limit.`
-		if (args[0].toLowerCase().includesOneOf(["horse", "cat", "fox", "dog", "wolf", "centaur", "phoenix", "dragon", "rumahsakit", "restoran", "pabrik", "tambang", "pelabuhan"])) {
+		if (somematch(['horse', 'cat', 'fox', 'dog', 'wolf', 'centaur', 'phoenix', 'dragon', 'rumahsakit', 'restoran', 'pabrik', 'tambang', 'pelabuhan'], args[0].toLowerCase())) {
 			if (user[`${item}`] == 0) {
 				if (total > 1) return m.reply(`Kamu belum memiliki *${global.rpg.emoticon(item)}${item}*, hanya dapat beli 1`)
 				if (user[paymentMethod] < listItems[item][paymentMethod] * total) return m.reply(`Kamu tidak memiliki cukup ${paymentMethod} untuk membeli *${total} ${global.rpg.emoticon(item)}${item}*.\nDibutuhkan *${(listItems[item][paymentMethod] * total) - user[paymentMethod]} ${global.rpg.emoticon(paymentMethod)} ${paymentMethod}* untuk dapat membeli.`)
@@ -494,7 +487,7 @@ let handler = async (m, { command, usedPrefix, args, isPrems }) => {
 			return m.reply(`Membeli *${total} ${global.rpg.emoticon(item)}${item}* seharga *${listItems[item][paymentMethod] * total} ${global.rpg.emoticon(paymentMethod)} ${paymentMethod}*`)
 		}
 	} else {
-		if (args[0].toLowerCase().includesOneOf(["horse", "cat", "fox", "dog", "wolf", "centaur", "phoenix", "dragon", "rumahsakit", "restoran", "pabrik", "tambang", "pelabuhan"])) {
+		if (somematch(['horse', 'cat', 'fox', 'dog', 'wolf', 'centaur', 'phoenix', 'dragon', 'rumahsakit', 'restoran', 'pabrik', 'tambang', 'pelabuhan'], args[0].toLowerCase())) {
 			let harga = listItems[item][paymentMethod] * total * user[`${item}lvl`]
 			if (user[item] == 0) return m.reply(`Kamu tidak memiliki *${global.rpg.emoticon(item)}${item}* untuk dijual.`)
 			if (user[item] < total) return m.reply(`Kamu hanya memiliki *${user[item]}${global.rpg.emoticon(item)}${item}* untuk dijual.`)

@@ -1,16 +1,9 @@
 import genshindb from 'genshin-db'
 
-String.prototype.includesOneOf = function(arrayOfStrings) {
-	if(!Array.isArray(arrayOfStrings)) {
-	throw new Error('includesOneOf only accepts an array')
-	}
-	return arrayOfStrings.some(str => this.includes(str))
-}
-
 let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 	if (!text) throw `Example : *${usedPrefix + command} klee*`
 	try {
-		let anu = await genshindb.namecards(`${text}`)
+		let anu = await genshindb.namecards(text)
 		let ini_txt = `*${anu.name}*\n\n`
 		ini_txt += `*[ ${anu.description.replace('\n',' ]*\n_"')}"_\n\n`
 		ini_txt += `${anu.source ? `*Source :* ${anu.source.toString().replaceAll(',',', ')}` : ''}`

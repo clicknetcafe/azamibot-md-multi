@@ -1,12 +1,5 @@
 import db from '../lib/database.js'
-import { isNumber, ranNumb } from '../lib/others.js'
-
-String.prototype.includesOneOf = function(arrayOfStrings) {
-	if(!Array.isArray(arrayOfStrings)) {
-		throw new Error('includesOneOf only accepts an array')
-	}
-	return arrayOfStrings.some(str => this.includes(str))
-}
+import { isNumber, ranNumb, somematch } from '../lib/others.js'
 
 let handler = async (m, { command, args, usedPrefix }) => {
 	let user = db.data.users[m.sender]
@@ -15,7 +8,8 @@ let handler = async (m, { command, args, usedPrefix }) => {
 	let total = Math.floor(isNumber(args[1]) ? Math.min(Math.max(parseInt(args[1]), 1), Number.MAX_SAFE_INTEGER) : 1) * 1
 	if (user[type] < total) return m.reply(`Kamu tidak memiliki *${global.rpg.emoticon(type)} ${type} crate*.`)
 	if (user[type] < total) return m.reply(`Kamu hanya memiliki *${global.rpg.emoticon(type)} ${user[type]} ${type} crate* untuk dibuka.`)
-	if (type.toLowerCase().includesOneOf(["common", "uncommon", "mythic", "legendary","petbox"])) {
+	if (total > 100) total = 100
+	if (somematch(['common', 'uncommon', 'mythic', 'legendary','petbox'], type)) {
 		if (type == 'common') {
 			let common = 0
 			let uncommon = 0

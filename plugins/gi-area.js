@@ -1,16 +1,9 @@
 import genshindb from 'genshin-db'
 
-String.prototype.includesOneOf = function(arrayOfStrings) {
-	if(!Array.isArray(arrayOfStrings)) {
-	throw new Error('includesOneOf only accepts an array')
-	}
-	return arrayOfStrings.some(str => this.includes(str))
-}
-
 let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 	if (!text) throw `Example : *${usedPrefix + command} library*`
 	try {
-		let anu = await genshindb.geographies(`${text}`)
+		let anu = await genshindb.geographies(text)
 		let ini_txt = `*Found : ${anu.name}*\n\n`
 		ini_txt += `_"${anu.description}"_\n\n`
 		ini_txt += `*Area :* ${anu.area}\n`

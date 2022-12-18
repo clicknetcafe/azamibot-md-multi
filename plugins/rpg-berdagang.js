@@ -1,10 +1,5 @@
 import db from '../lib/database.js'
 import { ranNumb } from '../lib/others.js'
-//const cooldown = 1000 // 1 detik
-//const cooldown = 60000 // 1 menit
-//const cooldown = 3600000 // 1 jam
-//const cooldown = 86400000 // 1 hari
-//const cooldown = 2592000000 // 1 bulan
 
 const cooldown = 7200000
 

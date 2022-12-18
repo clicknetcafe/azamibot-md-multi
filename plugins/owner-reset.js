@@ -1,12 +1,5 @@
 import db from '../lib/database.js'
-import { isNumber } from '../lib/others.js'
-
-String.prototype.includesOneOf = function(arrayOfStrings) {
-	if(!Array.isArray(arrayOfStrings)) {
-	throw new Error('includesOneOf only accepts an array')
-	}
-	return arrayOfStrings.some(str => this.includes(str))
-}
+import { isNumber, somematch } from '../lib/others.js'
 
 let handler = async (m, { conn, args, command, usedPrefix }) => {
 	const item = (args[0] || '').toLowerCase()
@@ -22,7 +15,7 @@ let handler = async (m, { conn, args, command, usedPrefix }) => {
 	ini_txt += `- gold`
 	args[1] = Math.floor(isNumber(args[1]) ? Math.min(Math.max(parseInt(args[1]), 1), Number.MAX_SAFE_INTEGER) : 1) * 1
 	if (args[1] > 999999999999999) args[1] = 999999999999999
-	if (item.toLowerCase().includesOneOf(['exp','money','atm','limit','potion','emerald','diamond','gold'])) {
+	if (somematch(['exp','money','atm','limit','potion','emerald','diamond','gold'], item)) {
 		let user = db.data.users
 		let ini_txt = `List users :\n\n`
 		for (let x of Object.keys(user)) {

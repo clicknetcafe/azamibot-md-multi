@@ -1,14 +1,7 @@
 import db from '../lib/database.js'
-import { isNumber } from '../lib/others.js'
+import { isNumber, someincludes } from '../lib/others.js'
 
 const cooldown = 60000
-
-String.prototype.includesOneOf = function(arrayOfStrings) {
-	if(!Array.isArray(arrayOfStrings)) {
-	throw new Error('includesOneOf only accepts an array')
-	}
-	return arrayOfStrings.some(str => this.includes(str))
-}
 
 let handler = async (m, { conn, participants, usedPrefix, command, args, isOwner, isPrems, isAdmin }) => {
 	let admins = []
@@ -25,7 +18,7 @@ let handler = async (m, { conn, participants, usedPrefix, command, args, isOwner
 	const we = data.map(([id]) => id).toString()
 	if ((who.includes(we) || who.includes(m.conn.user.jid))) throw `Gaboleh gitu ${who.includes(m.conn.user.jid) ? 'ama bot ' : ''}:v`
 	if (isOwner || isAdmin || isPrems) {
-		if (who.includesOneOf(admins) && !isOwner) throw `Gaboleh gitu sesama admin :v`
+		if (someincludes(admins, who) && !isOwner) throw `Gaboleh gitu sesama admin :v`
 		if (total > 200 && !isPrems) throw `_... >> not premium ..._\n[!] Maksimal ${command} : 200 menit.`
 		if (total > 400 && !isOwner) throw `[!] Maksimal ${command} : 400 menit.`
 		let users = db.data.users[who]
