@@ -69,7 +69,6 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 			[`🪡 Ping`, `.ping`]
 		], m)
 	} catch (e) {
-		conn.reply(m.chat, 'Maaf, menueditor sedang error', m)
 		throw e
 	}
 }

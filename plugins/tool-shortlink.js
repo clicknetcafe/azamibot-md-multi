@@ -25,7 +25,7 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
 				let anu = await await res.json()
 				m.reply(`[ LINK ]\n${anu.result}`)
 			} else if (command.includes('bitly')) {
-				let res = await fetch(`https://botcahx.ddns.net/api/linkshort/bitly?link=${out}`)
+				let res = await fetch(`https://api.tiodevhost.my.id/api/linkshort/bitly?link=${out}`)
 				let anu = await await res.json()
 				m.reply(`[ LINK ]\n${anu.result}`)
 			} else if (command.includes('ouo')) {

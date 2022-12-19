@@ -97,7 +97,6 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems }) => {
 			[`👑 Prem`, `.premium`]
 		], m)
 	} catch (e) {
-		conn.reply(m.chat, 'Maaf, menu sedang error', m)
 		throw e
 	}
 }

@@ -68,8 +68,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 			[`🪡 Ping`, `.ping`]
 		], m)
 	} catch (e) {
-	conn.reply(m.chat, 'Maaf, menudownload sedang error', m)
-	throw e
+		throw e
 	}
 }
 handler.help = ['menudownload']

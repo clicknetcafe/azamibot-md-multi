@@ -19,7 +19,7 @@ let handler = async (m, { conn, usedPrefix, isPrems }) => {
     } else {
 
     }
-    let res = await fetch(`https://botcahx.ddns.net/api/game/tembakbendera`)
+    let res = await fetch(`https://api.tiodevhost.my.id/api/game/tembakbendera`)
     if (!res.ok) throw 'Fitur Error!'
     let json = await res.json()
     let caption = `

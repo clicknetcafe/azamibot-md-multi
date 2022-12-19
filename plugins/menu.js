@@ -152,7 +152,6 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPr
 			}
 		}
 	} catch (e) {
-		conn.reply(m.chat, 'Maaf, menu sedang error', m)
 		throw e
 	}
 }

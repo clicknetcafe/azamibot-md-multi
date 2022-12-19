@@ -1,4 +1,4 @@
-import { someincludes } from '../lib/others.js'
+import { someincludes, somematch } from '../lib/others.js'
 import pkg from '@adiwajshing/baileys';
 const { WA_DEFAULT_EPHEMERAL, groupToggleEphemeral } = pkg;
 
@@ -20,10 +20,10 @@ let handler = async (m, { conn, text, usedPrefix, isAdmin, isOwner, command }) =
 			} else if (someincludes(['90','90d','90h','3'], text)) {
 				conn.groupToggleEphemeral(m.chat, 7776000)
 				n = `90 hari.`
-			} else if (someincludes(['off','mati','disable','false'], text)) {
+			} else if (somematch(['off','mati','disable','false'], text)) {
 				conn.groupToggleEphemeral(m.chat, 0)
 				n = `matikan.`
-			} else if (someincludes(['nyala','on','enable','true'], text)) {
+			} else if (somematch(['nyala','on','enable','true'], text)) {
 				conn.groupToggleEphemeral(m.chat, WA_DEFAULT_EPHEMERAL)
 				n = `nyalakan.`
 			} else {
