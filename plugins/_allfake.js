@@ -16,6 +16,8 @@ let handler = m => m
 	} finally {
 		global.packname = db.data.datas.packname || '-'
 		global.author = db.data.datas.author || '-'
+		global.api = global.db.data.datas.api || 'apilolhuman'	// https://api.lolhuman.xyz/docs
+		global.imgbb = global.db.data.datas.imgbb || 'apiimgbb'	// https://api.imgbb.com/
 		global.ucapan = ucapan()
 
 		// Module

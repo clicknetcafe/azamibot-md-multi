@@ -15,13 +15,6 @@ import fetch from 'node-fetch'
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
-//apikey
-global.api = 'apikeylu'		// https://api.lolhuman.xyz/docs apikeylu
-global.bb = 'AzamiApi'		// https://azami-api.herokuapp.com/docs
-global.xco = 'xcoders'		// https://api-xcoders.xyz/docs
-global.yog = 'YogGanz'		// https://yog-apikey.herokuapp.com/docs
-global.imgbb = '3a247f2296ade39d87e71b92ae0256c9'	// https://api.imgbb.com/
-
 /** @type {import('@adiwajshing/baileys')} */
 const { getContentType, proto } = (await import('@adiwajshing/baileys')).default
 
@@ -754,6 +747,8 @@ export async function handler(chatUpdate) {
 				if (!('packname' in datas)) datas.packname = ''
 				if (!('author' in datas)) datas.author = ''
 				if (!('linkgc' in datas)) datas.linkgc = ''
+				if (!('api' in datas)) datas.api = ''
+				if (!('imgbb' in datas)) datas.imgbb = ''
 				if (!('teksdonasi' in datas)) datas.teksdonasi = ''
 				if (!('tekssewa' in datas)) datas.tekssewa = ''
 				if (!('teksjadibot' in datas)) datas.teksjadibot = ''
@@ -768,6 +763,8 @@ export async function handler(chatUpdate) {
 				packname: '',
 				author: '',
 				linkgc: '',
+				api: '',
+				imgbb: '',
 				teksdonasi: '',
 				tekssewa: '',
 				teksjadibot: '',

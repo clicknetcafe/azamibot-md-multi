@@ -14,16 +14,16 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
 		let database = await fs.readFileSync(`./database.json`)
 		let session = await fs.readFileSync(`./sessions/creds.json`)
-		await conn.sendMessage(m.sender, {document: database, mimetype: 'application/json', fileName: `database_azami_${ini_txt}.json`}, { quoted : m })
-		await conn.sendMessage(m.sender, {document: session, mimetype: 'application/json', fileName: `creds_azami_${ini_txt}.json`}, { quoted : m })
+		await conn.sendMessage(m.sender, {document: database, mimetype: 'application/json', fileName: `database.azami.${ini_txt}.json`}, { quoted : m })
+		await conn.sendMessage(m.sender, {document: session, mimetype: 'application/json', fileName: `creds.azami.${ini_txt}.json`}, { quoted : m })
 	} catch (e) {
 		console.log(e)
 		m.reply(`Terjadi kesalahan, coba lagi.`)
 	}
 }
 
-handler.menudownload = ['database']
-handler.tagsdownload = ['search']
+handler.menuowner = ['backup']
+handler.tagsowner = ['owner']
 handler.command = /^(data(base)?|backup)$/i
 
 handler.owner = true
