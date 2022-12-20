@@ -4,7 +4,7 @@ let handler = async (m, { text }) => {
 	try {
 		let res = await fetch(`https://api.lolhuman.xyz/api/checkapikey?apikey=${text ? text : global.api ? global.api : ''}`)
 		let anu = await res.json()
-		if (anu.status != '200') throw anu.message
+		if (anu.status != '200') return m.reply(anu.message)
 		anu = anu.result
 		let txt = `*Username : ${anu.username}*\n\n`
 		txt += `*Account Type :* ${anu.account_type}\n`
