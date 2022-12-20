@@ -12,12 +12,17 @@ let handler = async (m, { usedPrefix, command }) => {
 			m.reply(`*Result :*\n${anu}`)
 		} catch (e) {
 			console.log(e)
-			let out = await uploadImage(img)
-			let res = await fetch(`https://api.lolhuman.xyz/api/ocr?apikey=${global.api}&img=${out}`)
-			let json = await res.json()
-			if (json.status != '200') throw `Gagal medeteksi teks pada gambar.`
-			let get_result = json.result
-			m.reply(`*Result :*\n${get_result}`)
+			try {
+				let out = await uploadImage(img)
+				let res = await fetch(`https://api.lolhuman.xyz/api/ocr?apikey=${global.api}&img=${out}`)
+				let json = await res.json()
+				if (json.status != '200') throw `Gagal medeteksi teks pada gambar.`
+				let get_result = json.result
+				m.reply(`*Result :*\n${get_result}`)
+			} catch (e) {
+				console.log(e)
+				m.reply('Fitur Error!')
+			}
 		}
 	} else {
 		m.reply(`Kirim gambar dengan caption *${usedPrefix + command}* atau tag gambar yang sudah dikirim`)
