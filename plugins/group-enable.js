@@ -236,7 +236,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			}
 			break
 		default:
-			if (!/[01]/.test(command)) return m.reply(`*List option :*\n| welcome | delete | antidelete | ephemeral | nsfw | game | antilink | antivirtex | antiviewonce | simsimi | public | self | restrict | autoread | pconly | gconly |
+			if (!/[01]/.test(command)) return m.reply(`*List option :*\n| welcome | delete | antidelete | ephemeral | nsfw | game | antilink | antivirtex | antiviewonce | simsimi | openai | openaipc | public | self | restrict | autoread | pconly | gconly |
 
 Example :
 *${usedPrefix + command} welcome*
