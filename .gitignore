@@ -11,6 +11,8 @@ node_modules/
 plugins/New folder/
 
 # ntar aja bang bagi-bagi pluginnya :v
+plugins/_openai.js
+plugins/_openaipc.js
 plugins/anime-anime.js
 plugins/anime-chara.js
 plugins/anime-jadianime.js

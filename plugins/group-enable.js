@@ -7,6 +7,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 	let isEnable = /true|enable|(turn)?on|1/i.test(command)
 	let chat = db.data.chats[m.chat]
 	let user = db.data.users[m.sender]
+	let datas = db.data.datas
 	let bot = db.data.settings[conn.user.jid] || {}
 	let type = (args[0] || '').toLowerCase()
 	let isAll = false, isUser = false
@@ -144,6 +145,29 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 					conn.sendMessage(m.chat, { text: `Simi *OFF* Kak` }, { quoted: fkontak })
 				}, 300000)
 			}
+			break
+		case 'openai':
+			if (!m.isGroup) {
+				global.dfail('group', m, conn)
+				throw false
+			} else if (!isAdmin) {
+				global.dfail('admin', m, conn)
+				throw false
+			} else if (!isBotAdmin) {
+				global.dfail('botAdmin', m, conn)
+				throw false
+			}
+			chat.openai = isEnable
+			break
+		case 'openaipc':
+		case 'openaipm':
+		case 'openaiprivat':
+		case 'openaiprivate':
+			if (!isROwner) {
+				global.dfail('rowner', m, conn)
+				throw false
+			}
+			datas.openaipc = isEnable
 			break
 		case 'public':
 			isAll = true

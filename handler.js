@@ -686,6 +686,8 @@ export async function handler(chatUpdate) {
 					chat.pdf = false
 				if (!('game' in chat))
 					chat.game = true
+				if (!('openai' in chat))
+					chat.openai = false
 				if (!('simi' in chat))
 					chat.simi = false
 				if (!('lastsimi' in chat))
@@ -720,6 +722,7 @@ export async function handler(chatUpdate) {
 					nsfw: false,
 					pdf: false,
 					game: true,
+					openai: false,
 					simi: false,
 					lastsimi: false,
 					viewonce: false,
@@ -749,6 +752,7 @@ export async function handler(chatUpdate) {
 				if (!('linkgc' in datas)) datas.linkgc = ''
 				if (!('api' in datas)) datas.api = ''
 				if (!('imgbb' in datas)) datas.imgbb = ''
+				if (!('openaipc' in datas)) datas.openaipc = false
 				if (!('teksdonasi' in datas)) datas.teksdonasi = ''
 				if (!('tekssewa' in datas)) datas.tekssewa = ''
 				if (!('teksjadibot' in datas)) datas.teksjadibot = ''
@@ -765,6 +769,7 @@ export async function handler(chatUpdate) {
 				linkgc: '',
 				api: '',
 				imgbb: '',
+				openaipc: false,
 				teksdonasi: '',
 				tekssewa: '',
 				teksjadibot: '',

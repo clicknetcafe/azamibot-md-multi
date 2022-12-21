@@ -61,6 +61,18 @@ let handler = m => m
 			}
 		}
 
+		// fake open AI
+		global.fopenai = {
+			key: { participant : this.user.jid},
+			message: {
+				"extendedTextMessage": {
+					"text": '⚗️ Automatic Chatbot by Open AI',
+					"title": timeh,
+					'jpegThumbnail': fs.readFileSync('./media/thumbnail.jpg')
+				}
+			}
+		}
+		
 		// fake location
 		global.fliveLoc = {
 		key: { participant : '0@s.whatsapp.net'},
