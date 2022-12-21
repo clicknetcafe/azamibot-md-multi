@@ -12,7 +12,7 @@ let handler = async (m, { conn, args, usedPrefix, isOwner, command }) => {
     chat.isBanned = true
     chat.lastmute = new Date * 1
     chat.mutecd = cooldown * total
-    m.reply(`Bot senyap selama ${total} menit!`)
+    m.reply(`Bot senyap selama *${total} menit!*`)
 }
 
 handler.menuowner = ['omute']
