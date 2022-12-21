@@ -10,10 +10,11 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	let menu7 = Object.values(plugins).filter(v => v.menugenshin && !v.disabled).map(v => v.menugenshin).flat(1)
 	let menu8 = Object.values(plugins).filter(v => v.menugroup && !v.disabled).map(v => v.menugroup).flat(1)
 	let menu9 = Object.values(plugins).filter(v => v.menunsfw && !v.disabled).map(v => v.menunsfw).flat(1)
-	let menu10 = Object.values(plugins).filter(v => v.menuoxy && !v.disabled).map(v => v.menuoxy).flat(1)
-	let menu11 = Object.values(plugins).filter(v => v.menutextpro && !v.disabled).map(v => v.menutextpro).flat(1)
+	let menu10 = Object.values(plugins).filter(v => v.menuowner && !v.disabled).map(v => v.menuowner).flat(1)
+	let menu11 = Object.values(plugins).filter(v => v.menuoxy && !v.disabled).map(v => v.menuoxy).flat(1)
+	let menu12 = Object.values(plugins).filter(v => v.menutextpro && !v.disabled).map(v => v.menutextpro).flat(1)
 
-	let txt = `*Total Fitur : ${menu.length + menu2.length + menu3.length + menu4.length + menu5.length + menu6.length + menu7.length + menu8.length + menu9.length + menu10.length + menu11.length}* Commands\n\n`
+	let txt = `*Total Fitur : ${menu.length + menu2.length + menu3.length + menu4.length + menu5.length + menu6.length + menu7.length + menu8.length + menu9.length + menu10.length + menu11.length + menu12.length}* Commands\n\n`
 	txt += `*[ FRACTION LIST ]*\n\n`
 	txt += `*⭔ Main Menu :* ${menu.length} fitur\n`
 	txt += `*⭔ Anime :* ${menu2.length} fitur\n`
@@ -24,8 +25,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	txt += `*⭔ Genshin :* ${menu7.length} fitur\n`
 	txt += `*⭔ Group :* ${menu8.length} fitur\n`
 	txt += `*⭔ NSFW :* ${menu9.length} fitur\n`
-	txt += `*⭔ Photo Oxy :* ${menu10.length} fitur\n`
-	txt += `*⭔ Text Pro Me :* ${menu11.length} fitur`
+	txt += `*⭔ Owner :* ${menu10.length} fitur\n`
+	txt += `*⭔ Photo Oxy :* ${menu11.length} fitur\n`
+	txt += `*⭔ Text Pro Me :* ${menu12.length} fitur`
 	await m.reply(txt)
 }
 

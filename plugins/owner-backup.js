@@ -24,7 +24,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
 handler.menuowner = ['backup']
 handler.tagsowner = ['owner']
-handler.command = /^(data(base)?|backup)$/i
+handler.command = /^(backup)$/i
 
 handler.owner = true
 
