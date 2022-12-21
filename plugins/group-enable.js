@@ -163,6 +163,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 		case 'openaipm':
 		case 'openaiprivat':
 		case 'openaiprivate':
+			isAll = true
 			if (!isROwner) {
 				global.dfail('rowner', m, conn)
 				throw false

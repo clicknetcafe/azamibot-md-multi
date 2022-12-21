@@ -1,14 +1,14 @@
-import { delay } from '../lib/others.js'
+import { delay, pickRandom } from '../lib/others.js'
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, usedPrefix, command }) => {
 	await delay(2000)
 	try {
-		let res = await fetch(`https://azami-api.herokuapp.com/api/random/katadilan?apikey=${global.bb}`)
-		let json = await res.json()
-		if (json.status != '200') throw new e()
-		conn.sendButton(m.chat, `${json.dilan}`, `⭔ Dilan Quotes ⭔`, null, [[`⧑ next ${command} ⧑`, `${usedPrefix + command}`]], m)
+		let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/databasebot/main/Random/dilan.json`)
+		let anu = pickRandom(await res.json())
+		conn.sendButton(m.chat, anu, `⭔ Dilan Quotes ⭔`, null, [[`⧑ next ${command} ⧑`, `${usedPrefix + command}`]], m)
 	} catch (e) {
+		console.log(e)
 		try {
 			let res = await fetch(`https://api.lolhuman.xyz/api/quotes/dilan?apikey=${global.api}`)
 			let json = await res.json()
