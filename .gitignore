@@ -20,6 +20,7 @@ plugins/anime-kitsu.js
 plugins/anime-kusonime.js
 plugins/anime-manga.js
 plugins/anime-mynimeku.js
+plugins/anime-otakudesu.js
 plugins/anime-randomstory.js
 plugins/anime-ransfw5.js
 plugins/anime-ransfw6.js

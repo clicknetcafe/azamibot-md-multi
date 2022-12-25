@@ -8,7 +8,7 @@ let handler = async (m, { conn }) => {
 
 handler.mengroup = ['durasisewa']
 handler.tagsgroup = ['group']
-handler.command = /^((durasi|info)sewa)$/i
+handler.command = /^((cek)?(durasi|info)(sewa|join)(bot)?)$/i
 
 handler.owner = true
 handler.group = true

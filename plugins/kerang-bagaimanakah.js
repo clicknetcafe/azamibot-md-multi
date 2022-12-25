@@ -10,12 +10,11 @@ let handler = async (m, { conn, command, text }) => {
 		await m.reply(`*Pertanyaan :* ${text}\n\n*Jawaban :*\n ${json.result}`, null, m.mentionedJid ? { mentions: m.mentionedJid } : {})
 	} catch (e) {
 		console.log(e)
-		await conn.reply(m.chat, `*Pertanyaan:* ${command} ${text}\n*Jawaban:* ${(10).getRandom()} ${['detik', 'menit', 'jam', 'hari', 'minggu', 'bulan', 'tahun', 'dekade', 'abad'].getRandom()} lagi ...`.trim(), m, m.mentionedJid ? { mentions: m.mentionedJid } : {})
 	}
 }
 
-handler.menufun = ['kapankah <text>?']
+handler.menufun = ['bagaimanakah <text>?']
 handler.tagsfun = ['kerang']
-handler.command = /^(kapan(kah)?)$/i
+handler.command = /^(bagaimana(kah)?)$/i
 
 export default handler
