@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 
 let handler = async (m, { conn, usedPrefix, command }) => {
 	try {
-		let fimg = await fetch(`https://api.ibengtools.my.id/api/wallpaper/${command}?apikey=ibeng`)
+		let fimg = await fetch(`https://api.ibeng.tech/api/wallpaper/${command}?apikey=ibeng`)
 		let fimgb = Buffer.from(await fimg.arrayBuffer())
 		conn.sendButton(m.chat, `_Random pic: ${command}_`, packname + ' - ' + author, fimgb, [[`⧑ next ${command} ⧑`, `${usedPrefix + command}`]], m)
 	} catch (e) {

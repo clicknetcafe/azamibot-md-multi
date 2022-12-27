@@ -1,43 +1,32 @@
 import Connection from '../lib/connection.js'
-import { delay, ranNumb, readMore } from '../lib/others.js'
-import { randomBytes } from 'crypto'
+import { delay, ranNumb } from '../lib/others.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	let chats = Object.entries(Connection.store.chats).filter(([jid, chat]) => !jid.endsWith('@g.us') && !jid.startsWith('212') && chat.isChats).map(v => v[0])
 	let cc = conn.serializeM(text ? m : m.quoted ? await m.getQuotedObj() : false || m)
-	let q = m.quoted ? m.quoted : m
-    let mime = (q.msg || q).mimetype || q.mediaType || ''
-    if (/image/g.test(mime) || /video/g.test(mime)) {
-	    if (!text) throw `teks nya mana ?`
-    	let img = await q.download?.()
-		conn.reply(m.chat, `_Mengirim pesan broadcast ke ${chats.length} chat_`, m)
-		let wkt
-		for (let id of chats) {
-			try {
-				/*conn.sendHydrated(id, `_*「 BroadCast-Bot 」*_\n\n${text}`, packname + ' - ' + author, img, 'https://chat.whatsapp.com/CXhNwLK5cijJl5HPRFisNh', 'Minimalist ツ Sweet', null, null, [
-					['Premium', '.premium'],
-					['Contact', '.owner'],
-					['⦿ ALL MENU ⦿', '.menuall']
-				])*/
-				conn.sendButton(id, `_*「 BroadCast-Bot 」*_\n\n${text}`, packname + ' - ' + author, img, [
-					[`👥 Owner`, `.owner`],
-					[`🤖 All Menu`, `.allmenu`]
-				])
-				wkt = ranNumb(3000, 6000)
-				await delay(wkt)
-			} catch (e) {
-				console.log(e)
-			}
+	let img, q = m.quoted ? m.quoted : m
+	let mime = (q.msg || q).mimetype || q.mediaType || ''
+	if (!text) throw `teks nya mana ?`
+	if (mime) img = await q.download?.()
+	conn.reply(m.chat, `_Mengirim pesan broadcast ke ${chats.length} chat_`, m)
+	let teks = command.includes('meme') ? `${text}\n\n_*「 Just BC-Bot 」*_` : `_*「 BroadCast-Bot 」*_\n\n${text}`
+	for (let id of chats) {
+		try {
+			if (/image|video/g.test(mime)) {
+				if (command.includes('meme')) await conn.sendFile(id, img, '', teks)
+				else await conn.sendButton(id, teks, packname + ' - ' + author, img, [[`👥 Owner`, `.owner`],[`🤖 All Menu`, `.allmenu`]])
+			} else await conn.sendMessage(id, { text: teks })
+		} catch (e) {
+			console.log(e)
 		}
-		m.reply('Selesai Broadcast All Private Chat :)')
-    } else {
-        m.reply(`Kirim gambar dengan caption *${usedPrefix + command}* atau tag gambar yang sudah dikirim`)
-    }
+		await delay(ranNumb(3000, 6000))
+	}
+	await m.reply('Selesai Broadcast All Private Chat :)')
 }
 
-handler.menuowner = ['broadcastchat'].map(v => v + ' <teks>')
+handler.menuowner = ['bcprivate', 'bcprivatememe']
 handler.tagsowner = ['owner']
-handler.command = /^((bc|broadcast)chats?|bcc)$/i
+handler.command = /^((bc|broadcast)(c|chats?|pc|private)(meme)?)$/i
 
 handler.owner = true
 
