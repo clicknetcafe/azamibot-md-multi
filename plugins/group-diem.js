@@ -8,10 +8,10 @@ let handler = async (m, { conn, participants, usedPrefix, command, args, isOwner
 	for (let i of participants) {
 		i.admin === "admin" ? admins.push(i.id.split('@')[0]) : ''
 	}
-	if ((!m.quoted && !args[1]) || (m.quoted && !args[0])) return m.reply(`Format : ${usedPrefix + command} ${m.quoted ? '' : '@tag'} <timer>\n1 = 1 menit\n5 = 5 menit ... dst.\n\nContoh : *${usedPrefix + command} ${m.quoted ? '' : '@Alan'} 10*`)
-	const total = m.quoted ? Math.floor(isNumber(args[0]) ? Math.min(Math.max(parseInt(args[0]), 1), Number.MAX_SAFE_INTEGER) : 1) * 1 : Math.floor(isNumber(args[1]) ? Math.min(Math.max(parseInt(args[1]), 1), Number.MAX_SAFE_INTEGER) : 1) * 1
+	if ((!m.quoted && !args[1]) || (m.quoted && !args[0])) return m.reply(`Format : ${usedPrefix + command} <timer> <@tag/quote>\n1 = 1 menit\n5 = 5 menit ... dst.\n\nContoh : *${usedPrefix + command} 10 @Alan*`)
+	const total = Math.floor(isNumber(args[0]) ? Math.min(Math.max(parseInt(args[0]), 1), Number.MAX_SAFE_INTEGER) : 1) * 1
 	let who
-	if (m.isGroup) who = m.quoted ? m.quoted.sender : m.mentionedJid[0]
+	if (m.isGroup) who = m.quoted ? m.quoted.sender : m.mentionedJid ? m.mentionedJid[0] : ''
 	else who = m.chat
 	if (!who) throw 'Tag salah satu lah'
 	const data = [...db.data.datas.rowner.filter(([id, isCreator]) => id && isCreator), ...db.data.datas.owner.filter(([id, isCreator]) => id && isCreator)]
@@ -41,7 +41,5 @@ let handler = async (m, { conn, participants, usedPrefix, command, args, isOwner
 handler.menugroup = ['diem @tag <timer>']
 handler.tagsgroup = ['group']
 handler.command = /^(di(e|a)m|silent)$/i
-
-handler.group = true
 
 export default handler
