@@ -1,54 +1,71 @@
 import db from '../lib/database.js'
 
-let handler = async (m, { conn, isOwner }) => {
-	let chats = Object.entries(db.data.chats).filter(chat => chat[1].isBanned)
-	let users = Object.entries(db.data.users).filter(user => user[1].banned && !(user[0].startsWith('212') || user[0].startsWith('265')))
-	let users2 = Object.entries(db.data.users).filter(user => user[1].banned)
-	let listgc = [], z = 0, txt = ''
-	let groups = Object.values(await conn.groupFetchAllParticipating())
-	for (let i = 0; i < groups.length; i++) {
-		try {
-			if (db.data.chats[groups[i].id].isBanned) {
-				listgc.push(groups[i].id)
-				txt += `├ *[${z + 1}]* ${await conn.getName(groups[i].id)}\n`
-				txt += `├ ┗⊱ ${groups[i].id}\n`
-				z += 1
-			}
-		} catch (e) {
-			console.log(e)
+import { parsePhoneNumber } from 'awesome-phonenumber'
+
+let handler = async (m, { conn, usedPrefix, command, isOwner, text }) => {
+	text = text.split('|')
+	let gc = db.data.chats
+	let pc = db.data.users
+	let chats = Object.entries(gc).filter(chat => chat[1].isBanned).map(([v]) => v)
+	let users = Object.entries(pc).filter(user => user[1].banned && !(user[0].startsWith('212') || user[0].startsWith('265'))).map(([v]) => v)
+	let groups = Object.values(await conn.groupFetchAllParticipating()).map(v => v.id)
+	let x, name, sisa, timer, array = [], array2 = []
+	for (let x of chats) {
+		timer = gc[x].mutecd - (new Date - gc[x].lastmute)
+		if (!gc[x].permaBan && timer <= 0) {}
+		else {
+			if (groups.includes(x)) name = await conn.getName(x)
+			else name = 'Unknown ( Bot Leave )'
+			sisa = gc[x].permaBan ? 'Status : Permanent Banned Group' : isNaN(timer) ? 'Status : Soft Banned' : `Mute : ${timer.toTimeString()}`
+			await array.push({ title: `✨ ${name}`, rowId: `${usedPrefix + command} |${x}`, description: sisa })
 		}
 	}
-	for (let x of Object.keys(chats)) {
-		try {
-			if (!listgc.includes(chats[x][0])) {
-				listgc.push(chats[x][0])
-				txt += `├ *[${z + 1}]* Unknown ( Bot Leave )\n`
-				txt += `├ ┗⊱ ${chats[x][0]}\n`
-				z += 1
-			}
-		} catch (e) {
-			console.log(e)
+	for (let x of users) {
+		timer = pc[x].bannedcd - (new Date - pc[x].lastbanned)
+		if (!pc[x].permaban && timer <= 0) {}
+		else {
+			let pn = await parsePhoneNumber('+' + x.split('@')[0])
+			pn = pn.number.international
+			name = await conn.getName(x)
+			sisa = pc[x].permaban ? 'Status : Permanent Banned' : isNaN(timer) ? 'Status : Soft Banned' : `Mute : ${timer.toTimeString()}`
+			await array2.push({ title: `✨ ${name}${name != pn ? ` (${pn})` : ''}`, rowId: `${usedPrefix + command} |${x}`, description: `${sisa}` })
 		}
 	}
-	let caption = `${chats.length == 0 ? `` : `
-┌〔 List Banned Group 〕
-├ Total : *${chats.length} Group*
-${txt}└────
-
-`}${users.length == 0 ? `` : `┌〔 List Banned User 〕
-├ *${users2.length} User* (+212 & +265 Auto Banned)${users ? '\n' + users.map(([jid], i) => `
-├ *[${i + 1}]* ( ${conn.getName(jid) == undefined ? 'Unknown' : conn.getName(jid).replaceAll('\n','')} )
-├ ┗⊱ ${isOwner ? 'wa.me/' + jid.split`@`[0] : jid}
-`.trim()).join('\n') : ''}
-└────
-
-`}
-`.trim()
-	await m.reply(caption)
+	if (array.length == 0) array = [{ title: 'None'}]
+	if (array2.length == 0) array2 = [{ title: 'None'}]
+	let sections = [{ title: `━ ━ ━ ━ 『 List Banned Group 』 ━ ━ ━ ━`, rows: array }, { title: `━ ━ ━ ━ 『 List Banned User 』 ━ ━ ━ ━`, rows: array2 }]
+	let listMessage = {
+		text: `*Request From :* @${m.sender.split`@`[0]}\n\n*Total Banned User : ${Object.entries(pc).filter(user => user[1].banned).length}*\n+212 & +265 Number is Auto Banned`,
+		mentions: [m.sender],
+		footer: packname + ' - ' + author,
+		title: `━ ━ 『 *LIST BANNED* 』 ━ ━`,
+		buttonText: `Banned List`,
+		sections
+	}
+	if (text[1]) {
+		x = text[1]
+		try {
+			if (x.includes('g.us')) {
+				if (groups.includes(x)) name = await conn.getName(x)
+				else name = 'Unknown ( Bot Leave )'
+				let txt = `*Name :* ${name}\n`
+				txt += `*id :* ${x}\n`
+				txt += gc[x].permaBan ? '*Status :* Permanent Banned Group' : `*Mute :* ${(gc[x].mutecd - (new Date - gc[x].lastmute)).toTimeString()}`
+				m.reply(txt)
+			} else {
+				name = await conn.getName(x)
+				let pn = await parsePhoneNumber('+' + x.split('@')[0])
+				let txt = `*Name :* ${name}\n`
+				txt += `*Number :* ${pn.number.international}\n`
+				txt += pc[x].permaban ? '*Status :* Permanent Banned User' : `*Mute :* ${(pc[x].bannedcd - (new Date - pc[x].lastbanned)).toTimeString()}`
+				m.reply(txt)
+			}
+		} catch (e) { console.log(e) }
+	} else await conn.sendMessage(m.chat, listMessage, { quoted : m })
 }
 
 handler.menugroup = ['bannedlist']
 handler.tagsgroup = ['group']
-handler.command = /^(list(ban(ned)?|bloc?k)|(ban(ned)?|bloc?k)list|daftar(ban(ned)?|bloc?k))$/i
+handler.command = /^((list|daftar)(ban(ned)?|bloc?k|mute))$/i
 
 export default handler

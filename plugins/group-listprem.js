@@ -1,19 +1,30 @@
 import db from '../lib/database.js'
 
-let handler = async (m, { conn, usedPrefix, isPrems }) => {
-	if (!isPrems) return m.reply(`「 PREMIUM USER ONLY 」`)
-	let prems = db.data.datas.prems.filter(v => v.user !== '')
-	prems = prems.sort((a, b) => a.date - b.date)
+import { parsePhoneNumber } from 'awesome-phonenumber'
+
+let handler = async (m, { conn, usedPrefix }) => {
+	let prems = db.data.datas.prems.filter(v => v.user !== '').sort((a, b) => a.date - b.date)
 	if (prems.length == 0) return m.reply (`Tidak ada user premium !`)
-	let txt = `*Total Premium : ${prems.length} User*`
-	let namabot = await conn.getName(conn.user.jid)
+	let namebot = await conn.getName(conn.user.jid)
+	let timer, array = []
 	for (let i of prems) {
-		let namausr = await conn.getName(i.user)
-		txt += `\n\n✨ ${(namabot == namausr) ? '' : namausr + ' '} ( +${i.user.split('@')[0]} )\n`
-		txt += `Sisa Waktu : ${((i.date) - new Date()).toTimeString()}\n`
-		txt += `───────────────────`
+		let name = await conn.getName(i.user)
+		let pn = await parsePhoneNumber('+' + i.user.split('@')[0])
+		pn = pn.number.international
+		timer = i.date - new Date()
+		if (timer <= 0) {}
+		else await array.push({ title: `✨ ${name}${name != pn ? ` (${pn})` : ''}`, description: `Durasi : ${timer.toTimeString()}`})
 	}
-	await m.reply(txt)
+	let sections = [{ title: `━ ━ ━ ━ 『 List Premium Users 』 ━ ━ ━ ━`, rows: array }]
+	let listMessage = {
+		text: `*Request From :* @${m.sender.split`@`[0]}\n\n*List Premium :* ${prems.length} Users`,
+		mentions: [m.sender],
+		footer: packname + ' - ' + author,
+		title: `━ ━ 『 *LIST PREMIUM* 』 ━ ━`,
+		buttonText: `Premium List`,
+		sections
+	}
+	await conn.sendMessage(m.chat, listMessage, { quoted : m })
 }
 
 handler.menugroup = ['listprem']

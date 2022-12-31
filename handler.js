@@ -733,6 +733,40 @@ export async function handler(chatUpdate) {
 					lastmute: 0,
 					mutecd: 0,
 				}
+			let akinator = db.data.users[m.sender].akinator
+			if (typeof akinator !== 'object')
+				db.data.users[m.sender].akinator = {}
+			if (akinator) {
+				if (!('sesi' in akinator))
+					akinator.sesi = false
+				if (!('server' in akinator))
+					akinator.server = null
+				if (!('frontaddr' in akinator))
+					akinator.frontaddr = null
+				if (!('session' in akinator))
+					akinator.session = null
+				if (!('signature' in akinator))
+					akinator.signature = null
+				if (!('question' in akinator))
+					akinator.question = null
+				if (!('progression' in akinator))
+					akinator.progression = null
+				if (!('step' in akinator))
+					akinator.step = null
+				if (!('soal' in akinator))
+					akinator.soal = null
+			} else
+				db.data.users[m.sender].akinator = {
+					sesi: false,
+					server: null,
+					frontaddr: null,
+					session: null,
+					signature: null,
+					question: null,
+					progression: null,
+					step: null, 
+					soal: null
+				}
 			let settings = db.data.settings[this.user.jid]
 			if (typeof settings !== 'object') db.data.settings[this.user.jid] = {}
 			if (settings) {
