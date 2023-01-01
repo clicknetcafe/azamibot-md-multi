@@ -1,15 +1,16 @@
 import db from '../lib/database.js'
-
 import { parsePhoneNumber } from 'awesome-phonenumber'
 
 let handler = async (m, { conn, usedPrefix, command, isOwner, text }) => {
-	text = text.split('|')
+	let groups
+	try { groups = Object.values(await conn.groupFetchAllParticipating()).map(v => v.id) }
+	catch { return m.reply(`[!] rate-overlimit`) }
 	let gc = db.data.chats
 	let pc = db.data.users
-	let chats = Object.entries(gc).filter(chat => chat[1].isBanned).map(([v]) => v)
-	let users = Object.entries(pc).filter(user => user[1].banned && !(user[0].startsWith('212') || user[0].startsWith('265'))).map(([v]) => v)
-	let groups = Object.values(await conn.groupFetchAllParticipating()).map(v => v.id)
+	let chats = Object.entries(gc).filter(v => v[1].isBanned).map(([v]) => v)
+	let users = Object.entries(pc).filter(v => v[1].banned && !(v[0].startsWith('212') || v[0].startsWith('265'))).map(([v]) => v)
 	let x, name, sisa, timer, array = [], array2 = []
+	text = text.split('|')
 	for (let x of chats) {
 		timer = gc[x].mutecd - (new Date - gc[x].lastmute)
 		if (!gc[x].permaBan && timer <= 0) {}
