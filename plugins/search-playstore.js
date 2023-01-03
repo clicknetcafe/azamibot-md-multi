@@ -1,22 +1,20 @@
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
+import gplay from 'google-play-scraper'
 
 let handler = async (m, { conn, command, text, usedPrefix }) => {
     if (!text) return m.reply(`Example: *${usedPrefix + command} wps office*`)
 	try {
-		let gplay = require('google-play-scraper');
-		let json = await gplay.search({ term: `${text}` })
-		if (json.length == 0) return m.reply(`No Result Found.`)
-		let ini_txt = `Result : ${text}`
-		for (let x of json) {
-			ini_txt += `\n\n*${x.title}*\n`
-			ini_txt += `Package : ${x.appId}\n`
-			ini_txt += `Developer : _${x.developer}_\n`
-			ini_txt += `_${x.url}_\n`
-			ini_txt += `Rating : ⭐ *${x.scoreText}*\n`
-			ini_txt += `───────────────────`
+		let anu = await gplay.search({ term: `${text}` })
+		if (anu.length == 0) return m.reply(`No Result Found.`)
+		let txt = `Result : ${text}`
+		for (let x of anu) {
+			txt += `\n\n*${x.title}*\n`
+			txt += `Package : ${x.appId}\n`
+			txt += `Developer : _${x.developer}_\n`
+			txt += `_${x.url}_\n`
+			txt += `Rating : ⭐ *${x.scoreText}*\n`
+			txt += `───────────────────`
 		}
-		m.reply(ini_txt)
+		m.reply(txt)
 	} catch (e) {
 		console.log(e)
 		m.reply(`No Result Found.`)
