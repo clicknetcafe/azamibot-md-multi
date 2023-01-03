@@ -67,6 +67,7 @@ plugins/entertain-changemymind.js
 plugins/entertain-darkmeme.js
 plugins/entertain-menfess.js
 plugins/entertain-menfess_ans.js
+plugins/entertain-openai.js
 plugins/entertain-randomanimal.js
 plugins/entertain-randomanimal2.js
 plugins/entertain-ransfw.js

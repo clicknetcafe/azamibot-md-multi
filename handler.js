@@ -423,6 +423,8 @@ export async function handler(chatUpdate) {
 					user.tambangname = ''
 				if (!('pelabuhanname' in user))
 					user.pelabuhanname = ''
+				if (!('openaitxt' in user))
+					user.openaitxt = ''
 				if (!isNumber(user.rumahsakitexp))
 					user.rumahsakitexp = 0
 				if (!isNumber(user.restoranexp))
@@ -642,6 +644,7 @@ export async function handler(chatUpdate) {
 					pabrikname: '',
 					tambangname: '',
 					pelabuhanname: '',
+					openaitxt: '',
 					rumahsakitexp: 0,
 					restoranexp: 0,
 					pabrikexp: 0,
@@ -802,6 +805,7 @@ export async function handler(chatUpdate) {
 				if (!('store' in datas)) datas.store = []
 				if (!('menfess' in datas)) datas.menfess = []
 				if (!('listgc' in datas)) datas.listgc = []
+				if (!('openaikey' in datas)) datas.openaikey = []
 			} else db.data.datas = {
 				packname: '',
 				author: '',
@@ -819,7 +823,8 @@ export async function handler(chatUpdate) {
 				owner: [],
 				store: [],
 				menfess: [],
-				listgc: []
+				listgc: [],
+				openaikey: []
 			}
 		} catch (e) {
 			console.error(e)
