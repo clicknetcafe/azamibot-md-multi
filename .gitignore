@@ -11,6 +11,7 @@ node_modules/
 plugins/New folder/
 
 # ntar aja bang bagi-bagi pluginnya :v
+plugins/_detectgempa.js
 plugins/_openai.js
 plugins/_openaipc.js
 plugins/anime-anime.js
@@ -104,7 +105,6 @@ plugins/info-chord.js
 plugins/info-createbarcode.js
 plugins/info-createqr.js
 plugins/info-cuaca.js
-plugins/info-gempa.js
 plugins/info-hero.js
 plugins/info-heroml.js
 plugins/info-jadwalbola.js

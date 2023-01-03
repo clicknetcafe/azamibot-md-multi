@@ -682,6 +682,8 @@ export async function handler(chatUpdate) {
 					chat.antivirus = false
 				if (!('nsfw' in chat))
 					chat.nsfw = false
+				if (!('infogempa' in chat))
+					chat.infogempa = false
 				if (!('pdf' in chat))
 					chat.pdf = false
 				if (!('game' in chat))
@@ -720,6 +722,7 @@ export async function handler(chatUpdate) {
 					antiLink: false,
 					antivirus: false,
 					nsfw: false,
+					infogempa: false,
 					pdf: false,
 					game: true,
 					openai: false,
@@ -786,6 +789,7 @@ export async function handler(chatUpdate) {
 				if (!('linkgc' in datas)) datas.linkgc = ''
 				if (!('api' in datas)) datas.api = ''
 				if (!('imgbb' in datas)) datas.imgbb = ''
+				if (!('wgempa' in datas)) datas.wgempa = ''
 				if (!('openaipc' in datas)) datas.openaipc = false
 				if (!('teksdonasi' in datas)) datas.teksdonasi = ''
 				if (!('tekssewa' in datas)) datas.tekssewa = ''
@@ -797,12 +801,14 @@ export async function handler(chatUpdate) {
 				if (!('owner' in datas)) datas.owner = []
 				if (!('store' in datas)) datas.store = []
 				if (!('menfess' in datas)) datas.menfess = []
+				if (!('listgc' in datas)) datas.listgc = []
 			} else db.data.datas = {
 				packname: '',
 				author: '',
 				linkgc: '',
 				api: '',
 				imgbb: '',
+				wgempa: '',
 				openaipc: false,
 				teksdonasi: '',
 				tekssewa: '',
@@ -812,7 +818,8 @@ export async function handler(chatUpdate) {
 				rowner: [],
 				owner: [],
 				store: [],
-				menfess: []
+				menfess: [],
+				listgc: []
 			}
 		} catch (e) {
 			console.error(e)
