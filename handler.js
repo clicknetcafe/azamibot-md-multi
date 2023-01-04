@@ -447,6 +447,8 @@ export async function handler(chatUpdate) {
 					user.pelabuhanlvl = 0
 				if (!isNumber(user.expired))
 					user.expired = 0
+				if (!isNumber(user.spamcount))
+					user.spamcount = 0
 			} else
 				db.data.users[m.sender] = {
 					exp: 0,
@@ -656,6 +658,7 @@ export async function handler(chatUpdate) {
 					tambanglvl: 0,
 					pelabuhanlvl: 0,
 					expired: 0,
+					spamcount: 0,
 				}
 			let chat = db.data.chats[m.chat]
 			if (typeof chat !== 'object')
@@ -677,6 +680,8 @@ export async function handler(chatUpdate) {
 					chat.sPromote = ''
 				if (!('sDemote' in chat))
 					chat.sDemote = ''
+				if (!('openaitxt' in chat))
+					chat.openaitxt = ''
 				if (!('delete' in chat))
 					chat.delete = true
 				if (!('antiLink' in chat))
@@ -721,6 +726,7 @@ export async function handler(chatUpdate) {
 					sBye: '',
 					sPromote: '',
 					sDemote: '',
+					openaitxt: '',
 					delete: true,
 					antiLink: false,
 					antivirus: false,
@@ -793,6 +799,7 @@ export async function handler(chatUpdate) {
 				if (!('api' in datas)) datas.api = ''
 				if (!('imgbb' in datas)) datas.imgbb = ''
 				if (!('wgempa' in datas)) datas.wgempa = ''
+				if (!('spamcountreset' in datas)) datas.spamcountreset = 0
 				if (!('openaipc' in datas)) datas.openaipc = false
 				if (!('teksdonasi' in datas)) datas.teksdonasi = ''
 				if (!('tekssewa' in datas)) datas.tekssewa = ''
@@ -813,6 +820,7 @@ export async function handler(chatUpdate) {
 				api: '',
 				imgbb: '',
 				wgempa: '',
+				spamcountreset: 0,
 				openaipc: false,
 				teksdonasi: '',
 				tekssewa: '',

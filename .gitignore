@@ -12,6 +12,7 @@ plugins/New folder/
 
 # ntar aja bang bagi-bagi pluginnya :v
 plugins/_detectgempa.js
+plugins/_listspam.js
 plugins/_openai.js
 plugins/_openaipc.js
 plugins/anime-anime.js
@@ -99,6 +100,7 @@ plugins/gi-food.js
 plugins/gi-material.js
 plugins/gi-talent.js
 plugins/gi-weapon.js
+plugins/group-listspam.js
 plugins/group-pool.js
 plugins/info-beasiswa.js
 plugins/info-cekusia.js
