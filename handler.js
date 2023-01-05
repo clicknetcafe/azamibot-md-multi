@@ -800,6 +800,7 @@ export async function handler(chatUpdate) {
 				if (!('imgbb' in datas)) datas.imgbb = ''
 				if (!('wgempa' in datas)) datas.wgempa = ''
 				if (!('spamcountreset' in datas)) datas.spamcountreset = 0
+				if (!('spamlistmsg' in datas)) datas.spamlistmsg = null
 				if (!('openaipc' in datas)) datas.openaipc = false
 				if (!('teksdonasi' in datas)) datas.teksdonasi = ''
 				if (!('tekssewa' in datas)) datas.tekssewa = ''
@@ -821,6 +822,7 @@ export async function handler(chatUpdate) {
 				imgbb: '',
 				wgempa: '',
 				spamcountreset: 0,
+				spamlistmsg : null,
 				openaipc: false,
 				teksdonasi: '',
 				tekssewa: '',

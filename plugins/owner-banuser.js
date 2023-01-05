@@ -11,6 +11,7 @@ let handler = async (m, { conn }) => {
         if (user.bannedcd != 0) return conn.sendMessage(m.chat, { text: `[!] Tidak dapat ban @${(who || '').replace(/@s\.whatsapp\.net/g, '')} karena sudah di *silent*`, mentions: [who] }, { quoted: m })
         user.banned = true
         user.permaban = true
+        user.spamcount = 0
         conn.reply(m.chat, `berhasil banned`, m)
     } catch (e) {
         console.log(e)

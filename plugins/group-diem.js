@@ -28,6 +28,7 @@ let handler = async (m, { conn, participants, usedPrefix, command, args, isOwner
 			users.banned = true
 		    users.lastbanned = new Date * 1
 		    users.bannedcd = cooldown * total
+		    users.spamcount = 0
 			await conn.sendMessage(m.chat, { text: `@${(who || '').replace(/@s\.whatsapp\.net/g, '')} di *mute* selama ${total} menit.`, mentions: [who] }, { quoted: m })
 		} catch (e) {
 			console.log(e)
