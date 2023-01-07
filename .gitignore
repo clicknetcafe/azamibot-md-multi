@@ -13,17 +13,16 @@ plugins/New folder/
 # ntar aja bang bagi-bagi pluginnya :v
 plugins/_detectgempa.js
 plugins/_listspam.js
+plugins/_listspamgc.js
 plugins/_openai.js
 plugins/_openaipc.js
 plugins/anime-anime.js
 plugins/anime-chara.js
-plugins/anime-jadianime.js
 plugins/anime-kitsu.js
 plugins/anime-kusonime.js
 plugins/anime-manga.js
 plugins/anime-mynimeku.js
 plugins/anime-otakudesu.js
-plugins/anime-randomstory.js
 plugins/anime-ransfw5.js
 plugins/anime-ransfw6.js
 plugins/anime-ransfw8.js
@@ -31,8 +30,6 @@ plugins/anime-saucenao.js
 plugins/anime-wait.js
 plugins/creator-ktpmaker.js
 plugins/creator-pasfoto.js
-plugins/download-cocofun.js
-plugins/download-cocofunnowm.js
 plugins/download-fb.js
 plugins/download-fbhd.js
 plugins/download-fblow.js
@@ -63,11 +60,12 @@ plugins/entertain-1cak.js
 plugins/entertain-audiotext.js
 plugins/entertain-asupan.js
 plugins/entertain-avatar.js
-plugins/entertain-cecan.js
 plugins/entertain-changemymind.js
 plugins/entertain-darkmeme.js
 plugins/entertain-menfess.js
 plugins/entertain-menfess_ans.js
+plugins/entertain-menfesschat_ans.js
+plugins/entertain-menfesschat_timer.js
 plugins/entertain-openai.js
 plugins/entertain-randomanimal.js
 plugins/entertain-randomanimal2.js
@@ -89,18 +87,17 @@ plugins/game-tebaklagu.js
 plugins/game-tebaklagu_ans.js
 plugins/game-tekateki.js
 plugins/game-tekateki_ans.js
-plugins/gi-animal.js
 plugins/gi-arte.js
 plugins/gi-chara.js
 plugins/gi-constellation.js
 plugins/gi-domain.js
 plugins/gi-element.js
 plugins/gi-enemy.js
-plugins/gi-food.js
 plugins/gi-material.js
 plugins/gi-talent.js
 plugins/gi-weapon.js
 plugins/group-listspam.js
+plugins/group-listspamgc.js
 plugins/group-pool.js
 plugins/info-beasiswa.js
 plugins/info-cekusia.js
@@ -128,7 +125,6 @@ plugins/nsfw-blowjob.js
 plugins/nsfw-cersex.js
 plugins/nsfw-cosplay.js
 plugins/nsfw-doujindesu.js
-plugins/nsfw-gif.js
 plugins/nsfw-hentai.js
 plugins/nsfw-loli.js
 plugins/nsfw-neko.js
@@ -147,7 +143,6 @@ plugins/nsfw-tiktok.js
 plugins/nsfw-waifu.js
 plugins/nsfw-xhamster.js
 plugins/nsfw-xnxx.js
-plugins/oxy-1.js
 plugins/oxy-2.js
 plugins/primbon-jodoh.js
 plugins/primbon-nama.js
@@ -156,10 +151,6 @@ plugins/random-cerpen.js
 plugins/random-fakta.js
 plugins/random-people.js
 plugins/random-quotenime.js
-plugins/rpg-bank.js
-plugins/rpg-banknabung.js
-plugins/rpg-banknarik.js
-plugins/rpg-bank_heh.js
 plugins/search-apk.js
 plugins/search-gimage.js
 plugins/search-google.js
@@ -168,7 +159,6 @@ plugins/search-konachan.js
 plugins/search-mirror.js
 plugins/search-pinterest.js
 plugins/search-pixiv.js
-plugins/search-semoji.js
 plugins/search-stikerbetabotz.js
 plugins/search-stikerline.js
 plugins/search-stikertele.js

@@ -716,6 +716,8 @@ export async function handler(chatUpdate) {
 					chat.lastmute = 0
 				if (!isNumber(chat.mutecd))
 					chat.mutecd = 0
+				if (!isNumber(chat.spamcount))
+					chat.spamcount = 0
 			} else
 				db.data.chats[m.chat] = {
 					isBanned: false,
@@ -744,6 +746,7 @@ export async function handler(chatUpdate) {
 					expired: 0,
 					lastmute: 0,
 					mutecd: 0,
+					spamcount: 0,
 				}
 			let akinator = db.data.users[m.sender].akinator
 			if (typeof akinator !== 'object')
@@ -800,7 +803,9 @@ export async function handler(chatUpdate) {
 				if (!('imgbb' in datas)) datas.imgbb = ''
 				if (!('wgempa' in datas)) datas.wgempa = ''
 				if (!('spamcountreset' in datas)) datas.spamcountreset = 0
+				if (!('spamcountgcreset' in datas)) datas.spamcountgcreset = 0
 				if (!('spamlistmsg' in datas)) datas.spamlistmsg = null
+				if (!('spamlistgcmsg' in datas)) datas.spamlistgcmsg = null
 				if (!('openaipc' in datas)) datas.openaipc = false
 				if (!('teksdonasi' in datas)) datas.teksdonasi = ''
 				if (!('tekssewa' in datas)) datas.tekssewa = ''
@@ -814,6 +819,8 @@ export async function handler(chatUpdate) {
 				if (!('menfess' in datas)) datas.menfess = []
 				if (!('listgc' in datas)) datas.listgc = []
 				if (!('openaikey' in datas)) datas.openaikey = []
+				if (!('menfesschat' in datas)) datas.menfesschat = {}
+				if (!('menfesschatcd' in datas)) datas.menfesschatcd = 0
 			} else db.data.datas = {
 				packname: '',
 				author: '',
@@ -822,7 +829,9 @@ export async function handler(chatUpdate) {
 				imgbb: '',
 				wgempa: '',
 				spamcountreset: 0,
+				spamcountgcreset: 0,
 				spamlistmsg : null,
+				spamlistgcmsg: null,
 				openaipc: false,
 				teksdonasi: '',
 				tekssewa: '',
@@ -834,7 +843,9 @@ export async function handler(chatUpdate) {
 				store: [],
 				menfess: [],
 				listgc: [],
-				openaikey: []
+				openaikey: [],
+				menfesschat: {},
+				menfesschatcd: 0,
 			}
 		} catch (e) {
 			console.error(e)

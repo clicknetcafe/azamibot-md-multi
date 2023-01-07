@@ -1,11 +1,9 @@
 import fetch from 'node-fetch'
 import { youtubedl, youtubedlv2, youtubedlv3 } from '@bochilteam/scraper'
+import { niceBytes, isUrl, somematch } from '../lib/others.js'
 
 let handler = async (m, { conn, text, args, command }) => {
-	//if (!args || !args[0]) throw 'Uhm... urlnya mana?'
 	if (!text.match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))) return m.reply(`Invalid Youtube URL.`)
-	const isY = /y(es)/gi.test(args[1])
-	let fimg, fimgb
 	command = command.toLowerCase()
 	try {
 		const { audio: _audio, title } = await youtubedl(args[0]).catch(async _ => await youtubedlv2(args[0])).catch(async _ => await youtubedlv3(args[0]))
@@ -23,44 +21,36 @@ let handler = async (m, { conn, text, args, command }) => {
 				lastError = e
 			}
 		}
-		if (sizeh > 200000) throw `Filesize: ${audio.fileSizeH}\nTidak dapat mengirim, maksimal file 200 MB`
-		fimg = await fetch(link)
-		fimgb = Buffer.from(await fimg.arrayBuffer())
-		if (Buffer.byteLength(fimgb) < 22000) throw new e()
-		if (command.includes('mp3')) {
-			await conn.sendMessage(m.chat, { document: fimgb, mimetype: 'audio/mpeg', fileName: `${title}.mp3`}, { quoted : m })
-		} else {
-			await conn.sendMessage(m.chat, { audio: fimgb, mimetype: 'audio/mp4' }, { quoted : m })
-		}
+		if (sizeh > 300000) throw `Filesize: ${audio.fileSizeH}\nTidak dapat mengirim, maksimal file 300 MB`
+		if (!link) throw new Error('No URL')
+		if (command.includes('mp3')) await conn.sendMessage(m.chat, { document: { url: link }, mimetype: 'audio/mpeg', fileName: `${title}.mp3`}, { quoted : m })
+		else await conn.sendMessage(m.chat, { audio: { url: link }, mimetype: 'audio/mp4' }, { quoted : m })
 	} catch (e) {
+		console.log(e)
 		try {
 			let res = await fetch(`https://api.lolhuman.xyz/api/ytaudio?apikey=${global.api}&url=${text}`)
 			let anu = await res.json()
-			if (anu.result.link.size.slice(-2) == "GB") return m.reply(`Ngotak dong.\nMana bisa ngirim video ${anu.result.link.size}`)
-			if (anu.result.link.size.slice(-2) != "KB" && parseInt(anu.result.link.size.replace(" MB", "")) > 200) return m.reply(`Filesize: ${anu.result.link.size}\nTidak dapat mengirim, maksimal file 200 MB`)
-			fimg = await fetch(anu.result.link.link)
-			fimgb = Buffer.from(await fimg.arrayBuffer())
-			if (Buffer.byteLength(fimgb) < 22000) throw new e()
-			if (command.includes('mp3')) {
-				await conn.sendMessage(m.chat, {document: fimgb, mimetype: 'audio/mpeg', fileName: `${anu.result.title}.mp3`}, { quoted : m })
-			} else {
-				await conn.sendMessage(m.chat, { audio: fimgb, mimetype: 'audio/mp4' }, { quoted : m })
-			}
+			anu = anu.result
+			let vsize = anu.link.size.slice(-2)
+			if (vsize == "GB") return m.reply(`Ngotak dong.\nMana bisa ngirim video ${anu.link.size}`)
+			if (!somematch(['kB','KB'], vsize) && parseInt(anu.link.size.replace(" MB", "")) > 200) return m.reply(`Filesize: ${anu.link.size}\nTidak dapat mengirim, maksimal file 300 MB`)
+			if (!anu.link.link) throw new Error('Error')
+			if (command.includes('mp3')) await conn.sendMessage(m.chat, {document: { url: anu.link.link }, mimetype: 'audio/mpeg', fileName: `${anu.result.title}.mp3`}, { quoted : m })
+			else await conn.sendMessage(m.chat, { audio: { url: anu.link.link }, mimetype: 'audio/mp4' }, { quoted : m })
 		} catch (e) {
+			console.log(e)
 			try {
 				let res = await fetch(`https://api.lolhuman.xyz/api/ytaudio2?apikey=${global.api}&url=${text}`)
 				let anu = await res.json()
-				if (anu.result.size.slice(-2) == "GB") return m.reply(`Ngotak dong.\nMana bisa ngirim video ${anu.result.size}`)
-				if (anu.result.size.slice(-2) != "KB" && parseInt(anu.result.size.replace(" MB", "")) > 200) return m.reply(`Filesize: ${anu.result.size}\nTidak dapat mengirim, maksimal file 200 MB`)
-				fimg = await fetch(anu.result.link)
-				fimgb = Buffer.from(await fimg.arrayBuffer())
-				if (Buffer.byteLength(fimgb) < 22000) throw new e()
-				if (command.includes('mp3')) {
-					await conn.sendMessage(m.chat, {document: fimgb, mimetype: 'audio/mpeg', fileName: `${anu.result.title}.mp3`}, { quoted : m })
-				} else {
-					await conn.sendMessage(m.chat, { audio: fimgb, mimetype: 'audio/mp4' }, { quoted : m })
-				}
+				anu = anu.result
+				let vsize = anu.size.slice(-2)
+				if (vsize == "GB") return m.reply(`Ngotak dong.\nMana bisa ngirim video ${anu.size}`)
+				if (!somematch(['kB','KB'], vsize) && parseInt(anu.size.replace(" MB", "")) > 200) return m.reply(`Filesize: ${anu.size}\nTidak dapat mengirim, maksimal file 300 MB`)
+				if (!anu.link) throw new Error('Error')
+				if (command.includes('mp3')) await conn.sendMessage(m.chat, {document: { url: anu.link }, mimetype: 'audio/mpeg', fileName: `${anu.result.title}.mp3`}, { quoted : m })
+				else await conn.sendMessage(m.chat, { audio: { url: anu.link }, mimetype: 'audio/mp4' }, { quoted : m })
 			} catch (e) {
+				console.log(e)
 				throw `Invalid Youtube URL / terjadi kesalahan.`
 			}
 		}

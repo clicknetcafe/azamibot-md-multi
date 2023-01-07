@@ -1,5 +1,4 @@
 import db from '../lib/database.js'
-
 let handler = async (m, { text }) => {
 	let id
 	if (!text) id = m.chat
@@ -9,6 +8,7 @@ let handler = async (m, { text }) => {
 		let chat = db.data.chats[id]
 		chat.isBanned = true
 		chat.permaBan = true
+		chat.spamcount = 0
 		m.reply('Bot dalam mode nyimak.')
 	} catch (e) {
 		console.log(e)
