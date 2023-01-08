@@ -165,10 +165,14 @@ plugins/search-stikertele.js
 plugins/search-stikerwa.js
 plugins/search-wallhaven.js
 plugins/search-wallpaper.js
+plugins/store-cekstatus.js
+plugins/store-done.js
 plugins/store-list.js
 plugins/store-listadd.js
 plugins/store-listdelete.js
+plugins/store-listpesanan.js
 plugins/store-listupdate.js
+plugins/store-proses.js
 plugins/textpro-1.js
 plugins/textpro-2.js
 plugins/tool-dashboard.js
