@@ -15,7 +15,7 @@ let format = sizeFormatter({
 let handler = async (m, { conn }) => {
 	let groups
 	try { groups = Object.values(await conn.groupFetchAllParticipating()) }
-	catch { return m.reply(`[!] rate-overlimit`) }
+	catch { return }
 	let chats = Object.entries(Connection.store.chats).filter(([id, data]) => id && data.isChats)
 	let groupsIn = chats.filter(([id]) => id.endsWith('@g.us'))
 	let used = process.memoryUsage()

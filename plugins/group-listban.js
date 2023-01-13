@@ -4,7 +4,7 @@ import { parsePhoneNumber } from 'awesome-phonenumber'
 let handler = async (m, { conn, usedPrefix, command, isOwner, text }) => {
 	let groups
 	try { groups = Object.values(await conn.groupFetchAllParticipating()).map(v => v.id) }
-	catch { return m.reply(`[!] rate-overlimit`) }
+	catch { return }
 	let gc = db.data.chats
 	let pc = db.data.users
 	let chats = Object.entries(gc).filter(v => v[1].isBanned).map(([v]) => v)

@@ -1,27 +1,13 @@
 import uploadImage from '../lib/uploadImage.js'
 import uploadFile from '../lib/uploadFile.js'
 
-let handler = async (m, { conn, args, usedPrefix, text, command }) => {
+let handler = async (m, { usedPrefix, command }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''
-	if (/image|webp|sticker|audio|video/g.test(mime)) {
-		let img = await q.download?.()
-		try {
-			let out = await uploadImage(img)
-			m.reply(`[ LINK ]\n${out}`)
-		} catch (e) {
-			console.log(e)
-			try {
-				let out = await uploadFile(img)
-				m.reply(`[ LINK ]\n${out}`)
-			} catch (e) {
-				console.log(e)
-				m.reply(`Terjadi kesalahan, coba lagi nanti.`)
-			}
-		}
-	} else {
-		m.reply(`Kirim media dengan caption *${usedPrefix + command}* atau tag media yang sudah dikirim`)
-	}
+	let tele = /image\/(png|jpe?g|gif)|video\/mp4/.test(mime)
+	let img = await q.download?.()
+	let out = await (tele ? uploadImage : uploadFile)(img)
+	m.reply(`[ LINK ]\n${out}`)
 }
 
 handler.help = ['tourl']

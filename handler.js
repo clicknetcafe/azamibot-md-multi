@@ -820,6 +820,7 @@ export async function handler(chatUpdate) {
 				if (!('menfess' in datas)) datas.menfess = []
 				if (!('listgc' in datas)) datas.listgc = []
 				if (!('openaikey' in datas)) datas.openaikey = []
+				if (!('apiflashkey' in datas)) datas.apiflashkey = []
 				if (!('menfesschat' in datas)) datas.menfesschat = {}
 				if (!('menfesschatcd' in datas)) datas.menfesschatcd = 0
 			} else db.data.datas = {
@@ -846,6 +847,7 @@ export async function handler(chatUpdate) {
 				menfess: [],
 				listgc: [],
 				openaikey: [],
+				apiflashkey: [],
 				menfesschat: {},
 				menfesschatcd: 0,
 			}
@@ -1175,38 +1177,35 @@ export async function participantsUpdate({ id, participants, action }) {
 		case 'add':
 		case 'remove':
 			if (chat.welcome) {
+				let add = /add/.test(action)
+				let bufpp, image
 				let groupMetadata = await Connection.store.fetchGroupMetadata(id, this.groupMetadata)
 				for (let user of participants) {
 					let pp = './src/avatar_contact.png'
 					try {
-						let bufpp, image, lurl, bufppgc, uname, gname
 						try {
 							try {
 								bufpp = await this.profilePictureUrl(user, 'image')
 							} catch {
 								bufpp = 'https://i.ibb.co/m53WF9N/avatar-contact.png'
 							}
-							bufppgc = await this.profilePictureUrl(id, 'image')
-							uname = await this.getName(user)
-							gname = await this.getName(id)
+							let bufppgc = await this.profilePictureUrl(id, 'image')
+							let uname = await this.getName(user)
+							let gname = await this.getName(id)
 							try {
 								const can = require('knights-canvas')
-								if (action === 'add') {
-									image = await new can.Welcome().setUsername(uname).setGuildName(gname).setGuildIcon(bufppgc).setMemberCount(groupMetadata.size).setAvatar(bufpp).setBackground('https://i.ibb.co/z2QQnqm/wp.jpg').toAttachment()
-								} else {
-									image = await new can.Goodbye().setUsername(uname).setGuildName(gname).setGuildIcon(bufppgc).setMemberCount(groupMetadata.size).setAvatar(bufpp).setBackground('https://i.ibb.co/z2QQnqm/wp.jpg').toAttachment()
-								}
+								image = await (add ? new can.Welcome() : new can.Goodbye()).setUsername(uname).setGuildName(gname).setGuildIcon(bufppgc).setMemberCount(groupMetadata.size).setAvatar(bufpp).setBackground('https://i.ibb.co/z2QQnqm/wp.jpg').toAttachment()
 								pp = await image.toBuffer()
 							} catch {
-								lurl = await fetch(`https://api.lolhuman.xyz/api/base/${action === 'add' ? 'welcome' : 'leave'}?apikey=${global.api}&img1=${bufpp}&img2=${bufppgc}&background=https://i.ibb.co/z2QQnqm/wp.jpg&username=${uname ? encodeURIComponent(uname) : '-'}&member=${groupMetadata.size}&groupname=${encodeURIComponent(gname)}`)
-								pp = Buffer.from(await lurl.arrayBuffer())
+								image = await fetch(`https://api.lolhuman.xyz/api/base/${add ? 'welcome' : 'leave'}?apikey=${global.api}&img1=${bufpp}&img2=${bufppgc}&background=https://i.ibb.co/z2QQnqm/wp.jpg&username=${uname}&member=${groupMetadata.size}&groupname=${encodeURIComponent(gname)}`)
+								pp = Buffer.from(await image.arrayBuffer())
 							}
 						} catch {
 							pp = await this.profilePictureUrl(user, 'image')
 						}
 					} catch (e) {
 					} finally {
-						text = (action === 'add' ? (chat.sWelcome || this.welcome || Connection.conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
+						text = (add ? (chat.sWelcome || this.welcome || Connection.conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
 							(chat.sBye || this.bye || Connection.conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
 						this.sendFile(id, pp, 'pp.jpg', text, null, false, { mentions: [user] })
 					}

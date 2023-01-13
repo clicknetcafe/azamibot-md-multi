@@ -6,7 +6,7 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
 	try {
 		gc = await conn.groupFetchAllParticipating()
 		groups = Object.values(await conn.groupFetchAllParticipating()).map(v => v.id)
-	} catch { return m.reply('[!] rate-overlimit') }
+	} catch { return }
 	let x, y, timer, name, sisa, array = []
 	for (let x of groups) {
 		timer = (dt[x].joindate + dt[x].joincd) - new Date()
