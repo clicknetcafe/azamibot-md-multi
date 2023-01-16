@@ -48,9 +48,6 @@ plugins/download-tiktok.js
 plugins/download-tiktokaudio.js
 plugins/download-tiktoknowm.js
 plugins/download-twitter.js
-plugins/download-twitterhd.js
-plugins/download-twittermid.js
-plugins/download-twittersd.js
 plugins/download-yts.js
 plugins/download-zippyshare.js
 plugins/editor-1.js
@@ -121,6 +118,9 @@ plugins/info-readqr.js
 plugins/info-ssweb.js
 plugins/info-translate.js
 plugins/info-wikipedia.js
+plugins/kerang-apakah.js
+plugins/kerang-bagaimanakah.js
+plugins/kerang-kapankah.js
 plugins/menustore.js
 plugins/nsfw-cersex.js
 plugins/nsfw-cosplay.js

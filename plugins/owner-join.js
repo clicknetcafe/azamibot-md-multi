@@ -3,6 +3,7 @@ let linkRegex = /chat.whatsapp.com\/([0-9A-Za-z]{20,24})( [0-9]{1,3})?/i
 const cooldown = 86400000
 
 let handler = async (m, { conn, text, isOwner }) => {
+	if (db.data.settings[conn.user.jid].restrict) throw `[ RESTRICT ENABLED ]`
 	let [_, code, expired] = text.match(linkRegex) || []
 	if (!code) throw 'Link invalid'
 	try {

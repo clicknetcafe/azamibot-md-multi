@@ -1,26 +1,26 @@
 import db from '../lib/database.js'
-import { areJidsSameUser } from '@adiwajshing/baileys'
-import { delay } from '../lib/others.js'
+import fetch from 'node-fetch'
+import { sticker } from '../lib/sticker.js'
+import { somematch } from '../lib/others.js'
 
-let handler = async (m, { conn, text, args, participants }) => {
-    if (db.data.settings[conn.user.jid].restrict) throw `[ RESTRICT ENABLED ]`
-    if (m.quoted) {
-        if (m.quoted.sender === conn.user.jid) throw `yahaha`
-        let usr = m.quoted.sender;
-        await conn.groupParticipantsUpdate(m.chat, [usr], "remove")
-    } else {
-        let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : args[0] ? (args[0].replace(/[@ .+-]/g, '') + '@s.whatsapp.net') : ''
-        if (!who) return m.reply('Tag target yang ingin di kick!!')
-        let users = m.mentionedJid.filter(u => !areJidsSameUser(u, conn.user.id))
-        let kickedUser = []
-        for (let user of users)
-            if (user.endsWith('@s.whatsapp.net') && !(participants.find(v => areJidsSameUser(v.id, user)) || { admin: true }).admin) {
-                const res = await conn.groupParticipantsUpdate(m.chat, [user], 'remove')
-                kickedUser.concat(res)
-                await delay(1 * 1000)
-            }
-        m.reply(`Succes kick ${kickedUser.map(v => '@' + v.split('@')[0])}`, null, { mentions: kickedUser })
-    }
+let handler = async (m, { conn, text, participants }) => {
+	if (db.data.settings[conn.user.jid].restrict) {
+		try {
+			let res = await fetch(`https://api.waifu.pics/sfw/kick`)
+			let anu = await res.json()
+			anu = anu.url
+			if (!anu) throw Error('error : no url')
+			let buffer = await sticker(false, anu, packname, author)
+			await conn.sendFile(m.chat, buffer, 'sticker.webp', '', m)
+		} catch { throw `[ RESTRICT ENABLED ]` }
+	} else {
+		let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : text ? (text.replace(/\D/g, '') + '@s.whatsapp.net') : ''
+		if (!who || who == m.sender) throw '*Quote / tag* target yang ingin di kick!!'
+		if (participants.filter(v => v.id == who).length == 0) throw `Target tidak berada dalam Grup !`
+		if (somematch([conn.user.jid, ...global.mods.map(v => v + '@s.whatsapp.net')], who)) throw 'Jangan gitu ama Owner'
+		await conn.groupParticipantsUpdate(m.chat, [who], 'remove')
+		await m.reply(`Succes kick @${who.split('@')[0]}`, null, { mentions: [who] })
+	}
 }
 
 handler.menugroup = ['kick']

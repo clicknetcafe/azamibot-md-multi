@@ -1,19 +1,14 @@
 import db from '../lib/database.js'
-let handler = async (m, { text }) => {
-	let id
-	if (!text) id = m.chat
-	else id = `${text.includes('@') ? text : text + '@g.us'}`
-	try {
-		if (!text && !m.isGroup) return m.reply(`*「GROUP ONLY」*`)
-		let chat = db.data.chats[id]
-		chat.isBanned = true
-		chat.permaBan = true
-		chat.spamcount = 0
-		m.reply('Bot dalam mode nyimak.')
-	} catch (e) {
-		console.log(e)
-		m.reply(`ID Grup tidak ada dalam database.`)
-	}
+
+let handler = async (m, { args }) => {
+	let id = args[0] ? args[0] : m.isGroup ? m.chat : ''
+	if (!id) throw `input group id !`
+	let chat = db.data.chats[id]
+	if (!chat) return m.reply(`[!] Invalid ID Group`)
+	chat.isBanned = true
+	chat.permaBan = true
+	chat.spamcount = 0
+	m.reply('Bot dalam mode nyimak.')
 }
 
 handler.menuowner = ['banchat']
