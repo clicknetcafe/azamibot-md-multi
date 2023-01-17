@@ -817,7 +817,7 @@ export async function handler(chatUpdate) {
 				if (!('owner' in datas)) datas.owner = []
 				if (!('store' in datas)) datas.store = []
 				if (!('storestatus' in datas)) datas.storestatus = {}
-				if (!('menfess' in datas)) datas.menfess = []
+				if (!('menfess' in datas)) datas.menfess = {}
 				if (!('listgc' in datas)) datas.listgc = []
 				if (!('openaikey' in datas)) datas.openaikey = []
 				if (!('apiflashkey' in datas)) datas.apiflashkey = []
@@ -844,7 +844,7 @@ export async function handler(chatUpdate) {
 				owner: [],
 				store: [],
 				storestatus: {},
-				menfess: [],
+				menfess: {},
 				listgc: [],
 				openaikey: [],
 				apiflashkey: [],
