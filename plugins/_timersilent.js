@@ -1,7 +1,6 @@
 import db from '../lib/database.js'
 
-export async function before(m, { conn, isAdmin, isBotAdmin, fkontak }) {
-	if (m.isBaileys && m.fromMe) return !0
+export async function before(m, { isAdmin, isBotAdmin, fkontak }) {
 	let user = db.data.users[m.sender]
 	if (user.permaban) return !0
 	if (user.bannedcd == 0) return !0

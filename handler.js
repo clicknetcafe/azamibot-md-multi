@@ -876,7 +876,7 @@ export async function handler(chatUpdate) {
 			await this.msgqueque.waitQueue(id)
 		}
 
-		if (m.isBaileys)
+		if (m.isBaileys && m.fromMe)
 			return
 		m.exp += Math.ceil(Math.random() * 10)
 

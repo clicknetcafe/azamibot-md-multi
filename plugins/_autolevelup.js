@@ -303,13 +303,13 @@ export async function before(m) {
 		try {
 			let image, data, pp
 			try {
-				pp = await conn.profilePictureUrl(m.sender, 'image')
+				pp = await this.profilePictureUrl(m.sender, 'image')
 			} catch {
 				pp = 'https://i.ibb.co/m53WF9N/avatar-contact.png'
 			}
 			image = await new can.Up().setAvatar(pp).toAttachment()
 			data = image.toBuffer()
-			await conn.sendMessage(m.chat, { image: data, caption: ini_txt }, { quoted: m })
+			await this.sendMessage(m.chat, { image: data, caption: ini_txt }, { quoted: m })
 		} catch {
 			await m.reply(ini_txt)
 		}

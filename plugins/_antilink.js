@@ -3,8 +3,7 @@ import db from '../lib/database.js'
 const linkRegex = /chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/i
 const linkLain = /chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/g
 
-export async function before(m, { conn, isAdmin, text, isBotAdmin, fkontak }) {
-	if (m.isBaileys && m.fromMe) return !0
+export async function before(m, { isAdmin, text, isBotAdmin, fkontak }) {
 	if (!m.isGroup) return !1
 	let chat = db.data.chats[m.chat]
 	const isGroupLink = linkRegex.exec(m.text)
@@ -15,8 +14,8 @@ export async function before(m, { conn, isAdmin, text, isBotAdmin, fkontak }) {
 			text = [...m.text.matchAll(linkLain)].map(v => v[1]).filter(v => !v.includes(p))
 			if (m.text.includes(linkThisGroup) && text.length == 0) return !0
 		}
-		if (!m.fromMe && isBotAdmin) await conn.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: false, id: m.id, participant: m.sender } })
-		await conn.sendMessage(m.chat, { text: `@${(m.sender || '').replace(/@s\.whatsapp\.net/g, '')} *terdeteksi* mengirim Link Group!`, mentions: [m.sender] }, { quoted: fkontak })
+		if (!m.fromMe && isBotAdmin) await this.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: false, id: m.id, participant: m.sender } })
+		await this.sendMessage(m.chat, { text: `@${(m.sender || '').replace(/@s\.whatsapp\.net/g, '')} *terdeteksi* mengirim Link Group!`, mentions: [m.sender] }, { quoted: fkontak })
 	}
 	return !0
 }
