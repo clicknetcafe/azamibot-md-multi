@@ -19,7 +19,7 @@ let handler = async (m, { conn, usedPrefix, isPrems }) => {
     } else {
 
     }
-    let res = await fetch(`https://api.lolhuman.xyz/api/tebak/provinsi?apikey=${global.api}`)
+    let res = await fetch(`https://api.lolhuman.xyz/api/tebak/provinsi?apikey=${apilol}`)
     if (!res.ok) throw 'Fitur Error!'
     const json = await res.json()
     let caption = `
@@ -32,7 +32,7 @@ let handler = async (m, { conn, usedPrefix, isPrems }) => {
         await conn.sendMessage(m.chat, { image: { url: json.result.img }, caption: caption }, { quoted: m }),
         json, poin,
         setTimeout(() => {
-            if (conn.tebakprovinsi[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.result.title}*`, packname + ' - ' + author, ['tebakprovinsi', `${usedPrefix}tebakprovinsi`], conn.tebakprovinsi[id][0])
+            if (conn.tebakprovinsi[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.result.title}*`, pauthor, ['tebakprovinsi', `${usedPrefix}tebakprovinsi`], conn.tebakprovinsi[id][0])
             delete conn.tebakprovinsi[id]
         }, timeout)
     ]

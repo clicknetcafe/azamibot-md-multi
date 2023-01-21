@@ -1,5 +1,4 @@
 import db from '../lib/database.js'
-
 import { parsePhoneNumber } from 'awesome-phonenumber'
 
 let handler = async (m, { conn, usedPrefix }) => {
@@ -19,7 +18,7 @@ let handler = async (m, { conn, usedPrefix }) => {
 	let listMessage = {
 		text: `*Request From :* @${m.sender.split`@`[0]}\n\n*List Premium :* ${prems.length} Users`,
 		mentions: [m.sender],
-		footer: packname + ' - ' + author,
+		footer: pauthor,
 		title: `━ ━ 『 *LIST PREMIUM* 』 ━ ━`,
 		buttonText: `Premium List`,
 		sections

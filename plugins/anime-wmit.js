@@ -7,7 +7,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     if (/image/g.test(mime)) {
         let img = await q.download?.()
         let out = await uploadImage(img)
-        let res = await fetch(`https://api.lolhuman.xyz/api/wmit?apikey=${global.api}&img=${out}`)
+        let res = await fetch(`https://api.lolhuman.xyz/api/wmit?apikey=${apilol}&img=${out}`)
         if (!res.ok) throw await `Fitur Error!`
         let json = await res.json()
         if (json.status != '200') throw `Fitur Error!`

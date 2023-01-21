@@ -38,7 +38,7 @@ let handler = async (m, { conn, usedPrefix, command, isOwner, text }) => {
 	let listMessage = {
 		text: `*Request From :* @${m.sender.split`@`[0]}\n\n*Total Banned User : ${Object.entries(pc).filter(user => user[1].banned).length}*\n+212 & +265 Number is Auto Banned`,
 		mentions: [m.sender],
-		footer: packname + ' - ' + author,
+		footer: pauthor,
 		title: `━ ━ 『 *LIST BANNED* 』 ━ ━`,
 		buttonText: `Banned List`,
 		sections

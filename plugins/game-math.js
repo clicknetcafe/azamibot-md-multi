@@ -1,3 +1,4 @@
+import Connection from '../lib/connection.js'
 import db from '../lib/database.js'
 
 let handler = async (m, { conn, args, text, usedPrefix, command, isPrems }) => {
@@ -15,14 +16,14 @@ let handler = async (m, { conn, args, text, usedPrefix, command, isPrems }) => {
     if (args.length < 1) return conn.sendButton(m.chat, `
   Mode: ${Object.keys(modes).join(' | ')}
   Contoh penggunaan: ${usedPrefix}math medium
-  `.trim(), packname + ' - ' + author, null, buttons, m)
+  `.trim(), pauthor, null, buttons, m)
     let mode = args[0].toLowerCase()
     if (!(mode in modes)) return conn.sendButton(m.chat, `
   Mode: ${Object.keys(modes).join(' | ')}
   Contoh penggunaan: ${usedPrefix}math medium
-    `.trim(), packname + ' - ' + author, null, buttons, m)
+    `.trim(), pauthor, null, buttons, m)
     let id = m.chat
-    let chats = Object.entries(conn.chats).filter(([jid, chat]) => jid.includes('6282337245566@s') && chat.isChats).map(v => v[0])
+    let chats = Object.entries(Connection.store.chats).filter(([jid, chat]) => jid.includes('6282337245566@s') && chat.isChats).map(v => v[0])
     let cc = conn.serializeM(text ? m : m.quoted ? await m.getQuotedObj() : false || m)
     if (id in conn.math) return conn.reply(m.chat, 'Masih ada soal belum terjawab di chat ini', conn.math[id][0])
     let math = genMath(mode)
@@ -35,12 +36,11 @@ let handler = async (m, { conn, args, text, usedPrefix, command, isPrems }) => {
         await conn.reply(m.chat, `Berapa hasil dari *${math.str}*?\n\nTimeout: ${(math.time / 1000).toFixed(2)} detik\nBonus Jawaban Benar: ${math.bonus} Money`, m),
         math, 4,
         setTimeout(() => {
-            if (conn.math[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah ${math.result}`, packname + ' - ' + author, null, [['again', `${usedPrefix}${command} ${math.mode}`], ...buttons], conn.math[id][0])
+            if (conn.math[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah ${math.result}`, pauthor, null, [['again', `${usedPrefix}${command} ${math.mode}`], ...buttons], conn.math[id][0])
             delete conn.math[id]
         }, math.time)
     ]
 }
-
 handler.menufun = ['math <mode>']
 handler.tagsfun = ['game']
 handler.command = /^math/i

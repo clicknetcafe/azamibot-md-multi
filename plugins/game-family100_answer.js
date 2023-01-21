@@ -36,7 +36,7 @@ ${Array.from(room.jawaban, (jawaban, index) => {
     }).filter(v => v).join('\n')}
 ${isSurrender ? '' : `+${room.winScore} Money tiap jawaban benar`}
     `.trim()
-    const msg = await this.sendButton(m.chat, caption, packname + ' - ' + author, null, [[`${(isWin || isSurrender) ? 'Family 100' : 'Nyerah'}`, `${(isWin || isSurrender) ? '.family100' : 'nyerah'}`]], null, {
+    const msg = await this.sendButton(m.chat, caption, pauthor, null, [[`${(isWin || isSurrender) ? 'Family 100' : 'Nyerah'}`, `${(isWin || isSurrender) ? '.family100' : 'nyerah'}`]], null, {
         mentions: this.parseMention(caption)
     })
     room.msg = msg

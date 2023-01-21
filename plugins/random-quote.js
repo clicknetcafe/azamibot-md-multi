@@ -10,7 +10,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 		conn.sendButton(m.chat, `_${json.hasil.quotes}_\n\n*― ${json.hasil. author}*`, `⭔ Random Quote ⭔`, null, [[`⧑ next ${command} ⧑`, `${usedPrefix + command}`]], m)
 	} catch (e) {
 		try {
-			let res = await fetch(`https://api.lolhuman.xyz/api/random/quotes?apikey=${global.api}`)
+			let res = await fetch(`https://api.lolhuman.xyz/api/random/quotes?apikey=${apilol}`)
 			let json = await res.json()
 			conn.sendButton(m.chat, `_${json.result.quote}_\n\n*― ${json.result.by}*`, `⭔ Random Quote ⭔`, null, [[`⧑ next ${command} ⧑`, `${usedPrefix + command}`]], m)
 		} catch (e) {

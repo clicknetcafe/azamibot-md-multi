@@ -2,7 +2,7 @@ import { delay } from '../lib/others.js'
 import fs from 'fs'
 import { Sticker, StickerTypes } from 'wa-sticker-formatter'
 
-const bete = 'https://api.lolhuman.xyz/api/sticker', beb = `${global.api}`
+const bete = 'https://api.lolhuman.xyz/api/sticker', beb = global.apilol
 
 let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 	let res

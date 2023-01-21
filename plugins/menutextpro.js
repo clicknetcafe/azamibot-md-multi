@@ -1,4 +1,4 @@
-import { padLead, ranNumb, readMore } from '../lib/others.js'
+import { readMore, ranNumb, padLead } from '../lib/others.js'
 import { plugins } from '../lib/plugins.js'
 import { promises } from 'fs'
 import { join } from 'path'
@@ -58,13 +58,13 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 			readmore: readMore
 		}
 		text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
-		//const pp = await conn.profilePictureUrl(conn.user.jid).catch(_ => './src/avatar_contact.png')
-		/*conn.sendHydrated(m.chat, text.replace(`summer <text>`, `summer <text>${readMore}`).trim(), packname + ' - ' + author, nais, 'https://cutt.ly/azamilaifuu', 'Minimalist ツ Sweet', null, null, [
+		const pp = await conn.profilePictureUrl(conn.user.jid).catch(_ => './src/avatar_contact.png')
+		/*conn.sendHydrated(m.chat, text.replace(`summer <text>`, `summer <text>${readMore}`).trim(), pauthor, nais, 'https://cutt.ly/azamilaifuu', 'Minimalist ツ Sweet', null, null, [
 			['Premium', '/premium'],
 			['Speed', '/ping'],
 			['Owner', '/owner']
 		], m)*/
-		conn.sendButton(m.chat, text.replace(`summer <text>`, `summer <text>${readMore}`).trim(), packname + ' - ' + author, nais, [
+		conn.sendButton(m.chat, text.replace(`summer <text>`, `summer <text>${readMore}`).trim(), pauthor, nais, [
 			[`👥 Owner`, `.owner`],
 			[`🪡 Ping`, `.ping`]
 		], m)

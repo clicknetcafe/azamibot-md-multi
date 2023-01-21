@@ -5,7 +5,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 	if (!(text.includes('http://') || text.includes('https://'))) throw `url invalid, please input a valid url. Try with add http:// or https://`
 	command = command.toLowerCase()
 	try {
-		let anu = await fetch(`https://api.lolhuman.xyz/api/smule?apikey=${global.api}&url=${text}`)
+		let anu = await fetch(`https://api.lolhuman.xyz/api/smule?apikey=${apilol}&url=${text}`)
 		let json = await anu.json()
 		if (command.includes('mp3')) {
 			await conn.sendMessage(m.chat, {document: { url: json.result.audio }, mimetype: 'audio/mpeg', fileName: `${json.result.title}.mp3`}, { quoted : m })

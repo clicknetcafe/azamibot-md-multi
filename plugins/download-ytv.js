@@ -35,7 +35,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 		} catch (e) {
 			console.log(e)
 			try {
-				let res = await fetch(`https://api.lolhuman.xyz/api/ytvideo?apikey=${global.api}&url=${text}`)
+				let res = await fetch(`https://api.lolhuman.xyz/api/ytvideo?apikey=${apilol}&url=${text}`)
 				let anu = await res.json()
 				anu = anu.result
 				if (!isUrl(anu.link.link)) throw Error('No link')
@@ -50,7 +50,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 			} catch (e) {
 				console.log(e)
 				try {
-					let res = await fetch(`https://api.lolhuman.xyz/api/ytvideo2?apikey=${global.api}&url=${text}`)
+					let res = await fetch(`https://api.lolhuman.xyz/api/ytvideo2?apikey=${apilol}&url=${text}`)
 					let anu = await res.json()
 					anu = anu.result
 					let vsize = anu.size.slice(-2)

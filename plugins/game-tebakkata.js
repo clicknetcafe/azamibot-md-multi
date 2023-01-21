@@ -32,7 +32,7 @@ ${json.soal}
         await conn.reply(m.chat, caption, m),
         json, poin,
         setTimeout(() => {
-            if (conn.tebakkata[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.jawaban}*`, packname + ' - ' + author, ['tebakkata', `${usedPrefix}tebakkata`], conn.tebakkata[id][0])
+            if (conn.tebakkata[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.jawaban}*`, pauthor, ['tebakkata', `${usedPrefix}tebakkata`], conn.tebakkata[id][0])
             delete conn.tebakkata[id]
         }, timeout)
     ]

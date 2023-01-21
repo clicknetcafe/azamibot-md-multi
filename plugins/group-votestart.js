@@ -31,7 +31,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 └────
 
 *${usedPrefix}hapusvote* - untuk menghapus vote`
-	conn.sendButton(m.chat, teks_vote, packname + ' - ' + author, null, [
+	conn.sendButton(m.chat, teks_vote, pauthor, null, [
 		[`𝚄𝙿𝚅𝙾𝚃𝙴`, `${usedPrefix}upvote`],
 		[`𝙳𝙴𝚅𝙾𝚃𝙴`, `${usedPrefix}devote`]
 	], m)

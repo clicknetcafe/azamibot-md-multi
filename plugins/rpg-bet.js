@@ -1,6 +1,6 @@
 import db from '../lib/database.js'
 
-let confirm = {}
+const confirm = {}
 
 async function handler(m, { conn, args }) {
     //if (!isROwner) throw 'Dalam perbaikan'
@@ -17,7 +17,7 @@ async function handler(m, { conn, args }) {
                 timeout: setTimeout(() => (m.reply('timed out'), delete confirm[m.sender]), 60000)
             }
             let txt = '⚠️Warning⚠️\n*Jangan judi karena tidak akan menang, BENERAN!!*\nApakah anda mau melakukan judi (Y/n) (60s Timeout)'
-            return conn.sendButton(m.chat, txt, packname + ' - ' + author, null, [['y'], ['n']], m)
+            return conn.sendButton(m.chat, txt, pauthor, null, [['y'], ['n']], m)
         }
     } catch (e) {
         console.error(e)

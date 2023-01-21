@@ -820,7 +820,6 @@ export async function handler(chatUpdate) {
 				if (!('menfess' in datas)) datas.menfess = {}
 				if (!('listgc' in datas)) datas.listgc = []
 				if (!('openaikey' in datas)) datas.openaikey = []
-				if (!('apiflashkey' in datas)) datas.apiflashkey = []
 				if (!('menfesschat' in datas)) datas.menfesschat = {}
 				if (!('menfesschatcd' in datas)) datas.menfesschatcd = 0
 			} else db.data.datas = {
@@ -847,7 +846,6 @@ export async function handler(chatUpdate) {
 				menfess: {},
 				listgc: [],
 				openaikey: [],
-				apiflashkey: [],
 				menfesschat: {},
 				menfesschatcd: 0,
 			}

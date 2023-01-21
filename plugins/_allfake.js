@@ -4,6 +4,11 @@ import fetch from 'node-fetch'
 import moment from 'moment-timezone'
 import { pickRandom } from '../lib/others.js'
 
+function datain(data) {
+	let res = data+''
+	return res ? res : '-'
+}
+
 let handler = m => m
 	handler.all = async function (m) {
 	let name = await this.getName(m.sender)
@@ -14,10 +19,11 @@ let handler = m => m
 		pp = await this.profilePictureUrl(m.sender, 'image')
 	} catch (e) {
 	} finally {
-		global.packname = db.data.datas.packname || '-'
-		global.author = db.data.datas.author || '-'
-		global.api = db.data.datas.api || 'apilolhuman'	// https://api.lolhuman.xyz/docs
-		global.imgbb = db.data.datas.imgbb || 'apiimgbb'	// https://api.imgbb.com/
+		global.packname = datain(db.data.datas.packname)
+		global.author = datain(db.data.datas.author)
+		global.pauthor = datain(db.data.datas.packname) + ' - ' + datain(db.data.datas.author)
+		global.apilol = datain(db.data.datas.api)	// https://api.lolhuman.xyz/docs
+		global.imgbb = datain(db.data.datas.imgbb)	// https://api.imgbb.com/
 		global.ucapan = ucapan()
 
 		// Module
@@ -26,10 +32,10 @@ let handler = m => m
 		global.ephemeral = '86400' // 86400 = 24jam, kalo ingin di hilangkan ganti '86400' jadi 'null' atau ''
 
 		// fake troli
-		global.ftroli = { key: {participant : '0@s.whatsapp.net'}, message: { orderMessage: { itemCount: 2023, status: 1, surface: 1, message: timeh, ordertitle: packname + ' - ' + author, sellerJid: '0@s.whatsapp.net' } } }
+		global.ftroli = { key: {participant : '0@s.whatsapp.net'}, message: { orderMessage: { itemCount: 2023, status: 1, surface: 1, message: timeh, ordertitle: pauthor, sellerJid: '0@s.whatsapp.net' } } }
 
 		// fake kontak
-		global.fkontak = { key: {participant : '0@s.whatsapp.net'}, message: { 'contactMessage': { 'displayName': this.getName(m.sender), 'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;${packname},;;;\nFN:${packname},\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabell:Ponsel\nEND:VCARD`, 'jpegThumbnail': fs.readFileSync('./media/thumbnail.jpg'), thumbnail: fs.readFileSync('./media/thumbnail.jpg'),sendEphemeral: true}}}
+		global.fkontak = { key: {participant : '0@s.whatsapp.net'}, message: { 'contactMessage': { 'displayName': this.getName(m.sender), 'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;${pauthor},;;;\nFN:${pauthor},\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabell:Ponsel\nEND:VCARD`, 'jpegThumbnail': fs.readFileSync('./media/thumbnail.jpg'), thumbnail: fs.readFileSync('./media/thumbnail.jpg'),sendEphemeral: true}}}
 		
 		// fake vn
 		global.fvn = {
@@ -46,7 +52,7 @@ let handler = m => m
 		// fake video
 		global.fvid = {
 			key: { participant : '0@s.whatsapp.net'},
-			message: { "videoMessage": { "title": packname + ' - ' + author, "h": `Hmm`,'seconds': '12345', 'caption': timeh, 'jpegThumbnail': fs.readFileSync('./media/thumbnail.jpg')}}
+			message: { "videoMessage": { "title": pauthor, "h": `Hmm`,'seconds': '12345', 'caption': timeh, 'jpegThumbnail': fs.readFileSync('./media/thumbnail.jpg')}}
 		}
 
 		// fake centang hijau
@@ -54,7 +60,7 @@ let handler = m => m
 			key: { participant : '0@s.whatsapp.net'},
 			message: {
 				"extendedTextMessage": {
-					"text": packname + ' - ' + author,
+					"text": pauthor,
 					"title": timeh,
 					'jpegThumbnail': fs.readFileSync('./media/thumbnail.jpg')
 				}
@@ -72,13 +78,13 @@ let handler = m => m
 				}
 			}
 		}
-		
+
 		// fake location
 		global.fliveLoc = {
 		key: { participant : '0@s.whatsapp.net'},
 			message: {
 				"liveLocationMessage": {
-					"caption": packname + ' - ' + author,
+					"caption": pauthor,
 					"h": timeh,
 					'jpegThumbnail': fs.readFileSync('./media/thumbnail.jpg')
 				}
@@ -89,7 +95,7 @@ let handler = m => m
 		global.fliveLoc2 = {
 			key: { participant : '0@s.whatsapp.net'},
 			message: { "liveLocationMessage": {
-				"title": packname + ' - ' + author,
+				"title": pauthor,
 				"h": timeh,
 				'jpegThumbnail': fs.readFileSync('./media/thumbnail.jpg')
 			}}
@@ -105,7 +111,7 @@ let handler = m => m
 							"mimetype": "image/jpeg",
 							"jpegThumbnail": fs.readFileSync('./media/thumbnail.jpg')
 						},
-						"title": packname + ' - ' + author,
+						"title": pauthor,
 						"description": timeh, 
 						"currencyCode": "USD",
 						"priceAmount1000": "20000000",
@@ -122,7 +128,7 @@ let handler = m => m
 			key : { participant : '0@s.whatsapp.net'},
 			message: {
 				documentMessage: {
-					title: packname + ' - ' + author, 
+					title: pauthor, 
 					jpegThumbnail: fs.readFileSync('./media/thumbnail.jpg')
 				}
 			}
@@ -133,7 +139,7 @@ let handler = m => m
 			key: { participant : '0@s.whatsapp.net'},
 			message: { 
 				"videoMessage": {
-					"title": packname + ' - ' + author,
+					"title": pauthor,
 					"h": `Hmm`,
 					'seconds': '999999999', 
 					'gifPlayback': 'true', 
@@ -153,7 +159,7 @@ let handler = m => m
 					itemCount : 723,
 					//status: 1,
 					//surface : 1,
-					message: packname + ' - ' + author,
+					message: pauthor,
 					//orderTitle: `anulah`,
 					thumbnail: fs.readFileSync('./media/anime.jpg'),
 					sellerJid: '0@s.whatsapp.net' 

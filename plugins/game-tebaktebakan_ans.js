@@ -1,5 +1,5 @@
-import similarity from 'similarity'
 import db from '../lib/database.js'
+import similarity from 'similarity'
 const threshold = 0.72
 
 export async function before(m) {
@@ -15,7 +15,7 @@ export async function before(m) {
         let json = JSON.parse(JSON.stringify(this.tebaktebakan[id][1]))
         if (m.text.toLowerCase() == json.jawaban.toLowerCase().trim()) {
             user.money += this.tebaktebakan[id][2]
-            this.sendButton(m.chat, `*Benar!* 🎉\n\n+${this.tebaktebakan[id][2]} Money`, packname + ' - ' + author, ['tebaktebakan', '/tebaktebakan'], m)
+            conn.sendButton(m.chat, `*Benar!* 🎉\n\n+${this.tebaktebakan[id][2]} Money`, pauthor, ['tebaktebakan', '/tebaktebakan'], m)
             clearTimeout(this.tebaktebakan[id][3])
             delete this.tebaktebakan[id]
         } else if (similarity(m.text.toLowerCase(), json.jawaban.toLowerCase().trim()) >= threshold)

@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	try {
-		let res = await fetch(`https://api.lolhuman.xyz/api/turnbackhoax?apikey=${global.api}`)
+		let res = await fetch(`https://api.lolhuman.xyz/api/turnbackhoax?apikey=${apilol}`)
 		let json = await res.json()
 		let get_result = json.result
 		if (get_result.length == 0) throw Error(`Informasi tidak tersedia.`)

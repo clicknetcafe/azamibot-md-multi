@@ -15,7 +15,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         await m.reply(`*Tanggal :* ${anu.message.tanggal}\n\n*Karakteristik :*\n${anu.message.karakteristik}`)
     } catch (e) {
         try {
-            let res = await fetch(`https://api.lolhuman.xyz/api/jadian/${l}/${r}/${s}?apikey=${global.api}`)
+            let res = await fetch(`https://api.lolhuman.xyz/api/jadian/${l}/${r}/${s}?apikey=${apilol}`)
             let json = await res.json()
             if (json.status != '200') throw new e()
             let get_result = json.result

@@ -1,15 +1,11 @@
-import { padLead, ranNumb, readMore, runtime } from '../lib/others.js'
 import db from '../lib/database.js'
 import { plugins } from '../lib/plugins.js'
 import { promises } from 'fs'
 import { join } from 'path'
 import { xpRange } from '../lib/levelling.js'
+import { readMore, ranNumb, padLead, runtime } from '../lib/others.js'
 import fs from 'fs'
 import os from 'os'
-
-/*`#OS Version : %osversion#
-#OS Arch : %osarch | %oscore Core | %osspeed#
-#OS Uptime : %osuptime#`*/
 
 let tagsm = {}
 const defaultMenu = {
@@ -100,7 +96,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPr
 		text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
 		const pp = await conn.profilePictureUrl(conn.user.jid).catch(_ => './src/avatar_contact.png')
 		if (meh2 == 1) {
-			conn.sendHydrated(m.chat, text.replaceAll('#','```').trim(), packname + ' - ' + author, nais, 'https://cutt.ly/azamilaifuu', 'Minimalist ツ Sweet', null, null, [
+			conn.sendHydrated(m.chat, text.replaceAll('#','```').trim(), pauthor, nais, 'https://cutt.ly/azamilaifuu', 'Minimalist ツ Sweet', null, null, [
 				['Premium', '.premium'],
 				['Contact', '.owner'],
 				['⦿ ALL MENU ⦿', '.menuall']
@@ -143,8 +139,8 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPr
 				]
 				const listMessage = {
 					text: text.replaceAll('#','```').trim(),
-					footer: packname + ' - ' + author,
-					//title: `⎔───「 ${packname} 」───⎔`,
+					footer: pauthor,
+					//title: '',
 					buttonText: `SUB MENU 🎫`,
 					sections
 				}

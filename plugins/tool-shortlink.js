@@ -20,7 +20,7 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
 				out = text
 			}
 			if (command.includes('cutt')) {
-				let res = await fetch(`https://api.lolhuman.xyz/api/shortlink3?apikey=${global.api}&url=${out}`)
+				let res = await fetch(`https://api.lolhuman.xyz/api/shortlink3?apikey=${apilol}&url=${out}`)
 				if (!res.ok) throw new e()
 				let anu = await await res.json()
 				m.reply(`[ LINK ]\n${anu.result}`)
@@ -29,12 +29,12 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
 				let anu = await await res.json()
 				m.reply(`[ LINK ]\n${anu.result}`)
 			} else if (command.includes('ouo')) {
-				let res = await fetch(`https://api.lolhuman.xyz/api/ouoshortlink?apikey=${global.api}&url=${out}`)
+				let res = await fetch(`https://api.lolhuman.xyz/api/ouoshortlink?apikey=${apilol}&url=${out}`)
 				if (!res.ok) throw new e()
 				let anu = await await res.json()
 				m.reply(`[ LINK ]\n${anu.result}`)
 			} else if (command.includes('shrtco')) {
-				let res = await fetch(`https://api.lolhuman.xyz/api/shortlink2?apikey=${global.api}&url=${out}`)
+				let res = await fetch(`https://api.lolhuman.xyz/api/shortlink2?apikey=${apilol}&url=${out}`)
 				if (!res.ok) throw new e()
 				let anu = await await res.json()
 				m.reply(`[ LINK ]\n${anu.result}`)
@@ -45,7 +45,7 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
 					if (anu.result == undefined) throw new e()
 					m.reply(`[ LINK ]\n${anu.result}`)
 				} catch (e) {
-					let res = await fetch(`https://api.lolhuman.xyz/api/shortlink3?apikey=${global.api}&url=${out}`)
+					let res = await fetch(`https://api.lolhuman.xyz/api/shortlink3?apikey=${apilol}&url=${out}`)
 					if (!res.ok) throw new e()
 					let anu = await await res.json()
 					m.reply(`[ LINK ]\n${anu.result}`)

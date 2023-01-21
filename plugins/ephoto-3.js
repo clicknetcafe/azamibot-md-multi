@@ -7,7 +7,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
     if (!r) throw `Input text2`
     if (!s) throw `Input text3`
 	try {
-		let fimg = await fetch(`https://api.lolhuman.xyz/api/ephoto3/${command}?apikey=${global.api}&text1=${encodeURIComponent(l)}&text2=${encodeURIComponent(r)}&text3=${encodeURIComponent(s)}`)
+		let fimg = await fetch(`https://api.lolhuman.xyz/api/ephoto3/${command}?apikey=${apilol}&text1=${encodeURIComponent(l)}&text2=${encodeURIComponent(r)}&text3=${encodeURIComponent(s)}`)
 		if (!fimg.ok) throw new e()
 	    let fimgb = Buffer.from(await fimg.arrayBuffer())
 		await conn.sendMessage(m.chat, { image: fimgb, caption: `_Ephoto 360 : ${command}_` }, { quoted: m })

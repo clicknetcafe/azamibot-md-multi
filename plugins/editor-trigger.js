@@ -10,8 +10,8 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     	try {
 			let img = await q.download?.()
 			let out = await uploadImage(img)
-			const res = `https://api.lolhuman.xyz/api/creator1/trigger?apikey=${global.api}&img=${out}`
-			const stiker = await sticker(false, res, global.packname, global.author)
+			const res = `https://api.lolhuman.xyz/api/creator1/trigger?apikey=${apilol}&img=${out}`
+			const stiker = await sticker(false, res, packname, author)
 	        await conn.sendFile(m.chat, stiker, 'sticker.webp', '', m)
     	} catch (e) {
     		console.log(e)

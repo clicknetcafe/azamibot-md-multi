@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `Usage : ${usedPrefix + command} username\n\nExample: *${usedPrefix + command} xxhonorxx*`
 	try {
-		let res = await fetch(`https://api.lolhuman.xyz/api/osuname/${encodeURIComponent(text)}?apikey=${global.api}`)
+		let res = await fetch(`https://api.lolhuman.xyz/api/osuname/${encodeURIComponent(text)}?apikey=${apilol}`)
 		let json = await res.json()
 		let get_result = json.result
 		let txt = `User ID : ${get_result.user_id} - ${get_result.country}\n`

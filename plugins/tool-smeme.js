@@ -23,7 +23,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	} catch (e) {
 		console.log(e)
 		try {
-			let res = `https://api.lolhuman.xyz/api/memegen?apikey=${global.api}&texttop=${encodeURIComponent(l)}&textbottom=${encodeURIComponent(r)}&img=${out}`
+			let res = `https://api.lolhuman.xyz/api/memegen?apikey=${apilol}&texttop=${encodeURIComponent(l)}&textbottom=${encodeURIComponent(r)}&img=${out}`
 			let sticker = new Sticker(res, { pack: packname, author: author, type: StickerTypes.FULL })
 			ztick = await sticker.toBuffer()
 			await conn.sendFile(m.chat, ztick, 'sticker.webp', '', m)

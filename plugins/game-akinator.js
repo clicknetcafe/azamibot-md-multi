@@ -12,7 +12,7 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
 	} else {
 		if (aki.sesi) return conn.reply(m.chat, 'Anda masih berada dalam sesi Akinator', aki.soal)
 		try {
-			let res = await fetch(`https://api.lolhuman.xyz/api/akinator/start?apikey=${global.api}`)
+			let res = await fetch(`https://api.lolhuman.xyz/api/akinator/start?apikey=${apilol}`)
 			let anu = await res.json()
 			if (anu.status !== 200) throw Error('Emror')
 			let { server, frontaddr, session, signature, question, progression, step } = anu.result

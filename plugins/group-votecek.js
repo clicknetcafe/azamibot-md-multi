@@ -1,3 +1,4 @@
+
 let handler = async (m, { conn, usedPrefix }) => {
     let id = m.chat
     conn.vote = conn.vote ? conn.vote : {}
@@ -26,7 +27,7 @@ ${devote.map(u => '├ @' + u.split('@')[0]).join('\n')}
 
 *${usedPrefix}hapusvote* - untuk menghapus vote
 
-_© ${author + ' - ' + packname}_
+_© ${pauthor}_
 `.trim(), false, { contextInfo: { mentionedJid } })
 }
 

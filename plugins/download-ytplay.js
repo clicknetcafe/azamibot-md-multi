@@ -15,7 +15,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 			ini_txt += `⌚ *Duration :* ${anu.video[0].durationH}\n`
 			ini_txt += `👁️ *Views :* ${anu.video[0].viewH}\n`
 			ini_txt += `🌀 *Url :* ${anu.video[0].url}`
-			conn.sendButton(m.chat, ini_txt, packname + ' - ' + author, anu.video[0].thumbnail.split("?")[0], [
+			conn.sendButton(m.chat, ini_txt, pauthor, anu.video[0].thumbnail.split("?")[0], [
 				[`🎧 Audio`, `${usedPrefix}yta ${anu.video[0].url}`],
 				[`🎥 Video`, `${usedPrefix}ytv ${anu.video[0].url}`]
 			], m)
@@ -27,31 +27,31 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 				ini_txt += `👁️ *id :* ${anu.id}\n`
 				ini_txt += `⌚ *v_id :* ${anu.v_id}\n`
 				ini_txt += `🌀 *Url :* ${args[0]}`
-				conn.sendButton(m.chat, ini_txt, packname + ' - ' + author, anu.thumbnail, [
+				conn.sendButton(m.chat, ini_txt, pauthor, anu.thumbnail, [
 					[`🎧 Audio`, `${usedPrefix}yta ${args[0]}`],
 					[`🎥 Video`, `${usedPrefix}ytv ${args[0]}`]
 				], m)
 			} catch (e) {
 				console.log(e)
 				try {
-					let anu2 = await fetch(`https://api.lolhuman.xyz/api/ytvideo?apikey=${global.api}&url=${text}`)
+					let anu2 = await fetch(`https://api.lolhuman.xyz/api/ytvideo?apikey=${apilol}&url=${text}`)
 					let anu = await anu2.json()
 					let ini_txt = `📌 *${anu.result.title}*\n\n`
 					ini_txt += `🪶 *Author :* ${anu.result.uploader}\n`
 					ini_txt += `⌚ *Duration :* ${anu.result.duration}\n`
 					ini_txt += `👁️ *Views :* ${anu.result.view}\n`
 					ini_txt += `🌀 *Url :* https://youtu.be/${anu.result.id}`
-					conn.sendButton(m.chat, ini_txt, packname + ' - ' + author, anu.result.thumbnail, [
+					conn.sendButton(m.chat, ini_txt, pauthor, anu.result.thumbnail, [
 						[`🎧 Audio`, `${usedPrefix}yta https://youtu.be/${anu.result.id}`],
 						[`🎥 Video`, `${usedPrefix}ytv https://youtu.be/${anu.result.id}`]
 					], m)
 				} catch (e) {
 					console.log(e)
 					try {
-						let anu2 = await fetch(`https://api.lolhuman.xyz/api/ytvideo2?apikey=${global.api}&url=${text}`)
+						let anu2 = await fetch(`https://api.lolhuman.xyz/api/ytvideo2?apikey=${apilol}&url=${text}`)
 						let anu = await anu2.json()
 						let ini_txt = `📌 *${anu.result.title}*\n`
-						conn.sendButton(m.chat, ini_txt, packname + ' - ' + author, anu.result.thumbnail, [
+						conn.sendButton(m.chat, ini_txt, pauthor, anu.result.thumbnail, [
 							[`🎧 Audio`, `${usedPrefix}yta https://youtu.be/${anu.result.thumbnail.split('/')[4]}`],
 							[`🎥 Video`, `${usedPrefix}ytv https://youtu.be/${anu.result.thumbnail.split('/')[4]}`]
 						], m)
@@ -64,7 +64,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 							ini_txt += `🪶 *Author :* ${anu.author}\n`
 							ini_txt += `👁️ *Username :* ${anu.username}\n`
 							ini_txt += `🌀 *Url :* https://youtu.be/${anu.thumbnail.split('/')[4]}`
-							conn.sendButton(m.chat, ini_txt, packname + ' - ' + author, anu.thumbnail, [
+							conn.sendButton(m.chat, ini_txt, pauthor, anu.thumbnail, [
 								[`🎧 Audio`, `${usedPrefix}yta https://youtu.be/${anu.thumbnail.split('/')[4]}`],
 								[`🎥 Video`, `${usedPrefix}ytv https://youtu.be/${anu.thumbnail.split('/')[4]}`]
 							], m)
@@ -91,31 +91,31 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 			ini_txt += `⌚ *Duration :* ${anu.video[x].durationH}\n`
 			ini_txt += `👁️ *Views :* ${anu.video[x].viewH}\n`
 			ini_txt += `🌀 *Url :* ${anu.video[x].url}`
-			conn.sendButton(m.chat, ini_txt, packname + ' - ' + author, anu.video[x].thumbnail.split("?")[0], [
+			conn.sendButton(m.chat, ini_txt, pauthor, anu.video[x].thumbnail.split("?")[0], [
 				[`🎧 Audio`, `${usedPrefix}yta ${anu.video[x].url}`],
 				[`🎥 Video`, `${usedPrefix}ytv ${anu.video[x].url}`]
 			], m)
 		} catch (e) {
 			console.log(e)
 			try {
-				let anu2 = await fetch(`https://api.lolhuman.xyz/api/ytplay?apikey=${global.api}&query=${encodeURIComponent(text)}`)
+				let anu2 = await fetch(`https://api.lolhuman.xyz/api/ytplay?apikey=${apilol}&query=${encodeURIComponent(text)}`)
 				let anu = await anu2.json()
 				let ini_txt = `📌 *${anu.result.info.title}*\n\n`
 				ini_txt += `🪶 *Author :* ${anu.result.info.uploader}\n`
 				ini_txt += `⌚ *Duration :* ${anu.result.info.duration}\n`
 				ini_txt += `👁️ *Views :* ${anu.result.info.view}\n`
 				ini_txt += `🌀 *Url :* https://youtu.be/${anu.result.info.id}`
-				conn.sendButton(m.chat, ini_txt, packname + ' - ' + author, anu.result.info.thumbnail, [
+				conn.sendButton(m.chat, ini_txt, pauthor, anu.result.info.thumbnail, [
 					[`🎧 Audio`, `${usedPrefix}yta https://youtu.be/${anu.result.info.id}`],
 					[`🎥 Video`, `${usedPrefix}ytv https://youtu.be/${anu.result.info.id}`]
 				], m)
 			} catch (e) {
 				console.log(e)
 				try {
-					let anu2 = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=${global.api}&query=${encodeURIComponent(text)}`)
+					let anu2 = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=${apilol}&query=${encodeURIComponent(text)}`)
 					let anu = await anu2.json()
 					let ini_txt = `📌 *${anu.result.title}*\n`
-					conn.sendButton(m.chat, ini_txt, packname + ' - ' + author, anu.result.thumbnail, [
+					conn.sendButton(m.chat, ini_txt, pauthor, anu.result.thumbnail, [
 						[`🎧 Audio`, `${usedPrefix}yta https://youtu.be/${anu.result.thumbnail.split('/')[4]}`],
 						[`🎥 Video`, `${usedPrefix}ytv https://youtu.be/${anu.result.thumbnail.split('/')[4]}`]
 					], m)

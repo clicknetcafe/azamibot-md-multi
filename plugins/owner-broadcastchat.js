@@ -14,7 +14,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 		try {
 			if (/image|video/g.test(mime)) {
 				if (command.includes('meme')) await conn.sendFile(id, img, '', teks)
-				else await conn.sendButton(id, teks, packname + ' - ' + author, img, [[`👥 Owner`, `.owner`],[`🤖 All Menu`, `.allmenu`]])
+				else await conn.sendButton(id, teks, pauthor, img, [[`👥 Owner`, `.owner`],[`🤖 All Menu`, `.allmenu`]])
 			} else await conn.sendMessage(id, { text: teks })
 		} catch (e) {
 			console.log(e)

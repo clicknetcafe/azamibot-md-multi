@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 let handler = async(m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `Example : *${usedPrefix + command} BunnyWalker*`
 	try {
-		let fimg = await fetch(`https://api.lolhuman.xyz/api/textprome/blackpink?apikey=${global.api}&text=${encodeURIComponent(text)}`)
+		let fimg = await fetch(`https://api.lolhuman.xyz/api/textprome/blackpink?apikey=${apilol}&text=${encodeURIComponent(text)}`)
 	    //if (!fimg.ok) throw 'Fitur Error'
 	    let fimgb = Buffer.from(await fimg.arrayBuffer())
 		await conn.sendMessage(m.chat, { image: fimgb, caption: `_Text Pro : ${command}_` }, { quoted: m })

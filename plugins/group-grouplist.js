@@ -19,7 +19,7 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
 	let listMessage = {
 		text: `*Request From :* @${m.sender.split`@`[0]}\n\n*Total : ${groups.length} Groups*`,
 		mentions: [m.sender],
-		footer: packname + ' - ' + author,
+		footer: pauthor,
 		title: `━ ━ 『 *LIST GROUP* 』 ━ ━`,
 		buttonText: `Group List`,
 		sections

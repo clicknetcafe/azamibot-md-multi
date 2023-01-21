@@ -49,7 +49,7 @@ let handler = async (m, { conn, command, usedPrefix }) => {
 		user.gurita		+= mancing[10].ikan
 		user.cumi		+= mancing[11].ikan
 		user.udang		+= mancing[12].ikan
-		conn.sendButton(m.chat, hsl, packname + ' - ' + author, gmbrt, [[`Kolam`, `${usedPrefix}kolam`]], m)
+		conn.sendButton(m.chat, hsl, pauthor, gmbrt, [[`Kolam`, `${usedPrefix}kolam`]], m)
 	}, cooldownn)
 					 
 	setTimeout(() => {

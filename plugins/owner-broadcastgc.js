@@ -14,7 +14,7 @@ let handler = async (m, { conn, text, usedPrefix, command, participants }) => {
 		try {
 			if (/image|video/g.test(mime)) {
 				if (command.includes('meme')) await conn.sendFile(id, img, '', teks, null, false, { mentions: participants.map(a => a.id) })
-				else await conn.sendButton(id, teks, packname + ' - ' + author, img, [[`👥 Owner`, `.owner`],[`🤖 All Menu`, `.allmenu`]], null, { mentions: participants.map(a => a.id) })
+				else await conn.sendButton(id, teks, pauthor, img, [[`👥 Owner`, `.owner`],[`🤖 All Menu`, `.allmenu`]], null, { mentions: participants.map(a => a.id) })
 			} else await conn.sendMessage(id, { text: teks, mentions: participants.map(a => a.id) })
 		} catch (e) {
 			console.log(e)

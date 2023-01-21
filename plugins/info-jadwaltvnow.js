@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	try {
-		let res = await fetch(`https://api.lolhuman.xyz/api/jadwaltv/now?apikey=${global.api}`)
+		let res = await fetch(`https://api.lolhuman.xyz/api/jadwaltv/now?apikey=${apilol}`)
 		let json = await res.json()
 		let get_result = json.result
 		let ini_txt = `*Jadwal TV Now :*`

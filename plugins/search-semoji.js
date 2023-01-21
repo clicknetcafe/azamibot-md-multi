@@ -42,7 +42,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 			]
 			const listMessage = {
 				text: `*Request From :* ${conn.getName(m.sender)}\n\n*Result :* ${args[1] ? args[1] : args[0]}`,
-				footer: packname + ' - ' + author,
+				footer: pauthor,
 				title: `━ ━ 『 *Emoji Stickers* 』 ━ ━\n`,
 				buttonText: `List Emojis 🎫`,
 				sections

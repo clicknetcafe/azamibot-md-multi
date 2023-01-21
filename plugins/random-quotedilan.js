@@ -10,7 +10,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 	} catch (e) {
 		console.log(e)
 		try {
-			let res = await fetch(`https://api.lolhuman.xyz/api/quotes/dilan?apikey=${global.api}`)
+			let res = await fetch(`https://api.lolhuman.xyz/api/quotes/dilan?apikey=${apilol}`)
 			let json = await res.json()
 			if (json.status != '200') throw new e()
 			conn.sendButton(m.chat, `${json.result}`, `⭔ Dilan Quotes ⭔`, null, [[`⧑ next ${command} ⧑`, `${usedPrefix + command}`]], m)

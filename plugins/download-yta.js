@@ -28,7 +28,7 @@ let handler = async (m, { conn, text, args, command }) => {
 	} catch (e) {
 		console.log(e)
 		try {
-			let res = await fetch(`https://api.lolhuman.xyz/api/ytaudio?apikey=${global.api}&url=${text}`)
+			let res = await fetch(`https://api.lolhuman.xyz/api/ytaudio?apikey=${apilol}&url=${text}`)
 			let anu = await res.json()
 			anu = anu.result
 			let vsize = anu.link.size.slice(-2)
@@ -40,7 +40,7 @@ let handler = async (m, { conn, text, args, command }) => {
 		} catch (e) {
 			console.log(e)
 			try {
-				let res = await fetch(`https://api.lolhuman.xyz/api/ytaudio2?apikey=${global.api}&url=${text}`)
+				let res = await fetch(`https://api.lolhuman.xyz/api/ytaudio2?apikey=${apilol}&url=${text}`)
 				let anu = await res.json()
 				anu = anu.result
 				let vsize = anu.size.slice(-2)

@@ -19,7 +19,7 @@ let handler = async (m, { conn, args }) => {
 				url: 'https://www.whatsapp.com/otp/copy/https://chat.whatsapp.com/' + await conn.groupInviteCode(m.chat)
 			}
 		}],
-		footer: packname + ' - ' + author
+		footer: pauthor
 	})*/
 	m.reply('[ LINK GROUP ]\n\nhttps://chat.whatsapp.com/' + await conn.groupInviteCode(group))
 }

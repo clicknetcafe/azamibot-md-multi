@@ -6,7 +6,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
 		let res = await fetch(`https://api.tiodevhost.my.id/api/search/wikimedia?text=${encodeURIComponent(text)}`)
 		let anu = await res.json()
 		anu = anu.result[Math.floor(Math.random()*anu.result.length)]
-		await conn.sendButton(m.chat, `${command} > ${text}\n\n${anu.title}\n_${anu.source}_`, packname + ' - ' + author, anu.image, [[`⧑ next ${command} ⧑`, `${usedPrefix + command} ${text}`]], m)
+		await conn.sendButton(m.chat, `${command} > ${text}\n\n${anu.title}\n_${anu.source}_`, pauthor, anu.image, [[`⧑ next ${command} ⧑`, `${usedPrefix + command} ${text}`]], m)
 	} catch (e) {
 		console.log(e)
 		m.reply(`No Result Found.`)

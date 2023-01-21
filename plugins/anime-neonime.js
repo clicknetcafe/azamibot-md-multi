@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 
 let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 	try {
-		let res = await fetch(`https://api.lolhuman.xyz/api/neonimelatest?apikey=${global.api}`)
+		let res = await fetch(`https://api.lolhuman.xyz/api/neonimelatest?apikey=${apilol}`)
 		let get_result = await res.json()
 		let ini_txt = `*Latest Anime :*`
 		for (let x of get_result.result) {

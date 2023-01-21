@@ -10,7 +10,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 		if (anu.split('.').pop() == 'gif') {
 			let buffer = await sticker(false, anu, packname, author)
 			await conn.sendFile(m.chat, buffer, 'sticker.webp', '', m)
-		} else await conn.sendButton(m.chat, `_Random pic : ${command}_`, packname + ' - ' + author, anu, [[`⧑ next ${command} ⧑`, `${usedPrefix + command}`]], m)
+		} else await conn.sendButton(m.chat, `_Random pic : ${command}_`, pauthor, anu, [[`⧑ next ${command} ⧑`, `${usedPrefix + command}`]], m)
 	} catch (e) {
 		console.log(e)
 		m.reply('server down')

@@ -7,7 +7,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 		let anu = await fetch(`https://api.akuari.my.id/downloader/likeedl?link=${text}`)
 		let json = await anu.json()
 		let ini_txt = `${json.hasil.title}`
-		conn.sendButton(m.chat, ini_txt, packname + ' - ' + author, json.hasil.watermark, [
+		conn.sendButton(m.chat, ini_txt, pauthor, json.hasil.watermark, [
 			[`► No WM`, `${usedPrefix}likeenowm ${text}`]
 		], m)
 	} catch (e) {
