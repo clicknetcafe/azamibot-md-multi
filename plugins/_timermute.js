@@ -1,6 +1,6 @@
 import db from '../lib/database.js'
 
-export async function before(m, { isAdmin, isBotAdmin, fkontak }) {
+export async function before(m, { isAdmin, isBotAdmin }) {
 	if (m.isGroup) {
 		let chat = db.data.chats[m.chat]
 		if (chat.permaBan) return !0
@@ -9,7 +9,7 @@ export async function before(m, { isAdmin, isBotAdmin, fkontak }) {
 		chat.lastmute = 0
 		chat.mutecd = 0
 		chat.isBanned = false
-		await this.sendMessage(m.chat, { text: `Bot dapat digunakan kembali.` }, { quoted: fkontak })
+		await this.sendMessage(m.chat, { text: `Bot dapat digunakan kembali.` }, { quoted: gfkontak })
 	}
 	return !0
 }
