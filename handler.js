@@ -1,10 +1,9 @@
 import { smsg } from './lib/simple.js'
-import { someincludes } from './lib/others.js'
 import { plugins } from './lib/plugins.js'
 import { format } from 'util'
 import { fileURLToPath } from 'url'
 import path, { join } from 'path'
-import { unwatchFile, watchFile } from 'fs'
+import fs, { unwatchFile, watchFile } from 'fs'
 import chalk from 'chalk'
 import Connection from './lib/connection.js'
 import printMessage from './lib/print.js'
@@ -891,6 +890,139 @@ export async function handler(chatUpdate) {
 		const isRAdmin = user?.admin == 'superadmin' || false
 		const isAdmin = isRAdmin || user?.admin == 'admin' || false // Is User Admin?
 		const isBotAdmin = bot?.admin || false // Are you Admin?
+		const packname = db.data.datas.packname
+		const author = db.data.datas.author
+		const pauthor = db.data.datas.packname + ' - ' + db.data.datas.author
+		const apilol = db.data.datas.api	// https://api.lolhuman.xyz/docs
+		const imgbb = db.data.datas.imgbb	// https://api.imgbb.com/
+
+		const ephemeral = '86400' // 86400 = 24jam, kalo ingin di hilangkan ganti '86400' jadi 'null' atau ''
+		const  d = new Date(new Date + 3600000)
+		const timeh = `🕰️ ${d.toLocaleTimeString('id', { hour: 'numeric', minute: 'numeric', second: 'numeric' }).replace(/./,':')}`
+		const ftroli = { key: {participant : '0@s.whatsapp.net'}, message: { orderMessage: { itemCount: 2023, status: 1, surface: 1, message: timeh, ordertitle: pauthor, sellerJid: '0@s.whatsapp.net' } } }
+
+		// fake kontak
+		const fkontak = { key: {participant : '0@s.whatsapp.net'}, message: { 'contactMessage': { 'displayName': this.getName(m.sender), 'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;${pauthor},;;;\nFN:${pauthor},\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabell:Ponsel\nEND:VCARD`, 'jpegThumbnail': fs.readFileSync('./media/thumbnail.jpg'), thumbnail: fs.readFileSync('./media/thumbnail.jpg'),sendEphemeral: true}}}
+		// fake vn
+		const fvn = {
+			key: { participant : '0@s.whatsapp.net'},
+			message: { 
+				"audioMessage": {
+					"mimetype":"audio/ogg; codecs=opus",
+					"seconds": "1000000000",
+					"ptt": "true"
+				}
+			}
+		}
+		// fake video
+		const fvid = {
+			key: { participant : '0@s.whatsapp.net'},
+			message: { "videoMessage": { "title": pauthor, "h": `Hmm`,'seconds': '12345', 'caption': timeh, 'jpegThumbnail': fs.readFileSync('./media/thumbnail.jpg')}}
+		}
+		// fake centang hijau
+		const ftextt = {
+			key: { participant : '0@s.whatsapp.net'},
+			message: {
+				"extendedTextMessage": {
+					"text": pauthor,
+					"title": timeh,
+					'jpegThumbnail': fs.readFileSync('./media/thumbnail.jpg')
+				}
+			}
+		}
+		// fake open AI
+		const fopenai = {
+			key: { participant : this.user.jid},
+			message: {
+				"extendedTextMessage": {
+					"text": '⚗️ Automatic Chatbot by Open AI',
+					"title": timeh,
+					'jpegThumbnail': fs.readFileSync('./media/thumbnail.jpg')
+				}
+			}
+		}
+		// fake location
+		const fliveLoc = {
+		key: { participant : '0@s.whatsapp.net'},
+			message: {
+				"liveLocationMessage": {
+					"caption": pauthor,
+					"h": timeh,
+					'jpegThumbnail': fs.readFileSync('./media/thumbnail.jpg')
+				}
+			}
+		}
+		// fake TEXT location
+		const fliveLoc2 = {
+			key: { participant : '0@s.whatsapp.net'},
+			message: { "liveLocationMessage": {
+				"title": pauthor,
+				"h": timeh,
+				'jpegThumbnail': fs.readFileSync('./media/thumbnail.jpg')
+			}}
+		}
+		// fake toko
+		const ftoko = {
+			key: { participant : '0@s.whatsapp.net'},
+			message: {
+				"productMessage": {
+					"product": {
+						"productImage": {
+							"mimetype": "image/jpeg",
+							"jpegThumbnail": fs.readFileSync('./media/thumbnail.jpg')
+						},
+						"title": pauthor,
+						"description": timeh, 
+						"currencyCode": "USD",
+						"priceAmount1000": "20000000",
+						"retailerId": "Ghost",
+						"productImageCount": 1
+					},
+					"businessOwnerJid": `0@s.whatsapp.net`
+				}
+			}
+		}
+		//fake document
+		const fdocs = {
+			key : { participant : '0@s.whatsapp.net'},
+			message: {
+				documentMessage: {
+					title: pauthor, 
+					jpegThumbnail: fs.readFileSync('./media/thumbnail.jpg')
+				}
+			}
+		}
+		// fake gif
+		const fgif = {
+			key: { participant : '0@s.whatsapp.net'},
+			message: { 
+				"videoMessage": {
+					"title": pauthor,
+					"h": `Hmm`,
+					'seconds': '999999999', 
+					'gifPlayback': 'true', 
+					'caption': timeh,
+					'jpegThumbnail': fs.readFileSync('./media/thumbnail.jpg')
+				}
+			}
+		}
+		//fake troli2
+		const ftrol = {
+			key : {
+			participant : '0@s.whatsapp.net'
+			},
+			message: {
+				orderMessage: {
+					itemCount : 723,
+					//status: 1,
+					//surface : 1,
+					message: pauthor,
+					//orderTitle: `anulah`,
+					thumbnail: fs.readFileSync('./media/anime.jpg'),
+					sellerJid: '0@s.whatsapp.net' 
+				}
+			}
+		}
 
 		const ___dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), './plugins')
 		for (let name in plugins) {
@@ -1064,7 +1196,25 @@ export async function handler(chatUpdate) {
 					isPrems,
 					chatUpdate,
 					__dirname: ___dirname,
-					__filename
+					__filename,
+					packname,
+					author,
+					pauthor,
+					apilol,
+					imgbb,
+					ephemeral,
+					ftroli,
+					fkontak,
+					fvn,
+					fvid,
+					ftextt,
+					fopenai,
+					fliveLoc,
+					fliveLoc2,
+					ftoko,
+					fdocs,
+					fgif,
+					ftrol
 				}
 				try {
 					await plugin.call(this, m, extra)
@@ -1076,7 +1226,6 @@ export async function handler(chatUpdate) {
 					console.error(e)
 					if (e) {
 						let text = format(e)
-						if (someincludes(['packname','author','ftroli','fkontak','fvn','fvid','ftextt','fliveLoc','fliveLoc2','ftoko','fdocs','fgif','ftrol'].map(v => v + ' is not defined'), text)) text = `「❗」 _Please Wait. . ._\n_Loading plugin _allfake.js . . ._`
 						for (let key of Object.values(global.APIKeys))
 							text = text.replace(new RegExp(key, 'g'), '#HIDDEN#')
 						if (e.name)

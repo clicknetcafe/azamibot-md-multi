@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
+let handler = async (m, { conn, text, usedPrefix, command, apilol }) => {
 	try {
 		let res = await fetch(`https://api.lolhuman.xyz/api/jadwaltv/now?apikey=${apilol}`)
 		let json = await res.json()

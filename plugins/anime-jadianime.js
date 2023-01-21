@@ -2,7 +2,7 @@ import uploadImage from '../lib/uploadImage.js'
 import fetch from 'node-fetch'
 import AI2D from '@arugaz/ai2d'
 
-let handler = async (m, { conn, usedPrefix, command, text }) => {
+let handler = async (m, { conn, usedPrefix, command, text, apilol }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''
 	let anu, buffer, c = `*Jadi Anime*`
@@ -15,21 +15,13 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
 		} catch (e) {
 			p = e.toString()
 			try {
-				anu = await fetch(`https://api.ibeng.tech/api/maker/anime?url=${out}&apikey=ibeng`)
+				anu = await fetch(`https://api.lolhuman.xyz/api/imagetoanime?apikey=${apilol}&img=${out}`)
 				buffer = Buffer.from(await anu.arrayBuffer())
 				if (Buffer.byteLength(buffer) < 100) throw Error('error, no buffer')
 				await conn.sendMessage(m.chat, { image: buffer, caption: c }, { quoted: m })
 			} catch (e) {
 				console.log(e)
-				try {
-					anu = await fetch(`https://api.lolhuman.xyz/api/imagetoanime?apikey=${apilol}&img=${out}`)
-					buffer = Buffer.from(await anu.arrayBuffer())
-					if (Buffer.byteLength(buffer) < 100) throw Error('error, no buffer')
-					await conn.sendMessage(m.chat, { image: buffer, caption: c }, { quoted: m })
-				} catch (e) {
-					console.log(e)
-					m.reply(p || `[ ! ] Gagal, gunakan foto lainnya.`)
-				}
+				m.reply(p || `[ ! ] Gagal, gunakan foto lainnya.`)
 			}
 		}
 	} else m.reply(`Kirim gambar dengan caption *${usedPrefix + command}* atau tag gambar yang sudah dikirim`)

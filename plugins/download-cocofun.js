@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-let handler = async(m, { conn, text, usedPrefix, command }) => {
+let handler = async(m, { conn, text, usedPrefix, command, pauthor, apilol }) => {
 	if (!text) throw `*Usage : ${usedPrefix + command} cocofun_url_video*\n\nExample :\n${usedPrefix + command} http://i.coco.fun/short/1513tui`
 	if (!(text.includes('http://') || text.includes('https://'))) throw `url invalid, please input a valid url. Try with add http:// or https://`
 	try {

@@ -3,7 +3,7 @@ import { isNumber } from '../lib/others.js'
 
 const cooldown = 60000
 
-let handler = async (m, { args, usedPrefix, command, isPrems, isAdmin, isOwner, participants }) => {
+let handler = async (m, { args, usedPrefix, command, isPrems, isAdmin, isOwner, participants, fliveLoc }) => {
 	if (m.chat.includes('120363041604217979') && !isOwner) throw `[ hehe ]`
 	if (!args[0]) throw `Format : ${usedPrefix + command} <timer>\n1 = 1 menit\n5 = 5 menit ... dst.\n\nContoh : *${usedPrefix + command} 10*`
 	if (isPrems || isAdmin || isOwner) {

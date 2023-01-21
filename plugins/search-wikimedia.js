@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, command, text, usedPrefix }) => {
+let handler = async (m, { conn, command, text, usedPrefix, pauthor }) => {
     if (!text) return m.reply(`Example: *${usedPrefix + command} indonesia*`)
 	try {
 		let res = await fetch(`https://api.tiodevhost.my.id/api/search/wikimedia?text=${encodeURIComponent(text)}`)

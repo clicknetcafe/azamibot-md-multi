@@ -4,7 +4,7 @@ import { somematch } from '../lib/others.js'
 
 const teks = '0 - Ya\n1 - Tidak\n2 - Saya Tidak Tau\n3 - Mungkin\n4 - Mungkin Tidak\n5 - Kembali ke pertanyaan sebelumnya'
 
-export async function before(m) {
+export async function before(m, { apilol }) {
 	if (db.data.users[m.sender].banned) return
 	if (!m.quoted || !m.quoted.fromMe || !m.quoted.isBaileys || !m.text) return !0
 	let aki = db.data.users[m.sender].akinator

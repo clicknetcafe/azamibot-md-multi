@@ -15,7 +15,7 @@ header: '╭─「 %category 」',
 body: '│ • %cmd',
 footer: '╰────\n',
 }
-let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
+let handler = async (m, { conn, usedPrefix: _p, __dirname, pauthor }) => {
 	try {
 		let nais = fs.readFileSync('./media/zero.jpg')
 		let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}

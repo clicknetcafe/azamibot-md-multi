@@ -3,7 +3,7 @@ import { Primbon } from 'scrape-primbon'
 
 const primbon = new Primbon()
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
+let handler = async (m, { conn, text, usedPrefix, command, apilol }) => {
     if (!text) throw `Usage : ${usedPrefix + command} tgl|bln|thn\n\nExample: *${usedPrefix + command} 20|06|2022*`
     let [l, r, s] = text.split`|`
     if (!l || isNaN(l)) throw `Input tanggal`

@@ -6,7 +6,7 @@ let debugMode = !1
 let winScore = 1999
 let playScore = 99
 
-export async function before(m) {
+export async function before(m, { pauthor }) {
     let ok
     let isWin = !1
     let isTie = !1

@@ -1,6 +1,6 @@
 import db from '../lib/database.js'
 
-let handler = async (m, { conn, usedPrefix, command, text }) => {
+let handler = async (m, { conn, usedPrefix, command, text, pauthor }) => {
 	text = text.split('|')
 	let gc, groups, dt = db.data.chats
 	try {

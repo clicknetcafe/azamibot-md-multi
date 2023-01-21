@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
+let handler = async (m, { conn, text, usedPrefix, command, apilol }) => {
 	if (!text) throw `Example: ${usedPrefix + command} Soekarno adalah`
 	try {
 		let res = await fetch(`https://api.lolhuman.xyz/api/brainly?apikey=${apilol}&query=${encodeURIComponent(text)}`)

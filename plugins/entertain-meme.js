@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, usedPrefix, command }) => {
+let handler = async (m, { conn, usedPrefix, command, pauthor, apilol }) => {
 	try {
 		let anu = await fetch(`https://candaan-api.vercel.app/api/image`)
 			let json = await anu.json()

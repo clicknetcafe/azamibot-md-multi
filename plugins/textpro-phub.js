@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-let handler = async(m, { conn, text, usedPrefix, command }) => {
+let handler = async(m, { conn, text, usedPrefix, command, apilol }) => {
 	if (!text || !text.includes('|')) throw `Usage : ${usedPrefix + command} text1|text2\n\nExample: *${usedPrefix + command} Shiro|Neko*`
 	let [l, r] = text.split`|`
     if (!l) throw `Input text1`

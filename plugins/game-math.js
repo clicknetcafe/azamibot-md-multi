@@ -1,7 +1,7 @@
 import Connection from '../lib/connection.js'
 import db from '../lib/database.js'
 
-let handler = async (m, { conn, args, text, usedPrefix, command, isPrems }) => {
+let handler = async (m, { conn, args, text, usedPrefix, command, isPrems, pauthor }) => {
     let chat = db.data.chats[m.chat]
     if (!chat.game && m.isGroup) return
     if (db.data.users[m.sender].limit < 1 && db.data.users[m.sender].money > 50000 && !isPrems) {

@@ -1,7 +1,7 @@
 import uploadImage from '../lib/uploadImage.js'
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, args, usedPrefix, command }) => {
+let handler = async (m, { conn, args, usedPrefix, command, apilol }) => {
     let q = m.quoted ? m.quoted : m
     let mime = (q.msg || q).mimetype || q.mediaType || ''
     if (/image/g.test(mime)) {

@@ -1,7 +1,7 @@
 import db from '../lib/database.js'
 
 let handler = m => m
-handler.before = async function (m) {
+handler.before = async function (m, { pauthor }) {
     if (!/^-?[0-9]+(\.[0-9]+)?$/.test(m.text)) return !0
     let id = m.chat
     if (!m.quoted || !m.quoted.fromMe || !m.text || !/^Berapa hasil dari/i.test(m.quoted.text)) return !0

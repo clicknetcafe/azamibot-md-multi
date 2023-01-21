@@ -1,8 +1,8 @@
 import fetch from 'node-fetch'
 
-let handler = async (m, { text }) => {
+let handler = async (m, { text, apilol }) => {
 	try {
-		let res = await fetch(`https://api.lolhuman.xyz/api/checkapikey?apikey=${text ? text : apilol ? apilol : ''}`)
+		let res = await fetch(`https://api.lolhuman.xyz/api/checkapikey?apikey=${text ? text : apilol}`)
 		let anu = await res.json()
 		if (anu.status != '200') return m.reply(anu.message)
 		anu = anu.result

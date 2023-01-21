@@ -3,7 +3,7 @@ import db from '../lib/database.js'
 const linkRegex = /chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/i
 const linkLain = /chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/g
 
-export async function before(m, { conn, isAdmin, text, isBotAdmin }) {
+export async function before(m, { conn, isAdmin, text, isBotAdmin, fkontak }) {
 	if (m.isBaileys && m.fromMe) return !0
 	if (!m.isGroup) return !1
 	let chat = db.data.chats[m.chat]

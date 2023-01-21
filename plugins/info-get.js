@@ -4,7 +4,7 @@ import util from 'util'
 let handler = async (m, { text }) => {
 	if (!/^https?:\/\//.test(text)) throw 'url invalid, please input a valid url. Try with add http:// or https://'
 	let _url = new URL(text)
-	let url = apilol(_url.origin, _url.pathname, Object.fromEntries(_url.searchParams.entries()), 'APIKEY')
+	let url = global.API(_url.origin, _url.pathname, Object.fromEntries(_url.searchParams.entries()), 'APIKEY')
 	let res = await fetch(url)
 	if (res.headers.get('content-length') > 100 * 1024 * 1024 * 1024) {
 		throw `Content-Length: ${res.headers.get('content-length')}`

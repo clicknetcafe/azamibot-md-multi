@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-let handler = async(m, { conn, text, usedPrefix, command }) => {
+let handler = async(m, { conn, text, usedPrefix, command, apilol }) => {
 	if (!text) throw `Example: ${usedPrefix + command} https://vt.tiktok.com/ZS81qJD5v/`
 	if (!(text.includes('http://') || text.includes('https://'))) return m.reply(`url invalid, please input a valid url. Try with add http:// or https://`)
 	if (!text.includes('tiktok.com')) return m.reply(`Invalid Tiktok URL.`)

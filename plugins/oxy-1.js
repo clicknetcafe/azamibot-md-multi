@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-let handler = async(m, { conn, text, usedPrefix, command }) => {
+let handler = async(m, { conn, text, usedPrefix, command, apilol }) => {
 	if (!text) throw `Example use *${usedPrefix + command} BunnyWalker*`
 	try {
 		let fimg = await fetch(`https://api.lolhuman.xyz/api/photooxy1/${command}?apikey=${apilol}&text=${encodeURIComponent(text)}`)

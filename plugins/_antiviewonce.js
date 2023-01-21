@@ -1,6 +1,6 @@
 import db from '../lib/database.js'
 
-export async function before(m) {
+export async function before(m, { fkontak }) {
 	if (m.isBaileys && m.fromMe) return !0
 	if (!m.isGroup) return !1
 	if (m.message) {

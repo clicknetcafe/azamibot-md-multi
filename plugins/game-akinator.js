@@ -1,7 +1,7 @@
 import db from '../lib/database.js'
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, usedPrefix, command, text }) => {
+let handler = async (m, { conn, usedPrefix, command, text, apilol }) => {
     if (!db.data.chats[m.chat].game && m.isGroup) return
 	let aki = db.data.users[m.sender].akinator
 	if (text == 'end') {

@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 import { youtubedl, youtubedlv2, youtubedlv3 } from '@bochilteam/scraper'
 import { niceBytes, isUrl, somematch } from '../lib/others.js'
 
-let handler = async (m, { conn, text, args, command }) => {
+let handler = async (m, { conn, text, args, command, apilol }) => {
 	if (!text.match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))) return m.reply(`Invalid Youtube URL.`)
 	command = command.toLowerCase()
 	try {

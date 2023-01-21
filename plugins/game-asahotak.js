@@ -3,7 +3,7 @@ import { asahotak } from '@bochilteam/scraper'
 
 let timeout = 120000
 let poin = 1999
-let handler = async (m, { conn, usedPrefix, isPrems }) => {
+let handler = async (m, { conn, usedPrefix, isPrems, pauthor }) => {
     let chat = db.data.chats[m.chat]
     if (!chat.game && m.isGroup) return
     conn.asahotak = conn.asahotak ? conn.asahotak : {}

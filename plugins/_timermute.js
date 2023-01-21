@@ -1,6 +1,6 @@
 import db from '../lib/database.js'
 
-export async function before(m, { conn, isAdmin, isBotAdmin }) {
+export async function before(m, { conn, isAdmin, isBotAdmin, fkontak }) {
 	if (m.isBaileys && m.fromMe) return !0
 	if (m.isGroup) {
 		let chat = db.data.chats[m.chat]

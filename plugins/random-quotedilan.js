@@ -1,7 +1,7 @@
 import { delay, pickRandom } from '../lib/others.js'
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, usedPrefix, command }) => {
+let handler = async (m, { conn, usedPrefix, command, apilol }) => {
 	await delay(2000)
 	try {
 		let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/databasebot/main/Random/dilan.json`)

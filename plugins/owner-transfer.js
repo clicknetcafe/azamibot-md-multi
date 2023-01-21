@@ -7,7 +7,7 @@ const items = [
     'uncommon', 'mythic', 'legendary', 'pet',
 ]
 let confirmation = {}
-async function handler(m, { conn, args, usedPrefix, command }) {
+async function handler(m, { conn, args, usedPrefix, command, pauthor }) {
     if (confirmation[m.sender]) return m.reply('Kamu sedang melakukan transfer!')
     let user = db.data.users[m.sender]
     const item = items.filter(v => v in user && typeof user[v] == 'number')

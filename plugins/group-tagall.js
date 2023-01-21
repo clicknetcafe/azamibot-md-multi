@@ -1,4 +1,4 @@
-let handler = async (m, { conn, text, participants }) => {
+let handler = async (m, { conn, text, participants, fkontak }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''
 	let teks = `⋙ *Pesan dari Admin Group* ⋘ \n\n${text ? text : m.quoted && m.quoted.text ? m.quoted.text : m.quoted && m.quoted.caption ? m.quoted.caption : m.quoted && m.quoted.description ? m.quoted.description : 'Nothing'}\n\n`

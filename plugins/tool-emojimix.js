@@ -2,7 +2,7 @@ import { sticker } from '../lib/sticker.js'
 import fs from 'fs'
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
+let handler = async (m, { conn, text, usedPrefix, command, packname, author }) => {
     if (!text || !text.includes('+')) throw `Usage : ${usedPrefix + command} emoji1|emoji2\n\nExample: *${usedPrefix + command} 😅+🤔*`
     let [l, r] = text.split`+`
     if (!l) throw 'emoji1 tidak boleh kosong'

@@ -1,7 +1,7 @@
 import { createSticker } from 'wa-sticker-formatter'
 import fs from 'fs'
 
-let handler = async (m, { conn, args, text, usedPrefix, command }) => {
+let handler = async (m, { conn, args, text, usedPrefix, command, packname, author }) => {
     text = text ? text : m.quoted && m.quoted.text ? m.quoted.text : m.quoted && m.quoted.caption ? m.quoted.caption : m.quoted && m.quoted.description ? m.quoted.description : ''
     if (!text) throw `Example : ${usedPrefix + command} Lagi Ruwet`
     const res = `https://api.lolhuman.xyz/api/${command}?apikey=${apilol}&text=${encodeURIComponent(text.substring(0, 151))}`

@@ -18,7 +18,7 @@ const defaultMenu = {
 	body: '│ • %cmd',
 	footer: '╰────\n',
 }
-let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
+let handler = async (m, { conn, usedPrefix: _p, __dirname, pauthor }) => {
 	try {
 		let chat = db.data.chats[m.chat]
 		let meh = padLead(ranNumb(23), 3)

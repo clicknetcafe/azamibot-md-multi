@@ -1,7 +1,7 @@
 import { delay } from '../lib/others.js'
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, usedPrefix, command }) => {
+let handler = async (m, { conn, usedPrefix, command, pauthor, apilol }) => {
 	await delay(2000)
 	try {
 		let fimg = await fetch(`https://api.lolhuman.xyz/api/random/quotesimage?apikey=${apilol}`)

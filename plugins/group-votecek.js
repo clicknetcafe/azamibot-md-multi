@@ -1,5 +1,5 @@
 
-let handler = async (m, { conn, usedPrefix }) => {
+let handler = async (m, { conn, usedPrefix, pauthor }) => {
     let id = m.chat
     conn.vote = conn.vote ? conn.vote : {}
     if (!(id in conn.vote)) throw `_*tidak ada voting digrup ini!*_\n\n*${usedPrefix}mulaivote* - untuk memulai vote`

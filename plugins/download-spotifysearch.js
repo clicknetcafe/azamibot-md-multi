@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
+let handler = async (m, { conn, text, usedPrefix, command, apilol }) => {
 	if (!text) throw `Example: ${usedPrefix + command} Melukis Senja`
     let res = await fetch(`https://api.lolhuman.xyz/api/spotifysearch?apikey=${apilol}&query=${encodeURIComponent(text)}`)
     if (!res.ok) throw await `Invalid Spotify url / terjadi kesalahan.`

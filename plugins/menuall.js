@@ -37,7 +37,7 @@ const defaultMenu = {
 	body: '│ • %cmd',
 	footer: '╰────\n',
 }
-let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems }) => {
+let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, pauthor }) => {
 	try {
 		let meh = padLead(ranNumb(43), 3)
 		let nais = fs.readFileSync(`./media/picbot/menus/menus_${meh}.jpg`)

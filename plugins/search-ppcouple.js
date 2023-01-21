@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, usedPrefix, command }) => {
+let handler = async (m, { conn, usedPrefix, command, apilol }) => {
 	try {
 		let res = await fetch(`https://api.akuari.my.id/randomimage/ppcouple`)
 		let json = await res.json()

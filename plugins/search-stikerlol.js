@@ -2,17 +2,17 @@ import { delay } from '../lib/others.js'
 import fs from 'fs'
 import { Sticker, StickerTypes } from 'wa-sticker-formatter'
 
-const bete = 'https://api.lolhuman.xyz/api/sticker', beb = global.apilol
+const bete = 'https://api.lolhuman.xyz/api/sticker'
 
-let handler = async (m, { conn, args, text, usedPrefix, command }) => {
+let handler = async (m, { conn, args, text, usedPrefix, command, apilol }) => {
 	let res
 	command = command.toLowerCase()
 	if (command.includes('gura')) {
-		res = `${bete}/gawrgura?apikey=${beb}`
+		res = `${bete}/gawrgura?apikey=${apilol}`
 	} else if (command.includes('patrick') || command.includes('patrik')) {
-		res = `${bete}/patrick?apikey=${beb}`
+		res = `${bete}/patrick?apikey=${apilol}`
 	} else {
-		res = `${bete}/${command.replace(/s(tic?ker)?/, '')}?apikey=${beb}`
+		res = `${bete}/${command.replace(/s(tic?ker)?/, '')}?apikey=${apilol}`
 	}
 	let ztick = fs.readFileSync(`./media/sticker/bronya.webp`)
 	try {

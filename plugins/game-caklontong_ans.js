@@ -2,7 +2,7 @@ import db from '../lib/database.js'
 import similarity from 'similarity'
 const threshold = 0.72
 
-export async function before(m) {
+export async function before(m, { pauthor }) {
     let user = db.data.users[m.sender]
     if (user.banned) return null
     let id = m.chat

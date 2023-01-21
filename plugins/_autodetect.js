@@ -1,6 +1,6 @@
 import { WAMessageStubType } from '@adiwajshing/baileys'
 
-export async function before(m) {
+export async function before(m, { fkontak }) {
 	if (!m.messageStubType || !m.isGroup) return;
 	let edtr = `@${m.sender.split`@`[0]}`
 	if (m.messageStubType == 21) {

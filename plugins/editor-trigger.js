@@ -2,7 +2,7 @@ import uploadImage from '../lib/uploadImage.js'
 import { sticker } from '../lib/sticker.js'
 import fs from 'fs'
 
-let handler = async (m, { conn, args, usedPrefix, command }) => {
+let handler = async (m, { conn, args, usedPrefix, command, packname, author, apilol }) => {
     let q = m.quoted ? m.quoted : m
     let mime = (q.msg || q).mimetype || q.mediaType || ''
     if (/image/g.test(mime) && !/webp/g.test(mime)) {

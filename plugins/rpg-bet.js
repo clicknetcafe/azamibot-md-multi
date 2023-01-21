@@ -2,7 +2,7 @@ import db from '../lib/database.js'
 
 const confirm = {}
 
-async function handler(m, { conn, args }) {
+async function handler(m, { conn, args, pauthor }) {
     //if (!isROwner) throw 'Dalam perbaikan'
     if (m.sender in confirm) throw 'Kamu masih melakukan judi, tunggu sampai selesai!!'
     try {
