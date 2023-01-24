@@ -9,10 +9,12 @@ let handler = async (m, { conn, usedPrefix, command, text, pauthor }) => {
 	} catch { return }
 	let x, y, timer, name, sisa, array = []
 	for (let x of groups) {
-		timer = (dt[x].joindate + dt[x].joincd) - new Date()
-		name = await conn.getName(x)
-		sisa = timer <= 0 ? 'Bot Join Tanpa Batas Waktu' : `Durasi : ${timer.toTimeString()}`
-		await array.push({ title: `✨ ${name}`, rowId: `${usedPrefix + command} |${x}`, description: sisa })
+		try {
+			timer = (dt[x].joindate + dt[x].joincd) - new Date()
+			name = await conn.getName(x)
+			sisa = timer <= 0 ? 'Bot Join Tanpa Batas Waktu' : `Durasi : ${timer.toTimeString()}`
+			await array.push({ title: `✨ ${name}`, rowId: `${usedPrefix + command} |${x}`, description: sisa })
+		} catch (e) { console.log(e) }
 	}
 	if (array.length == 0) array = [{ title: 'Tidak Ada Grup'}]
 	let sections = [{ title: `━ ━ ━ ━ 『 List Group 』 ━ ━ ━ ━`, rows: array }]
