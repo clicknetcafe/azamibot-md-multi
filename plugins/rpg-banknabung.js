@@ -2,7 +2,6 @@ import db from '../lib/database.js'
 import { isNumber } from '../lib/others.js'
 
 let handler = async (m, { conn, command, usedPrefix, args }) => {
-	command = command.toLowerCase()
 	let user = db.data.users[m.sender]
 	if (user.atm == 0) return m.reply(`[!] Anda belum memiliki ATM.\n\ngunakan command *${usedPrefix}atm create* untuk memproses.`)
 	let total = Math.floor(isNumber(args[0]) ? Math.min(Math.max(parseInt(args[0]), 1), Number.MAX_SAFE_INTEGER) : 1) * 1

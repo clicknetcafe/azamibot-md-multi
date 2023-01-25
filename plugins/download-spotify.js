@@ -5,7 +5,6 @@ let handler = async (m, { conn, text, usedPrefix, command, apilol }) => {
     if (!(text.includes('http://') || text.includes('https://'))) throw `url invalid, please input a valid url. Try with add http:// or https://`
 	let res = await fetch(`https://api.lolhuman.xyz/api/spotify?apikey=${apilol}&url=${text}`)
     if (!res.ok) throw `Invalid Spotify url / terjadi kesalahan.`
-    command = command.toLowerCase()
     let json = await res.json()
     if (json.status != '200') throw `Terjadi kesalahan, coba lagi nanti.`
 	let get_result = json.result

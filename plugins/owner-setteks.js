@@ -3,7 +3,6 @@ import db from '../lib/database.js'
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `[ ! ] Input teks.`
 	let p = db.data.datas
-	command = command.toLowerCase()
 	if (command.includes('dona')) p.teksdonasi = text
 	else if (command.includes('sewa')) p.tekssewa = text
 	else p.tekstopup = text

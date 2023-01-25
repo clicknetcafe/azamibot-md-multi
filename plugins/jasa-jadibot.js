@@ -34,7 +34,6 @@ wa.me/6282337245566
 - Run via RDP (Always ON)
 - Request Fitur? *Chat Link Creator di atas.*`
 	//m.reply(ini_txt)
-	command = command.toLowerCase()
 	conn.relayMessage(m.chat,  {
 		requestPaymentMessage: {
 			currencyCodeIso4217: 'USD',

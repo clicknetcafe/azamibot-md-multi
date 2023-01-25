@@ -6,7 +6,6 @@ const bete = 'https://api.lolhuman.xyz/api/sticker'
 
 let handler = async (m, { conn, args, text, usedPrefix, command, apilol }) => {
 	let res
-	command = command.toLowerCase()
 	if (command.includes('gura')) {
 		res = `${bete}/gawrgura?apikey=${apilol}`
 	} else if (command.includes('patrick') || command.includes('patrik')) {

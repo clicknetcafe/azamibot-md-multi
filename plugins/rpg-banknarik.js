@@ -2,7 +2,6 @@ import db from '../lib/database.js'
 import { isNumber, somematch } from '../lib/others.js'
 
 let handler = async (m, { conn, command, usedPrefix, args }) => {
-	command = command.toLowerCase()
 	let user = db.data.users[m.sender]
 	if (user.atm == 0) return m.reply(`[!] Anda belum memiliki ATM.\n\ngunakan command *${usedPrefix}atm create* untuk memproses.`)
 	if (somematch(['all', 'semua'], args[0])) args[0] = user.atm - 50000
