@@ -12,13 +12,8 @@ let handler = async (m, { conn, usedPrefix, isPrems, pauthor }) => {
 		conn.reply(m.chat, 'Masih ada soal belum terjawab di chat ini', conn.tebakbendera[id][0])
 		throw false
 	}
-	if (db.data.users[m.sender].limit < 1 && db.data.users[m.sender].money > 50000 && !isPrems) {
-		throw `Beli limit dulu lah, duid lu banyak kan 😏`
-	} else if (db.data.users[m.sender].limit > 0 && !isPrems) {
-		db.data.users[m.sender].limit -= 1
-	} else {
-
-	}
+	if (db.data.users[m.sender].limit < 1 && db.data.users[m.sender].money > 50000 && !isPrems) throw `Beli limit dulu lah, duid lu banyak kan 😏`
+	else if (db.data.users[m.sender].limit > 0 && !isPrems) db.data.users[m.sender].limit -= 1
 	let res = await fetch(`https://api.botcahx.biz.id/api/game/tembakbendera?apikey=Admin`)
 	if (!res.ok) throw 'Fitur Error!'
 	let json = await res.json()
