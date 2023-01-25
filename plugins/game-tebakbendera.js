@@ -19,8 +19,8 @@ let handler = async (m, { conn, usedPrefix, isPrems, pauthor }) => {
     } else {
 
     }
-    let res = await fetch(`https://api.tiodevhost.my.id/api/game/tembakbendera`)
-    if (!res.ok) throw 'Fitur Error!'
+    let res = await fetch(`https://api.botcahx.biz.id/api/game/tembakbendera?apikey=Admin`)
+    //if (!res.ok) throw 'Fitur Error!'
     let json = await res.json()
     let caption = `
 🎮 *Tebak Bendera* 🎮
