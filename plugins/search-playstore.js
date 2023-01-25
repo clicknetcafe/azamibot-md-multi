@@ -1,7 +1,7 @@
 import gplay from 'google-play-scraper'
 
 let handler = async (m, { conn, command, text, usedPrefix }) => {
-    if (!text) return m.reply(`Example: *${usedPrefix + command} wps office*`)
+	if (!text) return m.reply(`Example: *${usedPrefix + command} wps office*`)
 	try {
 		let anu = await gplay.search({ term: `${text}` })
 		if (anu.length == 0) return m.reply(`No Result Found.`)

@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
-let handler = async (m, { conn, text, args, usedPrefix, command, pauthor, apilol }) => {
+let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 	if (!text) throw `Example: ${usedPrefix + command} Sia Unstopable`
 	if (text.includes('http://') || text.includes('https://')) {
 		if (!text.match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))) return m.reply(`Invalid Youtube URL.`)

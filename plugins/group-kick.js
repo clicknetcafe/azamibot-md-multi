@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 import { sticker } from '../lib/sticker.js'
 import { somematch } from '../lib/others.js'
 
-let handler = async (m, { conn, text, participants, packname, author }) => {
+let handler = async (m, { conn, text, participants }) => {
 	if (db.data.settings[conn.user.jid].restrict) {
 		try {
 			let res = await fetch(`https://api.waifu.pics/sfw/kick`)

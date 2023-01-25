@@ -4,7 +4,7 @@ import { ranNumb } from '../lib/others.js'
 const cooldown = 43200000
 const cooldownn = 180000
 
-let handler = async (m, { conn, command, usedPrefix, pauthor }) => {
+let handler = async (m, { conn, command, usedPrefix }) => {
 	let user = db.data.users[m.sender]
 	if (new Date - user.lastfishing <= cooldown) return m.reply(`📍 Anda sudah memancing, selanjutnya dapat dilakukan dalam  . . .\n🕖 *${((user.lastfishing + cooldown) - new Date()).toTimeString()}*`)
 	if (user.fishingrod == 0) return m.reply(`Perlu *${usedPrefix}craft* fishingrod terlebih dahulu.\n\nAnda memiliki :\n━ 🎣 ${user.fishingrod} FishingRod`)

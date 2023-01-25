@@ -13,13 +13,13 @@ let handler = async (m, { command, args, usedPrefix }) => {
 		if (type == 'common') {
 			let common = 0
 			let uncommon = 0
-			const money    = ranNumb(2000, 5000)
-			const exp      = ranNumb(175, 225)
-			const trash    = ranNumb(10, 30)
+			const money	= ranNumb(2000, 5000)
+			const exp	  = ranNumb(175, 225)
+			const trash	= ranNumb(10, 30)
 			const potion   = ranNumb(1, 3)
 
 			user.money  += money * total
-			user.exp    += exp * total
+			user.exp	+= exp * total
 			user.trash  += trash * total
 			user.potion += potion * total
 			for (let x = 1; x <= total; x++) {
@@ -46,16 +46,16 @@ let handler = async (m, { command, args, usedPrefix }) => {
 		} else if (type == 'uncommon') {
 			let uncommon = 0
 			let mythic = 0
-			const money    = ranNumb(2000, 5000)
-			const exp      = ranNumb(275, 325)
-			const trash    = ranNumb(10, 30)
+			const money	= ranNumb(2000, 5000)
+			const exp	  = ranNumb(275, 325)
+			const trash	= ranNumb(10, 30)
 			const potion   = ranNumb(1, 3)
-			const wood     = ranNumb(1, 3)
-			const rock     = ranNumb(1, 3)
+			const wood	 = ranNumb(1, 3)
+			const rock	 = ranNumb(1, 3)
 			const string   = ranNumb(1, 3)
 
 			user.money  += money * total
-			user.exp    += exp * total
+			user.exp	+= exp * total
 			user.trash  += trash * total
 			user.potion += potion * total
 			user.wood   += wood * total
@@ -88,17 +88,17 @@ let handler = async (m, { command, args, usedPrefix }) => {
 		} else if (type == 'mythic') {
 			let mythic = 0
 			let legendary = 0
-			const money    = ranNumb(2000, 5000)
-			const exp      = ranNumb(300, 400)
-			const trash    = ranNumb(10, 30)
+			const money	= ranNumb(2000, 5000)
+			const exp	  = ranNumb(300, 400)
+			const trash	= ranNumb(10, 30)
 			const potion   = ranNumb(1, 3)
-			const wood     = ranNumb(1, 3)
-			const rock     = ranNumb(1, 3)
+			const wood	 = ranNumb(1, 3)
+			const rock	 = ranNumb(1, 3)
 			const string   = ranNumb(1, 3)
-			const steel    = ranNumb(1, 3)
+			const steel	= ranNumb(1, 3)
 
 			user.money  += money * total
-			user.exp    += exp * total
+			user.exp	+= exp * total
 			user.trash  += trash * total
 			user.potion += potion * total
 			user.wood   += wood * total
@@ -133,17 +133,17 @@ let handler = async (m, { command, args, usedPrefix }) => {
 		} else if (type == 'legendary') {
 			let legendary = 0
 			let pet = 0
-			const money    = ranNumb(15000, 20000)
-			const exp      = ranNumb(375, 475)
-			const trash    = ranNumb(10, 30)
+			const money	= ranNumb(15000, 20000)
+			const exp	  = ranNumb(375, 475)
+			const trash	= ranNumb(10, 30)
 			const potion   = ranNumb(1, 3)
-			const wood     = ranNumb(1, 3)
-			const rock     = ranNumb(1, 3)
+			const wood	 = ranNumb(1, 3)
+			const rock	 = ranNumb(1, 3)
 			const string   = ranNumb(1, 3)
-			const steel    = ranNumb(1, 3)
+			const steel	= ranNumb(1, 3)
 
 			user.money  += money * total
-			user.exp    += exp * total
+			user.exp	+= exp * total
 			user.trash  += trash * total
 			user.potion += potion * total
 			user.wood   += wood * total

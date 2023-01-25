@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import util, { format } from 'util'
+import util from 'util'
 
 let handler = async (m, { text }) => {
 	if (!/^https?:\/\//.test(text)) throw 'url invalid, please input a valid url. Try with add http:// or https://'
@@ -14,7 +14,7 @@ let handler = async (m, { text }) => {
 		let txt = await res.buffer()
 		txt = util.format(JSON.parse(txt+'')) || ''
 		m.reply(txt.slice(0, 65536) + '')
-	} catch (e) { throw format(e) }
+	} catch (e) { throw e.toString() }
 }
 
 handler.help = ['fetch <url>']

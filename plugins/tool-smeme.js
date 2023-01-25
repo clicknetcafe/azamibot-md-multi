@@ -3,7 +3,7 @@ import uploadFile from '../lib/uploadFile.js'
 import fs from 'fs'
 import { Sticker, StickerTypes } from 'wa-sticker-formatter'
 
-let handler = async (m, { conn, text, usedPrefix, command, packname, author, apilol }) => {
+let handler = async (m, { conn, text, usedPrefix, command }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''
 	if (!/image\/(jpe?g|png|webp)/.test(mime)) throw `Tag gambar / stiker dengan caption *${usedPrefix + command} atas|bawah* atau tag gambar yang sudah dikirim`

@@ -1,7 +1,7 @@
 import { somematch, pickRandom } from '../lib/others.js'
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, text, usedPrefix, command, pauthor, apilol }) => {
+let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (text) text = text.toLowerCase()
 	try {
 		if (somematch(['justina','ryujin','rose','blackpink','kpop'], text)) {

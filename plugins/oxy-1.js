@@ -1,12 +1,12 @@
 import fetch from 'node-fetch'
 
-let handler = async(m, { conn, text, usedPrefix, command, apilol }) => {
+let handler = async(m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `Example use *${usedPrefix + command} BunnyWalker*`
 	try {
 		let fimg = await fetch(`https://api.lolhuman.xyz/api/photooxy1/${command}?apikey=${apilol}&text=${encodeURIComponent(text)}`)
 		if (!fimg.ok) throw new e()
 		let fimgb = Buffer.from(await fimg.arrayBuffer())
-	    await conn.sendMessage(m.chat, { image: fimgb, caption: `_Photo Oxy : ${command}_` }, { quoted: m })
+		await conn.sendMessage(m.chat, { image: fimgb, caption: `_Photo Oxy : ${command}_` }, { quoted: m })
 	} catch (e) {
 		m.reply(`Terjadi kesalahan, coba lagi nanti.`)
 	}

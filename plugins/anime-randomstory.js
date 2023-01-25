@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, usedPrefix, command, pauthor }) => {
+let handler = async (m, { conn, usedPrefix, command }) => {
 	try {
 		let res = await fetch(`https://api.akuari.my.id/anime/storyanime`)
 		let fimg = await fetch(res.url)

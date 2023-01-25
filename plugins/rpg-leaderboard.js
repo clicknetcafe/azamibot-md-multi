@@ -25,7 +25,7 @@ const leaderboards = [
 ]
 let handler = async (m, { conn, args, participants, usedPrefix, command }) => {
   let users = Object.entries(db.data.users).map(([key, value]) => {
-    return { ...value, jid: key }
+	return { ...value, jid: key }
   })
   let leaderboard = leaderboards.filter(v => v && !v.includes('@g.us') && users.filter(user => user && user[v]).length)
   let type = (args[0] || '').toLowerCase()
@@ -52,9 +52,10 @@ You: *${userItem.indexOf(m.sender) + 1}* of *${userItem.length}*
 ${await sortedItem.slice(page * 25, page * 25 + 25).map((user, i) => `*[${i + 1}]* ${participants.some(p => areJidsSameUser(user.jid, p.id)) ? `(${conn.getName(user.jid).replaceAll('\n',' ')}) wa.me/` : '@'}${user.jid.split`@`[0]}\n┗⊱ *${type == 'limit' && prems.some(sub=>user.jid.split`@`[0].includes(sub)) ? '~ Infinity ~' : user[type]} ${rpg.emoticon(type)}${type}*`).join`\n`}
 `.trim()
   await m.reply(text, null, {
-    mentions: [...userItem.slice(page * 25, page * 25 + 25)].filter(v => !participants.some(p => areJidsSameUser(v, p.id)))
+	mentions: [...userItem.slice(page * 25, page * 25 + 25)].filter(v => !participants.some(p => areJidsSameUser(v, p.id)))
   })
 }
+
 handler.menufun = ['leaderboard [jumlah user]', 'lb [jumlah user]']
 handler.tagsfun = ['rpg']
 handler.command = /^(leaderboard|lb)$/i
@@ -68,7 +69,7 @@ function sort(property, ascending = true) {
 
 function toNumber(property, _default = 0) {
   if (property) return (a, i, b) => {
-    return { ...b[i], [property]: a[property] === undefined ? _default : a[property] }
+	return { ...b[i], [property]: a[property] === undefined ? _default : a[property] }
   }
   else return a => a === undefined ? _default : a
 }

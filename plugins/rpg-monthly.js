@@ -23,6 +23,7 @@ let handler = async (m) => {
 	m.reply(text)
 	user.lastmonthly = new Date * 1
 }
+
 handler.menufun = ['monthly']
 handler.tagsfun = ['rpg']
 handler.command = /^(monthly)$/i

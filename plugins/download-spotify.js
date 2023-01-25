@@ -1,12 +1,12 @@
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, text, usedPrefix, command, apilol }) => {
+let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `*Usage : ${usedPrefix + command} url*\n\nExample: ${usedPrefix + command} https://open.spotify.com/track/0ZEYRVISCaqz5yamWZWzaA\n\n*Tips :* Untuk mencari link spotify, bisa juga dengan command *${usedPrefix}spotsearch*`
-    if (!(text.includes('http://') || text.includes('https://'))) throw `url invalid, please input a valid url. Try with add http:// or https://`
+	if (!(text.includes('http://') || text.includes('https://'))) throw `url invalid, please input a valid url. Try with add http:// or https://`
 	let res = await fetch(`https://api.lolhuman.xyz/api/spotify?apikey=${apilol}&url=${text}`)
-    if (!res.ok) throw `Invalid Spotify url / terjadi kesalahan.`
-    let json = await res.json()
-    if (json.status != '200') throw `Terjadi kesalahan, coba lagi nanti.`
+	if (!res.ok) throw `Invalid Spotify url / terjadi kesalahan.`
+	let json = await res.json()
+	if (json.status != '200') throw `Terjadi kesalahan, coba lagi nanti.`
 	let get_result = json.result
 	let ini_txt = `Found : ${text}\n\n`
 	ini_txt += `Title : *${get_result.title}*\n`

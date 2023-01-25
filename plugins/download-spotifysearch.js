@@ -1,11 +1,11 @@
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, text, usedPrefix, command, apilol }) => {
+let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `Example: ${usedPrefix + command} Melukis Senja`
-    let res = await fetch(`https://api.lolhuman.xyz/api/spotifysearch?apikey=${apilol}&query=${encodeURIComponent(text)}`)
-    if (!res.ok) throw await `Invalid Spotify url / terjadi kesalahan.`
-    let json = await res.json()
-    if (json.status != '200') throw `Terjadi kesalahan, coba lagi nanti.`
+	let res = await fetch(`https://api.lolhuman.xyz/api/spotifysearch?apikey=${apilol}&query=${encodeURIComponent(text)}`)
+	if (!res.ok) throw await `Invalid Spotify url / terjadi kesalahan.`
+	let json = await res.json()
+	if (json.status != '200') throw `Terjadi kesalahan, coba lagi nanti.`
 	let get_result = json.result
 	let ini_txt = `Found : *${text}*`
 	for (var x of get_result) {

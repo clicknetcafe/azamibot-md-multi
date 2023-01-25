@@ -6,7 +6,7 @@ const cooldownn = 120000
 
 const need = 100
 
-let handler = async (m, { conn, usedPrefix, command, text, pauthor }) => {
+let handler = async (m, { conn, usedPrefix, command, text }) => {
 	let user = db.data.users[m.sender]
 	if (new Date - user.lastberkebon <= cooldown) return m.reply(`Kamu sudah ${command}, tunggu beberapa saat untuk dapat ${command} lagi.\n\nSisa Waktu : 🕖 *${((user.lastberkebon + cooldown) - new Date()).toTimeString()}*`)
 	if (user.pickaxe == 0) return m.reply(`Perlu *${usedPrefix}craft* pickaxe terlebih dahulu.\n\nAnda memiliki :\n━ ⛏️ ${user.pickaxe} PickAxe`)

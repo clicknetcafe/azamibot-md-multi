@@ -1,6 +1,6 @@
 import { generateWAMessageFromContent } from '@adiwajshing/baileys'
 
-let handler = async (m, { conn, text, usedPrefix, command, participants, fkontak }) => {
+let handler = async (m, { conn, text, usedPrefix, command, participants }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''
 	text = text ? text : m.quoted && m.quoted.text ? m.quoted.text : m.quoted && m.quoted.caption ? m.quoted.caption : m.quoted && m.quoted.description ? m.quoted.description : ''

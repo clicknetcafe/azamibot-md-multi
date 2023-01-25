@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 import { sticker } from '../lib/sticker.js'
 
-let handler = async (m, { conn, usedPrefix, command, pauthor, packname, author }) => {
+let handler = async (m, { conn, usedPrefix, command }) => {
 	try {
 		let res = await fetch(`https://nekos.best/api/v2/${command.toLowerCase()}`)
 		let anu = await res.json()

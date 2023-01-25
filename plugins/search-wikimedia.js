@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, command, text, usedPrefix, pauthor }) => {
-    if (!text) return m.reply(`Example: *${usedPrefix + command} indonesia*`)
+let handler = async (m, { conn, command, text, usedPrefix }) => {
+	if (!text) return m.reply(`Example: *${usedPrefix + command} indonesia*`)
 	try {
 		let res = await fetch(`https://api.botcahx.biz.id/api/search/wikimedia?text=${encodeURIComponent(text)}&apikey=Admin`)
 		let anu = await res.json()

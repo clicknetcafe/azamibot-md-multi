@@ -36,7 +36,7 @@ let handler = async (m, { usedPrefix, command }) => {
 	user.wood += wood
 	user.string += string
 	if (user.adventurecount % 25  == 0) user.common  += common
-	if (user.adventurecount % 50  == 0) user.gold    += gold
+	if (user.adventurecount % 50  == 0) user.gold	+= gold
 	if (user.adventurecount % 150 == 0) user.emerald += emerald
 	if (user.adventurecount % 400 == 0) user.diamond += diamond
 

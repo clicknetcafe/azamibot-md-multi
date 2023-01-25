@@ -2,7 +2,7 @@ import db from '../lib/database.js'
 import pkg from '@adiwajshing/baileys';
 const { WA_DEFAULT_EPHEMERAL, groupToggleEphemeral } = pkg;
 
-let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, isAdmin, isROwner, fkontak }) => {
+let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, isAdmin, isROwner }) => {
 	let isEnable = /true|enable|(turn)?on|1/i.test(command)
 	let chat = db.data.chats[m.chat]
 	let user = db.data.users[m.sender]

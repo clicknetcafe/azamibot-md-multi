@@ -13,7 +13,7 @@ let handler = async (m, { conn, usedPrefix }) => {
 		im.stdin.write(sticker)
 		im.stdin.end()
 		im.on('exit', async () => {
-		    await conn.sendMessage(m.chat, { image: Buffer.concat(bufs), caption: `*DONE*` }, { quoted: m })
+			await conn.sendMessage(m.chat, { image: Buffer.concat(bufs), caption: `*DONE*` }, { quoted: m })
 		})
 	} else if (m.quoted && /sticker/.test(m.quoted.mtype) && m.quoted.isAnimated) {
 		return m.reply(`yah gagal\nCoba gunakan *${usedPrefix}tomp4* untuk stiker bergerak`)

@@ -3,8 +3,8 @@ import fetch from 'node-fetch'
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) return m.reply(`Example : ${usedPrefix + command} Avengers`)
 	try {
-	    let res = await fetch(`https://api.popcat.xyz/imdb?q=${encodeURIComponent(text)}`)
-	    let anu = await res.json()
+		let res = await fetch(`https://api.popcat.xyz/imdb?q=${encodeURIComponent(text)}`)
+		let anu = await res.json()
 		let ini_txt = `*${anu.title}*\n\n`
 		ini_txt += `_"${anu.plot}"_\n`
 		ini_txt += `_${anu.imdburl}_\n\n`

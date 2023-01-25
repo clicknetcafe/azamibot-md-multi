@@ -1,5 +1,5 @@
 let handler = async (m, { usedPrefix }) => {
-    await m.reply(`*Command Work in Private Chat :*
+	await m.reply(`*Command Work in Private Chat :*
 
 ⭔ Anonymous and Kerang Ajaib in *${usedPrefix}funmenu*
 ⭔ All Commands in *${usedPrefix}genshinmenu*

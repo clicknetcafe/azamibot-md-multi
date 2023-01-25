@@ -28,6 +28,7 @@ let handler = async (m) => {
 	m.reply(text.trim())
 	user.lastweekly = new Date * 1
 }
+
 handler.menufun = ['weekly']
 handler.tagsfun = ['rpg']
 handler.command = /^(weekly)$/i

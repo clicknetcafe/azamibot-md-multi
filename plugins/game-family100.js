@@ -2,7 +2,7 @@ import db from '../lib/database.js'
 import { family100 } from '@bochilteam/scraper'
 const winScore = 1499
 
-async function handler(m, { conn, usedPrefix, isPrems, pauthor }) {
+async function handler(m, { conn, usedPrefix, isPrems }) {
 	let chat = db.data.chats[m.chat]
 	if (!chat.game && m.isGroup) return
 	this.game = this.game ? this.game : {}
@@ -29,6 +29,7 @@ Terdapat *${json.jawaban.length}* jawaban${json.jawaban.find(v => v.includes(' '
 		winScore,
 	}
 }
+
 handler.menufun = ['family100']
 handler.tagsfun = ['game']
 handler.command = /^family100$/i

@@ -4,7 +4,7 @@ import { Sticker, StickerTypes } from 'wa-sticker-formatter'
 
 const bete = 'https://api.lolhuman.xyz/api/sticker'
 
-let handler = async (m, { conn, args, text, usedPrefix, command, apilol }) => {
+let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 	let res
 	if (command.includes('gura')) {
 		res = `${bete}/gawrgura?apikey=${apilol}`

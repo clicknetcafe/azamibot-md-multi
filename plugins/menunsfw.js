@@ -18,7 +18,7 @@ const defaultMenu = {
 	body: '│ • %cmd',
 	footer: '╰────\n',
 }
-let handler = async (m, { conn, usedPrefix: _p, __dirname, pauthor }) => {
+let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 	try {
 		let chat = db.data.chats[m.chat]
 		let meh = padLead(ranNumb(23), 3)
@@ -81,6 +81,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, pauthor }) => {
 		throw e
 	}
 }
+
 handler.help = ['menunsfw']
 handler.tags = ['submenu']
 handler.command = /^(nsfwm(enu)?|m(enu)?nsfw)$/i

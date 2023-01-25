@@ -1,6 +1,6 @@
 import { areJidsSameUser } from '@adiwajshing/baileys'
 
-let handler = async (m, { conn, args, pauthor }) => {
+let handler = async (m, { conn, args }) => {
 	let group = m.chat
 	if (/^[0-9]{5,16}-?[0-9]+@g\.us$/.test(args[0])) group = args[0]
 	if (!/^[0-9]{5,16}-?[0-9]+@g\.us$/.test(group)) throw 'Hanya bisa dibuka di grup'
@@ -23,6 +23,7 @@ let handler = async (m, { conn, args, pauthor }) => {
 	})*/
 	m.reply('[ LINK GROUP ]\n\nhttps://chat.whatsapp.com/' + await conn.groupInviteCode(group))
 }
+
 handler.menugroup = ['linkgroup']
 handler.tagsgroup = ['group']
 handler.command = /^(link(gc|gro?up)|(gc|gro?up)link)$/i

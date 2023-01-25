@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 import { pickRandom } from '../lib/others.js'
 import { sticker } from '../lib/sticker.js'
 
-let handler = async (m, { conn, usedPrefix, command, pauthor, packname, author }) => {
+let handler = async (m, { conn, usedPrefix, command }) => {
 	let chat = db.data.chats[m.chat]
 	if (!chat.nsfw && m.isGroup) throw `[ *NSFW GAK AKTIF* ]`
 	try {

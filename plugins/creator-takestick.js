@@ -1,6 +1,6 @@
 import { addExif } from '../lib/sticker.js'
 
-let handler = async (m, { conn, text, usedPrefix, command, packname, author }) => {
+let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!m.quoted) throw `Reply / Tag Stiker Sesuai Format :\n*${usedPrefix + command} <packname>|<author>*`
 	let stiker = false
 	try {
@@ -20,6 +20,7 @@ let handler = async (m, { conn, text, usedPrefix, command, packname, author }) =
 		else throw 'Conversion failed'
 	}
 }
+
 handler.help = ['takestick <packname>|<author>']
 handler.tags = ['creator']
 handler.command = /^(((stic?ker)?wm(stic?ker)?)|(takestic?(ker)?)|colong)$/i

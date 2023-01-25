@@ -17,7 +17,7 @@ const defaultMenu = {
 	body: '│ • %cmd',
 	footer: '╰────\n',
 }
-let handler = async (m, { conn, usedPrefix: _p, __dirname, pauthor }) => {
+let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 	try {
 		let nais = fs.readFileSync('./media/zero.jpg')
 		let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
@@ -73,6 +73,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, pauthor }) => {
 		throw e
 	}
 }
+
 handler.help = ['*menuanime*']
 handler.tags = ['submenu']
 handler.command = /^(animem(enu)?|m(enu)?anime)$/i

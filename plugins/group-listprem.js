@@ -1,7 +1,7 @@
 import db from '../lib/database.js'
 import { parsePhoneNumber } from 'awesome-phonenumber'
 
-let handler = async (m, { conn, usedPrefix, pauthor }) => {
+let handler = async (m, { conn, usedPrefix }) => {
 	let prems = db.data.datas.prems.filter(v => v.user !== '').sort((a, b) => a.date - b.date)
 	if (prems.length == 0) return m.reply (`Tidak ada user premium !`)
 	let namebot = await conn.getName(conn.user.jid)

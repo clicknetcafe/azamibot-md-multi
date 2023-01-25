@@ -1,7 +1,7 @@
 import { delay } from '../lib/others.js'
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, usedPrefix, command, apilol }) => {
+let handler = async (m, { conn, usedPrefix, command }) => {
 	await delay(2000)
 	try {
 		let res = await fetch(`https://api.akuari.my.id/randomtext/katabijak`)

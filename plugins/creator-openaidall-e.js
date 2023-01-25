@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, text, usedPrefix, command, apilol }) => {
+let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `[!] Masukkan detail teks.`
 	try {
 		let res = await fetch(`https://api.lolhuman.xyz/api/dall-e?apikey=${apilol}&text=${encodeURIComponent(text)}`)

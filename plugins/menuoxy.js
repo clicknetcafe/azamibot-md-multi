@@ -15,7 +15,7 @@ const defaultMenu = {
 	body: '│ • %cmd',
 	footer: '╰────\n',
 }
-let handler = async (m, { conn, usedPrefix: _p, __dirname, pauthor }) => {
+let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 	try {
 		let nais = fs.readFileSync('./media/oxy.jpg')
 		let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
@@ -71,6 +71,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, pauthor }) => {
 		throw e
 	}
 }
+
 handler.help = ['menuoxy']
 handler.tags = ['submenu']
 handler.command = /^(oxym(enu)?|m(enu)?oxy)$/i

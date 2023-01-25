@@ -1,7 +1,7 @@
 import db from '../lib/database.js'
 import { parsePhoneNumber } from 'awesome-phonenumber'
 
-let handler = async (m, { conn, usedPrefix, command, isOwner, text, pauthor }) => {
+let handler = async (m, { conn, usedPrefix, command, isOwner, text }) => {
 	let groups
 	try { groups = Object.values(await conn.groupFetchAllParticipating()).map(v => v.id) }
 	catch { return }

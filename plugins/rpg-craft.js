@@ -6,9 +6,9 @@ let handler = async (m, { command, usedPrefix, args }) => {
 	let info = `Format : *${usedPrefix + command} [item] [jumlah]*\n`
 	info += `Contoh : *${usedPrefix}${command} armor 2*\n\n`
 	info += `*━━━[ CRAFTING LIST ]━━━*\n`
-	info += `%| steel         | kargo%\n`
-	info += `%| kapal         | 🥼 armor%\n`
-	info += `%| ⚔️ sword      | ⛏️ pickaxe%\n`
+	info += `%| steel		 | kargo%\n`
+	info += `%| kapal		 | 🥼 armor%\n`
+	info += `%| ⚔️ sword	  | ⛏️ pickaxe%\n`
 	info += `%| 🎣 fishingrod | 🏹 bow%`
 	
 	const item = (args[0] || '').toLowerCase()

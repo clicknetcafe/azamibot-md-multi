@@ -1,7 +1,7 @@
 import { createSticker, StickerTypes } from 'wa-sticker-formatter'
 import { sticker, addExif, video2webp, video2webp30, video2webp45, video2webp60 } from '../lib/sticker.js'
 
-let handler = async (m, { conn, text, usedPrefix, command, packname, author }) => {
+let handler = async (m, { conn, text, usedPrefix, command }) => {
 	let c = command
 	if ((text || '-').match(/^(https?:\/\/)?(www\.)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\.)+[\w]{2,}(\/\S*)?$/)) {
 		let s = await sticker(false, text, packname, author)

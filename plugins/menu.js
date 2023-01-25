@@ -26,7 +26,7 @@ _Claim *.daily* atau mainkan game di *.funmenu* untuk mendapatkan exp / money_
 	body: '│ • %cmd %islimit %isPremium',
 	footer: '╰────\n',
 }
-let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPrefix, command, pauthor, ftrol }) => {
+let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPrefix, command }) => {
 	try {
 		let jam = new Date().getHours()
 		let meh = padLead(ranNumb(43), 3)

@@ -2,7 +2,7 @@ import uploadImage from '../lib/uploadImage.js'
 import fetch from 'node-fetch'
 import Tesseract from 'tesseract.js'
 
-let handler = async (m, { usedPrefix, command, apilol }) => {
+let handler = async (m, { usedPrefix, command }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''
 	if (/image/g.test(mime)) {

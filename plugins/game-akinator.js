@@ -1,7 +1,7 @@
 import db from '../lib/database.js'
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, usedPrefix, command, text, apilol }) => {
+let handler = async (m, { conn, usedPrefix, command, text }) => {
 	if (!db.data.chats[m.chat].game && m.isGroup) return
 	let aki = db.data.users[m.sender].akinator
 	if (text == 'end') {
@@ -10,11 +10,11 @@ let handler = async (m, { conn, usedPrefix, command, text, apilol }) => {
 		aki.soal = null
 		m.reply('Berhasil keluar dari sesi Akinator.')
 	} else {
-		if (aki.sesi) return conn.reply(m.chat, 'Anda masih berada dalam sesi Akinator', aki.soal)
+		if (aki.sesi) return conn.reply(m.chat, `Anda masih berada dalam sesi Akinator\n*${usedPrefix + command} end* untuk keluar dari sesi Akinator`, aki.soal)
 		try {
 			let res = await fetch(`https://api.lolhuman.xyz/api/akinator/start?apikey=${apilol}`)
 			let anu = await res.json()
-			if (anu.status !== 200) throw Error('Emror')
+			if (anu.status !== 200) throw Error()
 			let { server, frontaddr, session, signature, question, progression, step } = anu.result
 			aki.sesi = true
 			aki.server = server
@@ -35,7 +35,7 @@ let handler = async (m, { conn, usedPrefix, command, text, apilol }) => {
 			aki.soal = soal
 		} catch (e) {
 			console.log(e)
-			m.reply('Fitur Error!')
+			throw 'server down'
 		}
 	}
 }

@@ -4,7 +4,7 @@ import { ranNumb } from '../lib/others.js'
 const cooldown = 259200000
 const cooldownn = 180000
 
-let handler = async (m, { conn, usedPrefix, pauthor }) => {
+let handler = async (m, { conn, usedPrefix }) => {
 	let user = db.data.users[m.sender]
 	if (new Date - user.lasthunt <= cooldown) return m.reply(`📍 Sudah cukup perburuan kali ini\nGunakan waktu yang ada untuk beristirahat, perburuan selanjutnya dapat dimulai dalam . . .\n🕖 *${((user.lasthunt + cooldown) - new Date()).toTimeString()}*`)
 	if (user.armor == 0 || user.sword == 0 || user.bow == 0) return m.reply(`Perlu *${usedPrefix}craft* armor, sword, dan bow terlebih dahulu.\n\nAnda memiliki :\n━ 🥼 ${user.armor} Armor\n━ ⚔️ ${user.sword} Sword\n━ 🏹 ${user.bow} Bow`)

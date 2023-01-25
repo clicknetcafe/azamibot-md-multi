@@ -3,7 +3,7 @@ import { youtubedl, youtubedlv2, youtubedlv3 } from '@bochilteam/scraper'
 import xa from 'xfarr-api'
 import { niceBytes, isUrl, somematch } from '../lib/others.js'
 
-let handler = async (m, { conn, text, args, usedPrefix, command, apilol }) => {
+let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 	if (!text.match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))) return m.reply(`Invalid Youtube URL.`)
 	try {
 		let { thumbnail, video: _video, title } = await youtubedl(args[0]).catch(async _ => await youtubedlv2(args[0])).catch(async _ => await youtubedlv3(args[0]))

@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-let handler = async(m, { conn, text, usedPrefix, command, apilol }) => {
+let handler = async(m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `*Usage : ${usedPrefix + command} url*\n\nExample :\n${usedPrefix + command} http://www.solidfiles.com/v/zdpVXjvRk8yaV`
 	if (!(text.includes('http://') || text.includes('https://'))) throw `url invalid, please input a valid url. Try with add http:// or https://`
 	try {

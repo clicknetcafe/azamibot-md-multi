@@ -1,7 +1,7 @@
 import db from '../lib/database.js'
 import TicTacToe from '../lib/tictactoe.js'
 
-let handler = async (m, { conn, usedPrefix, command, text, isPrems, pauthor }) => {
+let handler = async (m, { conn, usedPrefix, command, text, isPrems }) => {
 	let chat = db.data.chats[m.chat]
 	if (!chat.game && m.isGroup) return
 	if (db.data.users[m.sender].limit < 1 && db.data.users[m.sender].money > 50000 && !isPrems) throw `Beli limit dulu lah, duid lu banyak kan 😏`

@@ -1,7 +1,7 @@
 import Connection from '../lib/connection.js'
 import db from '../lib/database.js'
 
-let handler = async (m, { conn, args, text, usedPrefix, command, isPrems, pauthor }) => {
+let handler = async (m, { conn, args, text, usedPrefix, command, isPrems }) => {
 	let chat = db.data.chats[m.chat]
 	if (!chat.game && m.isGroup) return
 	if (db.data.users[m.sender].limit < 1 && db.data.users[m.sender].money > 50000 && !isPrems) throw `Beli limit dulu lah, duid lu banyak kan 😏`
@@ -36,6 +36,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command, isPrems, pautho
 		}, math.time)
 	]
 }
+
 handler.menufun = ['math <mode>']
 handler.tagsfun = ['game']
 handler.command = /^math/i

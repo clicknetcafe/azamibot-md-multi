@@ -2,7 +2,7 @@ import uploadImage from '../lib/uploadImage.js'
 import uploadFile from '../lib/uploadFile.js'
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, args, usedPrefix, text, command, apilol }) => {
+let handler = async (m, { conn, args, usedPrefix, text, command }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''
 	if (text || /image|video|sticker|webp/g.test(mime)) {

@@ -2,7 +2,7 @@ import fs from 'fs'
 import * as emoji from 'emoji-api'
 import { Sticker, StickerTypes } from 'wa-sticker-formatter'
 
-let handler = async (m, { conn, args, usedPrefix, command, packname, author }) => {
+let handler = async (m, { conn, args, usedPrefix, command }) => {
 	if (!args[0]) throw `Emojinya mana ?\n\nContoh : *${usedPrefix + command} 🤖*`
 	let ztick = fs.readFileSync(`./media/sticker/bronya.webp`)
 	try {

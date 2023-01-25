@@ -34,6 +34,7 @@ let handler = async (m, { conn, isPrems }) => {
 		m.reply(`[!] User tidak ada dalam database.`)
 	}
 }
+
 handler.menufun = ['profile']
 handler.tagsfun = ['rpg']
 handler.command = /^(profile?)$/i

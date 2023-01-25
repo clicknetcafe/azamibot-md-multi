@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-let handler = async (m, { text, apilol }) => {
+let handler = async (m, { text }) => {
 	try {
 		let res = await fetch(`https://api.lolhuman.xyz/api/checkapikey?apikey=${text ? text : apilol}`)
 		let anu = await res.json()

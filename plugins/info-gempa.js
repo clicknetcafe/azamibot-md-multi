@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 
 const link = 'https://data.bmkg.go.id/DataMKG/TEWS/'
 
-let handler = async (m, { conn, text, usedPrefix, command, apilol }) => {
+let handler = async (m, { conn, text, usedPrefix, command }) => {
 	try {
 		let res = await fetch(link+'autogempa.json')
 		let anu = await res.json()

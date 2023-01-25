@@ -1,5 +1,5 @@
 let handler = async (m, { conn, command }) => {
-    conn.reply(m.chat, `*「 RECODED BY ZERENITY 」*
+	conn.reply(m.chat, `*「 RECODED BY ZERENITY 」*
 
 *⭔ Single Auth ( 1 file session )*
 _https://github.com/clicknetcafe/azamibot-md_

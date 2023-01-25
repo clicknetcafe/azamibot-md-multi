@@ -3,7 +3,7 @@ import { isNumber, somematch } from '../lib/others.js'
 
 const cooldown = 60000
 
-let handler = async (m, { conn, participants, usedPrefix, command, args, isOwner, isPrems, isAdmin, fliveLoc }) => {
+let handler = async (m, { conn, participants, usedPrefix, command, args, isOwner, isPrems, isAdmin }) => {
 	let admins = []
 	for (let i of participants) { if (i.admin == 'admin') admins.push(i.id) }
 	if ((!m.quoted && !args[1]) || (m.quoted && !args[0])) throw `Format : ${usedPrefix + command} <timer> <@tag/quote>\n1 = 1 menit\n5 = 5 menit ... dst.\n\nContoh : *${usedPrefix + command} 10 @Alan*`

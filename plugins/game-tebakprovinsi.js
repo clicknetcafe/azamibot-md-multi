@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 
 let timeout = 120000
 let poin = 1999
-let handler = async (m, { conn, usedPrefix, isPrems, pauthor, apilol }) => {
+let handler = async (m, { conn, usedPrefix, isPrems }) => {
 	let chat = db.data.chats[m.chat]
 	if (!chat.game && m.isGroup) return
 	conn.tebakprovinsi = conn.tebakprovinsi ? conn.tebakprovinsi : {}
@@ -33,6 +33,7 @@ let handler = async (m, { conn, usedPrefix, isPrems, pauthor, apilol }) => {
 	]
 	console.log(json.result.title)
 }
+
 handler.menufun = ['tebakprovinsi (exp+)']
 handler.tagsfun = ['game']
 handler.command = /^(tebakprovinsi)$/i
