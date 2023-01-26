@@ -26,7 +26,7 @@ export async function before(m) {
 			aki.sesi = false
 			aki.soal = null
 		} else {
-			let soal = await this.sendMessage(m.chat, { text: `🎮 *Akinator* 🎮\n_step ${anu.step} ( ${anu.progression.toFixed(2)} % )_\n\n@${m.sender.split('@')[0]}\n	${anu.question}\n\n${teks}`, mentions: [m.sender] }, { quoted: m })
+			let soal = await this.sendMessage(m.chat, { text: `🎮 *Akinator* 🎮\n_step ${anu.step} ( ${anu.progression.toFixed(2)} % )_\n\n@${m.sender.split('@')[0]}\n    ${anu.question}\n\n${teks}`, mentions: [m.sender] }, { quoted: m })
 			aki.soal = soal
 			aki.step = anu.step
 			aki.progression = anu.progression

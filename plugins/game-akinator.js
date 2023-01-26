@@ -24,7 +24,7 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
 			aki.question = question
 			aki.progression = progression
 			aki.step = step
-			let txt = `🎮 *Akinator* 🎮\n\n@${m.sender.split('@')[0]}\n${question}\n\n`
+			let txt = `🎮 *Akinator* 🎮\n\n@${m.sender.split('@')[0]}\n    ${question}\n\n`
 			txt += '0 - Ya\n'
 			txt += '1 - Tidak\n'
 			txt += '2 - Saya Tidak Tau\n'
