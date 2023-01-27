@@ -1,8 +1,7 @@
-import Connection from '../lib/connection.js'
 import { delay, ranNumb } from '../lib/others.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-	let chats = Object.entries(Connection.store.chats).filter(([jid, chat]) => !jid.endsWith('@g.us') && !jid.startsWith('212') && chat.isChats).map(v => v[0])
+	let chats = Object.entries(conn.chats).filter(([jid, chat]) => !jid.endsWith('@g.us') && !jid.startsWith('212') && chat.isChats).map(v => v[0])
 	let cc = conn.serializeM(text ? m : m.quoted ? await m.getQuotedObj() : false || m)
 	let img, q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''
@@ -14,7 +13,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 		try {
 			if (/image|video/g.test(mime)) {
 				if (command.includes('meme')) await conn.sendFile(id, img, '', teks)
-				else await conn.sendButton(id, teks, pauthor, img, [[`👥 Owner`, `.owner`],[`🤖 All Menu`, `.allmenu`]])
+				else await conn.sendButton(id, teks, pauthor, img, [[`👥 Owner`, `.owner`],[`🤖 Menu`, `.menu`]])
 			} else await conn.sendMessage(id, { text: teks })
 		} catch (e) {
 			console.log(e)

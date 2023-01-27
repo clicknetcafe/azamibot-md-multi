@@ -1,8 +1,7 @@
-import Connection from '../lib/connection.js'
 import { delay, ranNumb } from '../lib/others.js'
 
 let handler = async (m, { conn, text, usedPrefix, command, participants }) => {
-	let chats = Object.entries(Connection.store.chats).filter(([jid, chat]) => jid.endsWith('@g.us') && chat.isChats && !chat.metadata?.read_only && !chat.metadata?.announce).map(v => v[0])
+	let chats = Object.entries(conn.chats).filter(([jid, chat]) => jid.endsWith('@g.us') && chat.isChats && !chat.metadata?.read_only && !chat.metadata?.announce).map(v => v[0])
 	let cc = conn.serializeM(text ? m : m.quoted ? await m.getQuotedObj() : false || m)
 	let img, q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''
@@ -14,7 +13,7 @@ let handler = async (m, { conn, text, usedPrefix, command, participants }) => {
 		try {
 			if (/image|video/g.test(mime)) {
 				if (command.includes('meme')) await conn.sendFile(id, img, '', teks, null, false, { mentions: participants.map(a => a.id) })
-				else await conn.sendButton(id, teks, pauthor, img, [[`👥 Owner`, `.owner`],[`🤖 All Menu`, `.allmenu`]], null, { mentions: participants.map(a => a.id) })
+				else await conn.sendButton(id, teks, pauthor, img, [[`👥 Owner`, `.owner`],[`🤖 Menu`, `.menu`]], null, { mentions: participants.map(a => a.id) })
 			} else await conn.sendMessage(id, { text: teks, mentions: participants.map(a => a.id) })
 		} catch (e) {
 			console.log(e)
