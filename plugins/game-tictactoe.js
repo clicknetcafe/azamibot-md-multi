@@ -2,10 +2,10 @@ import db from '../lib/database.js'
 import TicTacToe from '../lib/tictactoe.js'
 
 let handler = async (m, { conn, usedPrefix, command, text, isPrems }) => {
-	let chat = db.data.chats[m.chat]
-	if (!chat.game && m.isGroup) return
-	if (db.data.users[m.sender].limit < 1 && db.data.users[m.sender].money > 50000 && !isPrems) throw `Beli limit dulu lah, duid lu banyak kan 😏`
-	else if (db.data.users[m.sender].limit > 0 && !isPrems) db.data.users[m.sender].limit -= 1
+	if (m.isGroup && !db.data.chats[m.chat].game) return
+	let user = db.data.users[m.sender]
+	if (user.limit < 1 && user.money > 50000 && !isPrems) throw `Beli limit dulu lah, duid lu banyak kan 😏`
+	else if (user.limit > 0 && !isPrems) user.limit -= 1
 	conn.game = conn.game ? conn.game : {}
 	if (Object.values(conn.game).find(room => room.id.startsWith('tictactoe') && [room.game.playerX, room.game.playerO].includes(m.sender))) throw 'Kamu masih didalam game'
 	let room = Object.values(conn.game).find(room => room.state === 'WAITING' && (text ? room.name === text : true))

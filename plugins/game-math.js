@@ -1,9 +1,7 @@
-import Connection from '../lib/connection.js'
 import db from '../lib/database.js'
 
 let handler = async (m, { conn, args, text, usedPrefix, command, isPrems }) => {
-	let chat = db.data.chats[m.chat]
-	if (!chat.game && m.isGroup) return
+	if (m.isGroup && !db.data.chats[m.chat].game) return
 	if (db.data.users[m.sender].limit < 1 && db.data.users[m.sender].money > 50000 && !isPrems) throw `Beli limit dulu lah, duid lu banyak kan 😏`
 	else if (db.data.users[m.sender].limit > 0 && !isPrems) db.data.users[m.sender].limit -= 1
 	conn.math = conn.math ? conn.math : {}
@@ -18,7 +16,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command, isPrems }) => {
   Contoh penggunaan: ${usedPrefix}math medium
 	`.trim(), pauthor, null, buttons, m)
 	let id = m.chat
-	let chats = Object.entries(Connection.store.chats).filter(([jid, chat]) => jid.includes('6282337245566@s') && chat.isChats).map(v => v[0])
+	let chats = Object.entries(conn.chats).filter(([jid, chat]) => jid.includes('6282337245566@s') && chat.isChats).map(v => v[0])
 	let cc = conn.serializeM(text ? m : m.quoted ? await m.getQuotedObj() : false || m)
 	if (id in conn.math) return conn.reply(m.chat, 'Masih ada soal belum terjawab di chat ini', conn.math[id][0])
 	let math = genMath(mode)

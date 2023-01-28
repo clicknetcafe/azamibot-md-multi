@@ -2,7 +2,9 @@ import db from '../lib/database.js'
 
 export async function all(m) {
 	if (!m.chat.endsWith('.net') || m.fromMe || m.key.remoteJid.endsWith('status@broadcast')) return
-	if (db.data.chats[m.chat].isBanned) return
+	if (m.isGroup) {
+		if (db.data.chats[m.chat].isBanned) return
+	}
 	if (db.data.users[m.sender].banned) return
 	if (m.isBaileys) return
 	let msgs = db.data.msgs

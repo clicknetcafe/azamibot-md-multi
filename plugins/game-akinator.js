@@ -2,7 +2,7 @@ import db from '../lib/database.js'
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, usedPrefix, command, text }) => {
-	if (!db.data.chats[m.chat].game && m.isGroup) return
+	if (m.isGroup && !db.data.chats[m.chat].game) return
 	let aki = db.data.users[m.sender].akinator
 	if (text == 'end') {
 		if (!aki.sesi) return m.reply('Anda tidak sedang dalam sesi Akinator')

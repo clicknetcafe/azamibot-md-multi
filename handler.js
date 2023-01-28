@@ -41,415 +41,415 @@ export async function handler(chatUpdate) {
 		try {
 			// TODO: use loop to insert data instead of this
 			let user = db.data.users[m.sender]
-			if (typeof user !== 'object')
+			if (m.sender.endsWith('@s.whatsapp.net')) {
+				if (typeof user !== 'object')
 				db.data.users[m.sender] = {}
-			if (user) {
-				if (!isNumber(user.exp))
-					user.exp = 0
-				if (!isNumber(user.limit))
-					user.limit = 120
-				if (!isNumber(user.lastclaim))
-					user.lastclaim = 0
-				if (!('registered' in user))
-					user.registered = false
-				if (!user.registered) {
-					if (!('name' in user))
-						user.name = m.name
-					if (!isNumber(user.age))
-						user.age = -1
-					if (!isNumber(user.regTime))
-						user.regTime = -1
-				}
-				if (!isNumber(user.afk))
-					user.afk = -1
-				if (!('afkReason' in user))
-					user.afkReason = ''
-				if (!('banned' in user))
-					user.banned = false
-				if (!('permaban' in user))
-					user.permaban = false
-				if (!isNumber(user.lastbanned))
-					user.lastbanned = 0
-				if (!isNumber(user.bannedcd))
-					user.bannedcd = 0
-				if (!isNumber(user.warn))
-					user.warn = 0
-				if (!isNumber(user.level))
-					user.level = 0
-				if (!('role' in user))
-					user.role = 'Beginner'
-				if (!('autolevelup' in user))
-					user.autolevelup = true
+				if (user) {
+					if (!isNumber(user.exp))
+						user.exp = 0
+					if (!isNumber(user.limit))
+						user.limit = 120
+					if (!isNumber(user.lastclaim))
+						user.lastclaim = 0
+					if (!('registered' in user))
+						user.registered = false
+					if (!user.registered) {
+						if (!('name' in user))
+							user.name = m.name
+						if (!isNumber(user.age))
+							user.age = -1
+						if (!isNumber(user.regTime))
+							user.regTime = -1
+					}
+					if (!isNumber(user.afk))
+						user.afk = -1
+					if (!('afkReason' in user))
+						user.afkReason = ''
+					if (!('banned' in user))
+						user.banned = false
+					if (!('permaban' in user))
+						user.permaban = false
+					if (!isNumber(user.lastbanned))
+						user.lastbanned = 0
+					if (!isNumber(user.bannedcd))
+						user.bannedcd = 0
+					if (!isNumber(user.warn))
+						user.warn = 0
+					if (!isNumber(user.level))
+						user.level = 0
+					if (!('role' in user))
+						user.role = 'Beginner'
+					if (!('autolevelup' in user))
+						user.autolevelup = true
 
-				if (!isNumber(user.money))
-					user.money = 0
-				if (!isNumber(user.atm))
-					user.atm = 0
-				if (!isNumber(user.health))
-					user.health = 100
-				if (!isNumber(user.potion))
-					user.potion = 0
-				if (!isNumber(user.trash))
-					user.trash = 0
-				if (!isNumber(user.wood))
-					user.wood = 0
-				if (!isNumber(user.rock))
-					user.rock = 0
-				if (!isNumber(user.string))
-					user.string = 0
-				if (!isNumber(user.iron))
-					user.iron = 0
-				if (!isNumber(user.sand))
-					user.sand = 0
+					if (!isNumber(user.money))
+						user.money = 0
+					if (!isNumber(user.atm))
+						user.atm = 0
+					if (!isNumber(user.health))
+						user.health = 100
+					if (!isNumber(user.potion))
+						user.potion = 0
+					if (!isNumber(user.trash))
+						user.trash = 0
+					if (!isNumber(user.wood))
+						user.wood = 0
+					if (!isNumber(user.rock))
+						user.rock = 0
+					if (!isNumber(user.string))
+						user.string = 0
+					if (!isNumber(user.iron))
+						user.iron = 0
+					if (!isNumber(user.sand))
+						user.sand = 0
 
-				if (!isNumber(user.emerald))
-					user.emerald = 0
-				if (!isNumber(user.diamond))
-					user.diamond = 0
-				if (!isNumber(user.gold))
-					user.gold = 0
-				if (!isNumber(user.steel))
-					user.steel = 0
-				if (!isNumber(user.kargo))
-					user.kargo = 0
-				if (!isNumber(user.kapal))
-					user.kapal = 0
+					if (!isNumber(user.emerald))
+						user.emerald = 0
+					if (!isNumber(user.diamond))
+						user.diamond = 0
+					if (!isNumber(user.gold))
+						user.gold = 0
+					if (!isNumber(user.steel))
+						user.steel = 0
+					if (!isNumber(user.kargo))
+						user.kargo = 0
+					if (!isNumber(user.kapal))
+						user.kapal = 0
 
-				if (!isNumber(user.common))
-					user.common = 0
-				if (!isNumber(user.commoncount))
-					user.commoncount = 0
-				if (!isNumber(user.uncommon))
-					user.uncommon = 0
-				if (!isNumber(user.uncommoncount))
-					user.uncommoncount = 0
-				if (!isNumber(user.mythic))
-					user.mythic = 0
-				if (!isNumber(user.mythiccount))
-					user.mythiccount = 0
-				if (!isNumber(user.legendary))
-					user.legendary = 0
-				if (!isNumber(user.legendarycount))
-					user.legendarycount = 0
-				if (!isNumber(user.pet))
-					user.pet = 0
-				if (!isNumber(user.petcount))
-					user.petcount = 0
-				if (!isNumber(user.petfood))
-					user.petfood = 0
+					if (!isNumber(user.common))
+						user.common = 0
+					if (!isNumber(user.commoncount))
+						user.commoncount = 0
+					if (!isNumber(user.uncommon))
+						user.uncommon = 0
+					if (!isNumber(user.uncommoncount))
+						user.uncommoncount = 0
+					if (!isNumber(user.mythic))
+						user.mythic = 0
+					if (!isNumber(user.mythiccount))
+						user.mythiccount = 0
+					if (!isNumber(user.legendary))
+						user.legendary = 0
+					if (!isNumber(user.legendarycount))
+						user.legendarycount = 0
+					if (!isNumber(user.pet))
+						user.pet = 0
+					if (!isNumber(user.petcount))
+						user.petcount = 0
+					if (!isNumber(user.petfood))
+						user.petfood = 0
 
-				if (!isNumber(user.horse))
-					user.horse = 0
-				if (!isNumber(user.horseexp))
-					user.horseexp = 0
-				if (!isNumber(user.cat))
-					user.cat = 0
-				if (!isNumber(user.catexp))
-					user.catexp = 0
-				if (!isNumber(user.fox))
-					user.fox = 0
-				if (!isNumber(user.foxexp))
-					user.foxexp = 0
-				if (!isNumber(user.dog))
-					user.dog = 0
-				if (!isNumber(user.dogexp))
-					user.dogexp = 0
-				if (!isNumber(user.wolf))
-					user.wolf = 0
-				if (!isNumber(user.wolfexp))
-					user.wolfexp = 0
-				if (!isNumber(user.centaur))
-					user.centaur = 0
-				if (!isNumber(user.centaurexp))
-					user.centaurexp = 0
-				if (!isNumber(user.phoenix))
-					user.phoenix = 0
-				if (!isNumber(user.phoenixexp))
-					user.phoenixexp = 0
-				if (!isNumber(user.dragon))
-					user.dragon = 0
-				if (!isNumber(user.dragonexp))
-					user.dragonexp = 0
-				if (!isNumber(user.horselvl))
-					user.horselvl = 0
-				if (!isNumber(user.catlvl))
-					user.catlvl = 0
-				if (!isNumber(user.foxlvl))
-					user.foxlvl = 0
-				if (!isNumber(user.doglvl))
-					user.doglvl = 0
-				if (!isNumber(user.wolflvl))
-					user.wolflvl = 0
-				if (!isNumber(user.centaurlvl))
-					user.centaurlvl = 0
-				if (!isNumber(user.phoenixlvl))
-					user.phoenixlvl = 0
-				if (!isNumber(user.dragonlvl))
-					user.dragonlvl = 0
-				if (!isNumber(user.horsehealth))
-					user.horsehealth = 0
-				if (!isNumber(user.cathealth))
-					user.cathealth = 0
-				if (!isNumber(user.foxhealth))
-					user.foxhealth = 0
-				if (!isNumber(user.doghealth))
-					user.doghealth = 0
-				if (!isNumber(user.wolfhealth))
-					user.wolfhealth = 0
-				if (!isNumber(user.centaurhealth))
-					user.centaurhealth = 0
-				if (!isNumber(user.phoenixhealth))
-					user.phoenixhealth = 0
-				if (!isNumber(user.dragonhealth))
-					user.dragonhealth = 0
+					if (!isNumber(user.horse))
+						user.horse = 0
+					if (!isNumber(user.horseexp))
+						user.horseexp = 0
+					if (!isNumber(user.cat))
+						user.cat = 0
+					if (!isNumber(user.catexp))
+						user.catexp = 0
+					if (!isNumber(user.fox))
+						user.fox = 0
+					if (!isNumber(user.foxexp))
+						user.foxexp = 0
+					if (!isNumber(user.dog))
+						user.dog = 0
+					if (!isNumber(user.dogexp))
+						user.dogexp = 0
+					if (!isNumber(user.wolf))
+						user.wolf = 0
+					if (!isNumber(user.wolfexp))
+						user.wolfexp = 0
+					if (!isNumber(user.centaur))
+						user.centaur = 0
+					if (!isNumber(user.centaurexp))
+						user.centaurexp = 0
+					if (!isNumber(user.phoenix))
+						user.phoenix = 0
+					if (!isNumber(user.phoenixexp))
+						user.phoenixexp = 0
+					if (!isNumber(user.dragon))
+						user.dragon = 0
+					if (!isNumber(user.dragonexp))
+						user.dragonexp = 0
+					if (!isNumber(user.horselvl))
+						user.horselvl = 0
+					if (!isNumber(user.catlvl))
+						user.catlvl = 0
+					if (!isNumber(user.foxlvl))
+						user.foxlvl = 0
+					if (!isNumber(user.doglvl))
+						user.doglvl = 0
+					if (!isNumber(user.wolflvl))
+						user.wolflvl = 0
+					if (!isNumber(user.centaurlvl))
+						user.centaurlvl = 0
+					if (!isNumber(user.phoenixlvl))
+						user.phoenixlvl = 0
+					if (!isNumber(user.dragonlvl))
+						user.dragonlvl = 0
+					if (!isNumber(user.horsehealth))
+						user.horsehealth = 0
+					if (!isNumber(user.cathealth))
+						user.cathealth = 0
+					if (!isNumber(user.foxhealth))
+						user.foxhealth = 0
+					if (!isNumber(user.doghealth))
+						user.doghealth = 0
+					if (!isNumber(user.wolfhealth))
+						user.wolfhealth = 0
+					if (!isNumber(user.centaurhealth))
+						user.centaurhealth = 0
+					if (!isNumber(user.phoenixhealth))
+						user.phoenixhealth = 0
+					if (!isNumber(user.dragonhealth))
+						user.dragonhealth = 0
 
-				if (!isNumber(user.horselastfeed))
-					user.horselastfeed = 0
-				if (!isNumber(user.catlastfeed))
-					user.catlastfeed = 0
-				if (!isNumber(user.foxlastfeed))
-					user.foxlastfeed = 0
-				if (!isNumber(user.doglastfeed))
-					user.doglastfeed = 0
-				if (!isNumber(user.wolflastfeed))
-					user.wolflastfeed = 0
-				if (!isNumber(user.centaurlastfeed))
-					user.centaurlastfeed = 0
-				if (!isNumber(user.phoenixlastfeed))
-					user.phoenixlastfeed = 0
-				if (!isNumber(user.dragonlastfeed))
-					user.dragonlastfeed = 0
-				if (!isNumber(user.lastadu))
-					user.lastadu = 0
+					if (!isNumber(user.horselastfeed))
+						user.horselastfeed = 0
+					if (!isNumber(user.catlastfeed))
+						user.catlastfeed = 0
+					if (!isNumber(user.foxlastfeed))
+						user.foxlastfeed = 0
+					if (!isNumber(user.doglastfeed))
+						user.doglastfeed = 0
+					if (!isNumber(user.wolflastfeed))
+						user.wolflastfeed = 0
+					if (!isNumber(user.centaurlastfeed))
+						user.centaurlastfeed = 0
+					if (!isNumber(user.phoenixlastfeed))
+						user.phoenixlastfeed = 0
+					if (!isNumber(user.dragonlastfeed))
+						user.dragonlastfeed = 0
+					if (!isNumber(user.lastadu))
+						user.lastadu = 0
 
-				if (!isNumber(user.armor))
-					user.armor = 0
-				if (!isNumber(user.armordurability))
-					user.armordurability = 0
-				if (!isNumber(user.sword))
-					user.sword = 0
-				if (!isNumber(user.sworddurability))
-					user.sworddurability = 0
-				if (!isNumber(user.pickaxe))
-					user.pickaxe = 0
-				if (!isNumber(user.pickaxedurability))
-					user.pickaxedurability = 0
-				if (!isNumber(user.fishingrod))
-					user.fishingrod = 0
-				if (!isNumber(user.fishingroddurability))
-					user.fishingroddurability = 0
-				if (!isNumber(user.bow))
-					user.bow = 0
-				if (!isNumber(user.bowdurability))
-					user.bowdurability = 0
+					if (!isNumber(user.armor))
+						user.armor = 0
+					if (!isNumber(user.armordurability))
+						user.armordurability = 0
+					if (!isNumber(user.sword))
+						user.sword = 0
+					if (!isNumber(user.sworddurability))
+						user.sworddurability = 0
+					if (!isNumber(user.pickaxe))
+						user.pickaxe = 0
+					if (!isNumber(user.pickaxedurability))
+						user.pickaxedurability = 0
+					if (!isNumber(user.fishingrod))
+						user.fishingrod = 0
+					if (!isNumber(user.fishingroddurability))
+						user.fishingroddurability = 0
+					if (!isNumber(user.bow))
+						user.bow = 0
+					if (!isNumber(user.bowdurability))
+						user.bowdurability = 0
 
-				if (!isNumber(user.lastclaim))
-					user.lastclaim = 0
-				if (!isNumber(user.lastadventure))
-					user.lastadventure = 0
-				if (!isNumber(user.lastfishing))
-					user.lastfishing = 0
-				if (!isNumber(user.lastdungeon))
-					user.lastdungeon = 0
-				if (!isNumber(user.lastduel))
-					user.lastduel = 0
-				if (!isNumber(user.lastmining))
-					user.lastmining = 0
-				if (!isNumber(user.lasthunt))
-					user.lasthunt = 0
-				if (!isNumber(user.lastlumber))
-					user.lastlumber = 0
-				if (!isNumber(user.lastngojek))
-					user.lastngojek = 0
-				if (!isNumber(user.lastweekly))
-					user.lastweekly = 0
-				if (!isNumber(user.lastmonthly))
-					user.lastmonthly = 0
-				if (!isNumber(user.lastbansos))
-					user.lastbansos = 0
-				if (!isNumber(user.lastdagang))
-					user.lastdagang = 0
-				if (!isNumber(user.lastberkebon))
-					user.lastberkebon = 0
-				if (!isNumber(user.lastmasak))
-					user.lastmasak = 0
-				if (!isNumber(user.masakcount))
-					user.masakcount = 0
-				if (!isNumber(user.craftcount))
-					user.craftcount = 0
-				if (!isNumber(user.adventurecount))
-					user.adventurecount = 0
-				if (!isNumber(user.mancingcount))
-					user.mancingcount = 0
-				if (!isNumber(user.lumbercount))
-					user.lumbercount = 0
-				if (!isNumber(user.ngojekcount))
-					user.ngojekcount = 0
+					if (!isNumber(user.lastclaim))
+						user.lastclaim = 0
+					if (!isNumber(user.lastadventure))
+						user.lastadventure = 0
+					if (!isNumber(user.lastfishing))
+						user.lastfishing = 0
+					if (!isNumber(user.lastdungeon))
+						user.lastdungeon = 0
+					if (!isNumber(user.lastduel))
+						user.lastduel = 0
+					if (!isNumber(user.lastmining))
+						user.lastmining = 0
+					if (!isNumber(user.lasthunt))
+						user.lasthunt = 0
+					if (!isNumber(user.lastlumber))
+						user.lastlumber = 0
+					if (!isNumber(user.lastngojek))
+						user.lastngojek = 0
+					if (!isNumber(user.lastweekly))
+						user.lastweekly = 0
+					if (!isNumber(user.lastmonthly))
+						user.lastmonthly = 0
+					if (!isNumber(user.lastbansos))
+						user.lastbansos = 0
+					if (!isNumber(user.lastdagang))
+						user.lastdagang = 0
+					if (!isNumber(user.lastberkebon))
+						user.lastberkebon = 0
+					if (!isNumber(user.lastmasak))
+						user.lastmasak = 0
+					if (!isNumber(user.masakcount))
+						user.masakcount = 0
+					if (!isNumber(user.craftcount))
+						user.craftcount = 0
+					if (!isNumber(user.adventurecount))
+						user.adventurecount = 0
+					if (!isNumber(user.mancingcount))
+						user.mancingcount = 0
+					if (!isNumber(user.lumbercount))
+						user.lumbercount = 0
+					if (!isNumber(user.ngojekcount))
+						user.ngojekcount = 0
 
-				if (!isNumber(user.bibitmangga))
-					user.bibitmangga = 0
-				if (!isNumber(user.bibitapel))
-					user.bibitapel = 0
-				if (!isNumber(user.bibitpisang))
-					user.bibitpisang = 0
-				if (!isNumber(user.bibitjeruk))
-					user.bibitjeruk = 0
-				if (!isNumber(user.bibitanggur))
-					user.bibitanggur = 0
-				if (!isNumber(user.mangga))
-					user.mangga = 0
-				if (!isNumber(user.apel))
-					user.apel = 0
-				if (!isNumber(user.pisang))
-					user.pisang = 0
-				if (!isNumber(user.jeruk))
-					user.jeruk = 0
-				if (!isNumber(user.anggur))
-					user.anggur = 0
+					if (!isNumber(user.bibitmangga))
+						user.bibitmangga = 0
+					if (!isNumber(user.bibitapel))
+						user.bibitapel = 0
+					if (!isNumber(user.bibitpisang))
+						user.bibitpisang = 0
+					if (!isNumber(user.bibitjeruk))
+						user.bibitjeruk = 0
+					if (!isNumber(user.bibitanggur))
+						user.bibitanggur = 0
+					if (!isNumber(user.mangga))
+						user.mangga = 0
+					if (!isNumber(user.apel))
+						user.apel = 0
+					if (!isNumber(user.pisang))
+						user.pisang = 0
+					if (!isNumber(user.jeruk))
+						user.jeruk = 0
+					if (!isNumber(user.anggur))
+						user.anggur = 0
 
-				if (!isNumber(user.banteng))
-					user.banteng = 0
-				if (!isNumber(user.harimau))
-					user.harimau = 0
-				if (!isNumber(user.gajah))
-					user.gajah = 0
-				if (!isNumber(user.kambing))
-					user.kambing = 0
-				if (!isNumber(user.panda))
-					user.panda = 0
-				if (!isNumber(user.buaya))
-					user.buaya = 0
-				if (!isNumber(user.kerbau))
-					user.kerbau = 0
-				if (!isNumber(user.sapi))
-					user.sapi = 0
-				if (!isNumber(user.monyet))
-					user.monyet = 0
-				if (!isNumber(user.babihutan))
-					user.babihutan = 0
-				if (!isNumber(user.babi))
-					user.babi = 0
-				if (!isNumber(user.ayam))
-					user.ayam = 0
+					if (!isNumber(user.banteng))
+						user.banteng = 0
+					if (!isNumber(user.harimau))
+						user.harimau = 0
+					if (!isNumber(user.gajah))
+						user.gajah = 0
+					if (!isNumber(user.kambing))
+						user.kambing = 0
+					if (!isNumber(user.panda))
+						user.panda = 0
+					if (!isNumber(user.buaya))
+						user.buaya = 0
+					if (!isNumber(user.kerbau))
+						user.kerbau = 0
+					if (!isNumber(user.sapi))
+						user.sapi = 0
+					if (!isNumber(user.monyet))
+						user.monyet = 0
+					if (!isNumber(user.babihutan))
+						user.babihutan = 0
+					if (!isNumber(user.babi))
+						user.babi = 0
+					if (!isNumber(user.ayam))
+						user.ayam = 0
 
-				if (!isNumber(user.orca))
-					user.orca = 0
-				if (!isNumber(user.paus))
-					user.paus = 0
-				if (!isNumber(user.lumba))
-					user.lumba = 0
-				if (!isNumber(user.hiu))
-					user.hiu = 0
-				if (!isNumber(user.ikan))
-					user.ikan = 0
-				if (!isNumber(user.lele))
-					user.lele = 0
-				if (!isNumber(user.bawal))
-					user.bawal = 0
-				if (!isNumber(user.nila))
-					user.nila = 0
-				if (!isNumber(user.kepiting))
-					user.kepiting = 0
-				if (!isNumber(user.lobster))
-					user.lobster = 0
-				if (!isNumber(user.gurita))
-					user.gurita = 0
-				if (!isNumber(user.cumi))
-					user.cumi = 0
-				if (!isNumber(user.udang))
-					user.udang = 0
+					if (!isNumber(user.orca))
+						user.orca = 0
+					if (!isNumber(user.paus))
+						user.paus = 0
+					if (!isNumber(user.lumba))
+						user.lumba = 0
+					if (!isNumber(user.hiu))
+						user.hiu = 0
+					if (!isNumber(user.ikan))
+						user.ikan = 0
+					if (!isNumber(user.lele))
+						user.lele = 0
+					if (!isNumber(user.bawal))
+						user.bawal = 0
+					if (!isNumber(user.nila))
+						user.nila = 0
+					if (!isNumber(user.kepiting))
+						user.kepiting = 0
+					if (!isNumber(user.lobster))
+						user.lobster = 0
+					if (!isNumber(user.gurita))
+						user.gurita = 0
+					if (!isNumber(user.cumi))
+						user.cumi = 0
+					if (!isNumber(user.udang))
+						user.udang = 0
 
-				if (!isNumber(user.masak))
-					user.masak = 0
-				if (!isNumber(user.masakrole))
-					user.masakrole = 0
-				if (!isNumber(user.masakexp))
-					user.masakexp = 0
-				if (!isNumber(user.masaklevel))
-					user.masaklevel = 0
+					if (!isNumber(user.masak))
+						user.masak = 0
+					if (!isNumber(user.masakrole))
+						user.masakrole = 0
+					if (!isNumber(user.masakexp))
+						user.masakexp = 0
+					if (!isNumber(user.masaklevel))
+						user.masaklevel = 0
 
-				if (!isNumber(user.bawang))
-					user.bawang = 0
-				if (!isNumber(user.cabai))
-					user.cabai = 0
-				if (!isNumber(user.kemiri))
-					user.kemiri = 0
-				if (!isNumber(user.jahe))
-					user.jahe = 0
-				if (!isNumber(user.saus))
-					user.saus = 0
-				if (!isNumber(user.asam))
-					user.asam = 0
+					if (!isNumber(user.bawang))
+						user.bawang = 0
+					if (!isNumber(user.cabai))
+						user.cabai = 0
+					if (!isNumber(user.kemiri))
+						user.kemiri = 0
+					if (!isNumber(user.jahe))
+						user.jahe = 0
+					if (!isNumber(user.saus))
+						user.saus = 0
+					if (!isNumber(user.asam))
+						user.asam = 0
 
-				if (!isNumber(user.steak))
-					user.steak = 0
-				if (!isNumber(user.sate))
-					user.sate = 0
-				if (!isNumber(user.rendang))
-					user.rendang = 0
-				if (!isNumber(user.kornet))
-					user.kornet = 0
-				if (!isNumber(user.nugget))
-					user.nugget = 0
-				if (!isNumber(user.bluefin))
-					user.bluefin = 0
-				if (!isNumber(user.seafood))
-					user.seafood = 0
-				if (!isNumber(user.sushi))
-					user.sushi = 0
-				if (!isNumber(user.moluska))
-					user.moluska = 0
-				if (!isNumber(user.squidprawm))
-					user.squidprawm = 0
+					if (!isNumber(user.steak))
+						user.steak = 0
+					if (!isNumber(user.sate))
+						user.sate = 0
+					if (!isNumber(user.rendang))
+						user.rendang = 0
+					if (!isNumber(user.kornet))
+						user.kornet = 0
+					if (!isNumber(user.nugget))
+						user.nugget = 0
+					if (!isNumber(user.bluefin))
+						user.bluefin = 0
+					if (!isNumber(user.seafood))
+						user.seafood = 0
+					if (!isNumber(user.sushi))
+						user.sushi = 0
+					if (!isNumber(user.moluska))
+						user.moluska = 0
+					if (!isNumber(user.squidprawm))
+						user.squidprawm = 0
 
-				if (!isNumber(user.rumahsakit))
-					user.rumahsakit = 0
-				if (!isNumber(user.restoran))
-					user.restoran = 0
-				if (!isNumber(user.pabrik))
-					user.pabrik = 0
-				if (!isNumber(user.tambang))
-					user.tambang = 0
-				if (!isNumber(user.pelabuhan))
-					user.pelabuhan = 0
-				if (!('rumahsakitname' in user))
-					user.rumahsakitname = ''
-				if (!('restoranname' in user))
-					user.restoranname = ''
-				if (!('pabrikname' in user))
-					user.pabrikname = ''
-				if (!('tambangname' in user))
-					user.tambangname = ''
-				if (!('pelabuhanname' in user))
-					user.pelabuhanname = ''
-				if (!('openaitxt' in user))
-					user.openaitxt = ''
-				if (!isNumber(user.rumahsakitexp))
-					user.rumahsakitexp = 0
-				if (!isNumber(user.restoranexp))
-					user.restoranexp = 0
-				if (!isNumber(user.pabrikexp))
-					user.pabrikexp = 0
-				if (!isNumber(user.tambangexp))
-					user.tambangexp = 0
-				if (!isNumber(user.pelabuhanexp))
-					user.pelabuhanexp = 0
-				if (!isNumber(user.rumahsakitlvl))
-					user.rumahsakitlvl = 0
-				if (!isNumber(user.restoranlvl))
-					user.restoranlvl = 0
-				if (!isNumber(user.pabriklvl))
-					user.pabriklvl = 0
-				if (!isNumber(user.tambanglvl))
-					user.tambanglvl = 0
-				if (!isNumber(user.pelabuhanlvl))
-					user.pelabuhanlvl = 0
-				if (!isNumber(user.expired))
-					user.expired = 0
-				if (!isNumber(user.spamcount))
-					user.spamcount = 0
-			} else
-				db.data.users[m.sender] = {
+					if (!isNumber(user.rumahsakit))
+						user.rumahsakit = 0
+					if (!isNumber(user.restoran))
+						user.restoran = 0
+					if (!isNumber(user.pabrik))
+						user.pabrik = 0
+					if (!isNumber(user.tambang))
+						user.tambang = 0
+					if (!isNumber(user.pelabuhan))
+						user.pelabuhan = 0
+					if (!('rumahsakitname' in user))
+						user.rumahsakitname = ''
+					if (!('restoranname' in user))
+						user.restoranname = ''
+					if (!('pabrikname' in user))
+						user.pabrikname = ''
+					if (!('tambangname' in user))
+						user.tambangname = ''
+					if (!('pelabuhanname' in user))
+						user.pelabuhanname = ''
+					if (!('openaitxt' in user))
+						user.openaitxt = ''
+					if (!isNumber(user.rumahsakitexp))
+						user.rumahsakitexp = 0
+					if (!isNumber(user.restoranexp))
+						user.restoranexp = 0
+					if (!isNumber(user.pabrikexp))
+						user.pabrikexp = 0
+					if (!isNumber(user.tambangexp))
+						user.tambangexp = 0
+					if (!isNumber(user.pelabuhanexp))
+						user.pelabuhanexp = 0
+					if (!isNumber(user.rumahsakitlvl))
+						user.rumahsakitlvl = 0
+					if (!isNumber(user.restoranlvl))
+						user.restoranlvl = 0
+					if (!isNumber(user.pabriklvl))
+						user.pabriklvl = 0
+					if (!isNumber(user.tambanglvl))
+						user.tambanglvl = 0
+					if (!isNumber(user.pelabuhanlvl))
+						user.pelabuhanlvl = 0
+					if (!isNumber(user.expired))
+						user.expired = 0
+					if (!isNumber(user.spamcount))
+						user.spamcount = 0
+				} else db.data.users[m.sender] = {
 					exp: 0,
 					limit: 120,
 					lastclaim: 0,
@@ -659,66 +659,67 @@ export async function handler(chatUpdate) {
 					expired: 0,
 					spamcount: 0,
 				}
+			}
 			let chat = db.data.chats[m.chat]
-			if (typeof chat !== 'object')
-				db.data.chats[m.chat] = {}
-			if (chat) {
-				if (!('isBanned' in chat))
-					chat.isBanned = false
-				if (!('permaBan' in chat))
-					chat.permaBan = false
-				if (!('welcome' in chat))
-					chat.welcome = false
-				if (!('detect' in chat))
-					chat.detect = false
-				if (!('sWelcome' in chat))
-					chat.sWelcome = ''
-				if (!('sBye' in chat))
-					chat.sBye = ''
-				if (!('sPromote' in chat))
-					chat.sPromote = ''
-				if (!('sDemote' in chat))
-					chat.sDemote = ''
-				if (!('openaitxt' in chat))
-					chat.openaitxt = ''
-				if (!('delete' in chat))
-					chat.delete = true
-				if (!('antiLink' in chat))
-					chat.antiLink = false
-				if (!('antivirus' in chat))
-					chat.antivirus = false
-				if (!('nsfw' in chat))
-					chat.nsfw = false
-				if (!('infogempa' in chat))
-					chat.infogempa = false
-				if (!('pdf' in chat))
-					chat.pdf = false
-				if (!('game' in chat))
-					chat.game = true
-				if (!('openai' in chat))
-					chat.openai = false
-				if (!('simi' in chat))
-					chat.simi = false
-				if (!('lastsimi' in chat))
-					chat.lastsimi = false
-				if (!('viewonce' in chat))
-					chat.viewonce = false
-				if (!('antiToxic' in chat))
-					chat.antiToxic = false
-				if (!isNumber(chat.joindate))
-					chat.joindate = 0
-				if (!isNumber(chat.joincd))
-					chat.joincd = 0
-				if (!isNumber(chat.expired))
-					chat.expired = 0
-				if (!isNumber(chat.lastmute))
-					chat.lastmute = 0
-				if (!isNumber(chat.mutecd))
-					chat.mutecd = 0
-				if (!isNumber(chat.spamcount))
-					chat.spamcount = 0
-			} else
-				db.data.chats[m.chat] = {
+			if (m.chat.endsWith('@g.us')) {
+				if (typeof chat !== 'object')
+					db.data.chats[m.chat] = {}
+				if (chat) {
+					if (!('isBanned' in chat))
+						chat.isBanned = false
+					if (!('permaBan' in chat))
+						chat.permaBan = false
+					if (!('welcome' in chat))
+						chat.welcome = false
+					if (!('detect' in chat))
+						chat.detect = false
+					if (!('sWelcome' in chat))
+						chat.sWelcome = ''
+					if (!('sBye' in chat))
+						chat.sBye = ''
+					if (!('sPromote' in chat))
+						chat.sPromote = ''
+					if (!('sDemote' in chat))
+						chat.sDemote = ''
+					if (!('openaitxt' in chat))
+						chat.openaitxt = ''
+					if (!('delete' in chat))
+						chat.delete = true
+					if (!('antiLink' in chat))
+						chat.antiLink = false
+					if (!('antivirus' in chat))
+						chat.antivirus = false
+					if (!('nsfw' in chat))
+						chat.nsfw = false
+					if (!('infogempa' in chat))
+						chat.infogempa = false
+					if (!('pdf' in chat))
+						chat.pdf = false
+					if (!('game' in chat))
+						chat.game = true
+					if (!('openai' in chat))
+						chat.openai = false
+					if (!('simi' in chat))
+						chat.simi = false
+					if (!('lastsimi' in chat))
+						chat.lastsimi = false
+					if (!('viewonce' in chat))
+						chat.viewonce = false
+					if (!('antiToxic' in chat))
+						chat.antiToxic = false
+					if (!isNumber(chat.joindate))
+						chat.joindate = 0
+					if (!isNumber(chat.joincd))
+						chat.joincd = 0
+					if (!isNumber(chat.expired))
+						chat.expired = 0
+					if (!isNumber(chat.lastmute))
+						chat.lastmute = 0
+					if (!isNumber(chat.mutecd))
+						chat.mutecd = 0
+					if (!isNumber(chat.spamcount))
+						chat.spamcount = 0
+				} else db.data.chats[m.chat] = {
 					isBanned: false,
 					permaBan: false,
 					welcome: false,
@@ -747,6 +748,7 @@ export async function handler(chatUpdate) {
 					mutecd: 0,
 					spamcount: 0,
 				}
+			}
 			let akinator = db.data.users[m.sender].akinator
 			if (typeof akinator !== 'object')
 				db.data.users[m.sender].akinator = {}

@@ -4,8 +4,7 @@ import fetch from 'node-fetch'
 let timeout = 120000
 let poin = 1999
 let handler = async (m, { conn, usedPrefix, isPrems }) => {
-	let chat = db.data.chats[m.chat]
-	if (!chat.game && m.isGroup) return
+	if (m.isGroup && !db.data.chats[m.chat].game) return
 	conn.tebakprovinsi = conn.tebakprovinsi ? conn.tebakprovinsi : {}
 	let id = m.chat
 	if (id in conn.tebakprovinsi) {
