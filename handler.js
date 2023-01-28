@@ -53,6 +53,8 @@ export async function handler(chatUpdate) {
 						user.lastclaim = 0
 					if (!('registered' in user))
 						user.registered = false
+					if (!('viewstatus' in user))
+						user.viewstatus = false
 					if (!user.registered) {
 						if (!('name' in user))
 							user.name = m.name
@@ -454,6 +456,7 @@ export async function handler(chatUpdate) {
 					limit: 120,
 					lastclaim: 0,
 					registered: false,
+					viewstatus: false,
 					name: m.name,
 					age: -1,
 					regTime: -1,
