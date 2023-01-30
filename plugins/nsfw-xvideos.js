@@ -2,8 +2,7 @@ import db from '../lib/database.js'
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-	let chat = db.data.chats[m.chat]
-	if (!chat.nsfw && m.isGroup) throw `[ *NSFW GAK AKTIF* ]`
+	if (m.isGroup && !db.data.chats[m.chat].nsfw) throw `[ *NSFW GAK AKTIF* ]`
 	if (!text) throw `Just type query what u need :\nUsage : *${usedPrefix + command} step mother*`
 	if (text.includes('http://') || text.includes('https://')) return m.reply(`Only accept query, not url.`)
 	try {

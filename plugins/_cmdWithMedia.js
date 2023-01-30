@@ -8,7 +8,7 @@ const {
 
 export async function all(m, chatUpdate) {
 	if (m.isBaileys) return
-	if (!m.message || !m.msg || !m.msg.fileSha256) return
+	if (!m.message || !m.msg?.fileSha256) return
 	if (!(Buffer.from(m.msg.fileSha256).toString('base64') in db.data.sticker)) return
 
 	let hash = db.data.sticker[Buffer.from(m.msg.fileSha256).toString('base64')]

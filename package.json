@@ -61,6 +61,7 @@
 		"fluent-ffmpeg": "^2.1.2",
 		"formdata-node": "^5.0.0",
 		"genshin-db": "^4.3.4",
+		"get-video-duration": "^4.1.0",
 		"google-it": "^1.6.4",
 		"google-play-scraper": "^9.1.1",
 		"hmfull": "^2.4.3",
