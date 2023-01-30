@@ -12,7 +12,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	} else {
 		let buffer, q = m.quoted ? m.quoted : m
 		let mime = (q.msg || q).mimetype || q.mediaType || q.mtype || ''
-		console.log(mime)
 		if (/image|video|viewOnce/g.test(mime)) {
 			let ch, img = await q.download?.()
 			if (/video/g.test(mime)) {

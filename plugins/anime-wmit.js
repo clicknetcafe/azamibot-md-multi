@@ -4,7 +4,7 @@ import fetch from 'node-fetch'
 let handler = async (m, { conn, args, usedPrefix, command }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''
-	if (/image/g.test(mime)) {
+	if ((/image/g.test(mime) && !/webp/g.test(mime)) || q.message?.imageMessage) {
 		let img = await q.download?.()
 		let out = await uploadImage(img)
 		let res = await fetch(`https://api.lolhuman.xyz/api/wmit?apikey=${apilol}&img=${out}`)

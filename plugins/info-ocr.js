@@ -5,7 +5,7 @@ import Tesseract from 'tesseract.js'
 let handler = async (m, { usedPrefix, command }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''
-	if (/image/g.test(mime)) {
+	if ((/image/g.test(mime) && !/webp/g.test(mime)) || q.message?.imageMessage) {
 		let img = await q.download?.()
 		try {
 			let anu = await (await Tesseract.recognize(img, 'eng')).data.text

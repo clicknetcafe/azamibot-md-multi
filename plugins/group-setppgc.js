@@ -6,7 +6,7 @@ const jimp_1 = require('jimp')
 let handler = async (m, { conn, command, usedPrefix }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''
-	if (/image/g.test(mime) && !/webp/g.test(mime)) {
+	if ((/image/g.test(mime) && !/webp/g.test(mime)) || q.message?.imageMessage) {
 		try {
 			let media = await q.download()
 			let { img } = await pepe(media)

@@ -5,7 +5,7 @@ import fs from 'fs'
 let handler = async (m, { conn, args, usedPrefix, command }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''
-	if (/image/g.test(mime) && !/webp/g.test(mime)) {
+	if ((/image/g.test(mime) && !/webp/g.test(mime)) || q.message?.imageMessage) {
 		let ztick = fs.readFileSync(`./media/sticker/bronya.webp`)
 		try {
 			let img = await q.download?.()
