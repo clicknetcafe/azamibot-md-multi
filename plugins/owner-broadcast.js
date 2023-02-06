@@ -20,8 +20,8 @@ let handler = async (m, { conn, text, usedPrefix, command, participants }) => {
 					else await conn.sendButton(id, teks, pauthor, img, [[`👥 Owner`, `.owner`],[`🤖 Menu`, `.menu`]])
 				}
 			} else {
-				if (id.includes('@g.us')) await conn.sendMessage(id, { text: teks, mentions: participants.map(a => a.id) })
-				else await conn.sendMessage(id, { text: teks })
+				if (id.includes('@g.us')) await conn.reply(id, teks, null, { mentions: participants.map(a => a.id) })
+				else await conn.reply(id, teks)
 			}
 		} catch (e) {
 			console.log(e)

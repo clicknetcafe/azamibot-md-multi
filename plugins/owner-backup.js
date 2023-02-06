@@ -14,8 +14,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
 		let database = await fs.readFileSync(`./database.json`)
 		let session = await fs.readFileSync(`./sessions/creds.json`)
-		await conn.sendMessage(m.sender, {document: database, mimetype: 'application/json', fileName: `database.azami.${ini_txt}.json`}, { quoted : m })
-		await conn.sendMessage(m.sender, {document: session, mimetype: 'application/json', fileName: `creds.azami.${ini_txt}.json`}, { quoted : m })
+		await conn.sendFile(m.sender, database, `database.azami.${ini_txt}.json`, '', m, false, { asDocument: true, mimetype: 'application/json' })
+		await conn.sendFile(m.sender, session, `creds.azami.${ini_txt}.json`, '', m, false, { asDocument: true, mimetype: 'application/json' })
 	} catch (e) {
 		console.log(e)
 		m.reply(`Terjadi kesalahan, coba lagi.`)

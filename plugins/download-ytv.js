@@ -4,7 +4,7 @@ import xa from 'xfarr-api'
 import { niceBytes, somematch } from '../lib/others.js'
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-	if (!args[0].match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))) return m.reply(`Invalid Youtube URL.`)
+	if (!(args[0] || '').match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))) return m.reply(`Invalid Youtube URL.`)
 	try {
 		let { thumbnail, video: _video, title } = await youtubedl(args[0]).catch(async _ => await youtubedlv2(args[0])).catch(async _ => await youtubedlv3(args[0]))
 		let video, source, res, link, lastError
@@ -18,7 +18,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 		txt += `⭔ Watch : ${args[0]}\n`
 		txt += `⭔ Resolution : ${video.quality}\n`
 		txt += `⭔ Size : ${video.fileSizeH}`
-		await conn.sendMessage(m.chat, { video: { url: link }, caption: txt }, { quoted: m })
+		await conn.sendFile(m.chat, link, '', txt, m)
 	} catch (e) {
 		console.log(e)
 		try {
@@ -31,7 +31,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 			txt += `⭔ Username : ${anu.username}\n`
 			txt += `⭔ Quality : ${anu.fquality}\n`
 			txt += `⭔ Size : ${anu.size}`
-			await conn.sendMessage(m.chat, { video: { url: anu.download_url }, caption: txt }, { quoted: m })
+			await conn.sendFile(m.chat, anu.download_url, '', txt, m)
 		} catch (e) {
 			console.log(e)
 			try {
@@ -46,7 +46,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 				txt += `⭔ Watch : ${args[0]}\n`
 				txt += `⭔ Resolution : ${anu.link.resolution}\n`
 				txt += `⭔ Size : ${anu.link.size}`
-				await conn.sendMessage(m.chat, { video: { url: anu.link.link }, caption: txt }, { quoted: m })
+				await conn.sendFile(m.chat, anu.link.link, '', txt, m)
 			} catch (e) {
 				console.log(e)
 				try {
@@ -59,7 +59,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 					let txt = `*${anu.title}*\n\n`
 					txt += `⭔ Watch : ${args[0]}\n`
 					txt += `⭔ Size : ${anu.size}`
-					await conn.sendMessage(m.chat, { video: { url: anu.link }, caption: txt }, { quoted: m })
+					await conn.sendFile(m.chat, anu.link, '', txt, m)
 				} catch (e) {
 					console.log(e)
 					try {
@@ -75,7 +75,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 						txt += `⭔ Watch : ${args[0]}\n`
 						txt += `⭔ Resolution : ${video.quality}\n`
 						txt += `⭔ Size : ${video.fileSizeH}`
-						await conn.sendMessage(m.chat, { video: { url: link }, caption: txt }, { quoted: m })
+						await conn.sendFile(m.chat, link, '', txt, m)
 					} catch (e) {
 						console.log(e)
 						m.reply(`Invalid Youtube URL / terjadi kesalahan.`)

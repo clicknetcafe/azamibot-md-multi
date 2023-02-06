@@ -5,7 +5,7 @@ const ping = ['pakai prefix','command yg betul','gak btul','contoh : .ping','pak
 
 export async function before(m) {
 	if (!m.isGroup) return !1
-	if (m.text.toLowerCase() == 'bot') await this.sendMessage(m.chat, { text: pickRandom(bot) }, { quoted: fliveLoc2 })
-	if (m.text.toLowerCase() == 'ping') await this.sendMessage(m.chat, { text: pickRandom(ping) }, { quoted: fliveLoc2 })
+	if (m.text.toLowerCase() == 'bot') await this.reply(m.chat, pickRandom(bot), fliveLoc2)
+	if (m.text.toLowerCase() == 'ping') await this.reply(m.chat, pickRandom(ping), fliveLoc2)
 	return !0
 }

@@ -10,11 +10,11 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 		let audio = await toAudio(media, 'mp4')
 		if (!audio.data) throw 'Can\'t convert media to audio'
 		if (command.includes('toa')) {
-			await conn.sendMessage(m.chat, { audio: audio.data, mimetype: 'audio/mp4' }, { quoted: m })
+			await conn.sendFile(m.chat, audio.data, '', '', m, false, { mimetype: 'audio/mp4' })
 		} else {
 			let date = new Date().toISOString().replace('-', '').split('T')[0].replace('-', '')
 			let meh = padLead(ranNumb(9999), 4)
-			await conn.sendMessage(m.chat, {document: audio.data, mimetype: 'audio/mpeg', fileName: `AUD-${date}-WA${meh}.mp3`}, { quoted : m })
+			await conn.sendFile(m.chat, audio.data, `AUD-${date}-WA${meh}.mp3`, '', m, false, { asDocument: true, mimetype: 'audio/mpeg' })
 		}
 }
 

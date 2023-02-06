@@ -42,7 +42,7 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
 			txt += `_last group name changed by ${x.subjectOwner ? '@' + x.subjectOwner.split('@')[0] : 'Unknown'} on ${new Date(x.subjectTime * 1000).toDateString()}_\n\n`
 			txt += `*Description :*\n${x.desc ? x.desc.toString().replace(/chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/g, '#HIDDENbyDefault') : 'None'}`
 			y = [...txt.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')
-			await conn.sendMessage(m.chat, { text: txt, mentions: y }, { quoted: m })
+			await conn.reply(m.chat, txt, m, { mentions: y })
 		} catch (e) { console.log(e) }
 	} else await conn.sendMessage(m.chat, listMessage, { quoted : m })
 }

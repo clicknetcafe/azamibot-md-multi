@@ -95,7 +95,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems }) => {
 		conn.sendButton(m.chat, text.trim(), pauthor, nais, [
 			[`👥 Owner`, `.owner`],
 			[`👑 Prem`, `.premium`]
-		], m)
+		], m, { asLocation:true })
 	} catch (e) {
 		throw e
 	}

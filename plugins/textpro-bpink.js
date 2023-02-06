@@ -6,7 +6,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 		let fimg = await fetch(`https://api.lolhuman.xyz/api/textprome/blackpink?apikey=${apilol}&text=${encodeURIComponent(text)}`)
 		//if (!fimg.ok) throw 'Fitur Error'
 		let fimgb = Buffer.from(await fimg.arrayBuffer())
-		await conn.sendMessage(m.chat, { image: fimgb, caption: `_Text Pro : ${command}_` }, { quoted: m })
+		await conn.sendFile(m.chat, fimgb, '', `_Text Pro : ${command}_`, m)
 	} catch (e) {
 		console.log(e)
 		m.reply(`Terjadi kesalahan, coba lagi nanti.`)

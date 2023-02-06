@@ -16,9 +16,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	ini_txt += `${get_result.preview_url ? `Preview : ${get_result.preview_url}\n` : ''}`
 	await conn.sendFile(m.chat, get_result.thumbnail, 'spot.jpg', ini_txt, m)
 	if (command.includes('mp3')) {
-		await conn.sendMessage(m.chat, {document: { url: get_result.link }, mimetype: 'audio/mpeg', fileName: `${get_result.artists} - ${get_result.title}.mp3`}, { quoted : m })
+		await conn.sendFile(m.chat, get_result.link, `${get_result.artists} - ${get_result.title}.mp3`, '', m, false, { asDocument: true, mimetype: 'audio/mpeg' })
 	} else {
-		await conn.sendMessage(m.chat, { audio: { url: get_result.link }, mimetype: 'audio/mp4' }, { quoted : m })
+		await conn.sendFile(m.chat, get_result.link, '', '', m, false, { mimetype: 'audio/mp4' })
 	}
 }
 

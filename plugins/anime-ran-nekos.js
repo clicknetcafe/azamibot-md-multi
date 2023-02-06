@@ -3,7 +3,7 @@ import { sticker } from '../lib/sticker.js'
 
 let handler = async (m, { conn, usedPrefix, command }) => {
 	try {
-		let res = await fetch(`https://nekos.best/api/v2/${command.toLowerCase()}`)
+		let res = await fetch(`https://nekos.best/api/v2/${command}`)
 		let anu = await res.json()
 		anu = anu.results[0].url
 		if (!anu) throw Error('error : no url')

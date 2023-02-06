@@ -7,7 +7,7 @@ let handler = async (m, { conn, text }) => {
 	let owners = db.data.datas.owner
 	if (!owners.map(([number]) => number).map(v => v).includes(who)) return m.reply(`[ ! ] User tidak ada dalam list owner.`)
 	db.data.datas.owner = owners.filter(([v]) => !v.includes(who))
-	await conn.sendMessage(m.chat, { text: `Menghapus @${(who || '').replace(/@s\.whatsapp\.net/g, '')} dari list *owner*.`, mentions: [who + '@s.whatsapp.net'] }, { quoted: m })
+	await conn.reply(m.chat, `Menghapus @${(who || '').replace(/@s\.whatsapp\.net/g, '')} dari list *owner*.`, m, { mentions: [who + '@s.whatsapp.net'] })
 }
 
 handler.menuowner = ['delowner']

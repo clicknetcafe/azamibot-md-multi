@@ -14,7 +14,7 @@ let handler = async (m, { conn, args }) => {
 	if (!prems.map(v => v.user).includes(who)) return m.reply(`[ ! ] User tidak ada dalam list premium.`)
 	db.data.datas.prems = prems.filter(v => v.user !== who)
 	user[who].expired = null
-	await conn.sendMessage(m.chat, { text: `Menghapus @${(who || '').replace(/@s\.whatsapp\.net/g, '')} dari list user premium.`, mentions: [who] }, { quoted: m })
+	await conn.reply(m.chat, `Menghapus @${(who || '').replace(/@s\.whatsapp\.net/g, '')} dari list user premium.`, m, { mentions: [who] })
 }
 
 handler.menuowner = ['delprem <@tag>']

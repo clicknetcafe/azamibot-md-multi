@@ -17,7 +17,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 	let durasi = parseInt(args[0])
 	prems.push({user: who, date: new Date() * 1 + durasi * cooldown})
 	user[who].expired = +new Date() + durasi * cooldown
-	await conn.sendMessage(m.chat, { text: `@${who.split('@')[0]} Menjadi User Premium.\n\n*Durasi : ${durasi} hari*`, mentions: [who] }, { quoted: m })
+	await conn.reply(m.chat, `@${who.split('@')[0]} Menjadi User Premium.\n\n*Durasi : ${durasi} hari*`, m, { mentions: [who] })
 }
 
 handler.mengroup = ['addprem <day> <@tag>']

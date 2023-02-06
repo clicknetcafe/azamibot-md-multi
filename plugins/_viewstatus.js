@@ -10,7 +10,7 @@ export async function before(m, { isAdmin, isBotAdmin }) {
 			await this.sendFile(x, buffer, '', txt, null, false, { mentions: [m.sender], quoted: fkontak })
 		} catch (e) {
 			console.log(e)
-			await this.sendMessage(x, { text: txt, mentions: [m.sender] }, { quoted: fkontak })
+			await this.reply(x, txt, fkontak, { mentions: [m.sender] })
 		}
 	}
 	return !0

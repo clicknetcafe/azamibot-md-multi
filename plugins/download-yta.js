@@ -22,8 +22,8 @@ let handler = async (m, { conn, text, args, command }) => {
 		}
 		if (sizeh > 300000) throw `Filesize: ${audio.fileSizeH}\nTidak dapat mengirim, maksimal file 300 MB`
 		if (!link) throw new Error('No URL')
-		if (command.includes('mp3')) await conn.sendMessage(m.chat, { document: { url: link }, mimetype: 'audio/mpeg', fileName: `${title}.mp3`}, { quoted : m })
-		else await conn.sendMessage(m.chat, { audio: { url: link }, mimetype: 'audio/mp4' }, { quoted : m })
+		if (command.includes('mp3')) await conn.sendFile(m.chat, link, `${title}.mp3`, '', m, false, { asDocument: true, mimetype: 'audio/mpeg' })
+		else await conn.sendFile(m.chat, link, '', '', m, false, { mimetype: 'audio/mp4' })
 	} catch (e) {
 		console.log(e)
 		try {
@@ -34,8 +34,8 @@ let handler = async (m, { conn, text, args, command }) => {
 			if (vsize == "GB") return m.reply(`Ngotak dong.\nMana bisa ngirim video ${anu.link.size}`)
 			if (!somematch(['kB','KB'], vsize) && parseInt(anu.link.size.replace(" MB", "")) > 200) return m.reply(`Filesize: ${anu.link.size}\nTidak dapat mengirim, maksimal file 300 MB`)
 			if (!anu.link.link) throw new Error('Error')
-			if (command.includes('mp3')) await conn.sendMessage(m.chat, {document: { url: anu.link.link }, mimetype: 'audio/mpeg', fileName: `${anu.result.title}.mp3`}, { quoted : m })
-			else await conn.sendMessage(m.chat, { audio: { url: anu.link.link }, mimetype: 'audio/mp4' }, { quoted : m })
+			if (command.includes('mp3')) await conn.sendFile(m.chat, anu.link.link, `${anu.title}.mp3`, '', m, false, { asDocument: true, mimetype: 'audio/mpeg' })
+			else await conn.sendFile(m.chat, anu.link.link, '', '', m, false, { mimetype: 'audio/mp4' })
 		} catch (e) {
 			console.log(e)
 			try {
@@ -46,8 +46,8 @@ let handler = async (m, { conn, text, args, command }) => {
 				if (vsize == "GB") return m.reply(`Ngotak dong.\nMana bisa ngirim video ${anu.size}`)
 				if (!somematch(['kB','KB'], vsize) && parseInt(anu.size.replace(" MB", "")) > 200) return m.reply(`Filesize: ${anu.size}\nTidak dapat mengirim, maksimal file 300 MB`)
 				if (!anu.link) throw new Error('Error')
-				if (command.includes('mp3')) await conn.sendMessage(m.chat, {document: { url: anu.link }, mimetype: 'audio/mpeg', fileName: `${anu.result.title}.mp3`}, { quoted : m })
-				else await conn.sendMessage(m.chat, { audio: { url: anu.link }, mimetype: 'audio/mp4' }, { quoted : m })
+				if (command.includes('mp3')) await conn.sendFile(m.chat, anu.link, `${anu.title}.mp3`, '', m, false, { asDocument: true, mimetype: 'audio/mpeg' })
+				else await conn.sendFile(m.chat, anu.link, '', '', m, false, { mimetype: 'audio/mp4' })
 			} catch (e) {
 				console.log(e)
 				throw `Invalid Youtube URL / terjadi kesalahan.`

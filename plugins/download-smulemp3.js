@@ -7,9 +7,9 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 		let anu = await fetch(`https://api.lolhuman.xyz/api/smule?apikey=${apilol}&url=${text}`)
 		let json = await anu.json()
 		if (command.includes('mp3')) {
-			await conn.sendMessage(m.chat, {document: { url: json.result.audio }, mimetype: 'audio/mpeg', fileName: `${json.result.title}.mp3`}, { quoted : m })
+			await conn.sendFile(m.chat, json.result.audio, `${json.result.title}.mp3`, '', m, false, { asDocument: true, mimetype: 'audio/mpeg' })
 		} else {
-			await conn.sendMessage(m.chat, { audio: { url: json.result.audio }, mimetype: 'audio/mp4' }, { quoted : m })
+			await conn.sendFile(m.chat, json.result.audio, '', '', m, false, { mimetype: 'audio/mp4' })
 		}
 	} catch (e) {
 		console.log(e)

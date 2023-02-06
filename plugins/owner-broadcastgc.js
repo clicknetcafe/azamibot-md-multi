@@ -14,7 +14,7 @@ let handler = async (m, { conn, text, usedPrefix, command, participants }) => {
 			if (/image|video|viewOnce/g.test(mime)) {
 				if (command.includes('meme')) await conn.sendFile(id, img, '', teks, null, false, { mentions: participants.map(a => a.id) })
 				else await conn.sendButton(id, teks, pauthor, img, [[`👥 Owner`, `.owner`],[`🤖 Menu`, `.menu`]], null, { mentions: participants.map(a => a.id) })
-			} else await conn.sendMessage(id, { text: teks, mentions: participants.map(a => a.id) })
+			} else await conn.reply(id, teks, null, { mentions: participants.map(a => a.id) })
 		} catch (e) {
 			console.log(e)
 		}

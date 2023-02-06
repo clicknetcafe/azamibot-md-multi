@@ -17,7 +17,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 			await conn.sendButton(m.chat, txt, pauthor, anu.video[0].thumbnail.split("?")[0], [
 				[`🎧 Audio`, `${usedPrefix}yta ${anu.video[0].url}`],
 				[`🎥 Video`, `${usedPrefix}ytv ${anu.video[0].url}`]
-			], m)
+			], m, { asLocation: true })
 		} catch (e) {
 			console.log(e)
 			try {
@@ -29,7 +29,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 				await conn.sendButton(m.chat, txt, pauthor, anu.thumbnail, [
 					[`🎧 Audio`, `${usedPrefix}yta ${args[0]}`],
 					[`🎥 Video`, `${usedPrefix}ytv ${args[0]}`]
-				], m)
+				], m, { asLocation: true })
 			} catch (e) {
 				console.log(e)
 				try {
@@ -45,7 +45,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 					await conn.sendButton(m.chat, txt, pauthor, anu.thumbnail, [
 						[`🎧 Audio`, `${usedPrefix}yta https://youtu.be/${anu.id}`],
 						[`🎥 Video`, `${usedPrefix}ytv https://youtu.be/${anu.id}`]
-					], m)
+					], m, { asLocation: true })
 				} catch (e) {
 					console.log(e)
 					try {
@@ -57,7 +57,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 						await conn.sendButton(m.chat, txt, pauthor, anu.thumbnail, [
 							[`🎧 Audio`, `${usedPrefix}yta https://youtu.be/${anu.thumbnail.split('/')[4]}`],
 							[`🎥 Video`, `${usedPrefix}ytv https://youtu.be/${anu.thumbnail.split('/')[4]}`]
-						], m)
+						], m, { asLocation: true })
 					} catch (e) {
 						console.log(e)
 						try {
@@ -69,7 +69,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 							await conn.sendButton(m.chat, txt, pauthor, anu.thumbnail, [
 								[`🎧 Audio`, `${usedPrefix}yta https://youtu.be/${anu.thumbnail.split('/')[4]}`],
 								[`🎥 Video`, `${usedPrefix}ytv https://youtu.be/${anu.thumbnail.split('/')[4]}`]
-							], m)
+							], m, { asLocation: true })
 						} catch (e) {
 							console.log(e)
 							m.reply(`Tidak ditemukan hasil.`)
@@ -95,7 +95,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 			await conn.sendButton(m.chat, txt, pauthor, anu.video[x].thumbnail.split("?")[0], [
 				[`🎧 Audio`, `${usedPrefix}yta ${anu.video[x].url}`],
 				[`🎥 Video`, `${usedPrefix}ytv ${anu.video[x].url}`]
-			], m)
+			], m, { asLocation: true })
 		} catch (e) {
 			console.log(e)
 			try {
@@ -111,7 +111,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 				await conn.sendButton(m.chat, txt, pauthor, anu.thumbnail, [
 					[`🎧 Audio`, `${usedPrefix}yta https://youtu.be/${anu.id}`],
 					[`🎥 Video`, `${usedPrefix}ytv https://youtu.be/${anu.id}`]
-				], m)
+				], m, { asLocation: true })
 			} catch (e) {
 				console.log(e)
 				try {
@@ -123,7 +123,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 					await conn.sendButton(m.chat, txt, pauthor, anu.thumbnail, [
 						[`🎧 Audio`, `${usedPrefix}yta https://youtu.be/${anu.thumbnail.split('/')[4]}`],
 						[`🎥 Video`, `${usedPrefix}ytv https://youtu.be/${anu.thumbnail.split('/')[4]}`]
-					], m)
+					], m, { asLocation: true })
 				} catch (e) {
 					console.log(e)
 					m.reply(`Tidak ditemukan hasil.`)

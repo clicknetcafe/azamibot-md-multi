@@ -20,7 +20,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 		if (!text) throw `Use example ${usedPrefix}${command} en hello world`
 		res = await tts(text, defaultLang)
 	} finally {
-		if (res) await conn.sendMessage(m.chat, { audio: res, mimetype: 'audio/mpeg', ptt: true }, { quoted: m })
+		if (res) await conn.sendFile(m.chat, res, '', '', m, true, { mimetype: 'audio/mpeg' })
 	}
 }
 

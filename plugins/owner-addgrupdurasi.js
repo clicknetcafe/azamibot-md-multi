@@ -16,7 +16,7 @@ let handler = async (m, { conn, command, text }) => {
 		chat.expired += durasi * cooldown
 		chat.joindate += durasi * cooldown
 	}
-	await conn.sendMessage(m.chat, { text: `${(command.includes('min') || command.includes('kurang')) ? 'Mengurangi' : 'Menambah'} durasi join di grup sebanyak *${durasi} hari*` }, { quoted: m })
+	await conn.reply(m.chat, `${(command.includes('min') || command.includes('kurang')) ? 'Mengurangi' : 'Menambah'} durasi join di grup sebanyak *${durasi} hari*`, m)
 }
 
 handler.menuowner = ['addjoindurasi']

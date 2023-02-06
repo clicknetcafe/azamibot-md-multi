@@ -31,7 +31,7 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
 			txt += '3 - Mungkin\n'
 			txt += '4 - Mungkin Tidak\n\n'
 			txt += `*${usedPrefix + command} end* untuk keluar dari sesi Akinator`
-			let soal = await conn.sendMessage(m.chat, { text: txt, mentions: [m.sender] }, { quoted: m })
+			let soal = await conn.reply(m.chat, txt, m, { mentions: [m.sender] })
 			aki.soal = soal
 		} catch (e) {
 			console.log(e)

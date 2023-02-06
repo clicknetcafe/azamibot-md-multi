@@ -10,7 +10,7 @@ let handler = async (m, { conn, text, participants }) => {
 	if (/video|image|viewOnce/g.test(mime) && !/webp/g.test(mime)) {
 		let media = await q.download?.()
 		await conn.sendFile(m.chat, media, '', teks, null, false, { mentions: participants.map(a => a.id), quoted: fkontak })
-	} else await conn.sendMessage(m.chat, { text: teks, mentions: participants.map(a => a.id) }, { quoted: fkontak })
+	} else await conn.reply(m.chat, teks, fkontak, { mentions: participants.map(a => a.id) })
 }
 
 handler.menugroup = ['tagall']

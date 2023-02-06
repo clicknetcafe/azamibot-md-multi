@@ -3,7 +3,7 @@ import db from '../lib/database.js'
 let handler = async (m, { conn }) => {
 	let chat = db.data.chats[m.chat]
 	if (chat.expired == 0 || chat.expired == null) return m.reply(`[ ! ] Bot join permanen, tidak ada durasi.`)
-	await conn.sendMessage(m.chat, { text: `Sisa Waktu Sewa :\n\n*${((chat.joindate + chat.joincd) - new Date()).toTimeString()}*` }, { quoted: m })
+	await conn.reply(m.chat, `Sisa Waktu Sewa :\n\n*${((chat.joindate + chat.joincd) - new Date()).toTimeString()}*`, m)
 }
 
 handler.mengroup = ['durasisewa']

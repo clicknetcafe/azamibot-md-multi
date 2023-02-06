@@ -370,7 +370,7 @@ const items = {
 
 let handler = async (m, { command, usedPrefix, args, isPrems }) => {
 	let user = db.data.users[m.sender]
-	const listItems = Object.fromEntries(Object.entries(items[`${somematch(['buy','shop','beli'], command.toLowerCase()) ? 'buy' : 'sell'}`]).filter(([v]) => v && v in user))
+	const listItems = Object.fromEntries(Object.entries(items[`${somematch(['buy','shop','beli'], command) ? 'buy' : 'sell'}`]).filter(([v]) => v && v in user))
 	let info = `Format : *${usedPrefix + command} [item] [jumlah]*\n`
 	info += `Contoh : *${usedPrefix}${command} limit 10*\n\n`
 	info += `*━━━[ DAILY ITEMS ]━━━*\n%🌌 limit%\n%🥤 potion%\n%🍖 petfood%\n\n`
@@ -459,10 +459,10 @@ let handler = async (m, { command, usedPrefix, args, isPrems }) => {
 	
 	const item = (args[0] || '').toLowerCase()
 	const total = Math.floor(isNumber(args[1]) ? Math.min(Math.max(parseInt(args[1]), 1), Number.MAX_SAFE_INTEGER) : 1) * 1
-	if (!listItems[item] && somematch(['buy','shop','beli'], command.toLowerCase())) return m.reply(info.replaceAll('%', '```'))
-	if (!listItems[item] && somematch(['sell','jual'], command.toLowerCase())) return m.reply(infos.replaceAll('%', '```'))
+	if (!listItems[item] && somematch(['buy','shop','beli'], command)) return m.reply(info.replaceAll('%', '```'))
+	if (!listItems[item] && somematch(['sell','jual'], command)) return m.reply(infos.replaceAll('%', '```'))
 	let paymentMethod = Object.keys(listItems[item]).find(v => v in user)
-	if (somematch(['buy','shop','beli'], command.toLowerCase())) {
+	if (somematch(['buy','shop','beli'], command)) {
 		if (isPrems && item == 'limit') throw `[!] Premium User tidak perlu limit.`
 		if (somematch(['horse', 'cat', 'fox', 'dog', 'wolf', 'centaur', 'phoenix', 'dragon', 'rumahsakit', 'restoran', 'pabrik', 'tambang', 'pelabuhan'], args[0].toLowerCase())) {
 			if (user[`${item}`] == 0) {

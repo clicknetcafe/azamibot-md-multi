@@ -15,7 +15,6 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 			ini_txt += `download : ${res.downloads}\n`
 			ini_txt += `filesize : ${res.filesizeH}`
 			m.reply(ini_txt)
-			//await conn.sendMessage(m.chat, {document: { url: res.url }, mimetype: `${res.filename.split('.').pop()}`, fileName: `${res.filename}`}, { quoted : m })
 			await conn.sendFile(m.chat, res.url, `${res.filename}`, null, m)
 		} catch (e) {
 			console.log(e)

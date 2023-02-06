@@ -7,7 +7,7 @@ export async function all(m) {
 	if (+new Date() > chats.expired) {
 		try {
 			let prems = db.data.datas.prems
-			await this.sendMessage(m.chat, { text: '[!] Durasi premium anda telah berakhir.', mentions: [m.sender] }, { quoted: m })
+			await this.reply(m.chat, '[!] Durasi premium anda telah berakhir.', m, { mentions: [m.sender] })
 			chats.expired = null
 			db.data.datas.prems = await prems.filter(v => v.user !== m.sender)
 		} catch (e) {

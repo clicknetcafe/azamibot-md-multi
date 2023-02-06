@@ -17,7 +17,7 @@ let handler = async (m, { conn, args }) => {
 		txt += `*filesize :* ${res.fileSize}\n`
 		txt += `*mimetype :* ${res.mimetype}`
 		m.reply(txt)
-		await conn.sendMessage(m.chat, { document: { url: res.downloadUrl }, fileName: res.fileName, mimetype: res.mimetype }, { quoted: m })
+		await conn.sendFile(m.chat, res.downloadUrl, res.fileName, '', m, false, { asDocument: true, mimetype: res.mimetype })
 	})
 }
 

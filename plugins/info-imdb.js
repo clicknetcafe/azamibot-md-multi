@@ -20,7 +20,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 		ini_txt += `Director : ${anu.director}\n`
 		ini_txt += `Writer : ${anu.writer}\n`
 		ini_txt += `Actor : ${anu.actors}\n`
-		await conn.sendMessage(m.chat, { image: { url: anu.poster }, caption: ini_txt }, { quoted: m })
+		await conn.sendFile(m.chat, anu.poster, '', ini_txt, m)
 	} catch (e) {
 		console.log(e)
 		m.reply(`Result not found.`)

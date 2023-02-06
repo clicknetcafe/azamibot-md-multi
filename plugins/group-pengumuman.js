@@ -7,7 +7,7 @@ let handler = async (m, { conn, text, usedPrefix, command, participants }) => {
 	if (/video|image|viewOnce/g.test(mime) && !/webp/g.test(mime)) {
 		let media = await q.download?.()
 		await conn.sendFile(m.chat, media, '', text, null, false, { mentions: participants.map(a => a.id), quoted: fkontak })
-	} else await conn.sendMessage(m.chat, { text: text, mentions: participants.map(a => a.id) }, { quoted: fkontak })
+	} else await conn.reply(m.chat, text, fkontak, { mentions: participants.map(a => a.id) })
 }
 
 handler.menugroup = ['hidetag'].map(v => v + ' <teks>')

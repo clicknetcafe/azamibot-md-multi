@@ -19,7 +19,7 @@ let handler = async (m, { args, usedPrefix, command, isPrems, isAdmin, isOwner, 
 		chat.lastmute = new Date * 1
 		chat.mutecd = cooldown * total
 		chat.spamcount = 0
-		await conn.sendMessage(grup, { text: `Group di *mute* selama ${total} menit.`, mentions: participants.map(a => a.id) }, { quoted: fliveLoc })
+		await conn.reply(grup, `Group di *mute* selama ${total} menit.`, fliveLoc, { mentions: participants.map(a => a.id) })
 	} else throw `*「ADMIN / PREM / OWNER ONLY」*`
 }
 

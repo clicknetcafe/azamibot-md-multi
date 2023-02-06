@@ -27,7 +27,7 @@ let handler = async (m, { conn, args, __dirname, usedPrefix, command }) => {
 				await unlinkSync(media)
 				if (err) throw `_*Error!*_`
 				let buff = await readFileSync(filename)
-				await conn.sendMessage(m.chat, { audio: buff, mimetype: 'audio/mpeg', ptt: true }, { quoted: m })
+				await conn.sendFile(m.chat, buff, '', '', m, true, { mimetype: 'audio/mpeg' })
 			})
 		} else throw `Reply / tag audio!`
 	} catch (e) {

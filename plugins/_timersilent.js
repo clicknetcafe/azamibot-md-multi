@@ -8,6 +8,6 @@ export async function before(m, { isAdmin, isBotAdmin }) {
 	user.lastbanned = 0
 	user.bannedcd = 0
 	user.banned = false
-	await this.sendMessage(m.chat, { text: `@${(m.sender || '').replace(/@s\.whatsapp\.net/g, '')} udh gk di ban slur, jan spam lagi yak!`, mentions: [m.sender] }, { quoted: fkontak })
+	await this.reply(m.chat, `@${(m.sender || '').replace(/@s\.whatsapp\.net/g, '')} udh gk di ban slur, jan spam lagi yak!`, fkontak, { mentions: [m.sender] })
 	return !0
 }

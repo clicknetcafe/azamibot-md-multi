@@ -154,7 +154,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 				setTimeout(() => {
 					chat.simi = !isEnable
 					chat.lastsimi = !isEnable
-					conn.sendMessage(m.chat, { text: `Simi *OFF* Kak` }, { quoted: fkontak })
+					conn.reply(m.chat, `Simi *OFF* Kak`, fkontak)
 				}, 300000)
 			}
 			break
@@ -257,9 +257,7 @@ Example :
 `.trim())
 			throw false
 	}
-	await conn.sendMessage(m.chat, { text: `
-*${type}* berhasil di *${isEnable ? 'nyala' : 'mati'}kan* ${isAll ? 'untuk bot ini' : isUser ? '' : 'untuk chat ini'}${(type.includes('simi') && isEnable) ? '\n\nAuto OFF dalam *5 menit* ( menghindari spam )' : ''}
-`.trim() }, { quoted: fkontak })
+	await conn.reply(m.chat, `*${type}* berhasil di *${isEnable ? 'nyala' : 'mati'}kan* ${isAll ? 'untuk bot ini' : isUser ? '' : 'untuk chat ini'}${(type.includes('simi') && isEnable) ? '\n\nAuto OFF dalam *5 menit* ( menghindari spam )' : ''}`, fkontak)
 }
 
 handler.menugroup = ['en', 'dis'].map(v => v + 'able <option>')

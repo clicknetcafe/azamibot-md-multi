@@ -6,7 +6,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 	try {
 		let anu = await fetch(`https://api.akuari.my.id/downloader/likeedl?link=${text}`)
 		let json = await anu.json()
-		await conn.sendMessage(m.chat, { video: { url: json.hasil.no_watermark }, caption: json.hasil.title }, { quoted: m })
+		await conn.sendFile(m.chat, json.hasil.no_watermark, '', json.hasil.title, m)
 	} catch (e) {
 		console.log(e)
 		m.reply(`Invalid likee url.`)

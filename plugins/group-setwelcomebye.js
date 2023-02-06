@@ -5,7 +5,7 @@ const bye = '*Sayonara 👋🏻* @user!'
 
 let handler = async (m, { conn, command, usedPrefix, text}) => {
 	let subject = await conn.getName(m.chat)
-	if (!text) return await conn.sendMessage(m.chat, { text: `[ ! ] Masukkan teks.\n\n*Tips :*\n@user - menampilkan tag user.${command.includes('bye') ? '' : '\n@subject - menampilkan nama grup.\n@desc - menampilkan deskripsi grup'}\n\n${command.includes('bye') ? `*Contoh :*\n${usedPrefix + command} Sayonara @user!\n\n*Hasil teks :*\nSayonara @${m.sender.split('@')[0]} !` : `*Contoh :*\n${usedPrefix + command} Hallo @user, Selamat Datang di @subject\n\n*Hasil teks :*\nHallo @${m.sender.split('@')[0]}, Selamat Datang di ${subject}`}`, mentions: [m.sender] }, { quoted: m })
+	if (!text) return await conn.reply(m.chat, `[ ! ] Masukkan teks.\n\n*Tips :*\n@user - menampilkan tag user.${command.includes('bye') ? '' : '\n@subject - menampilkan nama grup.\n@desc - menampilkan deskripsi grup'}\n\n${command.includes('bye') ? `*Contoh :*\n${usedPrefix + command} Sayonara @user!\n\n*Hasil teks :*\nSayonara @${m.sender.split('@')[0]} !` : `*Contoh :*\n${usedPrefix + command} Hallo @user, Selamat Datang di @subject\n\n*Hasil teks :*\nHallo @${m.sender.split('@')[0]}, Selamat Datang di ${subject}`}`, m, { mentions: [m.sender] })
 	let chat = db.data.chats[m.chat]
 	if (text.toLowerCase() == 'default' || text.toLowerCase() == 'reset') text = command.includes('bye') ? bye : wel
 	if (command.includes('bye')) chat.sBye = text

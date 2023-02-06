@@ -6,7 +6,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 	try {
 		let anu = await fetch(`https://api.lolhuman.xyz/api/smule?apikey=${apilol}&url=${text}`)
 		let json = await anu.json()
-		await conn.sendMessage(m.chat, { video: { url: json.result.video }, caption: json.result.title }, { quoted: m })
+		await conn.sendFile(m.chat, json.result.video, '', json.result.title, m)
 	} catch (e) {
 		console.log(e)
 		m.reply(`Invalid Smule url.`)

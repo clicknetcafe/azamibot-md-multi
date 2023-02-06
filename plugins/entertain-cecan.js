@@ -5,11 +5,11 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (text) text = text.toLowerCase()
 	try {
 		if (somematch(['justina','ryujin','rose','blackpink','kpop'], text)) {
-			let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/Database/main/Random%20Image/${text}.json`)
+			let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/Databasee/main/Random%20Image/${text}.json`)
 			let anu = pickRandom(await res.json())
 			await conn.sendButton(m.chat, `${command} > ${text}`, `_© ${pauthor}_`, anu, [[`⧑ next ${text} ⧑`, `${usedPrefix + command} ${text}`]], m)
 		} else if (somematch(['china','vietnam','thailand','indonesia','korea','japan','malaysia'], text)) {
-			let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/Database/main/Cecan/${text}.json`)
+			let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/Databasee/main/Cecan/${text}.json`)
 			let anu = pickRandom(await res.json())
 			await conn.sendButton(m.chat, `${command} > ${text}`, `_© ${pauthor}_`, anu, [[`⧑ next ${text} ⧑`, `${usedPrefix + command} ${text}`]], m)
 		} else {
@@ -21,7 +21,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 					await conn.sendButton(m.chat, `_Random pic: cecan_`, pauthor, fimgb, [[`⧑ next ${command} ⧑`, `${usedPrefix + command} ${text}`]], m)
 				} catch (e) {
 					console.log(e)
-					let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/Database/main/${pickRandom(['Cecan/cecan','Cecan/cecan2'])}.json`)
+					let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/Databasee/main/${pickRandom(['Cecan/cecan','Cecan/cecan2'])}.json`)
 					let anu = pickRandom(await res.json())
 					await conn.sendButton(m.chat, `${command} > random`, `_© ${pauthor}_`, anu, [[`⧑ next ${text} ⧑`, `${usedPrefix + command} ${text}`]], m)
 				}

@@ -6,7 +6,7 @@ import { sticker } from '../lib/sticker.js'
 let handler = async (m, { conn, usedPrefix, command }) => {
 	if (m.isGroup && !db.data.chats[m.chat].nsfw) throw `[ *NSFW GAK AKTIF* ]`
 	try {
-		let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/Databasee/main/nsfw/${command.toLowerCase().replace('manga2nsfw','manga').replace('nekonimensfw','nekonime')}.json`)
+		let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/Databasee/main/nsfw/${command.replace('manga2nsfw','manga').replace('nekonimensfw','nekonime')}.json`)
 		let anu = pickRandom(await res.json())
 		if (!anu) throw Error('error : no url')
 		if (anu.split('.').pop() == 'gif') {

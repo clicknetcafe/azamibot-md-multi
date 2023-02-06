@@ -12,7 +12,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (db.data.datas.rowner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(meh[0].jid)) return m.reply('[ ! ] Dia sudah jadi real owner.')
 	if (db.data.datas.owner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(meh[0].jid)) return m.reply('[ ! ] Dia sudah ada di list owner.')
 	db.data.datas.rowner.push([who, text[1], true])
-	await conn.sendMessage(m.chat, { text: `Sukses menjadikan @${(who || '').replace(/@s\.whatsapp\.net/g, '')} sebagai *real owner*.`, mentions: [meh[0].jid] }, { quoted: m })
+	await conn.reply(m.chat, `Sukses menjadikan @${(who || '').replace(/@s\.whatsapp\.net/g, '')} sebagai *real owner*.`, m, { mentions: [meh[0].jid] })
 }
 
 handler.menuowner = ['addrealowner']

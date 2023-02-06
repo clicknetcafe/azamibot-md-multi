@@ -6,7 +6,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 		let fimg = await fetch(`https://api.lolhuman.xyz/api/photooxy1/${command}?apikey=${apilol}&text=${encodeURIComponent(text)}`)
 		if (!fimg.ok) throw new e()
 		let fimgb = Buffer.from(await fimg.arrayBuffer())
-		await conn.sendMessage(m.chat, { image: fimgb, caption: `_Photo Oxy : ${command}_` }, { quoted: m })
+		await conn.sendFile(m.chat, fimgb, '', `_Photo Oxy : ${command}_`, m)
 	} catch (e) {
 		m.reply(`Terjadi kesalahan, coba lagi nanti.`)
 	}

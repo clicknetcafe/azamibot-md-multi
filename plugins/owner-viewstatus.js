@@ -30,8 +30,8 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 	let chat = `Forward Status ${ya} telah ${enable ? 'Diaktifkan' : 'Dinonaktifkan'}`
 	let sender = `Sekarang update status ${ya} akan otomatis diteruskan ke ROwner`
 	let men = meh ? meh[0].jid : ''
-	await conn.sendMessage(m.chat, men ? { text: chat, mentions: [men] } : { text: chat }, { quoted: m })
-	if (enable) await conn.sendMessage(m.sender, men ? { text: sender, mentions: [men] } : { text: sender }, { quoted: fkontak })
+	await conn.reply(m.chat, chat, m, men ? { mentions: [men] } : {})
+	if (enable) await conn.reply(m.sender, sender, fkontak, men ? { mentions: [men] } : {})
 	console.log(db.data.users[conn.user.jid].viewstatus)
 }
 

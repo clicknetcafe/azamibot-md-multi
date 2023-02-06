@@ -17,7 +17,7 @@ let handler = async (m, { conn, args: [effect], text: txt, usedPrefix, command }
 	let result = await axios.get(res, {
 		responseType: 'arraybuffer'
 	})
-	await conn.sendMessage(m.chat, { image: { url: result.data}, caption: `_Text Pro : ${effect}_` }, { quoted: m })
+	await conn.sendFile(m.chat, result.data, '', `_Text Pro : ${effect}_`, m)
 }
 
 handler.menutextpro = ['textpro <effect> <text>']

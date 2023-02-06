@@ -64,11 +64,11 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 			['Premium', '/premium'],
 			['Speed', '/ping'],
 			['Owner', '/owner']
-		], m)*/
+		], m, { asLocation:true })*/
 		conn.sendButton(m.chat, text, pauthor, nais, [
 			[`👥 Owner`, `.owner`],
 			[`🪡 Ping`, `.ping`]
-		], m)
+		], m, { asLocation: true })
 	} catch (e) {
 		throw e
 	}

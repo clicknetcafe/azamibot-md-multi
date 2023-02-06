@@ -5,7 +5,7 @@ let handler = async (m, { conn }) => {
 		await conn.sendFile(m.chat, buffer, '', m.quoted.text || '', null, false, { quoted: m })
 	} catch (e) {
 		console.log(e)
-		await conn.sendMessage(m.chat, { text: m.quoted.text }, { quoted: m })
+		await conn.reply(m.chat, m.quoted.text, m)
 	}
 }
 

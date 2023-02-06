@@ -12,9 +12,9 @@ let handler = async (m, { conn, usedPrefix, command, isOwner, args }) => {
 			}
 		} else {
 			if (args[0] == 'on') {
-				db.data.chats[m.chat][`${command.toLowerCase()}`] = true
+				db.data.chats[m.chat][`${command}`] = true
 			} else {
-				db.data.chats[m.chat][`${command.toLowerCase()}`] = false
+				db.data.chats[m.chat][`${command}`] = false
 			}
 		}
 	}
