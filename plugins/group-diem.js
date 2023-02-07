@@ -31,7 +31,7 @@ let handler = async (m, { conn, participants, usedPrefix, command, args, isOwner
 	}
 }
 
-handler.menugroup = ['diem @tag <timer>']
+handler.menugroup = ['diem <timer> @tag']
 handler.tagsgroup = ['group']
 handler.command = /^(di(e|a)m|silent)$/i
 
