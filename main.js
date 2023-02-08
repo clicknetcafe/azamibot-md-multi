@@ -60,7 +60,7 @@ if (!opts['test']) {
 			//clearTmp()
 		])
 		Connection.store.writeToFile(Connection.storeFile)
-	}, 60 * 1000)
+	}, 120 * 1000)
 }
 if (opts['server']) (await import('./server.js')).default(conn, PORT)
 
