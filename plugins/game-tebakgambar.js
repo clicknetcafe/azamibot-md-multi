@@ -23,7 +23,7 @@ ${json.deskripsi}
 ⭔ Bonus: ${poin} Money
 `.trim()
 	conn.tebakgambar[id] = [
-		await conn.sendMessage(m.chat, { image: { url: json.img }, caption: caption }, { quoted: m }),
+		await conn.sendMsg(m.chat, { image: { url: json.img }, caption: caption }, { quoted: m }),
 		json, poin,
 		setTimeout(() => {
 			if (conn.tebakgambar[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.jawaban}*`, pauthor, ['tebakgambar', `${usedPrefix}tebakgambar`], conn.tebakgambar[id][0])
