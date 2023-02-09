@@ -3,23 +3,8 @@ import { canLevelUp, xpRange } from '../lib/levelling.js'
 import { levelup } from '../lib/canvas.js'
 import can from 'knights-canvas'
 import uploadImage from '../lib/uploadImage.js'
+import { ranNumb, padLead } from '../lib/others.js'
 import fs from 'fs'
-
-function ranNumb(min, max = null) {
-	if (max !== null) {
-		min = Math.ceil(min);
-		max = Math.floor(max);
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	} else {
-		return Math.floor(Math.random() * min) + 1
-	}
-}
-
-function padLead(num, size) {
-	var s = num+"";
-	while (s.length < size) s = "0" + s;
-	return s;
-}
 
 let handler = async (m, { conn }) => {
 	let user = db.data.users[m.sender]
@@ -27,27 +12,20 @@ let handler = async (m, { conn }) => {
 	if (!canLevelUp(user.level, user.exp, global.multiplier)) {
 		let image, data, pp, out
 		let { min, xp, max } = xpRange(user.level, global.multiplier)
-		let ini_txt = `Level *${user.level} (${user.exp - min}/${xp})*\nKurang *${max - user.exp}* lagi!`
+		let txt = `Level *${user.level} (${user.exp - min}/${xp})*\nKurang *${max - user.exp}* lagi!`
 		let meh = padLead(ranNumb(43), 3)
 		let nais = fs.readFileSync(`./media/picbot/menus/menus_${meh}.jpg`)
 		try {
-			try {
-				pp = await conn.profilePictureUrl(m.sender, 'image')
-			} catch {
-				pp = 'https://i.ibb.co/m53WF9N/avatar-contact.png'
-			}
-			try {
-				out = await uploadImage(nais)
-			} catch {
-				console.log(e)
-				out = 'https://i.ibb.co/4YBNyvP/images-76.jpg'
-			}
-			image = await new can.Rank().setAvatar(pp).setUsername(name ? name.replaceAll('\n','') : '-').setBg(out).setNeedxp(`${xp}`).setCurrxp(`${user.exp - min}`).setLevel(`${user.level}`).setRank('https://i.ibb.co/Wn9cvnv/FABLED.png').toAttachment()
-			data = image.toBuffer()
-			await conn.sendFile(m.chat, data, '', ini_txt, m)
+			try { pp = await conn.profilePictureUrl(m.sender, 'image') }
+			catch { pp = 'https://i.ibb.co/m53WF9N/avatar-contact.png' }
+			try { out = await uploadImage(nais) }
+			catch { out = 'https://i.ibb.co/4YBNyvP/images-76.jpg' }
+			image = await new can.Rank().setAvatar(pp).setUsername(name.replaceAll('\n','')).setBg(out).setNeedxp(xp).setCurrxp(user.exp - min).setLevel(user.level).setRank('https://i.ibb.co/Wn9cvnv/FABLED.png').toAttachment()
+			data = await image.toBuffer()
+			await conn.sendFile(m.chat, data, '', txt, m)
 		} catch (e) {
 			console.log(e)
-			m.reply(ini_txt)
+			m.reply(txt)
 		}
 	} else {
 		let before = user.level * 1
@@ -340,19 +318,16 @@ let handler = async (m, { conn }) => {
 			user.role = 'Legends 忍'
 		}
 		if (before !== user.level) {
-			let ini_txt = `Selamat ${name ? name.replaceAll('\n','') : '-'} naik 🧬level\n• 🧬Level Sebelumnya : ${before}\n• 🧬Level Baru : ${user.level}\n• Pada Jam : ${new Date().toLocaleString('id-ID')}\n*_Semakin sering berinteraksi dengan bot Semakin Tinggi level kamu_*`
+			let txt = `Selamat ${name.replaceAll('\n','')} naik 🧬level\n• 🧬Level Sebelumnya : ${before}\n• 🧬Level Baru : ${user.level}\n• Pada Jam : ${new Date().toLocaleString('id-ID')}\n*_Semakin sering berinteraksi dengan bot Semakin Tinggi level kamu_*`
 			try {
 				let image, data, pp
-				try {
-					pp = await conn.profilePictureUrl(m.sender, 'image')
-				} catch {
-					pp = 'https://i.ibb.co/m53WF9N/avatar-contact.png'
-				}
+				try { pp = await conn.profilePictureUrl(m.sender, 'image') }
+				catch { pp = 'https://i.ibb.co/m53WF9N/avatar-contact.png' }
 				image = await new can.Up().setAvatar(pp).toAttachment()
-				data = image.toBuffer()
-				await conn.sendFile(m.chat, data, '', ini_txt, m)
+				data = await image.toBuffer()
+				await conn.sendFile(m.chat, data, '', txt, m)
 			} catch {
-				m.reply(ini_txt)
+				m.reply(txt)
 			}
 		}
 	}
@@ -360,7 +335,6 @@ let handler = async (m, { conn }) => {
 
 handler.menufun = ['levelup']
 handler.tagsfun = ['rpg']
-
 handler.command = /^(level(up)?)$/i
 
 export default handler
