@@ -8,7 +8,7 @@ export async function before(m, { isAdmin, isBotAdmin }) {
 				await this.groupParticipantsUpdate(m.chat, [m.sender], "remove")
 				await this.updateBlockStatus(m.sender, 'block')
 				await this.reply(m.chat, `@${(m.sender || '').replace(/@s\.whatsapp\.net/g, '')} *terdeteksi* mengirim Virus !`, fkontak, { mentions: [m.sender] })
-				await this.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: false, id: m.id, participant: m.sender } })
+				await this.sendMsg(m.chat, { delete: { remoteJid: m.chat, fromMe: false, id: m.id, participant: m.sender } })
 			} catch (e) {
 				console.log(e)
 			}

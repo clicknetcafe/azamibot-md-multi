@@ -28,7 +28,7 @@ let handler = async (m, { conn, isPrems }) => {
 		let who2 = who.split`@`[0]
 		str += `*Limit :* ${(db.data.datas.prems.some(v=>who2.includes(v)) || db.data.datas.rowner.map(v => v[0]).some(x=>who2.includes(x)) || db.data.datas.owner.map(v => v[0]).some(x=>who2.includes(x))) ? '~ Infinity ~' : limit}\n`
 		str += `${lastclaim > 0 ? `\n*Last Claim :* ${new Date(lastclaim)}` : ''}`
-		await conn.sendFile(m.chat, pp, '', str, m, false, { mentions: [who] })
+		await conn.sendMsg(m.chat, { image: { url: pp, fileName: 'pp.jpg'}, caption: str, mentions: [who]}, { quoted: m})
 	} catch (e) {
 		console.log(e)
 		m.reply(`[!] User tidak ada dalam database.`)

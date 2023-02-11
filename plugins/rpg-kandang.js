@@ -20,7 +20,7 @@ let handler = async (m, { conn, usedPrefix }) => {
 
 Gunakan *${usedPrefix}sell* untuk dijual atau *${usedPrefix}cook* untuk dijadikan bahan masakan.`
 
-	conn.sendFile(m.chat, gmbrt, `kandang.jpg`, hsl, m)
+	await conn.sendMsg(m.chat, { image: { url: gmbrt }, caption: hsl }, { quoted: m })
 }
 
 handler.menufun = ['kandang']

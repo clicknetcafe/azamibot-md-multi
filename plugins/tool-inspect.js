@@ -8,7 +8,7 @@ let handler = async (m, { conn, text }) => {
 	txt = Object.keys(data).map(v => `*${v.capitalize()} :* ${data[v]}`).join('\n').replace('*Desc :*','\n*Desc :* \n'),
 	pp = await conn.profilePictureUrl(data.id, 'image').catch(console.error)
 	if (pp) {
-		await conn.sendFile(m.chat, pp, '', txt, m)
+		await conn.sendMsg(m.chat, { image: { url: pp }, caption: txt }, { quoted: m })
 	} else {
 		m.reply(txt)
 	}

@@ -9,7 +9,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 		let fimg = await fetch(`https://api.lolhuman.xyz/api/textprome2/pornhub?apikey=${apilol}&text1=${encodeURIComponent(l)}&text2=${encodeURIComponent(r)}`)
 		//if (!fimg.ok) throw 'Fitur Error'
 		let fimgb = Buffer.from(await fimg.arrayBuffer())
-		await conn.sendFile(m.chat, fimgb, '', `_Text Pro : ${command}_`, m)
+		await conn.sendMsg(m.chat, { image: fimgb, caption: `_Text Pro : ${command}_` }, { quoted: m })
 	} catch (e) {
 		console.log(e)
 		m.reply(`Terjadi kesalahan, coba lagi nanti.`)

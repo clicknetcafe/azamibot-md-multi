@@ -14,12 +14,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	ini_txt += `Duration : ${get_result.duration}\n`
 	ini_txt += `Popularity : ${get_result.popularity}\n`
 	ini_txt += `${get_result.preview_url ? `Preview : ${get_result.preview_url}\n` : ''}`
-	await conn.sendFile(m.chat, get_result.thumbnail, 'spot.jpg', ini_txt, m)
-	if (command.includes('mp3')) {
-		await conn.sendFile(m.chat, get_result.link, `${get_result.artists} - ${get_result.title}.mp3`, '', m, false, { asDocument: true, mimetype: 'audio/mpeg' })
-	} else {
-		await conn.sendFile(m.chat, get_result.link, '', '', m, false, { mimetype: 'audio/mp4' })
-	}
+	await conn.sendMsg(m.chat, { image: { url: get_result.thumbnail }, caption: ini_txt }, { quoted : m })
+	if (/mp3/g.test(command)) await conn.sendMsg(m.chat, {document: { url: get_result.link }, mimetype: 'audio/mpeg', fileName: `${get_result.artists} - ${get_result.title}.mp3`}, { quoted : m })
+	else await conn.sendMsg(m.chat, { audio: { url: get_result.link }, mimetype: 'audio/mp4' }, { quoted : m })
 }
 
 handler.menudownload = ['spotify <url>']

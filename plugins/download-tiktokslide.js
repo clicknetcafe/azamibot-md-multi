@@ -17,8 +17,8 @@ let handler = async(m, { conn, text, usedPrefix, command, isPrems }) => {
 			await conn.reply(m.sender, `_[!] (bukan user premium)_ limit maksimal 6 Slide.`, m)
 		}
 		for (let x of anu) {
-			if (c == 0) await conn.sendFile(m.chat, x, '', `Mengirim 1 dari ${d} slide gambar.\n_(Sisanya akan dikirim via chat pribadi.)_`, m)
-			else await conn.sendFile(m.sender, x, '', '', m)
+			if (c == 0) await conn.sendMsg(m.chat, { image: { url: x }, caption: `Mengirim 1 dari ${anu.length} slide gambar.\n_(Sisanya akan dikirim via chat pribadi.)_` }, { quoted : m })
+			else await conn.sendMsg(m.sender, { image: { url: x } }, { quoted : m })
 			c += 1
 			await delay(isPrems ? ranNumb(700, 1000) : ranNumb(800, 1500))
 		}

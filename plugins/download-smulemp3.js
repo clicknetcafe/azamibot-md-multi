@@ -6,11 +6,8 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 	try {
 		let anu = await fetch(`https://api.lolhuman.xyz/api/smule?apikey=${apilol}&url=${text}`)
 		let json = await anu.json()
-		if (command.includes('mp3')) {
-			await conn.sendFile(m.chat, json.result.audio, `${json.result.title}.mp3`, '', m, false, { asDocument: true, mimetype: 'audio/mpeg' })
-		} else {
-			await conn.sendFile(m.chat, json.result.audio, '', '', m, false, { mimetype: 'audio/mp4' })
-		}
+		if (/mp3/g.test(command)) await conn.sendMsg(m.chat, {document: { url: json.result.audio }, mimetype: 'audio/mpeg', fileName: `${json.result.title}.mp3`}, { quoted : m })
+		else await conn.sendMsg(m.chat, { audio: { url: json.result.audio }, mimetype: 'audio/mp4' }, { quoted : m })
 	} catch (e) {
 		console.log(e)
 		m.reply(`Invalid Smule url.`)

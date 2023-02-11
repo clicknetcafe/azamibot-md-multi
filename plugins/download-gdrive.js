@@ -12,7 +12,7 @@ let handler = async (m, { conn, args }) => {
 		txt += `*filesize :* ${anu.fileSize}\n`
 		txt += `*mimetype :* ${anu.mimetype}`
 		await m.reply(txt)
-		await conn.sendFile(m.chat, anu.downloadUrl, anu.fileName, '', m, false, { asDocument: true, mimetype: anu.mimetype })
+		await conn.sendMsg(m.chat, { document: { url: anu.downloadUrl }, fileName: anu.fileName, mimetype: anu.mimetype }, { quoted: m })
 	} catch (e) {
 		console.log(e)
 		throw 'Bot tidak memiliki akses ke GoogleDrive ini'

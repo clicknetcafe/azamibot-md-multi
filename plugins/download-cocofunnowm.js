@@ -7,7 +7,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 		let anu = await fetch(`https://api.lolhuman.xyz/api/cocofun?apikey=${apilol}&url=${text}`)
 		let json = await anu.json()
 		let ini_txt = `*${json.result.title}*\n\nuploader : *${json.result.uploader}*\ntag : ${json.result.tag}\nviews : ${json.result.views}`
-		await conn.sendFile(m.chat, json.result.nowm, '', ini_txt, m)
+		await conn.sendMsg(m.chat, { video: { url: json.result.nowm }, caption: ini_txt }, { quoted: m })
 	} catch (e) {
 		console.log(e)
 		m.reply(`Invalid cocofun url.`)

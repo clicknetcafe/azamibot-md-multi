@@ -15,12 +15,12 @@ let handler = async (m, { conn, command, text }) => {
 			let res = await fetch(`https://oni-chan.my.id/api/canvas/nulis?text=${txt}`)
 			let p = 1, anu = await res.json()
 			for (let x of anu.results) {
-				await conn.sendFile(m.chat, x, '', `*lembar [${p}]* Hati² ketahuan:v${mapel ? '' : `${p == 1 ? '' : '\n_teks|tgl|no|nama|mapel (agar lebih detail)_'}`}`, m)
+				await conn.sendMsg(m.chat, { image: { url: x }, caption: `*lembar [${p}]* Hati² ketahuan:v${mapel ? '' : `${p == 1 ? '' : '\n_teks|tgl|no|nama|mapel (agar lebih detail)_'}`}` }, { quoted: m })
 				p++
 			}
 		} else {
 			let [teks, nama, kelas, no] = text.split('%7C')
-			await conn.sendFile(m.chat, `https://oni-chan.my.id/api/Fmake/nulis?nama=${nama || ' '}&kelas=${kelas || ' '}&no=${no || ' '}&text=${teks}&apikey=`, '', `Hati² ketahuan:v${no ? '' : `\n_teks|nama|kelas|no_absen (agar lebih detail)_`}`, m)
+			await conn.sendMsg(m.chat, { image: { url: `https://oni-chan.my.id/api/Fmake/nulis?nama=${nama || ' '}&kelas=${kelas || ' '}&no=${no || ' '}&text=${teks}&apikey=` }, caption: `Hati² ketahuan:v${no ? '' : `\n_teks|nama|kelas|no_absen (agar lebih detail)_`}` }, { quoted: m })
 		}
 	} catch (e) {
 		console.log(e)
@@ -72,7 +72,7 @@ let handler = async (m, { conn, command, text }) => {
 		spawn(_spawnprocess, _spawnargs)
 			.on('error', e => m.reply(format(e)))
 			.on('close', async () => {
-				await conn.sendFile(m.chat, Buffer.concat(bufs), '', 'Hati² ketahuan:v', m)
+				await conn.sendMsg(m.chat, { image: Buffer.concat(bufs), caption: 'Hati² ketahuan:v' }, { quoted: m })
 			})
 			.stdout.on('data', chunk => bufs.push(chunk))
 	}

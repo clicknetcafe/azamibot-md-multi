@@ -11,7 +11,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 		let url = `https://api.github.com/repos/${user}/${repo}/zipball`
 		let filename = (await fetch(url, { method: 'HEAD' })).headers.get('content-disposition').match(/attachment; filename=(.*)/)[1]
 		m.reply(`*_sending file, don't spam . . ._*`)
-		conn.sendFile(m.chat, url, filename.replace('.zip.zip','.zip'), null, m)
+		await conn.sendMsg(m.chat, { document: { url: url }, mimetype: 'application/zip', fileName: filename.replace('.zip.zip','.zip')}, { quoted : m })
 	} catch (e) {
 		console.log(e)
 		m.reply(`[!] repositorie(s) not found.`)

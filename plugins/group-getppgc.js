@@ -1,7 +1,7 @@
 let handler = async(m) => {
 	try {
 		let url = await conn.profilePictureUrl(m.chat, 'image')
-		await conn.sendFile(m.chat, url, '', null, m)
+		await conn.sendMsg(m.chat, { image: { url: url } }, { quoted: m })
 	} catch (e) {
 		console.log(e)
 		m.reply(`Gagal mengambil pp grup.`)

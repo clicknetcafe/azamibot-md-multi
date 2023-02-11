@@ -13,7 +13,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 			ini_txt += `_"${x.desc}"_\n`
 			ini_txt += `───────────────────`
 		}
-		await conn.sendFile(m.chat, get_result.result[0].thumbnail, '', ini_txt, m)
+		await conn.sendMsg(m.chat, { image: { url: get_result.result[0].thumbnail }, caption: ini_txt }, { quoted: m })
 	} catch (e) {
 		console.log(e)
 		m.reply(`Tidak ditemukan hasil.`)

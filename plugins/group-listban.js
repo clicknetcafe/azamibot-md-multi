@@ -62,7 +62,7 @@ let handler = async (m, { conn, usedPrefix, command, isOwner, text }) => {
 				m.reply(txt)
 			}
 		} catch (e) { console.log(e) }
-	} else await conn.sendMessage(m.chat, listMessage, { quoted : m })
+	} else await conn.sendMsg(m.chat, listMessage, { quoted : m })
 }
 
 handler.menugroup = ['bannedlist']

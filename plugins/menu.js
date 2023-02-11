@@ -144,7 +144,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPr
 					buttonText: `SUB MENU 🎫`,
 					sections
 				}
-				await conn.sendMessage(m.chat, listMessage, {quoted: ftrol})
+				await conn.sendMsg(m.chat, listMessage, {quoted: ftrol})
 			}
 		}
 	} catch (e) {

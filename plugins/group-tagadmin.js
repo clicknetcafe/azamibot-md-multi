@@ -19,7 +19,6 @@ const getGroupAdmins = (participants) => {
 		let { isBanned, welcome, detect, sWelcome, sBye, sPromote, sDemote, antiLink } = db.data.chats[m.chat]
 		const groupAdmins = getGroupAdmins(participants)
 		const owner = groupMetadata.owner || groupAdmins.find(p => p.admin === 'superadmin')?.id || m.chat.split`-`[0] + '@s.whatsapp.net' || 'Unknown'
-		console.log(owner)
 		let listAdmin = groupAdmins.map((v, i) => `${i + 1}. @${v.split('@')[0]}`).join('\n')
 		let teks = `*「 TAG ADMIN 」*\n\n${text ? `[ PESAN ]\n" ${text} "\n\n` : ''}*Group Owner :* @${owner.replace(/@s\.whatsapp\.net/g, '')}\n*Group Admins :*\n${listAdmin}`.trim()
 		let ownernya = [owner]

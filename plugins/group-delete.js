@@ -8,7 +8,7 @@ let handler = async (m, { conn, isOwner, isAdmin }) => {
 		if (isOwner || isAdmin) {
 			try {
 				if ((!charm.nsfw && m.isGroup) || isOwner) {
-					conn.sendMessage(chat, { delete: { remoteJid: m.chat, fromMe: false, id: m.quoted.id, participant: m.quoted.sender } })
+					conn.sendMsg(chat, { delete: { remoteJid: m.chat, fromMe: false, id: m.quoted.id, participant: m.quoted.sender } })
 				} else {
 					m.reply(`Tidak dapat hapus pesan saat *nsfw* aktif!`)
 				}
@@ -21,7 +21,7 @@ let handler = async (m, { conn, isOwner, isAdmin }) => {
 	} else {
 		try {
 			if ((!charm.nsfw && m.isGroup) || isOwner) {
-				conn.sendMessage(chat, { delete: m.quoted.vM.key })
+				conn.sendMsg(chat, { delete: m.quoted.vM.key })
 			} else {
 				m.reply(`Tidak dapat hapus pesan saat *nsfw* aktif!`)
 			}

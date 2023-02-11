@@ -1,7 +1,7 @@
 import { truth, dare } from '@bochilteam/scraper'
 
 let handler = async (m, { conn, usedPrefix, command }) => {
-	let anu = command == 'dare' ? await dare() : await truth()
+	let anu = await (/dare/g.test(command) ? dare : truth)()
 	m.reply(anu)
 }
 

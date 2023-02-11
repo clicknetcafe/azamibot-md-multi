@@ -5,7 +5,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 	if (text.includes('http://') || text.includes('https://')) {
 		if (!text.includes('sfile.mobi')) return m.reply('Bukan web sfile.mobi itu bre')
 		try {
-			let res = await sfilemobi(`${text}`)
+			let res = await sfilemobi(text)
 			if (res.filesize > 200000) return m.reply(`Filesize: ${res.filesizeH}\nTidak dapat mengirim, maksimal file 200 MB`)
 			let ini_txt = `_*Downloading file, don't spam . . .*_\n\n[ FILE INFO ]\n`
 			ini_txt += `filename : ${res.filename}\n`
@@ -22,7 +22,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 		}
 	} else {
 		try {
-			let json = await sfilemobiSearch(`${text}`)
+			let json = await sfilemobiSearch(text)
 			let ini_txt = `Found : *${text}*`
 			for (let x of json) {
 				ini_txt += `\n\nFilename : ${x.filename}\n`

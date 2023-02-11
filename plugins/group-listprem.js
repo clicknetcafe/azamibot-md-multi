@@ -23,7 +23,7 @@ let handler = async (m, { conn, usedPrefix }) => {
 		buttonText: `Premium List`,
 		sections
 	}
-	await conn.sendMessage(m.chat, listMessage, { quoted : m })
+	await conn.sendMsg(m.chat, listMessage, { quoted : m })
 }
 
 handler.menugroup = ['listprem']

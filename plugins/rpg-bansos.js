@@ -16,12 +16,12 @@ let handler = async (m, { conn, usedPrefix }) => {
 		if (new Date - user.lastbansos <= cooldown) return m.reply(`Kamu sudah Melakukan Korupsi Bansos 💰\nCooldown *🕐${timers.toTimeString()}*`)
 		if (user.atm < 2000000) return m.reply(`[ ! ] Minimal memiliki tabungan *💵 2000000*`)
 		if (aku > kamu) {
-			await conn.sendFile( m.chat, kbansos, 'b.jpg', `Kamu Tertangkap Setelah Kamu korupsi dana bansos🕴️💰\nMembayar denda *💵 3000000*`, m)
+			await conn.sendMsg(m.chat, { image: { url: kbansos }, caption: `Kamu Tertangkap Setelah Kamu korupsi dana bansos🕴️💰\nMembayar denda *💵 3000000*` }, { quoted: m })
 			user.money -= 3000000
 		} else if (aku < kamu) {
 			let p = ranNumb(1500000, 2450000)
 			user.money += p
-			await conn.sendFile( m.chat, mbansos, 'b.jpg', `Kamu berhasil  korupsi dana bansos🕴️💰\nMendapatkan *💵 ${p}*`, m)
+			await conn.sendMsg(m.chat, { image: { url: mbansos }, caption: `Kamu berhasil  korupsi dana bansos🕴️💰\nMendapatkan *💵 ${p}*` }, { quoted: m })
 		} else {
 			m.reply(`Tidak berhasil korupsi, namun berhasil *kabur keluar negeri 🏃*`)
 		}

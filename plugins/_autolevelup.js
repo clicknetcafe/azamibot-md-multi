@@ -309,7 +309,7 @@ export async function before(m) {
 			}
 			image = await new can.Up().setAvatar(pp).toAttachment()
 			data = image.toBuffer()
-			await this.sendFile(m.chat, data, '', ini_txt, m)
+			await this.sendMsg(m.chat, { image: data, caption: ini_txt }, { quoted: m })
 		} catch {
 			await m.reply(ini_txt)
 		}

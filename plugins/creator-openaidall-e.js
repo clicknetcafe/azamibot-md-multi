@@ -6,7 +6,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 		let res = await fetch(`https://api.lolhuman.xyz/api/dall-e?apikey=${apilol}&text=${encodeURIComponent(text)}`)
 		let anu = Buffer.from(await res.arrayBuffer())
 		if (Buffer.byteLength(anu) < 22000) throw Error(`[!] Error : Buffer not found.`)
-		await conn.sendFile(m.chat, anu, '', `Open AI Dall E :\n${text}`, m)
+		await conn.sendMsg(m.chat, { image: anu, caption: `Open AI Dall E :\n${text}` }, { quoted: m })
 	} catch (e) {
 		console.log(e)
 		throw `Fitur Error.`

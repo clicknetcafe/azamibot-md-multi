@@ -44,7 +44,7 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
 			y = [...txt.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')
 			await conn.reply(m.chat, txt, m, { mentions: y })
 		} catch (e) { console.log(e) }
-	} else await conn.sendMessage(m.chat, listMessage, { quoted : m })
+	} else await conn.sendMsg(m.chat, listMessage, { quoted : m })
 }
 
 handler.menugroup = ['groups', 'grouplist']

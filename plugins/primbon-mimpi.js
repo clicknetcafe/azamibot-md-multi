@@ -3,7 +3,7 @@ import { artimimpi } from '@bochilteam/scraper';
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `Example: ${usedPrefix + command} Ular`
 	try {
-		let anu = await artimimpi(`${text}`)
+		let anu = await artimimpi(text)
 		if (anu.length != 0) {
 			let ini_txt = `*Arti mimpi : ${text}*\n\n`
 			for (var x of anu) {

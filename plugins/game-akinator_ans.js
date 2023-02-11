@@ -22,7 +22,7 @@ export async function before(m) {
 		}
 		anu = anu.result
 		if (anu.name) {
-			await this.sendFile(m.chat, anu.image, '', `🎮 *Akinator Answer* 🎮\n\nDia adalah *${anu.name}*\n_${anu.description}_`, m, false, { mentions: [m.sender] })
+			await this.sendMsg(m.chat, { image: { url: anu.image }, caption: `🎮 *Akinator Answer* 🎮\n\nDia adalah *${anu.name}*\n_${anu.description}_`, mentions: [m.sender] }, { quoted: m })
 			aki.sesi = false
 			aki.soal = null
 		} else {

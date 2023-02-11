@@ -22,7 +22,7 @@ let handler = async (m, { conn }) => {
 			catch { out = 'https://i.ibb.co/4YBNyvP/images-76.jpg' }
 			image = await new can.Rank().setAvatar(pp).setUsername(name.replaceAll('\n','')).setBg(out).setNeedxp(xp).setCurrxp(user.exp - min).setLevel(user.level).setRank('https://i.ibb.co/Wn9cvnv/FABLED.png').toAttachment()
 			data = await image.toBuffer()
-			await conn.sendFile(m.chat, data, '', txt, m)
+			await conn.sendMsg(m.chat, { image: data, caption: txt }, { quoted : m })
 		} catch (e) {
 			console.log(e)
 			m.reply(txt)
@@ -325,7 +325,7 @@ let handler = async (m, { conn }) => {
 				catch { pp = 'https://i.ibb.co/m53WF9N/avatar-contact.png' }
 				image = await new can.Up().setAvatar(pp).toAttachment()
 				data = await image.toBuffer()
-				await conn.sendFile(m.chat, data, '', txt, m)
+				await conn.sendMsg(m.chat, { image: data, caption: txt }, { quoted : m })
 			} catch {
 				m.reply(txt)
 			}

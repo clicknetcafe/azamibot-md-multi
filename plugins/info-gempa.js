@@ -14,8 +14,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 		txt += `Magnitude : ${anu.Magnitude}\n`
 		txt += `Kedalaman : ${anu.Kedalaman}\n`
 		txt += `Koordinat : ${anu.Coordinates}${anu.Dirasakan.length > 3 ? `\nDirasakan : ${anu.Dirasakan}` : ''}`
-		//await conn.sendFile(m.chat, link+anu.Shakemap, '', txt, m)
-		let msg  = await conn.sendMessage(m.chat, { location: { degreesLatitude: anu.Coordinates.split(',')[0], degreesLongitude: anu.Coordinates.split(',')[1] } }, { ephemeralExpiration: 604800 })
+		let msg  = await conn.sendMsg(m.chat, { location: { degreesLatitude: anu.Coordinates.split(',')[0], degreesLongitude: anu.Coordinates.split(',')[1] } }, { ephemeralExpiration: 604800 })
 		await conn.reply(m.chat, txt.replaceAll('%p','```'), msg)
 	} catch (e) {
 		console.log(e)
@@ -29,7 +28,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 			txt += `Magnitude : ${anu.magnitude}\n`
 			txt += `Kedalaman : ${anu.kedalaman}\n`
 			txt += `Koordinat : ${anu.koordinat}`
-			await conn.sendFile(m.chat, anu.map, '', txt, m)
+			await conn.sendMsg(m.chat, { image: { url: anu.map }, caption: txt }, { quoted: m })
 		} catch (e) {
 			console.log(e)
 			m.reply(`[!] Fitur Error.`)

@@ -7,7 +7,7 @@ let handler = async (m, { conn, __dirname, usedPrefix, command }) => {
 	let mime = (m.quoted ? m.quoted : m.msg).mimetype || ''
 	if (/audio/.test(mime)) {
 		let media = await q.download?.()
-		await conn.sendFile(m.chat, media, '', '', m, true, { mimetype: 'audio/mpeg' })
+		await conn.sendMsg(m.chat, { audio: media, mimetype: 'audio/mpeg', ptt: true }, { quoted: m })
 	} else if (/video/.test(mime)) {
 		let ran = getRandom('.mp3')
 		let filename = join(__dirname, '../tmp/' + ran)
@@ -16,7 +16,7 @@ let handler = async (m, { conn, __dirname, usedPrefix, command }) => {
 			await unlinkSync(media)
 			if (err) throw `_*Error!*_`
 			let buff = await readFileSync(filename)
-			await conn.sendFile(m.chat, buff, '', '', m, true, { mimetype: 'audio/mpeg' })
+			await conn.sendMsg(m.chat, { audio: buff, mimetype: 'audio/mpeg', ptt: true }, { quoted: m })
 		})
 	} else {
 		m.reply(`Reply video/audio with caption *${usedPrefix + command}*`)

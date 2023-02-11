@@ -26,7 +26,7 @@ let handler = async (m, { conn, args }) => {
 		anu += `*👑 Gold :* ${target.gold}\n`
 		anu += `*💎 Diamond :* ${target.diamond}\n`
 		anu += `*💚 Emerald :* ${target.emerald}`
-		await conn.sendFile(m.chat, thumb, '', anu, m)
+		await conn.sendMsg(m.chat, { image: thumb, caption: anu }, { quoted: m })
 	}
 }
 
