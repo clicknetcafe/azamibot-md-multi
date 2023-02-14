@@ -37,7 +37,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command, isPrems }) => {
 
 handler.menufun = ['math <mode>']
 handler.tagsfun = ['game']
-handler.command = /^math/i
+handler.command = /^(math)$/i
 
 handler.premium = true
 
