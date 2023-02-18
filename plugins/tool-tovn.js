@@ -2,7 +2,7 @@ import { toPTT } from '../lib/converter.js'
 
 let handler = async (m, { conn, usedPrefix, command }) => {
 	let q = m.quoted ? m.quoted : m
-	let mime = (m.quoted ? m.quoted : m.msg).mimetype || ''
+	let mime = (q.msg || q).mimetype || q.mediaType || ''
 	if (/audio|video/.test(mime)) {
 		let media = await q.download?.()
 		if (/video/.test(mime)) media = await toPTT(media, 'mp4').then((data) => data.toBuffer())
