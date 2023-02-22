@@ -8,11 +8,7 @@ _https://github.com/clicknetcafe/azamibot-md_
 _https://github.com/clicknetcafe/azamibot-md-multi_
 
 *⭔ Azami node_modules*
-_https://cutt.ly/azamibot-md-modules_
-
-*Original Base From :*
-_https://github.com/BochilGaming_
-`, m)
+_https://cutt.ly/azamibot-md-modules_`, m)
 }
 
 handler.command = /^(sc|sourcecode)$/i

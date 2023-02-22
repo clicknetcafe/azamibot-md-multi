@@ -4,7 +4,7 @@ import { levelup } from '../lib/canvas.js'
 import can from 'knights-canvas'
 import uploadImage from '../lib/uploadImage.js'
 import { ranNumb, padLead } from '../lib/others.js'
-import fs from 'fs'
+import got from 'got'
 
 let handler = async (m, { conn }) => {
 	let user = db.data.users[m.sender]
@@ -14,12 +14,10 @@ let handler = async (m, { conn }) => {
 		let { min, xp, max } = xpRange(user.level, global.multiplier)
 		let txt = `Level *${user.level} (${user.exp - min}/${xp})*\nKurang *${max - user.exp}* lagi!`
 		let meh = padLead(ranNumb(43), 3)
-		let nais = fs.readFileSync(`./media/picbot/menus/menus_${meh}.jpg`)
 		try {
 			try { pp = await conn.profilePictureUrl(m.sender, 'image') }
 			catch { pp = 'https://i.ibb.co/m53WF9N/avatar-contact.png' }
-			try { out = await uploadImage(nais) }
-			catch { out = 'https://i.ibb.co/4YBNyvP/images-76.jpg' }
+			let out = await got('https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/menus.json').json().then(v => v.getRandom())
 			image = await new can.Rank().setAvatar(pp).setUsername(name.replaceAll('\n','')).setBg(out).setNeedxp(xp).setCurrxp(user.exp - min).setLevel(user.level).setRank('https://i.ibb.co/Wn9cvnv/FABLED.png').toAttachment()
 			data = await image.toBuffer()
 			await conn.sendMsg(m.chat, { image: data, caption: txt }, { quoted : m })

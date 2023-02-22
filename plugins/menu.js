@@ -4,7 +4,7 @@ import { promises } from 'fs'
 import { join } from 'path'
 import { xpRange } from '../lib/levelling.js'
 import { readMore, ranNumb, padLead, runtime } from '../lib/others.js'
-import fs from 'fs'
+import got from 'got'
 import os from 'os'
 
 let tagsm = {}
@@ -32,7 +32,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPr
 		let meh = padLead(ranNumb(43), 3)
 		//let meh2 = ranNumb(2)
 		let meh2 = 2
-		let nais = fs.readFileSync(`./media/picbot/menus/menus_${meh}.jpg`)
+		let nais = await got('https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/menus.json').json().then(v => v.getRandom())
 		let { exp, money, limit, level, role } = db.data.users[m.sender]
 		let { min, xp, max } = xpRange(level, global.multiplier)
 		let name = await conn.getName(m.sender).replaceAll('\n','')

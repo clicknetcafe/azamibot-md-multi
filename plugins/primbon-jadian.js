@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import { Primbon } from 'scrape-primbon'
+import { Primbon } from '../lib/others.js'
 
 const primbon = new Primbon()
 
@@ -14,17 +14,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 		if (!anu.status) throw new e()
 		await m.reply(`*Tanggal :* ${anu.message.tanggal}\n\n*Karakteristik :*\n${anu.message.karakteristik}`)
 	} catch (e) {
-		try {
-			let res = await fetch(`https://api.lolhuman.xyz/api/jadian/${l}/${r}/${s}?apikey=${apilol}`)
-			let json = await res.json()
-			if (json.status != '200') throw new e()
-			let get_result = json.result
-			let ini_txt = `*Karakteristik :* ${get_result.karakteristik}\n\n`
-			ini_txt += `*Deskripsi :* ${get_result.deskripsi}`
-			m.reply(ini_txt)
-		} catch (e) {
-			m.reply(`Terjadi kesalahan, coba lagi nanti.`)
-		}
+		console.log(e)
+		m.reply(`Terjadi kesalahan, coba lagi nanti.`)
 	}
 }
 

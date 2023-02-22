@@ -1,4 +1,4 @@
-import { Primbon } from 'scrape-primbon'
+import { Primbon } from '../lib/others.js'
 
 const primbon = new Primbon()
 
@@ -23,6 +23,7 @@ let handler = async (m, { conn, usedPrefix, text, command }) => {
 		txt += `*Catatan :*\n${anu.message.catatan}`
 		await m.reply(txt)
 	} catch (e) {
+		console.log(e)
 		m.reply(`Terjadi kesalahan, coba lagi nanti.`)
 	}
 }

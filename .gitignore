@@ -9,6 +9,7 @@ node_modules/
 plugins/New folder/
 
 # ntar aja bang bagi-bagi pluginnya :v
+lib/scraperpro.js
 plugins/_detectgempa.js
 plugins/_listspam.js
 plugins/_listspamgc.js
@@ -42,6 +43,7 @@ plugins/download-pinterest.js
 plugins/download-pinterestimage.js
 plugins/download-pinterestvideo.js
 plugins/download-soundcloud.js
+plugins/download-subscene.js
 plugins/download-tiktok.js
 plugins/download-tiktokaudio.js
 plugins/download-tiktoknowm.js
