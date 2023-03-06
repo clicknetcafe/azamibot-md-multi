@@ -30,6 +30,7 @@ plugins/anime-saucenao.js
 plugins/anime-wait.js
 plugins/creator-ktpmaker.js
 plugins/creator-pasfoto.js
+plugins/creator-qc.js
 plugins/download-fb.js
 plugins/download-fbhd.js
 plugins/download-fblow.js

@@ -1,19 +1,29 @@
-import fetch from 'node-fetch'
+import got from 'got'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `Example: ${usedPrefix + command} Soekarno adalah`
 	try {
-		let res = await fetch(`https://api.lolhuman.xyz/api/brainly?apikey=${apilol}&query=${encodeURIComponent(text)}`)
-		let json = await res.json()
-		if (json.status != '200') throw `Informasi tidak tersedia.`
-		let get_result = json.result
-		let ini_txt = "*Result :*"
-		for (var x of get_result) {
-			ini_txt += `\n\n*Question :*\n${x.question.content}\n`
-			ini_txt += `*Answer :*\n${x.answer[0].content}\n`
-			ini_txt += `───────────────────`
+		let anu = await got(`https://api.lolhuman.xyz/api/brainly?apikey=${apilol}&query=${encodeURIComponent(text)}`).json()
+		if (anu.status != '200') throw `Informasi tidak tersedia.`
+		let txt = '*Result :*'
+		for (let x of anu.result) {
+			txt += `\n\n*QUESTION :*\n${x.question.content}\n`
+			if (x.question.attachments.length > 0) {
+				for (let y of x.question.attachments) {
+					try { txt += `_- ${y.url}_\n` }
+					catch (e) { console.log(e) }
+				}
+			}
+			txt += `*ANSWER :*\n${x.answer.content}\n`
+			if (x.answer.attachments.length > 0) {
+				for (let y of x.answer.attachments) {
+					try { txt += `_- ${y.url}_\n` }
+					catch (e) { console.log(e) }
+				}
+			}
+			txt += `───────────────────`
 		}
-		await m.reply(ini_txt)
+		await m.reply(txt)
 	} catch (e) {
 		console.log(e)
 		m.reply(`Informasi tidak tersedia.`)
