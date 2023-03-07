@@ -1,7 +1,4 @@
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-
-const jimp_1 = require('jimp')
+import jimp_1 from 'jimp'
 
 let handler = async (m, { conn, command, usedPrefix }) => {
 	let q = m.quoted ? m.quoted : m

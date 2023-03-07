@@ -4,30 +4,12 @@ let handler = async (m, { conn, isOwner, isAdmin }) => {
 	if (!m.quoted) throw false
 	let { chat, fromMe } = m.quoted
 	let charm = db.data.chats[m.chat]
-	if (!fromMe) {
-		if (isOwner || isAdmin) {
-			try {
-				if ((!charm.nsfw && m.isGroup) || isOwner) {
-					conn.sendMsg(chat, { delete: { remoteJid: m.chat, fromMe: false, id: m.quoted.id, participant: m.quoted.sender } })
-				} else {
-					m.reply(`Tidak dapat hapus pesan saat *nsfw* aktif!`)
-				}
-			} catch (e) {
-				console.log(e)
-			}
-		} else {
-			m.reply(`*「ADMIN GROUP ONLY」*`)
-		}
+	if (!fromMe && (isOwner || isAdmin)) {
+		if ((!charm.nsfw && m.isGroup) || isOwner) await conn.sendMsg(chat, { delete: { remoteJid: m.chat, fromMe: false, id: m.quoted.id, participant: m.quoted.sender } })
+		else throw 'Tidak dapat hapus pesan saat *nsfw* aktif!'
 	} else {
-		try {
-			if ((!charm.nsfw && m.isGroup) || isOwner) {
-				conn.sendMsg(chat, { delete: m.quoted.vM.key })
-			} else {
-				m.reply(`Tidak dapat hapus pesan saat *nsfw* aktif!`)
-			}
-		} catch (e) {
-			console.log(e)
-		}
+		if ((!charm.nsfw && m.isGroup) || isOwner) await conn.sendMsg(chat, { delete: m.quoted.vM.key })
+		else throw 'Tidak dapat hapus pesan saat *nsfw* aktif!'
 	}
 }
 

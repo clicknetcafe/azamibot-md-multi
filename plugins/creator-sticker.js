@@ -29,7 +29,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 					ch = 2
 				} else ch = 0
 			} else ch = 0
-			buffer = await (ch > 1 ? addExif(await (/60/.test(c) ? video2webp60(img) : /45/.test(c) ? video2webp45(img) : /30/.test(c) ? video2webp30(img) : video2webp(img)), packname, author) : ch > 0 ? sticker(img, false, packname, author) : /webp/g.test(mime) ? addExif(img, packname, author) : createSticker(img, { pack: packname, author: author, type: StickerTypes.FULL }))
+			try {
+				buffer = await (ch > 1 ? addExif(await (/60/.test(c) ? video2webp60(img) : /45/.test(c) ? video2webp45(img) : /30/.test(c) ? video2webp30(img) : video2webp(img)), packname, author) : ch > 0 ? sticker(img, false, packname, author) : /webp/g.test(mime) ? addExif(img, packname, author) : createSticker(img, { pack: packname, author: author, type: StickerTypes.FULL }))
+			} catch { return m.reply('conversion failed') }
 			await conn.sendFile(m.chat, buffer, 'sticker.webp', '', m)
 		} else throw `Kirim Gambar/Video Dengan Caption *${usedPrefix + c}*\nDurasi Video 1-9 Detik`
 	}
