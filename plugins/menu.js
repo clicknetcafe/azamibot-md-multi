@@ -30,8 +30,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPr
 	try {
 		let jam = new Date().getHours()
 		let meh = padLead(ranNumb(43), 3)
-		//let meh2 = ranNumb(2)
-		let meh2 = 2
+		let meh2 = ranNumb(2)
 		let nais = await got('https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/menus.json').json().then(v => v.getRandom())
 		let { exp, money, limit, level, role } = db.data.users[m.sender]
 		let { min, xp, max } = xpRange(level, global.multiplier)
@@ -96,11 +95,11 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems, args, usedPr
 		text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
 		const pp = await conn.profilePictureUrl(conn.user.jid).catch(_ => './src/avatar_contact.png')
 		if (meh2 == 1) {
-			conn.sendHydrated(m.chat, text.replaceAll('#','```').trim(), pauthor, nais, 'https://cutt.ly/azamilaifuu', 'Minimalist ツ Sweet', null, null, [
+			conn.sendHydrated(m.chat, text.replaceAll('#','```').trim(), pauthor, nais, 'http://chat.whatsapp.com/KH2teKqiSpq3GPZbXgNchs', 'Minimalist ツ Sweet', null, null, [
 				['Premium', '.premium'],
 				['Contact', '.owner'],
 				['⦿ ALL MENU ⦿', '.menuall']
-			], m)
+			], m, { asLocation: true })
 		} else {
 			if (!args[0]) {
 				const sections = [
