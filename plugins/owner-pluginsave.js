@@ -1,20 +1,15 @@
 import fs from 'fs'
+import { format } from 'util'
 
 let handler = async (m, { usedPrefix, command, text }) => {
-	if (!text) return m.reply(`Nama plugin nya apa ?\n\nContoh : *${usedPrefix + command} sc*`)
-	const files = fs.readdirSync('./plugins')
-	let listall = `${files}`
 	try {
-		let teks = m.quoted.text
-		if (teks == undefined) return m.reply(`reply teks yang ingin dijadikan plugin!`)
-		if(listall.includes(`,${text.replace('.js','')}.js`) || text.includes('anime-anime')) {
-			await fs.writeFileSync(`./plugins/${text.replace('.js','')}.js`, m.quoted.text)
-			m.reply(`Plugin updated : *${text.replace('.js','')}.js*`)
-		} else {
-			m.reply(`plugin tidak ditemukan.`)
-		}
+		if (!text) return m.reply(`mau di save kemana ?\n\n*Contoh :*\n${usedPrefix + command} plugins/bunny.js`)
+		if (!m.quoted?.text) throw `balas pesan nya!`
+		await fs.writeFileSync(text, m.quoted.text)
+		m.reply(`tersimpan di ${text}`)
 	} catch (e) {
-		m.reply(`Tidak menemukan teks`)
+		console.log(e)
+		throw `Error: ENOENT: no such file or directory, open '${text}'`
 	}
 }
 

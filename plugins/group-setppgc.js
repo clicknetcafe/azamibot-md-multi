@@ -22,7 +22,7 @@ let handler = async (m, { conn, command, usedPrefix }) => {
 					}
 				]
 			})
-			m.reply(`Admin @${(m.sender || '').replace(/@s\.whatsapp\.net/g, '')} telah mengganti Icon Group!`, null, { mentions: [m.sender] })
+			m.reply(`Sukses mengganti Icon Group!`)
 		} catch (e) {
 			console.log(e)
 			m.reply(`Terjadi kesalahan, coba lagi nanti.`)

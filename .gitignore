@@ -105,6 +105,7 @@ plugins/info-chord.js
 plugins/info-createbarcode.js
 plugins/info-createqr.js
 plugins/info-cuaca.js
+plugins/info-gsmarena.js
 plugins/info-hero.js
 plugins/info-heroml.js
 plugins/info-jadwalbola.js

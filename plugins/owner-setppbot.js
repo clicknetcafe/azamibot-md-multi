@@ -6,12 +6,11 @@ let handler = async (m, { conn, command, usedPrefix }) => {
 	if ((/image/g.test(mime) && !/webp/g.test(mime)) || q.message?.imageMessage) {
 		try {
 			let media = await q.download()
-			let botNumber = await conn.user.jid
 			let { img } = await pepe(media)
 			await conn.query({
 				tag: 'iq',
 				attrs: {
-					to: botNumber,
+					to: conn.user.jid,
 					type:'set',
 					xmlns: 'w:profile:picture'
 				},
