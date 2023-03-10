@@ -5,8 +5,9 @@ let handler = async (m, { usedPrefix, command, text }) => {
 	try {
 		if (!text) return m.reply(`mau di save kemana ?\n\n*Contoh :*\n${usedPrefix + command} plugins/bunny.js`)
 		if (!m.quoted?.text) throw `balas pesan nya!`
-		await fs.writeFileSync(text, m.quoted.text)
-		m.reply(`tersimpan di ${text}`)
+		let dir = text.includes('.js') ? text : `plugins/${text}.js`
+		await fs.writeFileSync(dir, m.quoted.text)
+		m.reply(`tersimpan di '${dir}'`)
 	} catch (e) {
 		console.log(e)
 		throw `Error: ENOENT: no such file or directory, open '${text}'`

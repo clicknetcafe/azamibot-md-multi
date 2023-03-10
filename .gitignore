@@ -20,7 +20,9 @@ plugins/anime-chara.js
 plugins/anime-kitsu.js
 plugins/anime-kusonime.js
 plugins/anime-manga.js
+plugins/anime-mangatoons.js
 plugins/anime-mynimeku.js
+plugins/anime-noveltoon.js
 plugins/anime-otakudesu.js
 plugins/anime-ran-lolapi.js
 plugins/anime-ran-scrape.js
@@ -28,6 +30,7 @@ plugins/anime-ran-waifuim.js
 plugins/anime-ran-waifupics.js
 plugins/anime-saucenao.js
 plugins/anime-wait.js
+plugins/anime-webtoon.js
 plugins/creator-ktpmaker.js
 plugins/creator-pasfoto.js
 plugins/creator-qc.js
@@ -120,6 +123,7 @@ plugins/info-readbarcode.js
 plugins/info-readqr.js
 plugins/info-ssweb.js
 plugins/info-translate.js
+plugins/info-whatmusic.js
 plugins/info-wikipedia.js
 plugins/kerang-apakah.js
 plugins/kerang-bagaimanakah.js
@@ -136,6 +140,7 @@ plugins/nsfw-pornhub.js
 plugins/nsfw-ran-hmfull.js
 plugins/nsfw-ran-lolapi.js
 plugins/nsfw-ran-scathach.js
+plugins/nsfw-ran-tiktokporn.js
 plugins/nsfw-ran-vhentai.js
 plugins/nsfw-ran-waifuim.js
 plugins/nsfw-ran-waifupics.js
@@ -150,6 +155,7 @@ plugins/random-fakta.js
 plugins/random-people.js
 plugins/random-quotenime.js
 plugins/search-apk.js
+plugins/search-bing.js
 plugins/search-gimage.js
 plugins/search-google.js
 plugins/search-happymod.js
@@ -163,6 +169,8 @@ plugins/search-stikertele.js
 plugins/search-stikerwa.js
 plugins/search-wallhaven.js
 plugins/search-wallpaper.js
+plugins/search-wattpad.js
+plugins/search-wikimedia.js
 plugins/store-cekstatus.js
 plugins/store-done.js
 plugins/store-list.js
@@ -174,6 +182,7 @@ plugins/store-proses.js
 plugins/textpro-1.js
 plugins/textpro-2.js
 plugins/tool-dashboard.js
+plugins/tool-ringtone.js
 
 # data-single-auth
 session.data.json

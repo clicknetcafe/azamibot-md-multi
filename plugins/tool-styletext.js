@@ -1,9 +1,14 @@
-import fetch from 'node-fetch'
-import { JSDOM } from 'jsdom'
+import { styletext } from '../lib/others.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-	if (!text) throw `Example: *${usedPrefix + command} nama gwejh*`
-	conn.reply(m.chat, Object.entries(await stylizeText(text ? text : m.quoted && m.quoted.text ? m.quoted.text : m.text)).map(([name, value]) => `*${name}*\n${value}`).join`\n\n`, m)
+	let teks = text ? text : m.quoted?.text ? m.quoted.text : ''
+	if (!teks) throw `Example: *${usedPrefix + command} nama gwejh*`
+	let anu = await styletext(teks)
+	let txt = ''
+	for (let x of anu) {
+		txt += `*${x.name}*\n${x.result}\n\n`
+	}
+	await m.reply(txt)
 }
 
 handler.help = ['style'].map(v => v + ' <text>')
@@ -11,17 +16,3 @@ handler.tags = ['tools']
 handler.command = /^(style(text)?)$/i
 
 export default handler
-
-async function stylizeText(text) {
-	let res = await fetch('http://qaz.wtf/u/convert.cgi?text=' + encodeURIComponent(text))
-	let html = await res.text()
-	let dom = new JSDOM(html)
-	let table = dom.window.document.querySelector('table').children[0].children
-	let obj = {}
-	for (let tr of table) {
-		let name = tr.querySelector('.aname').innerHTML
-		let content = tr.children[1].textContent.replace(/^\n/, '').replace(/\n$/, '')
-		obj[name + (obj[name] ? ' Reversed' : '')] = content
-	}
-	return obj
-}
