@@ -31,6 +31,7 @@ export async function handler(chatUpdate) {
 	if (!m)
 		return
 	if (m.message?.viewOnceMessageV2) m.message = m.message.viewOnceMessageV2.message
+	if (m.message?.documentWithCaptionMessage) m.message = m.message.documentWithCaptionMessage.message
 	if (db.data == null)
 		await loadDatabase()
 	try {
