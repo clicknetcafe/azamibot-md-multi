@@ -1,5 +1,5 @@
 import { createSticker, StickerTypes } from 'wa-sticker-formatter'
-import { sticker, addExif, video2webp, video2webp30, video2webp45, video2webp60 } from '../lib/sticker.js'
+import { sticker, addExif, video2webp } from '../lib/sticker.js'
 import { getVideoDurationInSeconds } from 'get-video-duration'
 import fs from 'fs'
 
@@ -12,6 +12,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	} else {
 		let buffer, q = m.quoted ? m.quoted : m
 		let mime = (q.msg || q).mimetype || q.mediaType || q.mtype || ''
+		let fps = command.replace(/\D/g, '')
 		if (/image|video|viewOnce/g.test(mime)) {
 			let ch, img = await q.download?.()
 			if (/video/g.test(mime)) {
@@ -30,7 +31,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 				} else ch = 0
 			} else ch = 0
 			try {
-				buffer = await (ch > 1 ? addExif(await (/60/.test(c) ? video2webp60(img) : /45/.test(c) ? video2webp45(img) : /30/.test(c) ? video2webp30(img) : video2webp(img)), packname, author) : ch > 0 ? sticker(img, false, packname, author) : /webp/g.test(mime) ? addExif(img, packname, author) : createSticker(img, { pack: packname, author: author, type: StickerTypes.FULL }))
+				buffer = await (ch > 1 ? addExif(await video2webp(img, isNaN(fps) ? 15 : fps), packname, author) : ch > 0 ? sticker(img, false, packname, author) : /webp/g.test(mime) ? addExif(img, packname, author) : createSticker(img, { pack: packname, author: author, type: StickerTypes.FULL }))
 			} catch { return m.reply('conversion failed') }
 			await conn.sendFile(m.chat, buffer, 'sticker.webp', '', m)
 		} else throw `Kirim Gambar/Video Dengan Caption *${usedPrefix + c}*\nDurasi Video 1-9 Detik`
