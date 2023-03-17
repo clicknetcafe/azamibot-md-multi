@@ -1,22 +1,12 @@
-import db from '../lib/database.js'
-
-let handler = async (m, { conn, isOwner, isAdmin }) => {
-	if (!m.quoted) throw false
+let handler = async (m, { conn, isAdmin, isBotAdmin }) => {
+	if (!m.quoted) return
 	let { chat, fromMe } = m.quoted
-	let charm = db.data.chats[m.chat]
-	if (!fromMe && (isOwner || isAdmin)) {
-		if ((!charm.nsfw && m.isGroup) || isOwner) await conn.sendMsg(chat, { delete: { remoteJid: m.chat, fromMe: false, id: m.quoted.id, participant: m.quoted.sender } })
-		else throw 'Tidak dapat hapus pesan saat *nsfw* aktif!'
-	} else {
-		if ((!charm.nsfw && m.isGroup) || isOwner) await conn.sendMsg(chat, { delete: m.quoted.vM.key })
-		else throw 'Tidak dapat hapus pesan saat *nsfw* aktif!'
-	}
+	if (!fromMe && isAdmin && isBotAdmin) await conn.sendMsg(chat, { delete: { remoteJid: m.chat, fromMe: false, id: m.quoted.id, participant: m.quoted.sender } })
+	else await conn.sendMsg(chat, { delete: m.quoted.vM.key })
 }
 
 handler.menugroup = ['del', 'delete']
 handler.tagsgroup = ['group']
 handler.command = /^(d(el(ete)?)?)$/i
-
-handler.group = true
 
 export default handler
