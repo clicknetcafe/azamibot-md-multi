@@ -11,8 +11,6 @@ plugins/New folder/
 # ntar aja bang bagi-bagi pluginnya :v
 lib/scraperpro.js
 plugins/_detectgempa.js
-plugins/_listspam.js
-plugins/_listspamgc.js
 plugins/_openai.js
 plugins/_openaipc.js
 plugins/anime-anime.js
@@ -99,7 +97,6 @@ plugins/gi-material.js
 plugins/gi-talent.js
 plugins/gi-weapon.js
 plugins/group-listspam.js
-plugins/group-listspamgc.js
 plugins/group-muteall.js
 plugins/group-pool.js
 plugins/info-beasiswa.js

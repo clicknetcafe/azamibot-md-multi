@@ -1036,6 +1036,7 @@ export async function handler(chatUpdate) {
 					continue
 				}
 				m.isCommand = true
+				_user.spamcount += 1
 				let xp = 'exp' in plugin ? parseInt(plugin.exp) : 17 // XP Earning per command
 				if (xp > 200)
 					m.reply('Ngecit -_-') // Hehehe
