@@ -20,7 +20,7 @@ ${item.map(v => `${rpg.emoticon(v)}${v}`.trim()).join('\n')}
 	const type = (args[0] || '').toLowerCase()
 	if (!item.includes(type)) return m.reply(lol)
 	const count = Math.min(Number.MAX_SAFE_INTEGER, Math.max(1, (isNumber(args[1]) ? parseInt(args[1]) : 1))) * 1
-	let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : args[2] ? (args[2].replace(/[@ .+-]/g, '') + '@s.whatsapp.net') : ''
+	let who = args[2] ? (args[2].replace(/[@ .+-]/g, '') + '@s.whatsapp.net') : m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : ''
 	if (!who) return m.reply('Tag salah satu, atau ketik Nomernya!!')
 	if (!(who in db.data.users)) return m.reply(`User ${who} not in database`)
 	if (user[type] * 1 < count) return m.reply(`Your *${rpg.emoticon(type)}${type}${special(type)}* is less *${count - user[type]}*`)

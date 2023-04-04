@@ -1,15 +1,14 @@
 import db from '../lib/database.js'
 
 let handler = async (m, { conn, text }) => {
-	let who
-	if (m.isGroup) who = text ? text.replace(/\D/g, '') + '@s.whatsapp.net' : m.quoted ? m.quoted.sender : m.mentionedJid ? m.mentionedJid[0] : ''
-	else who = m.chat
+	let who = text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : !m.isGroup ? m.chat : m.quoted ? m.quoted.sender : m.mentionedJid ? m.mentionedJid[0] : ''
 	if (!who) throw 'Tag salah satu lah'
 	try {
 		let user = db.data.users[who]
 		user.banned = false
 		user.permaban = false
 		user.lastbanned = 0
+		user.bannedcd = 0
 		conn.reply(m.chat, `berhasil unbanned`, m)
 	} catch (e) {
 		console.log(e)
