@@ -1111,6 +1111,7 @@ export async function handler(chatUpdate) {
 	} catch (e) {
 		console.error(e)
 	} finally {
+		//await this.sendPresenceUpdate(['composing', 'recording'].getRandom(), m.chat) //auto typing / record
 		if (opts['queque'] && m.text) {
 			const id = m.id
 			this.msgqueque.unqueue(id)
