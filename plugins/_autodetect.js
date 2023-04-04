@@ -8,7 +8,7 @@ export async function before(m) {
 	} else if (m.messageStubType == 22) {
 		await this.reply(m.chat, `${edtr} telah mengubah icon grup.`, fkontak, { mentions: [m.sender] })
 	} else if (m.messageStubType == 1 || m.messageStubType == 23 || m.messageStubType == 132) {
-		await this.reply(m.chat, `${edtr} *mereset* link grup!\n\n`, fkontak, { mentions: [m.sender] })
+		await this.reply(m.chat, `${edtr} *mereset* link grup!`, fkontak, { mentions: [m.sender] })
 	} else if (m.messageStubType == 24) {
 		await this.reply(m.chat, `${edtr} mengubah deskripsi grup.\n\n${m.messageStubParameters[0]}`, fkontak, { mentions: [m.sender] })
 	} else if (m.messageStubType == 25) {
