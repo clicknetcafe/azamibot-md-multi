@@ -91,7 +91,6 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems }) => {
 			readmore: readMore
 		}
 		text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
-		const pp = await conn.profilePictureUrl(conn.user.jid).catch(_ => './src/avatar_contact.png')
 		conn.sendButton(m.chat, text.trim(), pauthor, nais, [
 			[`👥 Owner`, `.owner`],
 			[`👑 Prem`, `.premium`]
