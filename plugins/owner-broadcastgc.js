@@ -1,7 +1,8 @@
+import Connection from '../lib/connection.js'
 import { delay, ranNumb } from '../lib/others.js'
 
 let handler = async (m, { conn, text, usedPrefix, command, participants }) => {
-	let chats = Object.entries(conn.chats).filter(([jid, chat]) => jid.endsWith('@g.us') && chat.isChats && !chat.metadata?.read_only && !chat.metadata?.announce).map(v => v[0])
+	let chats = Object.entries(Connection.store.chats).filter(([jid, chat]) => jid.endsWith('@g.us') && chat.isChats && !chat.metadata?.read_only && !chat.metadata?.announce).map(v => v[0])
 	let img, q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || q.mtype || ''
 	if (!text) throw `teks nya mana ?`

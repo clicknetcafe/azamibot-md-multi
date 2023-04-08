@@ -1,3 +1,5 @@
+import { plugins } from '../lib/plugins.js'
+
 const all = ['help', ...['anime','download','ephoto','editor','fun','genshin','group','nsfw','owner','oxy','store','textpro'].map(v => 'menu' + v)]
 
 let handler = async (m) => {
