@@ -1,3 +1,4 @@
+import Connection from '../lib/connection.js'
 import db from '../lib/database.js'
 
 let handler = async (m, { conn, args, text, usedPrefix, command, isPrems }) => {
@@ -16,7 +17,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command, isPrems }) => {
   Contoh penggunaan: ${usedPrefix}math medium
 	`.trim(), pauthor, null, buttons, m)
 	let id = m.chat
-	let chats = Object.entries(conn.chats).filter(([jid, chat]) => jid.includes('6282337245566@s') && chat.isChats).map(v => v[0])
+	let chats = Object.entries(Connection.store.chats).filter(([jid, chat]) => jid.includes('6282337245566@s') && chat.isChats).map(v => v[0])
 	let cc = conn.serializeM(text ? m : m.quoted ? await m.getQuotedObj() : false || m)
 	if (id in conn.math) return conn.reply(m.chat, 'Masih ada soal belum terjawab di chat ini', conn.math[id][0])
 	let math = genMath(mode)
