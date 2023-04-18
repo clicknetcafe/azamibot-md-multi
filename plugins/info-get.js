@@ -1,20 +1,19 @@
 import fetch from 'node-fetch'
-import util from 'util'
+import { format } from 'util'
 
-let handler = async (m, { text }) => {
+let handler = async (m, { conn, text }) => {
 	if (!/^https?:\/\//.test(text)) throw 'url invalid, please input a valid url. Try with add http:// or https://'
+	let { href: url, origin } = new URL(text)
+	let res = await fetch(url, { headers: { 'referer': origin }})
+	if (res.headers.get('content-length') > 100 * 1024 * 1024 * 1024) throw `Content-Length: ${res.headers.get('content-length')}`
+	if (!/text|json/.test(res.headers.get('content-type'))) return conn.sendFile(m.chat, url, 'file', text, m)
+	let txt = await res.buffer()
 	try {
-		let _url = new URL(text)
-		let url = global.API(_url.origin, _url.pathname, Object.fromEntries(_url.searchParams.entries()), 'APIKEY')
-		let res = await fetch(url)
-		if (res.headers.get('content-length') > 100 * 1024 * 1024 * 1024) {
-			throw `Content-Length: ${res.headers.get('content-length')}`
-		}
-		if (!/text|json/.test(res.headers.get('content-type'))) return conn.sendFile(m.chat, url, 'file', text, m)
-		let txt = await res.buffer()
-		txt = util.format(JSON.parse(txt+'')) || ''
-		m.reply(txt.slice(0, 65536) + '')
-	} catch (e) { throw e.toString() }
+		txt = format(JSON.parse(txt + ''))
+	} catch {
+		txt = txt + ''
+	}
+	m.reply(txt.trim().slice(0, 65536) + '')
 }
 
 handler.help = ['fetch <url>']
