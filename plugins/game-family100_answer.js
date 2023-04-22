@@ -23,6 +23,7 @@ export async function before(m) {
 			return !0
 		room.terjawab[index] = m.sender
 		user.money += room.winScore
+		user.spamcount += 2
 	}
 	let isWin = room.terjawab.length === room.terjawab.filter(v => v).length
 	let caption = `

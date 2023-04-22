@@ -8,9 +8,11 @@ handler.before = async function (m) {
 	this.math = this.math ? this.math : {}
 	if (!(id in this.math)) return this.sendButton(m.chat, 'Soal itu telah berakhir', pauthor, null, [['math', '/math']], m)
 	if (m.quoted.id == this.math[id][0].id) {
+		let user = db.data.users[m.sender]
 		let math = JSON.parse(JSON.stringify(this.math[id][1]))
 		if (m.text == math.result) {
-			db.data.users[m.sender].money += math.bonus
+			user.money += math.bonus
+			user.spamcount += 2
 			clearTimeout(this.math[id][3])
 			delete this.math[id]
 			this.sendButton(m.chat, `*Jawaban Benar!*\n+${math.bonus} Money`, pauthor, null, [['again', `/math ${math.mode}`]], m)

@@ -1,4 +1,4 @@
-let handler = async(m) => {
+let handler = async(m, { conn }) => {
 	let who, pp
 	if (m.isGroup) who = m.quoted ? m.quoted.sender : m.mentionedJid[0] ? m.mentionedJid[0] : m.sender
 	else who = m.quoted ? m.quoted.sender : m.chat

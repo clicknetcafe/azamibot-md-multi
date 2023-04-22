@@ -15,6 +15,7 @@ export async function before(m) {
 		let json = JSON.parse(JSON.stringify(this.caklontong[id][1]))
 		if (m.text.toLowerCase() == json.jawaban.toLowerCase().trim()) {
 			user.exp += this.caklontong[id][2]
+			user.spamcount += 2
 			this.sendButton(m.chat, `*Benar!* 🎉\n${json.deskripsi}\n\n+${this.caklontong[id][2]} Exp`, pauthor, ['caklontong', '/caklontong'], m)
 			clearTimeout(this.caklontong[id][3])
 			delete this.caklontong[id]
