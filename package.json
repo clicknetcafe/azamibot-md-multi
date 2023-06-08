@@ -98,7 +98,6 @@
 		"url-regex-safe": "^3.0.0",
 		"wa-sticker-formatter": "^4.4.4",
 		"xfarr-api": "^2.0.0",
-		"yargs": "^17.7.2",
-		"ytdl-core": "^4.11.4"
+		"yargs": "^17.7.2"
 	}
 }

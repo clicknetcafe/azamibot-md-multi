@@ -1,50 +1,37 @@
 import fetch from 'node-fetch'
-import { youtubedl, youtubedlv2, youtubedlv3 } from '@bochilteam/scraper'
-import { niceBytes, somematch } from '../lib/others.js'
+import { youtubedl } from '@bochilteam/scraper-sosmed'
+import { somematch } from '../lib/others.js'
 
-let handler = async (m, { conn, text, args, command }) => {
-	if (!text.match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))) return m.reply(`Invalid Youtube URL.`)
+let handler = async (m, { conn, args, command }) => {
+	if (!args[0].match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))) return m.reply(`Invalid Youtube URL.`)
 	try {
-		const { audio: _audio, title } = await youtubedl(args[0]).catch(async _ => await youtubedlv2(args[0])).catch(async _ => await youtubedlv3(args[0]))
-		let audio, source, res, link, lastError, sizeh
-		for (let i in _audio) {
-			try {
-				audio = _audio[i]
-				link = await audio.download()
-				sizeh = await audio.fileSize
-				if (link) res = await fetch(link)
-				if (res) source = await res.arrayBuffer()
-				if (source instanceof ArrayBuffer) break
-			} catch (e) {
-				audio = link = source = null
-				lastError = e
-			}
-		}
-		if (sizeh > 300000) throw `Filesize: ${audio.fileSizeH}\nTidak dapat mengirim, maksimal file 300 MB`
-		if (!link) throw new Error('No URL')
-		if (command.includes('mp3')) await conn.sendMsg(m.chat, { document: { url: link }, mimetype: 'audio/mpeg', fileName: `${title}.mp3`}, { quoted : m })
-		else await conn.sendMsg(m.chat, { audio: { url: link }, mimetype: 'audio/mp4' }, { quoted : m })
+		let anu = await youtubedl(args[0])
+		let data = anu.audio[Object.keys(anu.audio)[0]]
+		let url = await data.download()
+		if (data.fileSize > 400000) return m.reply(`Filesize: ${data.fileSizeH}\nTidak dapat mengirim, maksimal file 400 MB`)
+		if (/mp3/g.test(command)) await conn.sendMsg(m.chat, {document: { url: url }, mimetype: 'audio/mpeg', fileName: `${anu.title}.mp3`}, { quoted : m })
+		else await conn.sendMsg(m.chat, { audio: { url: url }, mimetype: 'audio/mp4' }, { quoted : m })
 	} catch (e) {
 		console.log(e)
 		try {
-			let res = await fetch(`https://api.lolhuman.xyz/api/ytaudio?apikey=${apilol}&url=${text}`)
+			let res = await fetch(`https://api.lolhuman.xyz/api/ytaudio?apikey=${apilol}&url=${args[0]}`)
 			let anu = await res.json()
 			anu = anu.result
 			let vsize = anu.link.size.slice(-2)
 			if (vsize == "GB") return m.reply(`Ngotak dong.\nMana bisa ngirim video ${anu.link.size}`)
-			if (!somematch(['kB','KB'], vsize) && parseInt(anu.link.size.replace(" MB", "")) > 200) return m.reply(`Filesize: ${anu.link.size}\nTidak dapat mengirim, maksimal file 300 MB`)
+			if (!somematch(['kB','KB'], vsize) && parseInt(anu.link.size.replace(" MB", "")) > 400) return m.reply(`Filesize: ${anu.link.size}\nTidak dapat mengirim, maksimal file 400 MB`)
 			if (!anu.link.link) throw new Error('Error')
 			if (/mp3/g.test(command)) await conn.sendMsg(m.chat, {document: { url: anu.link.link }, mimetype: 'audio/mpeg', fileName: `${anu.result.title}.mp3`}, { quoted : m })
 			else await conn.sendMsg(m.chat, { audio: { url: anu.link.link }, mimetype: 'audio/mp4' }, { quoted : m })
 		} catch (e) {
 			console.log(e)
 			try {
-				let res = await fetch(`https://api.lolhuman.xyz/api/ytaudio2?apikey=${apilol}&url=${text}`)
+				let res = await fetch(`https://api.lolhuman.xyz/api/ytaudio2?apikey=${apilol}&url=${args[0]}`)
 				let anu = await res.json()
 				anu = anu.result
 				let vsize = anu.size.slice(-2)
 				if (vsize == "GB") return m.reply(`Ngotak dong.\nMana bisa ngirim video ${anu.size}`)
-				if (!somematch(['kB','KB'], vsize) && parseInt(anu.size.replace(" MB", "")) > 200) return m.reply(`Filesize: ${anu.size}\nTidak dapat mengirim, maksimal file 300 MB`)
+				if (!somematch(['kB','KB'], vsize) && parseInt(anu.size.replace(" MB", "")) > 400) return m.reply(`Filesize: ${anu.size}\nTidak dapat mengirim, maksimal file 400 MB`)
 				if (!anu.link) throw new Error('Error')
 				if (command.includes('mp3')) await conn.sendMsg(m.chat, {document: { url: anu.link }, mimetype: 'audio/mpeg', fileName: `${anu.result.title}.mp3`}, { quoted : m })
 				else await conn.sendMsg(m.chat, { audio: { url: anu.link }, mimetype: 'audio/mp4' }, { quoted : m })
