@@ -18,7 +18,7 @@ This Script is for everyone, original base by [`BochilGaming`](https://github.co
 
 If you want to add Node Modules manually, download here : [`node_modules`](https://cutt.ly/azamibot-md-modules)
 
-This is Script of WhatsApp multi device, working with [`@adiwajshing/baileys`](https://github.com/adiwajshing/baileys)
+This is Script of WhatsApp multi device, working with [`@whiskeysockets/baileys`](https://github.com/whiskeysockets/baileys)
 
 ## Join Group Minimalist ツ Sweet
 [![Grup WhatsApp](https://img.shields.io/badge/WhatsApp%20Group-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://cutt.ly/azamilaifu)

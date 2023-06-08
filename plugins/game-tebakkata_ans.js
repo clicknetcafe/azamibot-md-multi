@@ -16,7 +16,7 @@ export async function before(m) {
 		if (m.text.toLowerCase() == json.jawaban.toLowerCase().trim()) {
 			user.money += this.tebakkata[id][2]
 			user.spamcount += 2
-			this.sendButton(m.chat, `*Benar!* 🎉\n\n+${this.tebakkata[id][2]} Money`, pauthor, ['tebakkata', '/tebakkata'], m)
+			this.reply(m.chat, `*Benar!* 🎉\n\n+${this.tebakkata[id][2]} Money`, m)
 			clearTimeout(this.tebakkata[id][3])
 			delete this.tebakkata[id]
 		} else if (similarity(m.text.toLowerCase(), json.jawaban.toLowerCase().trim()) >= threshold)

@@ -38,10 +38,10 @@ ${arr.slice(6).join('')}
 Menunggu @${room.game.currentTurn.split('@')[0]}
 Ketik *nyerah* untuk nyerah
 `.trim()
-		if (room.x !== room.o) await conn.sendButton(room.x, str, pauthor, ['Nyerah', 'nyerah'], m, {
+		if (room.x !== room.o) await conn.reply(room.x, str, m, {
 			mentions: conn.parseMention(str)
 		})
-		await conn.sendButton(room.o, str, pauthor, ['Nyerah', 'nyerah'], m, {
+		await conn.reply(room.o, str, m, {
 			mentions: conn.parseMention(str)
 		})
 	} else {

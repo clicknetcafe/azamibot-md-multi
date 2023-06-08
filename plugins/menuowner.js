@@ -65,10 +65,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 			['Speed', '/ping'],
 			['Owner', '/owner']
 		], m, { asLocation:true })*/
-		conn.sendButton(m.chat, text, pauthor, nais, [
-			[`👥 Owner`, `.owner`],
-			[`🪡 Ping`, `.ping`]
-		], m, { asLocation: true })
+		await conn.sendFile(m.chat, nais, '', text, m)
 	} catch (e) {
 		throw e
 	}

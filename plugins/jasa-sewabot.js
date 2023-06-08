@@ -24,7 +24,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 		}
 	}, {})
 
-	/*const { prepareWAMessageMedia, generateWAMessageFromContent, proto } = require("@adiwajshing/baileys")
+	/*const { prepareWAMessageMedia, generateWAMessageFromContent, proto } = require("@whiskeysockets/baileys")
 	let fs = require('fs')
 	var messa = await prepareWAMessageMedia({ image: fs.readFileSync('./media/anime.jpg') }, { upload: conn.waUploadToServer })
 	var catalog = generateWAMessageFromContent(m.chat, proto.Message.fromObject({

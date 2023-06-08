@@ -6,14 +6,14 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 	try {
 		let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/databasebot/main/Random/dilan.json`)
 		let anu = pickRandom(await res.json())
-		conn.sendButton(m.chat, anu, `⭔ Dilan Quotes ⭔`, null, [[`⧑ next ${command} ⧑`, `${usedPrefix + command}`]], m)
+		m.reply(anu)
 	} catch (e) {
 		console.log(e)
 		try {
 			let res = await fetch(`https://api.lolhuman.xyz/api/quotes/dilan?apikey=${apilol}`)
 			let json = await res.json()
 			if (json.status != '200') throw new e()
-			conn.sendButton(m.chat, `${json.result}`, `⭔ Dilan Quotes ⭔`, null, [[`⧑ next ${command} ⧑`, `${usedPrefix + command}`]], m)
+			m.reply(json.result)
 		} catch (e) {
 			m.reply(`Terjadi kesalahan, coba lagi nanti.`)
 		}

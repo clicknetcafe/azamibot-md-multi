@@ -1,4 +1,4 @@
-import { downloadContentFromMessage } from '@adiwajshing/baileys'
+import { downloadContentFromMessage } from '@whiskeysockets/baileys'
 
 let handler = async (m, { conn }) => {
 	let q = m.quoted ? m.quoted : m

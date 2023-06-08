@@ -26,7 +26,7 @@ ${json.deskripsi}
 		await conn.sendMsg(m.chat, { image: { url: json.img }, caption: caption }, { quoted: m }),
 		json, poin,
 		setTimeout(() => {
-			if (conn.tebakgambar[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.jawaban}*`, pauthor, ['tebakgambar', `${usedPrefix}tebakgambar`], conn.tebakgambar[id][0])
+			if (conn.tebakgambar[id]) conn.reply(m.chat, `Waktu habis!\nJawabannya adalah *${json.jawaban}*`, conn.tebakgambar[id][0])
 			delete conn.tebakgambar[id]
 		}, timeout)
 	]

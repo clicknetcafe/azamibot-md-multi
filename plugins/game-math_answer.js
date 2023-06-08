@@ -6,7 +6,7 @@ handler.before = async function (m) {
 	let id = m.chat
 	if (!m.quoted || !m.quoted.fromMe || !m.text || !/^Berapa hasil dari/i.test(m.quoted.text)) return !0
 	this.math = this.math ? this.math : {}
-	if (!(id in this.math)) return this.sendButton(m.chat, 'Soal itu telah berakhir', pauthor, null, [['math', '/math']], m)
+	if (!(id in this.math)) return this.reply(m.chat, 'Soal itu telah berakhir', m)
 	if (m.quoted.id == this.math[id][0].id) {
 		let user = db.data.users[m.sender]
 		let math = JSON.parse(JSON.stringify(this.math[id][1]))
@@ -15,12 +15,12 @@ handler.before = async function (m) {
 			user.spamcount += 2
 			clearTimeout(this.math[id][3])
 			delete this.math[id]
-			this.sendButton(m.chat, `*Jawaban Benar!*\n+${math.bonus} Money`, pauthor, null, [['again', `/math ${math.mode}`]], m)
+			this.reply(m.chat, `*Jawaban Benar!*\n+${math.bonus} Money`, m)
 		} else {
 			if (--this.math[id][2] == 0) {
 				clearTimeout(this.math[id][3])
 				delete this.math[id]
-				this.sendButton(m.chat, `*Kesempatan habis!*\nJawaban: *${math.result}*`, pauthor, null, [['again', `/math ${math.mode}`]], m)
+				this.reply(m.chat, `*Kesempatan habis!*\nJawaban: *${math.result}*`, m)
 			} else await m.reply(`*Jawaban Salah!*\nMasih ada ${this.math[id][2]} kesempatan`)
 		}
 	}

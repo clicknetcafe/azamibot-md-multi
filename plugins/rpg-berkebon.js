@@ -35,7 +35,7 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
 			user.pisang += ran[2].buah
 			user.jeruk  += ran[3].buah
 			user.anggur += ran[4].buah
-			conn.sendButton(m.chat, `*[ SELESAI ]*\n\nKamu mendapatkan :\n🥭 +${ran[0].buah} Mangga\n🍎 +${ran[1].buah} Apel\n🍌 +${ran[2].buah} Pisang\n🍊 +${ran[3].buah} Jeruk\n🍇 +${ran[4].buah} Anggur`, pauthor, gmkeb, [[`List Buah`, `${usedPrefix}buah`]], m)
+			conn.sendFile(m.chat, gmkeb, '', `*[ SELESAI ]*\n\nKamu mendapatkan :\n🥭 +${ran[0].buah} Mangga\n🍎 +${ran[1].buah} Apel\n🍌 +${ran[2].buah} Pisang\n🍊 +${ran[3].buah} Jeruk\n🍇 +${ran[4].buah} Anggur`, m)
 		}, cooldownn)
 		m.reply('_Sedang Berkebun..._')
 		user.lastberkebon = new Date * 1

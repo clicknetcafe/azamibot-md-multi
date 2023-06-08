@@ -1,5 +1,5 @@
 import { isNumber } from '../lib/others.js'
-import { areJidsSameUser } from '@adiwajshing/baileys'
+import { areJidsSameUser } from '@whiskeysockets/baileys'
 import db from '../lib/database.js'
 
 const leaderboards = [

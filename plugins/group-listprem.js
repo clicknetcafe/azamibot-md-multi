@@ -4,26 +4,21 @@ import { parsePhoneNumber } from 'awesome-phonenumber'
 let handler = async (m, { conn, usedPrefix }) => {
 	let prems = db.data.datas.prems.filter(v => v.user !== '').sort((a, b) => a.date - b.date)
 	if (prems.length == 0) return m.reply (`Tidak ada user premium !`)
-	let namebot = await conn.getName(conn.user.jid)
-	let timer, array = []
+	let z = 1, timer
+	let txt = `*[ LIST PREMIUM USER ]*\n`
 	for (let i of prems) {
 		let name = await conn.getName(i.user)
 		let pn = await parsePhoneNumber('+' + i.user.split('@')[0])
 		pn = pn.number.international
 		timer = i.date - new Date()
 		if (timer <= 0) {}
-		else await array.push({ title: `✨ ${name}${name != pn ? ` (${pn})` : ''}`, description: `Durasi : ${timer.toTimeString()}`})
+		else {
+			txt += `\n*[${z}] ${name}*\n`
+			txt += `┗⊱ ${timer.toTimeString()}`
+			z++
+		}
 	}
-	let sections = [{ title: `━ ━ ━ ━ 『 List Premium Users 』 ━ ━ ━ ━`, rows: array }]
-	let listMessage = {
-		text: `*Request From :* @${m.sender.split`@`[0]}\n\n*List Premium :* ${prems.length} Users`,
-		mentions: [m.sender],
-		footer: pauthor,
-		title: `━ ━ 『 *LIST PREMIUM* 』 ━ ━`,
-		buttonText: `Premium List`,
-		sections
-	}
-	await conn.sendMsg(m.chat, listMessage, { quoted : m })
+	await m.reply(txt)
 }
 
 handler.menugroup = ['listprem']

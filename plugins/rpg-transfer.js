@@ -29,7 +29,7 @@ Are you sure you want to transfer *${count}* ${rpg.emoticon(type)}${type}${speci
 Timeout *60* detik
 `.trim()
 	let c = pauthor
-	conn.sendButton(m.chat, confirm, c, null, [['y'], ['n']], m, { mentions: [who] })
+	conn.reply(m.chat, confirm+`\n\nketik *y / n*`, m, { mentions: [who] })
 	confirmation[m.sender] = {
 		sender: m.sender,
 		to: who,

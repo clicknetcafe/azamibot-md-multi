@@ -6,11 +6,6 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 	try {
 		let anu = await fetch(`https://api.lolhuman.xyz/api/smule?apikey=${apilol}&url=${text}`)
 		let json = await anu.json()
-		let ini_txt = `*[ PILIH FORMAT MEDIA ]*\n\n_${json.result.title}_\n\nKetik *${usedPrefix}smulemp3* atau *${usedPrefix}smulemp4* apabila tombol tidak muncul/berfungsi.\n`
-		conn.sendButton(m.chat, ini_txt, pauthor, [
-			[`🎧 Audio`, `${usedPrefix}smulemp3 ${text}`],
-			[`🎥 Video`, `${usedPrefix}smulemp4 ${text}`]
-		], m)
 	} catch (e) {
 		console.log(e)
 		m.reply(`Invalid Smule url.`)
@@ -19,7 +14,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 
 handler.menudownload = ['smule <url>']
 handler.tagsdownload = ['search']
-handler.command = /^(smule(play|search)?)$/i
+//handler.command = /^(smule(play|search)?)$/i
 
 handler.limit = true
 

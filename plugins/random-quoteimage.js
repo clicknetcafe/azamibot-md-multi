@@ -7,7 +7,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 		let fimg = await fetch(`https://api.lolhuman.xyz/api/random/quotesimage?apikey=${apilol}`)
 		let fimgb = Buffer.from(await fimg.arrayBuffer())
 		if (Buffer.byteLength(fimgb) < 22000) throw new e()
-		conn.sendButton(m.chat, `_© Quote untuk Anda_`, pauthor, fimgb, [[`⧑ next ${command} ⧑`, `${usedPrefix + command}`]], m)
+		await conn.sendFile(m.chat, fimgb, '', `_© Quote untuk Anda_`, m)
 	} catch (e) {
 		console.log(e)
 		m.reply(`Terjadi kesalahan, coba lagi nanti.`)

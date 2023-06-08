@@ -1,5 +1,5 @@
 import db from '../lib/database.js'
-import { downloadContentFromMessage } from '@adiwajshing/baileys'
+import { downloadContentFromMessage } from '@whiskeysockets/baileys'
 
 export async function before(m) {
 	if (!m.isGroup) return !1

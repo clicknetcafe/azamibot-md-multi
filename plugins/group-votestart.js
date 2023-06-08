@@ -30,11 +30,10 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 │ 
 └────
 
-*${usedPrefix}hapusvote* - untuk menghapus vote`
-	conn.sendButton(m.chat, teks_vote, pauthor, null, [
-		[`𝚄𝙿𝚅𝙾𝚃𝙴`, `${usedPrefix}upvote`],
-		[`𝙳𝙴𝚅𝙾𝚃𝙴`, `${usedPrefix}devote`]
-	], m)
+*${usedPrefix}hapusvote* - untuk menghapus vote
+*${usedPrefix}upvote* - untuk upvote
+*${usedPrefix}devote* - untuk devote`
+	conn.reply(m.chat, teks_vote, m)
 }
 
 handler.menugroup = ['mulaivote [alasan]']

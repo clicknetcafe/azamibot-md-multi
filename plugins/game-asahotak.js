@@ -27,7 +27,7 @@ ${json.soal}
 		await conn.reply(m.chat, caption, m),
 		json, poin,
 		setTimeout(() => {
-			if (conn.asahotak[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.jawaban}*`, pauthor, ['asahotak', `${usedPrefix}asahotak`], conn.asahotak[id][0])
+			if (conn.asahotak[id]) conn.reply(m.chat, `Waktu habis!\nJawabannya adalah *${json.jawaban}*`, conn.asahotak[id][0])
 			delete conn.asahotak[id]
 		}, timeout)
 	]

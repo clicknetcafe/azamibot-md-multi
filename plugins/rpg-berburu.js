@@ -57,7 +57,7 @@ let handler = async (m, { conn, usedPrefix }) => {
 		user.babihutan	+= buruan[9].hewan
 		user.babi		+= buruan[10].hewan
 		user.ayam		+= buruan[11].hewan
-		conn.sendButton(m.chat, hsl, pauthor, gmbrt, [[`Kandang`, `${usedPrefix}kandang`]], m)
+		conn.sendFile(m.chat, gmbrt, '', hsl, m)
 	}, cooldownn)
 					 
 	setTimeout(() => {

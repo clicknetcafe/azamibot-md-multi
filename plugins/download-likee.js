@@ -7,9 +7,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 		let anu = await fetch(`https://api.akuari.my.id/downloader/likeedl?link=${text}`)
 		let json = await anu.json()
 		let ini_txt = `${json.hasil.title}`
-		conn.sendButton(m.chat, ini_txt, pauthor, json.hasil.watermark, [
-			[`► No WM`, `${usedPrefix}likeenowm ${text}`]
-		], m)
+		await conn.sendMsg(m.chat, { video: { url: json.hasil.watermark }, caption: json.hasil.title }, { quoted: m })
 	} catch (e) {
 		console.log(e)
 		m.reply(`Invalid likee url.`)

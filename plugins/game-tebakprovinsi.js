@@ -26,7 +26,7 @@ let handler = async (m, { conn, usedPrefix, isPrems }) => {
 		await conn.sendMsg(m.chat, { image: { url: json.result.img }, caption: caption }, { quoted: m }),
 		json, poin,
 		setTimeout(() => {
-			if (conn.tebakprovinsi[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.result.title}*`, pauthor, ['tebakprovinsi', `${usedPrefix}tebakprovinsi`], conn.tebakprovinsi[id][0])
+			if (conn.tebakprovinsi[id]) conn.reply(m.chat, `Waktu habis!\nJawabannya adalah *${json.result.title}*`, conn.tebakprovinsi[id][0])
 			delete conn.tebakprovinsi[id]
 		}, timeout)
 	]

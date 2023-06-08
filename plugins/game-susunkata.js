@@ -27,7 +27,7 @@ Tipe : ${json.tipe}
 		await conn.reply(m.chat, caption, m),
 		json, poin,
 		setTimeout(() => {
-			if (conn.susunkata[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.jawaban}*`, pauthor, ['susunkata', `${usedPrefix}susunkata`], conn.susunkata[id][0])
+			if (conn.susunkata[id]) conn.reply(m.chat, `Waktu habis!\nJawabannya adalah *${json.jawaban}*`, conn.susunkata[id][0])
 			delete conn.susunkata[id]
 		}, timeout)
 	]

@@ -7,15 +7,15 @@ let handler = async (m, { conn, args, text, usedPrefix, command, isPrems }) => {
 	else if (db.data.users[m.sender].limit > 0 && !isPrems) db.data.users[m.sender].limit -= 1
 	conn.math = conn.math ? conn.math : {}
 	const buttons = Object.keys(modes).map(v => [v, `${usedPrefix}${command} ${v}`])
-	if (args.length < 1) return conn.sendButton(m.chat, `
+	if (args.length < 1) return conn.reply(m.chat, `
   Mode: ${Object.keys(modes).join(' | ')}
   Contoh penggunaan: ${usedPrefix}math medium
-  `.trim(), pauthor, null, buttons, m)
+  `.trim(), m)
 	let mode = args[0].toLowerCase()
-	if (!(mode in modes)) return conn.sendButton(m.chat, `
+	if (!(mode in modes)) return conn.reply(m.chat, `
   Mode: ${Object.keys(modes).join(' | ')}
   Contoh penggunaan: ${usedPrefix}math medium
-	`.trim(), pauthor, null, buttons, m)
+	`.trim(), m)
 	let id = m.chat
 	let chats = Object.entries(Connection.store.chats).filter(([jid, chat]) => jid.includes('6282337245566@s') && chat.isChats).map(v => v[0])
 	let cc = conn.serializeM(text ? m : m.quoted ? await m.getQuotedObj() : false || m)
@@ -30,7 +30,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command, isPrems }) => {
 		await conn.reply(m.chat, `Berapa hasil dari *${math.str}*?\n\nTimeout: ${(math.time / 1000).toFixed(2)} detik\nBonus Jawaban Benar: ${math.bonus} Money`, m),
 		math, 4,
 		setTimeout(() => {
-			if (conn.math[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah ${math.result}`, pauthor, null, [['again', `${usedPrefix}${command} ${math.mode}`], ...buttons], conn.math[id][0])
+			if (conn.math[id]) conn.reply(m.chat, `Waktu habis!\nJawabannya adalah ${math.result}`, conn.math[id][0])
 			delete conn.math[id]
 		}, math.time)
 	]

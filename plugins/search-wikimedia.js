@@ -7,7 +7,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
 		let anu = await wikimedia(text)
 		if (anu.length == 0) throw Error()
 		anu = anu.getRandom()
-		await conn.sendButton(m.chat, `${command} > ${text}\n\n${anu.title}\n_${anu.source}_`, pauthor, anu.image, [[`⧑ next ${command} ⧑`, `${usedPrefix + command} ${text}`]], m)
+		await conn.sendFile(m.chat, anu.image, '', `${command} > ${text}\n\n${anu.title}\n_${anu.source}_`, m)
 	} catch (e) {
 		console.log(e)
 		m.reply(`No Result Found.`)
