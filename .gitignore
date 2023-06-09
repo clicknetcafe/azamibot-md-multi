@@ -48,7 +48,7 @@ plugins/download-soundcloud.js
 plugins/download-subscene.js
 plugins/download-tiktok.js
 plugins/download-tiktokaudio.js
-plugins/download-tiktoknowm.js
+plugins/download-tiktokwm.js
 plugins/download-twitter.js
 plugins/download-yts.js
 plugins/download-zippyshare.js

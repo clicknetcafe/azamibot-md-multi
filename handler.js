@@ -670,6 +670,8 @@ export async function handler(chatUpdate) {
 				if (typeof chat !== 'object')
 					db.data.chats[m.chat] = {}
 				if (chat) {
+					if (!('presence' in chat))
+						chat.presence = true
 					if (!('isBanned' in chat))
 						chat.isBanned = false
 					if (!('permaBan' in chat))
@@ -725,6 +727,7 @@ export async function handler(chatUpdate) {
 					if (!isNumber(chat.spamcount))
 						chat.spamcount = 0
 				} else db.data.chats[m.chat] = {
+					presence: true,
 					isBanned: false,
 					permaBan: false,
 					welcome: false,
@@ -813,6 +816,7 @@ export async function handler(chatUpdate) {
 				if (!('spamlistmsg' in datas)) datas.spamlistmsg = null
 				if (!('spamlistgcmsg' in datas)) datas.spamlistgcmsg = null
 				if (!('openaipc' in datas)) datas.openaipc = false
+				if (!('anticall' in datas)) datas.anticall = false
 				if (!('teksdonasi' in datas)) datas.teksdonasi = ''
 				if (!('tekssewa' in datas)) datas.tekssewa = ''
 				if (!('teksjadibot' in datas)) datas.teksjadibot = ''
@@ -840,6 +844,7 @@ export async function handler(chatUpdate) {
 				spamlistmsg : null,
 				spamlistgcmsg: null,
 				openaipc: false,
+				anticall: false,
 				teksdonasi: '',
 				tekssewa: '',
 				teksjadibot: '',
@@ -1111,7 +1116,10 @@ export async function handler(chatUpdate) {
 	} catch (e) {
 		console.error(e)
 	} finally {
-		//await this.sendPresenceUpdate(['composing', 'recording'].getRandom(), m.chat) //auto typing / record
+		if (m.isGroup) {
+			//auto typing / record
+			if (db.data.chats[m.chat].presence) await this.sendPresenceUpdate(['composing', 'recording'].getRandom(), m.chat) 
+		}
 		if (opts['queque'] && m.text) {
 			const id = m.id
 			this.msgqueque.unqueue(id)
