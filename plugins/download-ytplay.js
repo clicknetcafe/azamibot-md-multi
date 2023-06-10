@@ -1,3 +1,4 @@
+import { youtubeSearch, youtubedl } from '@bochilteam/scraper-sosmed'
 import fetch from 'node-fetch'
 import xa from 'xfarr-api'
 
@@ -6,65 +7,99 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 	if (text.includes('http://') || text.includes('https://')) {
 		if (!text.match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))) return m.reply(`Invalid Youtube URL.`)
 		try {
-			let res = await fetch(`https://api.lolhuman.xyz/api/ytvideo?apikey=${apilol}&url=${text}`)
-			let anu = await res.json()
-			if (anu.status != '200') throw Error()
-			anu = anu.result
-			let txt = `📌 *${anu.title}*\n\n`
-			txt += `🪶 *Author :* ${anu.uploader}\n`
-			txt += `⌚ *Duration :* ${anu.duration}\n`
-			txt += `👁️ *Views :* ${anu.view}\n`
-			txt += `🌀 *Url :* https://youtu.be/${anu.id}`
-			await conn.sendMsg(m.chat, { image: { url: anu.thumbnail }, caption: txt }, { quoted: m })
+			let anu = await youtubeSearch(text)
+			let txt = `📌 *${anu.video[0].title}*\n\n`
+			txt += `🪶 *Author :* ${anu.video[0].authorName}\n`
+			txt += `⏲️ *Published :* ${anu.video[0].publishedTime}\n`
+			txt += `⌚ *Duration :* ${anu.video[0].durationH}\n`
+			txt += `👁️ *Views :* ${anu.video[0].viewH}\n`
+			txt += `🌀 *Url :* ${anu.video[0].url}`
+			await conn.sendMsg(m.chat, { image: { url: anu.video[0].thumbnail.split("?")[0] }, caption: txt }, { quoted: m })
+			let res = await youtubedl(args[0])
+			let data = res.audio[Object.keys(res.audio)[0]]
+			let url = await data.download()
+			if (data.fileSize > 400000) return
+			await conn.sendMsg(m.chat, { audio: { url: url }, mimetype: 'audio/mp4' }, { quoted : m })
 		} catch (e) {
 			console.log(e)
 			try {
-				let res = await fetch(`https://api.lolhuman.xyz/api/ytvideo2?apikey=${apilol}&url=${text}`)
+				let res = await fetch(`https://api.lolhuman.xyz/api/ytvideo?apikey=${apilol}&url=${text}`)
 				let anu = await res.json()
 				if (anu.status != '200') throw Error()
 				anu = anu.result
-				let txt = `📌 *${anu.title}*\n`
+				let txt = `📌 *${anu.title}*\n\n`
+				txt += `🪶 *Author :* ${anu.uploader}\n`
+				txt += `⌚ *Duration :* ${anu.duration}\n`
+				txt += `👁️ *Views :* ${anu.view}\n`
+				txt += `🌀 *Url :* https://youtu.be/${anu.id}`
 				await conn.sendMsg(m.chat, { image: { url: anu.thumbnail }, caption: txt }, { quoted: m })
 			} catch (e) {
 				console.log(e)
 				try {
-					let anu = await xa.downloader.youtube(text)
-					let txt = `📌 *${anu.title}*\n\n`
-					txt += `🪶 *Author :* ${anu.author}\n`
-					txt += `👁️ *Username :* ${anu.username}\n`
+					let res = await fetch(`https://api.lolhuman.xyz/api/ytvideo2?apikey=${apilol}&url=${text}`)
+					let anu = await res.json()
+					if (anu.status != '200') throw Error()
+					anu = anu.result
+					let txt = `📌 *${anu.title}*\n`
+					await conn.sendMsg(m.chat, { image: { url: anu.thumbnail }, caption: txt }, { quoted: m })
+				} catch (e) {
+					console.log(e)
+					try {
+						let anu = await xa.downloader.youtube(text)
+						let txt = `📌 *${anu.title}*\n\n`
+						txt += `🪶 *Author :* ${anu.author}\n`
+						txt += `👁️ *Username :* ${anu.username}\n`
+						txt += `🌀 *Url :* https://youtu.be/${anu.thumbnail.split('/')[4]}`
+						await conn.sendMsg(m.chat, { image: { url: anu.thumbnail }, caption: txt }, { quoted: m })
+					} catch (e) {
+						console.log(e)
+						m.reply(`Tidak ditemukan hasil.`)
+					}
+				}
+			}
+		}
+	} else {
+		try {
+			let anu = await youtubeSearch(text)
+			if (anu.video.length >= 4) {
+				var x = Math.floor(Math.random() * 5)
+			} else {
+				var x = 0
+			}
+			let txt = `📌 *${anu.video[x].title}*\n\n`
+			txt += `🪶 *Author :* ${anu.video[x].authorName}\n`
+			txt += `⏲️ *Published :* ${anu.video[x].publishedTime}\n`
+			txt += `⌚ *Duration :* ${anu.video[x].durationH}\n`
+			txt += `👁️ *Views :* ${anu.video[x].viewH}\n`
+			txt += `🌀 *Url :* ${anu.video[x].url}`
+			await conn.sendMsg(m.chat, { image: { url: anu.video[x].thumbnail.split("?")[0] }, caption: txt }, { quoted: m })
+		} catch (e) {
+			console.log(e)
+			try {
+				let res = await fetch(`https://api.lolhuman.xyz/api/ytplay?apikey=${apilol}&query=${encodeURIComponent(text)}`)
+				let anu = await res.json()
+				if (anu.status != '200') throw Error()
+				anu = anu.result
+				let txt = `📌 *${anu.title}*\n\n`
+				txt += `🪶 *Author :* ${anu.uploader}\n`
+				txt += `⌚ *Duration :* ${anu.duration}\n`
+				txt += `👁️ *Views :* ${anu.view}\n`
+				txt += `🌀 *Url :* https://youtu.be/${anu.id}`
+				await conn.sendMsg(m.chat, { image: { url: anu.thumbnail }, caption: txt }, { quoted: m })
+			} catch (e) {
+				console.log(e)
+				try {
+					let res = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=${apilol}&query=${encodeURIComponent(text)}`)
+					let anu = await res.json()
+					if (anu.status != '200') throw Error()
+					anu = anu.result
+					let txt = `📌 *${anu.title}*\n`
 					txt += `🌀 *Url :* https://youtu.be/${anu.thumbnail.split('/')[4]}`
 					await conn.sendMsg(m.chat, { image: { url: anu.thumbnail }, caption: txt }, { quoted: m })
 				} catch (e) {
 					console.log(e)
 					m.reply(`Tidak ditemukan hasil.`)
 				}
-			}
-		}
-	} else {
-		try {
-			let res = await fetch(`https://api.lolhuman.xyz/api/ytplay?apikey=${apilol}&query=${encodeURIComponent(text)}`)
-			let anu = await res.json()
-			if (anu.status != '200') throw Error()
-			anu = anu.result
-			let txt = `📌 *${anu.title}*\n\n`
-			txt += `🪶 *Author :* ${anu.uploader}\n`
-			txt += `⌚ *Duration :* ${anu.duration}\n`
-			txt += `👁️ *Views :* ${anu.view}\n`
-			txt += `🌀 *Url :* https://youtu.be/${anu.id}`
-			await conn.sendMsg(m.chat, { image: { url: anu.thumbnail }, caption: txt }, { quoted: m })
-		} catch (e) {
-			console.log(e)
-			try {
-				let res = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=${apilol}&query=${encodeURIComponent(text)}`)
-				let anu = await res.json()
-				if (anu.status != '200') throw Error()
-				anu = anu.result
-				let txt = `📌 *${anu.title}*\n`
-				txt += `🌀 *Url :* https://youtu.be/${anu.thumbnail.split('/')[4]}`
-				await conn.sendMsg(m.chat, { image: { url: anu.thumbnail }, caption: txt }, { quoted: m })
-			} catch (e) {
-				console.log(e)
-				m.reply(`Tidak ditemukan hasil.`)
 			}
 		}
 	}
