@@ -132,6 +132,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			break
 		case 'anticall':
 		case 'autoreject':
+		case 'autorejectcall':
 			isAll = true
 			if (!isROwner) {
 				global.dfail('rowner', m, conn)

@@ -50,8 +50,6 @@ plugins/download-tiktok.js
 plugins/download-tiktokaudio.js
 plugins/download-tiktokwm.js
 plugins/download-twitter.js
-plugins/download-yts.js
-plugins/download-zippyshare.js
 plugins/editor-1.js
 plugins/editor-2.js
 plugins/editor-3.js
@@ -98,7 +96,6 @@ plugins/gi-talent.js
 plugins/gi-weapon.js
 plugins/group-listspam.js
 plugins/group-muteall.js
-plugins/group-pool.js
 plugins/info-beasiswa.js
 plugins/info-cekusia.js
 plugins/info-chord.js
