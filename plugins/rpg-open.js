@@ -35,14 +35,14 @@ let handler = async (m, { command, args, usedPrefix }) => {
 			}
 			user.common -= total
 
-			let ini_txt = `Kamu membuka *${total} ${global.rpg.emoticon(type)} ${type} crate* dan mendapatkan :\n`
-			ini_txt += `${global.rpg.emoticon('money')} ${money * total} money\n`
-			ini_txt += `${global.rpg.emoticon('exp')} ${exp * total} exp\n`
-			ini_txt += `${global.rpg.emoticon('trash')} ${trash * total} trash\n`
-			ini_txt += `${global.rpg.emoticon('potion')} ${potion * total} potion`
-			if (common != 0) ini_txt += `\nBonus : ${global.rpg.emoticon('common')} *${common} common*`
-			if (uncommon != 0) ini_txt += `\nBonus : ${global.rpg.emoticon('uncommon')} *${uncommon} uncommon*`
-			m.reply(ini_txt)
+			let txt = `Kamu membuka *${total} ${global.rpg.emoticon(type)} ${type} crate* dan mendapatkan :\n`
+			txt += `${global.rpg.emoticon('money')} ${money * total} money\n`
+			txt += `${global.rpg.emoticon('exp')} ${exp * total} exp\n`
+			txt += `${global.rpg.emoticon('trash')} ${trash * total} trash\n`
+			txt += `${global.rpg.emoticon('potion')} ${potion * total} potion`
+			if (common != 0) txt += `\nBonus : ${global.rpg.emoticon('common')} *${common} common*`
+			if (uncommon != 0) txt += `\nBonus : ${global.rpg.emoticon('uncommon')} *${uncommon} uncommon*`
+			m.reply(txt)
 		} else if (type == 'uncommon') {
 			let uncommon = 0
 			let mythic = 0
@@ -74,17 +74,17 @@ let handler = async (m, { command, args, usedPrefix }) => {
 			}
 			user.uncommon -= total
 
-			let ini_txt = `Kamu membuka *${total} ${global.rpg.emoticon(type)} ${type} crate* dan mendapatkan :\n`
-			ini_txt += `${global.rpg.emoticon('money')} ${money * total} money\n`
-			ini_txt += `${global.rpg.emoticon('exp')} ${exp * total} exp\n`
-			ini_txt += `${global.rpg.emoticon('trash')} ${trash * total} trash\n`
-			ini_txt += `${global.rpg.emoticon('potion')} ${potion * total} potion\n`
-			ini_txt += `${global.rpg.emoticon('wood')} ${wood * total} wood\n`
-			ini_txt += `${global.rpg.emoticon('rock')} ${rock * total} rock\n`
-			ini_txt += `${global.rpg.emoticon('string')} ${string * total} string`
-			if (uncommon != 0) ini_txt += `\nBonus : ${global.rpg.emoticon('uncommon')} *${uncommon} uncommon*`
-			if (mythic != 0) ini_txt += `\nBonus : ${global.rpg.emoticon('mythic')} *${mythic} mythic*`
-			m.reply(ini_txt)
+			let txt = `Kamu membuka *${total} ${global.rpg.emoticon(type)} ${type} crate* dan mendapatkan :\n`
+			txt += `${global.rpg.emoticon('money')} ${money * total} money\n`
+			txt += `${global.rpg.emoticon('exp')} ${exp * total} exp\n`
+			txt += `${global.rpg.emoticon('trash')} ${trash * total} trash\n`
+			txt += `${global.rpg.emoticon('potion')} ${potion * total} potion\n`
+			txt += `${global.rpg.emoticon('wood')} ${wood * total} wood\n`
+			txt += `${global.rpg.emoticon('rock')} ${rock * total} rock\n`
+			txt += `${global.rpg.emoticon('string')} ${string * total} string`
+			if (uncommon != 0) txt += `\nBonus : ${global.rpg.emoticon('uncommon')} *${uncommon} uncommon*`
+			if (mythic != 0) txt += `\nBonus : ${global.rpg.emoticon('mythic')} *${mythic} mythic*`
+			m.reply(txt)
 		} else if (type == 'mythic') {
 			let mythic = 0
 			let legendary = 0
@@ -118,18 +118,18 @@ let handler = async (m, { command, args, usedPrefix }) => {
 			}
 			user.mythic -= total
 
-			let ini_txt = `Kamu membuka *${total} ${global.rpg.emoticon(type)} ${type} crate* dan mendapatkan :\n`
-			ini_txt += `${global.rpg.emoticon('money')} ${money * total} money\n`
-			ini_txt += `${global.rpg.emoticon('exp')} ${exp * total} exp\n`
-			ini_txt += `${global.rpg.emoticon('trash')} ${trash * total} trash\n`
-			ini_txt += `${global.rpg.emoticon('potion')} ${potion * total} potion\n`
-			ini_txt += `${global.rpg.emoticon('wood')} ${wood * total} wood\n`
-			ini_txt += `${global.rpg.emoticon('rock')} ${rock * total} rock\n`
-			ini_txt += `${global.rpg.emoticon('string')} ${string * total} string\n`
-			ini_txt += `${global.rpg.emoticon('steel')} ${steel * total} steel`
-			if (mythic != 0) ini_txt += `\nBonus : ${global.rpg.emoticon('mythic')} *${mythic} mythic*`
-			if (legendary != 0) ini_txt += `\nBonus : ${global.rpg.emoticon('legendary')} *${legendary} legendary*`
-			m.reply(ini_txt)
+			let txt = `Kamu membuka *${total} ${global.rpg.emoticon(type)} ${type} crate* dan mendapatkan :\n`
+			txt += `${global.rpg.emoticon('money')} ${money * total} money\n`
+			txt += `${global.rpg.emoticon('exp')} ${exp * total} exp\n`
+			txt += `${global.rpg.emoticon('trash')} ${trash * total} trash\n`
+			txt += `${global.rpg.emoticon('potion')} ${potion * total} potion\n`
+			txt += `${global.rpg.emoticon('wood')} ${wood * total} wood\n`
+			txt += `${global.rpg.emoticon('rock')} ${rock * total} rock\n`
+			txt += `${global.rpg.emoticon('string')} ${string * total} string\n`
+			txt += `${global.rpg.emoticon('steel')} ${steel * total} steel`
+			if (mythic != 0) txt += `\nBonus : ${global.rpg.emoticon('mythic')} *${mythic} mythic*`
+			if (legendary != 0) txt += `\nBonus : ${global.rpg.emoticon('legendary')} *${legendary} legendary*`
+			m.reply(txt)
 		} else if (type == 'legendary') {
 			let legendary = 0
 			let pet = 0
@@ -163,18 +163,18 @@ let handler = async (m, { command, args, usedPrefix }) => {
 			}
 			user.legendary -= total
 
-			let ini_txt = `Kamu membuka *${total} ${global.rpg.emoticon(type)} ${type} crate* dan mendapatkan :\n`
-			ini_txt += `${global.rpg.emoticon('money')} ${money * total} money\n`
-			ini_txt += `${global.rpg.emoticon('exp')} ${exp * total} exp\n`
-			ini_txt += `${global.rpg.emoticon('trash')} ${trash * total} trash\n`
-			ini_txt += `${global.rpg.emoticon('potion')} ${potion * total} potion\n`
-			ini_txt += `${global.rpg.emoticon('wood')} ${wood * total} wood\n`
-			ini_txt += `${global.rpg.emoticon('rock')} ${rock * total} rock\n`
-			ini_txt += `${global.rpg.emoticon('string')} ${string * total} string\n`
-			ini_txt += `${global.rpg.emoticon('steel')} ${steel * total} rock`
-			if (legendary != 0) ini_txt += `\nBonus : ${global.rpg.emoticon('legendary')} *${legendary} legendary*`
-			if (pet != 0) ini_txt += `\nBonus : ${global.rpg.emoticon('pet')} *${pet} petbox*`
-			m.reply(ini_txt)
+			let txt = `Kamu membuka *${total} ${global.rpg.emoticon(type)} ${type} crate* dan mendapatkan :\n`
+			txt += `${global.rpg.emoticon('money')} ${money * total} money\n`
+			txt += `${global.rpg.emoticon('exp')} ${exp * total} exp\n`
+			txt += `${global.rpg.emoticon('trash')} ${trash * total} trash\n`
+			txt += `${global.rpg.emoticon('potion')} ${potion * total} potion\n`
+			txt += `${global.rpg.emoticon('wood')} ${wood * total} wood\n`
+			txt += `${global.rpg.emoticon('rock')} ${rock * total} rock\n`
+			txt += `${global.rpg.emoticon('string')} ${string * total} string\n`
+			txt += `${global.rpg.emoticon('steel')} ${steel * total} rock`
+			if (legendary != 0) txt += `\nBonus : ${global.rpg.emoticon('legendary')} *${legendary} legendary*`
+			if (pet != 0) txt += `\nBonus : ${global.rpg.emoticon('pet')} *${pet} petbox*`
+			m.reply(txt)
 		} else {
 			m.reply(`Comming soon :\n*${usedPrefix}pet*\n*${usedPrefix}petbattle*`)
 		}

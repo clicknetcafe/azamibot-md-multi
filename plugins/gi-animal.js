@@ -4,12 +4,12 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 	if (!text) throw `Example : *${usedPrefix + command} shiba*`
 	try {
 		let anu = await genshindb.animals(text)
-		let ini_txt = `*Found : ${anu.name}*\n\n`
-		ini_txt += `"${anu.description}"\n\n`
-		ini_txt += `*Category :* ${anu.category}\n`
-		ini_txt += `*Count Type :* ${anu.counttype}\n`
-		ini_txt += `_sort order : ${anu.sortorder}_`
-		m.reply(ini_txt)
+		let txt = `*Found : ${anu.name}*\n\n`
+		txt += `"${anu.description}"\n\n`
+		txt += `*Category :* ${anu.category}\n`
+		txt += `*Count Type :* ${anu.counttype}\n`
+		txt += `_sort order : ${anu.sortorder}_`
+		m.reply(txt)
 	} catch (e) {
 		console.log(e)
 		try {

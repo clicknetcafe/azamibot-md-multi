@@ -8,13 +8,13 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	let json = await res.json()
 	if (json.status != '200') throw `Terjadi kesalahan, coba lagi nanti.`
 	let get_result = json.result
-	let ini_txt = `Found : ${text}\n\n`
-	ini_txt += `Title : *${get_result.title}*\n`
-	ini_txt += `Artists : ${get_result.artists}\n`
-	ini_txt += `Duration : ${get_result.duration}\n`
-	ini_txt += `Popularity : ${get_result.popularity}\n`
-	ini_txt += `${get_result.preview_url ? `Preview : ${get_result.preview_url}\n` : ''}`
-	await conn.sendMsg(m.chat, { image: { url: get_result.thumbnail }, caption: ini_txt }, { quoted : m })
+	let txt = `Found : ${text}\n\n`
+	txt += `Title : *${get_result.title}*\n`
+	txt += `Artists : ${get_result.artists}\n`
+	txt += `Duration : ${get_result.duration}\n`
+	txt += `Popularity : ${get_result.popularity}\n`
+	txt += `${get_result.preview_url ? `Preview : ${get_result.preview_url}\n` : ''}`
+	await conn.sendMsg(m.chat, { image: { url: get_result.thumbnail }, caption: txt }, { quoted : m })
 	if (/mp3/g.test(command)) await conn.sendMsg(m.chat, {document: { url: get_result.link }, mimetype: 'audio/mpeg', fileName: `${get_result.artists} - ${get_result.title}.mp3`}, { quoted : m })
 	else await conn.sendMsg(m.chat, { audio: { url: get_result.link }, mimetype: 'audio/mp4' }, { quoted : m })
 }

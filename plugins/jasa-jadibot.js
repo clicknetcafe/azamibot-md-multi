@@ -3,7 +3,7 @@ import db from '../lib/database.js'
 //const require = createRequire(import.meta.url);
 
 let handler = async (m, { conn, command }) => {
-	let ini_txt = db.data.datas.teksjadibot || `❤‍🩹 *[ Chat Dengan Creator ]*
+	let txt = db.data.datas.teksjadibot || `❤‍🩹 *[ Chat Dengan Creator ]*
 wa.me/6282337245566
 
 ╔╣ *PREMIUM USER*
@@ -33,7 +33,7 @@ wa.me/6282337245566
 - Whatsapp Multi Device
 - Run via RDP (Always ON)
 - Request Fitur? *Chat Link Creator di atas.*`
-	//m.reply(ini_txt)
+	//m.reply(txt)
 	conn.relayMessage(m.chat,  {
 		requestPaymentMessage: {
 			currencyCodeIso4217: 'USD',
@@ -41,7 +41,7 @@ wa.me/6282337245566
 			requestFrom: '0@s.whatsapp.net',
 			noteMessage: {
 				extendedTextMessage: {
-					text: ini_txt,
+					text: txt,
 					contextInfo: {
 						mentionedJid: [m.sender],
 						externalAdReply: {

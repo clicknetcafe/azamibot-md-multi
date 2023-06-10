@@ -299,7 +299,7 @@ export async function before(m) {
 	}
 
 	if (before !== user.level) {
-		let ini_txt = `Selamat 🥳, anda telah naik level!\n\n• 🧬 Level Up : *${before}* -> *${user.level}*`.trim()
+		let txt = `Selamat 🥳, anda telah naik level!\n\n• 🧬 Level Up : *${before}* -> *${user.level}*`.trim()
 		try {
 			let image, data, pp
 			try {
@@ -309,9 +309,9 @@ export async function before(m) {
 			}
 			image = await new can.Up().setAvatar(pp).toAttachment()
 			data = image.toBuffer()
-			await this.sendMsg(m.chat, { image: data, caption: ini_txt }, { quoted: m })
+			await this.sendMsg(m.chat, { image: data, caption: txt }, { quoted: m })
 		} catch {
-			await m.reply(ini_txt)
+			await m.reply(txt)
 		}
 	}
 }

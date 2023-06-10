@@ -226,13 +226,11 @@ conn.sendButton(m.chat, 'Hello world!', '@clicknetcafe', 'https://github.com/cli
 
 ### How to change owner number?
 
-> You can change in `config.js`, on global.owner. make sure you use correct syntax.
+> You can set in `config.js`, on global.mods. and use command .addrealowner when bot running.
 ```js
-global.owner = [
-  ['6282337245566', 'Clicknetcafe', true]
-]
+global.mods = ['6282337245566']
 ```
-> First argument on array is number like `6282337245566`, second argument is name like `BG` (if this argument pass, if using `owner` command, this number will send as owner), third argument is developer like `true` (if this argument pass, if there have plugins error (not syntax error) the error will send to developer)
+> First argument on array is number like `6282337245566`, you can fill second argument onward with other numbers
 
 
 ### How to read folder in folder plugins as plugin file?

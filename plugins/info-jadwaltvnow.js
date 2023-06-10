@@ -5,11 +5,11 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 		let res = await fetch(`https://api.lolhuman.xyz/api/jadwaltv/now?apikey=${apilol}`)
 		let json = await res.json()
 		let get_result = json.result
-		let ini_txt = `*Jadwal TV Now :*`
+		let txt = `*Jadwal TV Now :*`
 		for (let x in get_result) {
-			ini_txt += `\n\n${x.toUpperCase()}${get_result[x]}\n───────────────────`
+			txt += `\n\n${x.toUpperCase()}${get_result[x]}\n───────────────────`
 		}
-		m.reply(ini_txt)
+		m.reply(txt)
 	} catch (e) {
 		console.log(e)
 		m.reply(`Jadwal tidak tersedia.`)

@@ -4,11 +4,11 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 	if (!text) throw `Example : *${usedPrefix + command} outrider*`
 	try {
 		let anu = await genshindb.outfits(text)
-		let ini_txt = `*Found : ${anu.name}*\n\n`
-		ini_txt += `_"${anu.description}"_\n\n`
-		ini_txt += `*Character :* ${anu.character}`
-		ini_txt += `${anu.url.modelviewer ? `\n_${anu.url.modelviewer}_` : ''}`
-		m.reply(ini_txt)
+		let txt = `*Found : ${anu.name}*\n\n`
+		txt += `_"${anu.description}"_\n\n`
+		txt += `*Character :* ${anu.character}`
+		txt += `${anu.url.modelviewer ? `\n_${anu.url.modelviewer}_` : ''}`
+		m.reply(txt)
 	} catch (e) {
 		console.log(e)
 		try {

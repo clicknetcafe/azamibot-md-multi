@@ -2,14 +2,14 @@ import db from '../lib/database.js'
 
 let handler = async (m, { conn, usedPrefix, text }) => {
 	let user = db.data.users[m.sender]
-	let ini_txt = `[ *GUDANG BUAH KAMU* ]\n\n`
-	ini_txt += `🍌 ${user.pisang} Pisang\n`
-	ini_txt += `🍇 ${user.anggur} Anggur\n`
-	ini_txt += `🥭 ${user.mangga} Mangga\n`
-	ini_txt += `🍊 ${user.jeruk} Jeruk\n`
-	ini_txt += `🍎 ${user.apel} Apel\n\n`
-	ini_txt += `Gunakan command *${usedPrefix}sell* untuk menjual.`
-	m.reply(ini_txt)
+	let txt = `[ *GUDANG BUAH KAMU* ]\n\n`
+	txt += `🍌 ${user.pisang} Pisang\n`
+	txt += `🍇 ${user.anggur} Anggur\n`
+	txt += `🥭 ${user.mangga} Mangga\n`
+	txt += `🍊 ${user.jeruk} Jeruk\n`
+	txt += `🍎 ${user.apel} Apel\n\n`
+	txt += `Gunakan command *${usedPrefix}sell* untuk menjual.`
+	m.reply(txt)
 }
 
 handler.menufun = ['buah']

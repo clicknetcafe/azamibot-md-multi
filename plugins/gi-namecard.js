@@ -4,10 +4,10 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 	if (!text) throw `Example : *${usedPrefix + command} klee*`
 	try {
 		let anu = await genshindb.namecards(text)
-		let ini_txt = `*${anu.name}*\n\n`
-		ini_txt += `*[ ${anu.description.replace('\n',' ]*\n_"')}"_\n\n`
-		ini_txt += `${anu.source ? `*Source :* ${anu.source.toString().replaceAll(',',', ')}` : ''}`
-		m.reply(ini_txt)
+		let txt = `*${anu.name}*\n\n`
+		txt += `*[ ${anu.description.replace('\n',' ]*\n_"')}"_\n\n`
+		txt += `${anu.source ? `*Source :* ${anu.source.toString().replaceAll(',',', ')}` : ''}`
+		m.reply(txt)
 	} catch (e) {
 		console.log(e)
 		let anu2 = await genshindb.namecards(`names`, { matchCategories: true })

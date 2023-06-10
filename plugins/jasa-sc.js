@@ -1,9 +1,6 @@
 let handler = async (m, { conn, command }) => {
 	conn.reply(m.chat, `*「 RECODED BY ZERENITY 」*
 
-*⭔ Single Auth ( 1 file session )*
-_https://github.com/clicknetcafe/azamibot-md_
-
 *⭔ Multi Auth ( multiple file session )*
 _https://github.com/clicknetcafe/azamibot-md-multi_
 

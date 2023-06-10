@@ -7,14 +7,14 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	let json = await res.json()
 	let json2 = await res2.json()
 	if (json.name != undefined) {
-		let ini_txt = `*Name : ${json.name}*\n\n`
-		ini_txt += `*Element :* ${json.element}\n`
-		ini_txt += `*Archon :* ${json.element}\n`
-		ini_txt += `*ControllingEntity : ${json.controllingEntity}*`
-		await m.reply(ini_txt)
+		let txt = `*Name : ${json.name}*\n\n`
+		txt += `*Element :* ${json.element}\n`
+		txt += `*Archon :* ${json.element}\n`
+		txt += `*ControllingEntity : ${json.controllingEntity}*`
+		await m.reply(txt)
 	} else {
-		let ini_txt = `*Not Found*\n\n*Available nations is :*\n${json2.join(", ")}`
-		m.reply(ini_txt)
+		let txt = `*Not Found*\n\n*Available nations is :*\n${json2.join(", ")}`
+		m.reply(txt)
 	}
 }
 

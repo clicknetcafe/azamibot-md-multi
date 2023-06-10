@@ -40,19 +40,19 @@ let handler = async (m, { usedPrefix, command }) => {
 	if (user.adventurecount % 150 == 0) user.emerald += emerald
 	if (user.adventurecount % 400 == 0) user.diamond += diamond
 
-	let ini_txt = `[ *Selesai ${command}* ]\n\n`
-	ini_txt += `*❤️ health : -${health}*\nAnda membawa pulang :\n`
-	ini_txt += `*💵 money :* ${money}\n`
-	ini_txt += `*✉️ exp :* ${exp}\n`
-	ini_txt += `*🗑 trash :* ${trash}\n`
-	ini_txt += `*🪨 rock :* ${rock}\n`
-	ini_txt += `*🪵 wood :* ${wood}\n`
-	ini_txt += `*🕸️ string :* ${string}`
-	if (user.adventurecount % 25  == 0) ini_txt += `\n\nBonus adventure ${user.adventurecount} kali\n*📦 common :* ${common}`
-	if (user.adventurecount % 50  == 0) ini_txt += `\n\nBonus adventure ${user.adventurecount} kali\n*👑 gold :* ${gold}`
-	if (user.adventurecount % 150 == 0) ini_txt += `\n\nBonus adventure ${user.adventurecount} kali\n*💚 emerald :* ${emerald}`
-	if (user.adventurecount % 400 == 0) ini_txt += `\n\nBonus adventure ${user.adventurecount} kali\n*💎 diamond :* ${diamond}`
-	m.reply(ini_txt)
+	let txt = `[ *Selesai ${command}* ]\n\n`
+	txt += `*❤️ health : -${health}*\nAnda membawa pulang :\n`
+	txt += `*💵 money :* ${money}\n`
+	txt += `*✉️ exp :* ${exp}\n`
+	txt += `*🗑 trash :* ${trash}\n`
+	txt += `*🪨 rock :* ${rock}\n`
+	txt += `*🪵 wood :* ${wood}\n`
+	txt += `*🕸️ string :* ${string}`
+	if (user.adventurecount % 25  == 0) txt += `\n\nBonus adventure ${user.adventurecount} kali\n*📦 common :* ${common}`
+	if (user.adventurecount % 50  == 0) txt += `\n\nBonus adventure ${user.adventurecount} kali\n*👑 gold :* ${gold}`
+	if (user.adventurecount % 150 == 0) txt += `\n\nBonus adventure ${user.adventurecount} kali\n*💚 emerald :* ${emerald}`
+	if (user.adventurecount % 400 == 0) txt += `\n\nBonus adventure ${user.adventurecount} kali\n*💎 diamond :* ${diamond}`
+	m.reply(txt)
 	user.lastadventure = new Date * 1
 }
 

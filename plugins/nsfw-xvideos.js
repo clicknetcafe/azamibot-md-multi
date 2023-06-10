@@ -9,14 +9,14 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 		let res = await fetch(`https://azami-api.herokuapp.com/api/search/xvideos?query=${encodeURIComponent(text)}&apikey=${global.bb}`)
 		let json = await res.json()
 		let get_result = json.result
-		let ini_txt = `Found : *${text}*`
+		let txt = `Found : *${text}*`
 		for (var x of get_result) {
-			ini_txt += `\n\n*${x.title}*\n`
-			ini_txt += `"${x.info}"\n`
-			ini_txt += `_${x.link}_\n`
-			ini_txt += `───────────────────`
+			txt += `\n\n*${x.title}*\n`
+			txt += `"${x.info}"\n`
+			txt += `_${x.link}_\n`
+			txt += `───────────────────`
 		}
-		m.reply(ini_txt)
+		m.reply(txt)
 	} catch (e) {
 		console.log(e)
 		m.reply(`No Result Found.`)

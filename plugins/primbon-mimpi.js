@@ -5,11 +5,11 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	try {
 		let anu = await artimimpi(text)
 		if (anu.length != 0) {
-			let ini_txt = `*Arti mimpi : ${text}*\n\n`
+			let txt = `*Arti mimpi : ${text}*\n\n`
 			for (var x of anu) {
-				ini_txt += `⭔ ${x}*\n\n`
+				txt += `⭔ ${x}*\n\n`
 			}
-			m.reply(ini_txt)
+			m.reply(txt)
 		} else {
 			m.reply(`Tidak ditemukan tafsir mimpi *${text}*, cari dengan kata kunci yang lain.\nContoh : *${usedPrefix + command} ular*`)
 		}

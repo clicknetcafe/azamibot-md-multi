@@ -4,12 +4,12 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 	if (!text) throw `Example : *${usedPrefix + command} library*`
 	try {
 		let anu = await genshindb.geographies(text)
-		let ini_txt = `*Found : ${anu.name}*\n\n`
-		ini_txt += `_"${anu.description}"_\n\n`
-		ini_txt += `*Area :* ${anu.area}\n`
-		ini_txt += `*Region :* ${anu.region}\n`
-		ini_txt += `_sort order : ${anu.sortorder}_`
-		m.reply(ini_txt)
+		let txt = `*Found : ${anu.name}*\n\n`
+		txt += `_"${anu.description}"_\n\n`
+		txt += `*Area :* ${anu.area}\n`
+		txt += `*Region :* ${anu.region}\n`
+		txt += `_sort order : ${anu.sortorder}_`
+		m.reply(txt)
 	} catch (e) {
 		console.log(e)
 		let anu2 = await genshindb.geographies(`names`, { matchCategories: true })

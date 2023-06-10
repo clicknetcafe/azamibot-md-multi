@@ -6,7 +6,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 	try {
 		let anu = await fetch(`https://api.akuari.my.id/downloader/likeedl?link=${text}`)
 		let json = await anu.json()
-		let ini_txt = `${json.hasil.title}`
+		let txt = `${json.hasil.title}`
 		await conn.sendMsg(m.chat, { video: { url: json.hasil.watermark }, caption: json.hasil.title }, { quoted: m })
 	} catch (e) {
 		console.log(e)

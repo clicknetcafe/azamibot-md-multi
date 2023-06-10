@@ -5,22 +5,22 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	try {
 		let res = await fetch(`https://api.popcat.xyz/imdb?q=${encodeURIComponent(text)}`)
 		let anu = await res.json()
-		let ini_txt = `*${anu.title}*\n\n`
-		ini_txt += `_"${anu.plot}"_\n`
-		ini_txt += `_${anu.imdburl}_\n\n`
-		ini_txt += `*Rating :*\n`
+		let txt = `*${anu.title}*\n\n`
+		txt += `_"${anu.plot}"_\n`
+		txt += `_${anu.imdburl}_\n\n`
+		txt += `*Rating :*\n`
 		for (let x of anu.ratings) {
-			ini_txt += `━ ${x.value} _( ${x.source} )_\n`
+			txt += `━ ${x.value} _( ${x.source} )_\n`
 		}
-		ini_txt += `\nReleased : ${anu.released}\n`
-		ini_txt += `Rated : *${anu.rated}*\n`
-		ini_txt += `Genres : ${anu.genres}\n`
-		ini_txt += `Languages : ${anu.languages}\n`
-		ini_txt += `Released : ${anu.released}\n`
-		ini_txt += `Director : ${anu.director}\n`
-		ini_txt += `Writer : ${anu.writer}\n`
-		ini_txt += `Actor : ${anu.actors}\n`
-		await conn.sendMsg(m.chat, { image: { url: anu.poster }, caption: ini_txt }, { quoted: m })
+		txt += `\nReleased : ${anu.released}\n`
+		txt += `Rated : *${anu.rated}*\n`
+		txt += `Genres : ${anu.genres}\n`
+		txt += `Languages : ${anu.languages}\n`
+		txt += `Released : ${anu.released}\n`
+		txt += `Director : ${anu.director}\n`
+		txt += `Writer : ${anu.writer}\n`
+		txt += `Actor : ${anu.actors}\n`
+		await conn.sendMsg(m.chat, { image: { url: anu.poster }, caption: txt }, { quoted: m })
 	} catch (e) {
 		console.log(e)
 		m.reply(`Result not found.`)
