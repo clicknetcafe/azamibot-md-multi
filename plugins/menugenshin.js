@@ -1,3 +1,4 @@
+import db from '../lib/database.js'
 import { readMore, ranNumb, padLead } from '../lib/others.js'
 import { plugins } from '../lib/plugins.js'
 import { promises } from 'fs'
@@ -61,7 +62,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 		}
 		text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
 		const pp = await conn.profilePictureUrl(conn.user.jid).catch(_ => './src/avatar_contact.png')
-		await conn.sendFile(m.chat, nais, '', text.replace(`si <character>`, `si <character>${readMore}`).trim(), m)
+		await conn.sendFThumb(m.chat, 'Minimalist ツ Sweet', text.replace(`si <character>`, `si <character>${readMore}`).trim(), nais, db.data.datas.linkgc)
 	} catch (e) {
 		throw e
 	}

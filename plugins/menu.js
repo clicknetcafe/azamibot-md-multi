@@ -91,7 +91,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems }) => {
 			readmore: readMore
 		}
 		text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
-		await conn.sendFile(m.chat, nais, '', text.trim(), m)
+		await conn.sendFThumb(m.chat, 'Minimalist ツ Sweet', text.trim(), nais, db.data.datas.linkgc)
 	} catch (e) {
 		throw e
 	}

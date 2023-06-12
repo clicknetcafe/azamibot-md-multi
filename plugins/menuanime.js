@@ -1,8 +1,9 @@
+import db from '../lib/database.js'
 import { readMore, ranNumb, padLead } from '../lib/others.js'
 import { plugins } from '../lib/plugins.js'
 import { promises } from 'fs'
 import { join } from 'path'
-import fs from 'fs'
+import got from 'got'
 
 let tagsanime = {
 	'search': '🚀 *SEARCH*',
@@ -19,7 +20,8 @@ const defaultMenu = {
 }
 let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 	try {
-		let nais = fs.readFileSync('./media/zero.jpg')
+		let meh = padLead(ranNumb(43), 3)
+		let nais = await got('https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/menus.json').json().then(v => v.getRandom())
 		let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
 		let menuanime = Object.values(plugins).filter(plugin => !plugin.disabled).map(plugin => {
 			return {
@@ -60,7 +62,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 		}
 		text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
 		const pp = await conn.profilePictureUrl(conn.user.jid).catch(_ => './src/avatar_contact.png')
-		await conn.sendFile(m.chat, nais, '', text.replace(`PIC* 」`, `PIC* 」${readMore}`).trim(), m)
+		await conn.sendFThumb(m.chat, 'Minimalist ツ Sweet', text.replace(`PIC* 」`, `PIC* 」${readMore}`).trim(), nais, db.data.datas.linkgc)
 	} catch (e) {
 		throw e
 	}

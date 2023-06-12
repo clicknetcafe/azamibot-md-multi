@@ -1,3 +1,4 @@
+import db from '../lib/database.js'
 import { readMore, ranNumb, padLead } from '../lib/others.js'
 import { plugins } from '../lib/plugins.js'
 import { promises } from 'fs'
@@ -17,7 +18,7 @@ const defaultMenu = {
 }
 let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 	try {
-		let nais = fs.readFileSync('./media/oxy.jpg')
+		let nais = 'https://i.ibb.co/K0BBGvT/oxy.jpg'
 		let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
 		let menuoxy = Object.values(plugins).filter(plugin => !plugin.disabled).map(plugin => {
 			return {
@@ -58,7 +59,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 		}
 		text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
 		const pp = await conn.profilePictureUrl(conn.user.jid).catch(_ => './src/avatar_contact.png')
-		await conn.sendFile(m.chat, nais, '', text.replace(`message <text>`, `message <text>${readMore}`).trim(), m)
+		await conn.sendFThumb(m.chat, 'Minimalist ツ Sweet', text.replace(`message <text>`, `message <text>${readMore}`).trim(), nais, db.data.datas.linkgc)
 	} catch (e) {
 		throw e
 	}
