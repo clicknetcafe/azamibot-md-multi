@@ -6,6 +6,7 @@ import Connection from './lib/connection.js'
 import Helper from './lib/helper.js'
 import db from './lib/database.js'
 import clearTmp from './lib/clearTmp.js';
+import clearSessions from './lib/clearSessions.js'
 import {
 	spawn
 } from 'child_process'
@@ -56,7 +57,8 @@ if (!opts['test']) {
 	setInterval(async () => {
 		await Promise.allSettled([
 			db.data ? db.write() : Promise.reject('db.data is null'),
-			(opts['autocleartmp'] || opts['cleartmp']) ? clearTmp() : Promise.resolve()
+			(opts['autocleartmp'] || opts['cleartmp']) ? clearTmp() : Promise.resolve(),
+			(opts['autoclearsessions'] || opts['clearsessions']) ? clearSessions() : Promise.resolve()
 			//clearTmp()
 		])
 		Connection.store.writeToFile(Connection.storeFile)
