@@ -176,6 +176,7 @@ plugins/store-proses.js
 plugins/textpro-1.js
 plugins/textpro-2.js
 plugins/tool-dashboard.js
+plugins/tool-ptv.js
 plugins/tool-ringtone.js
 
 # data-single-auth

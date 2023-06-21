@@ -19,7 +19,6 @@ let handler = async (m, { conn, text, participants }) => {
 		if (participants.filter(v => v.id == who).length == 0) throw `Target tidak berada dalam Grup !`
 		if (somematch([conn.user.jid, ...global.mods.map(v => v + '@s.whatsapp.net')], who)) throw 'Jangan gitu ama Owner'
 		await conn.groupParticipantsUpdate(m.chat, [who], 'remove')
-		await m.reply(`Succes kick @${who.split('@')[0]}`, null, { mentions: [who] })
 	}
 }
 

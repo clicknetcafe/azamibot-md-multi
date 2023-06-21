@@ -888,8 +888,8 @@ export async function handler(chatUpdate) {
 			await this.msgqueque.waitQueue(id)
 		}
 
-		if (m.isBaileys && m.fromMe)
-			return
+		/*if (m.isBaileys && m.fromMe)
+			return*/
 		m.exp += Math.ceil(Math.random() * 10)
 
 		let usedPrefix
@@ -1178,63 +1178,9 @@ export async function handler(chatUpdate) {
  * @param {import('@whiskeysockets/baileys').BaileysEventMap<unknown>['group-participants.update']} groupsUpdate 
  */
 export async function participantsUpdate({ id, participants, action }) {
-	if (opts['self'])
-		return
-	if (this.isInit)
-		return
-	if (db.data == null)
-		await loadDatabase()
-	let chat = db.data.chats[id] || {}
-	let text = ''
-	switch (action) {
-		case 'add':
-		case 'remove':
-			if (chat.welcome) {
-				let add = /add/.test(action)
-				let bufpp, image
-				let groupMetadata = await Connection.store.fetchGroupMetadata(id, this.groupMetadata)
-				for (let user of participants) {
-					let pp = './src/avatar_contact.png'
-					try {
-						try {
-							try {
-								bufpp = await this.profilePictureUrl(user, 'image')
-							} catch {
-								bufpp = 'https://i.ibb.co/m53WF9N/avatar-contact.png'
-							}
-							let bufppgc = await this.profilePictureUrl(id, 'image')
-							let uname = await this.getName(user)
-							let gname = await this.getName(id)
-							try {
-								const can = require('knights-canvas')
-								image = await (add ? new can.Welcome() : new can.Goodbye()).setUsername(uname).setGuildName(gname).setGuildIcon(bufppgc).setMemberCount(groupMetadata.size).setAvatar(bufpp).setBackground('https://i.ibb.co/z2QQnqm/wp.jpg').toAttachment()
-								pp = await image.toBuffer()
-							} catch {
-								image = await fetch(`https://api.lolhuman.xyz/api/base/${add ? 'welcome' : 'leave'}?apikey=${global.api}&img1=${bufpp}&img2=${bufppgc}&background=https://i.ibb.co/z2QQnqm/wp.jpg&username=${uname}&member=${groupMetadata.size}&groupname=${encodeURIComponent(gname)}`)
-								pp = Buffer.from(await image.arrayBuffer())
-							}
-						} catch {
-							pp = await this.profilePictureUrl(user, 'image')
-						}
-					} catch (e) {
-					} finally {
-						text = (add ? (chat.sWelcome || this.welcome || Connection.conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
-							(chat.sBye || this.bye || Connection.conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
-						this.sendFile(id, pp, 'pp.jpg', text, null, false, { mentions: [user] })
-					}
-				}
-			}
-			break
-		case 'promote':
-			text = (chat.sPromote || this.spromote || Connection.conn.spromote || '@user ```is now Admin```')
-		case 'demote':
-			if (!text)
-				text = (chat.sDemote || this.sdemote || Connection.conn.sdemote || '@user ```is no longer Admin```')
-			text = text.replace('@user', '@' + participants[0].split('@')[0])
-			if (chat.detect)
-				this.sendMessage(id, { text, mentions: this.parseMention(text) })
-			break
-	}
+	if (opts['self']) return
+	if (this.isInit) return
+	if (db.data == null) await loadDatabase()
 }
 
 /**
