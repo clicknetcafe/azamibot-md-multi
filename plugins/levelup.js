@@ -1,7 +1,6 @@
 import db from '../lib/database.js'
 import { canLevelUp, xpRange } from '../lib/levelling.js'
 import { levelup } from '../lib/canvas.js'
-import can from 'knights-canvas'
 import uploadImage from '../lib/uploadImage.js'
 import { ranNumb, padLead } from '../lib/others.js'
 import got from 'got'
@@ -10,21 +9,8 @@ let handler = async (m, { conn }) => {
 	let user = db.data.users[m.sender]
 	let name = await conn.getName(m.sender)
 	if (!canLevelUp(user.level, user.exp, global.multiplier)) {
-		let image, data, pp, out
 		let { min, xp, max } = xpRange(user.level, global.multiplier)
-		let txt = `Level *${user.level} (${user.exp - min}/${xp})*\nKurang *${max - user.exp}* lagi!`
-		let meh = padLead(ranNumb(43), 3)
-		try {
-			try { pp = await conn.profilePictureUrl(m.sender, 'image') }
-			catch { pp = 'https://i.ibb.co/m53WF9N/avatar-contact.png' }
-			let out = await got('https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/menus.json').json().then(v => v.getRandom())
-			image = await new can.Rank().setAvatar(pp).setUsername(name.replaceAll('\n','')).setBg(out).setNeedxp(xp).setCurrxp(user.exp - min).setLevel(user.level).setRank('https://i.ibb.co/Wn9cvnv/FABLED.png').toAttachment()
-			data = await image.toBuffer()
-			await conn.sendMsg(m.chat, { image: data, caption: txt }, { quoted : m })
-		} catch (e) {
-			console.log(e)
-			m.reply(txt)
-		}
+		m.reply(`Level *${user.level} (${user.exp - min}/${xp})*\nKurang *${max - user.exp}* lagi!`)
 	} else {
 		let before = user.level * 1
 		while (canLevelUp(user.level, user.exp, global.multiplier)) user.level++
@@ -316,14 +302,9 @@ let handler = async (m, { conn }) => {
 			user.role = 'Legends 忍'
 		}
 		if (before !== user.level) {
-			let txt = `Selamat ${name.replaceAll('\n','')} naik 🧬level\n• 🧬Level Sebelumnya : ${before}\n• 🧬Level Baru : ${user.level}\n• Pada Jam : ${new Date().toLocaleString('id-ID')}\n*_Semakin sering berinteraksi dengan bot Semakin Tinggi level kamu_*`
 			try {
-				let image, data, pp
-				try { pp = await conn.profilePictureUrl(m.sender, 'image') }
-				catch { pp = 'https://i.ibb.co/m53WF9N/avatar-contact.png' }
-				image = await new can.Up().setAvatar(pp).toAttachment()
-				data = await image.toBuffer()
-				await conn.sendMsg(m.chat, { image: data, caption: txt }, { quoted : m })
+				const img = await levelup(`🥳 ${name.replaceAll('\n','')} naik 🧬level`, user.level)
+				await conn.sendFile(m.chat, img, 'levelup.jpg', `Selamat 🥳, anda telah naik level!\n\n• 🧬 *Level Up : ${before} -> ${user.level}*\n_semakin sering berinteraksi dengan bot Semakin Tinggi level kamu_`, m)
 			} catch {
 				m.reply(txt)
 			}

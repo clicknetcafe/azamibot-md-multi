@@ -13,6 +13,6 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 
 handler.help = ['tomp4']
 handler.tags = ['tools']
-handler.command = /^tomp4|tovideo$/i
+handler.command = /^(tomp4|tovideo)$/i
 
 export default handler

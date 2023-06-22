@@ -1,20 +1,20 @@
-import Connection from '../lib/connection.js'
 import { delay, ranNumb } from '../lib/others.js'
 
 let handler = async (m, { conn, text, usedPrefix, command, participants }) => {
-	let chats = Object.entries(Connection.store.chats).filter(([jid, chat]) => jid.endsWith('@g.us') && chat.isChats && !chat.metadata?.read_only && !chat.metadata?.announce).map(v => v[0])
+	let groups
+	try { groups = Object.values(await conn.groupFetchAllParticipating()) }
+	catch { return }
 	let img, q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || q.mtype || ''
-	if (!text) throw `teks nya mana ?`
 	if (mime) img = await q.download?.()
-	conn.reply(m.chat, `_Mengirim pesan broadcast ke ${chats.length} chat_`, m)
+	conn.reply(m.chat, `_Mengirim pesan broadcast ke ${groups.length} chat_`, m)
 	let teks = command.includes('meme') ? `${text}\n\n_*「 BroadCast-Bot 」*_` : `_*「 BroadCast-Bot 」*_\n\n${text}`
-	for (let id of chats) {
-		try {
-			if (/image|video|viewOnce/g.test(mime)) await conn.sendFile(id, img, '', teks)
-			else await conn.reply(id, teks)
-		} catch (e) {
-			console.log(e)
+	for (let x of groups) {
+		let bot = x.participants.filter(x => x.id == conn.user.jid)
+		if (x.restrict && bot[0].admin != 'admin') {}
+		else {
+			if (/image|video|viewOnce/g.test(mime)) await conn.sendFile(x.id, img, '', teks)
+			else await conn.reply(x.id, teks)
 		}
 		await delay(ranNumb(2000, 5500))
 	}

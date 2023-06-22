@@ -1,14 +1,13 @@
 import db from '../lib/database.js'
 import { canLevelUp } from '../lib/levelling.js'
-import can from 'knights-canvas'
+import { levelup } from '../lib/canvas.js'
 
 export async function before(m) {
+	if (process.uptime() < 1200) return !1 // won't respond in 20 minutes (60x20), avoid spam while LoadMessages
 	let user = db.data.users[m.sender]
-	if (!user.autolevelup)
-		return !0
+	if (!user.autolevelup) return !1
 	let before = user.level * 1
-	while (canLevelUp(user.level, user.exp, global.multiplier))
-		user.level++
+	while (canLevelUp(user.level, user.exp, global.multiplier)) user.level++
 
 	if (user.level <= 2) {
 		user.role = 'Newbie ㋡'
@@ -299,19 +298,12 @@ export async function before(m) {
 	}
 
 	if (before !== user.level) {
-		let txt = `Selamat 🥳, anda telah naik level!\n\n• 🧬 Level Up : *${before}* -> *${user.level}*`.trim()
+		let name = await this.getName(m.sender)
 		try {
-			let image, data, pp
-			try {
-				pp = await this.profilePictureUrl(m.sender, 'image')
-			} catch {
-				pp = 'https://i.ibb.co/m53WF9N/avatar-contact.png'
-			}
-			image = await new can.Up().setAvatar(pp).toAttachment()
-			data = image.toBuffer()
-			await this.sendMsg(m.chat, { image: data, caption: txt }, { quoted: m })
+			let img = await levelup(`🥳 ${name.replaceAll('\n','')} naik 🧬level`, user.level)
+			await this.sendFile(m.chat, img, 'levelup.jpg', `Selamat 🥳, anda telah naik level!\n\n• 🧬 *Level Up : ${before} -> ${user.level}*\n_semakin sering berinteraksi dengan bot Semakin Tinggi level kamu_`, m)
 		} catch {
-			await m.reply(txt)
+			await this.reply(m.chat, txt, fkontak)
 		}
 	}
 }

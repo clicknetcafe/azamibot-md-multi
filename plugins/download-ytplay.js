@@ -4,22 +4,20 @@ import xa from 'xfarr-api'
 
 let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 	if (!text) throw `Example: ${usedPrefix + command} Sia Unstopable`
+	let url = ''
 	if (text.includes('http://') || text.includes('https://')) {
 		if (!text.match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))) return m.reply(`Invalid Youtube URL.`)
+		url = text
 		try {
 			let anu = await youtubeSearch(text)
-			let txt = `📌 *${anu.video[0].title}*\n\n`
-			txt += `🪶 *Author :* ${anu.video[0].authorName}\n`
-			txt += `⏲️ *Published :* ${anu.video[0].publishedTime}\n`
-			txt += `⌚ *Duration :* ${anu.video[0].durationH}\n`
-			txt += `👁️ *Views :* ${anu.video[0].viewH}\n`
-			txt += `🌀 *Url :* ${anu.video[0].url}`
-			await conn.sendMsg(m.chat, { image: { url: anu.video[0].thumbnail.split("?")[0] }, caption: txt }, { quoted: m })
-			let res = await youtubedl(args[0])
-			let data = res.audio[Object.keys(res.audio)[0]]
-			let url = await data.download()
-			if (data.fileSize > 400000) return
-			await conn.sendMsg(m.chat, { audio: { url: url }, mimetype: 'audio/mp4' }, { quoted : m })
+			anu = anu.video[0]
+			let txt = `📌 *${anu.title}*\n\n`
+			txt += `🪶 *Author :* ${anu.authorName}\n`
+			txt += `⏲️ *Published :* ${anu.publishedTime}\n`
+			txt += `⌚ *Duration :* ${anu.durationH}\n`
+			txt += `👁️ *Views :* ${anu.viewH}\n`
+			txt += `🌀 *Url :* ${anu.url}`
+			await conn.sendMsg(m.chat, { image: { url: anu.thumbnail.split("?")[0] }, caption: txt }, { quoted: m })
 		} catch (e) {
 			console.log(e)
 			try {
@@ -66,13 +64,15 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 			} else {
 				var x = 0
 			}
-			let txt = `📌 *${anu.video[x].title}*\n\n`
-			txt += `🪶 *Author :* ${anu.video[x].authorName}\n`
-			txt += `⏲️ *Published :* ${anu.video[x].publishedTime}\n`
-			txt += `⌚ *Duration :* ${anu.video[x].durationH}\n`
-			txt += `👁️ *Views :* ${anu.video[x].viewH}\n`
-			txt += `🌀 *Url :* ${anu.video[x].url}`
-			await conn.sendMsg(m.chat, { image: { url: anu.video[x].thumbnail.split("?")[0] }, caption: txt }, { quoted: m })
+			anu = anu.video[x]
+			url = anu.url
+			let txt = `📌 *${anu.title}*\n\n`
+			txt += `🪶 *Author :* ${anu.authorName}\n`
+			txt += `⏲️ *Published :* ${anu.publishedTime}\n`
+			txt += `⌚ *Duration :* ${anu.durationH}\n`
+			txt += `👁️ *Views :* ${anu.viewH}\n`
+			txt += `🌀 *Url :* ${url}`
+			await conn.sendMsg(m.chat, { image: { url: anu.thumbnail.split("?")[0] }, caption: txt }, { quoted: m })
 		} catch (e) {
 			console.log(e)
 			try {
@@ -80,11 +80,12 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 				let anu = await res.json()
 				if (anu.status != '200') throw Error()
 				anu = anu.result
+				url = `https://youtu.be/${anu.id}`
 				let txt = `📌 *${anu.title}*\n\n`
 				txt += `🪶 *Author :* ${anu.uploader}\n`
 				txt += `⌚ *Duration :* ${anu.duration}\n`
 				txt += `👁️ *Views :* ${anu.view}\n`
-				txt += `🌀 *Url :* https://youtu.be/${anu.id}`
+				txt += `🌀 *Url :* ${url}`
 				await conn.sendMsg(m.chat, { image: { url: anu.thumbnail }, caption: txt }, { quoted: m })
 			} catch (e) {
 				console.log(e)
@@ -93,8 +94,9 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 					let anu = await res.json()
 					if (anu.status != '200') throw Error()
 					anu = anu.result
+					url = `https://youtu.be/${anu.thumbnail.split('/')[4]}`
 					let txt = `📌 *${anu.title}*\n`
-					txt += `🌀 *Url :* https://youtu.be/${anu.thumbnail.split('/')[4]}`
+					txt += `🌀 *Url :* ${url}`
 					await conn.sendMsg(m.chat, { image: { url: anu.thumbnail }, caption: txt }, { quoted: m })
 				} catch (e) {
 					console.log(e)
@@ -103,6 +105,12 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 			}
 		}
 	}
+	if (!url) return
+	let res = await youtubedl(url)
+	let data = res.audio[Object.keys(res.audio)[0]]
+	let url = await data.download()
+	if (data.fileSize > 400000) return
+	await conn.sendMsg(m.chat, { audio: { url: url }, mimetype: 'audio/mp4' }, { quoted : m })
 }
 
 handler.menudownload = ['ytplay <teks> / <url>']
