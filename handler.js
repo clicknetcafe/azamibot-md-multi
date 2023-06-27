@@ -671,13 +671,13 @@ export async function handler(chatUpdate) {
 					db.data.chats[m.chat] = {}
 				if (chat) {
 					if (!('presence' in chat))
-						chat.presence = true
+						chat.presence = false
 					if (!('isBanned' in chat))
 						chat.isBanned = false
 					if (!('permaBan' in chat))
 						chat.permaBan = false
 					if (!('welcome' in chat))
-						chat.welcome = false
+						chat.welcome = true
 					if (!('detect' in chat))
 						chat.detect = false
 					if (!('sWelcome' in chat))
@@ -703,7 +703,7 @@ export async function handler(chatUpdate) {
 					if (!('pdf' in chat))
 						chat.pdf = false
 					if (!('game' in chat))
-						chat.game = true
+						chat.game = false
 					if (!('openai' in chat))
 						chat.openai = false
 					if (!('simi' in chat))
@@ -727,10 +727,10 @@ export async function handler(chatUpdate) {
 					if (!isNumber(chat.spamcount))
 						chat.spamcount = 0
 				} else db.data.chats[m.chat] = {
-					presence: true,
+					presence: false,
 					isBanned: false,
 					permaBan: false,
-					welcome: false,
+					welcome: true,
 					detect: false,
 					sWelcome: '',
 					sBye: '',
@@ -743,7 +743,7 @@ export async function handler(chatUpdate) {
 					nsfw: false,
 					infogempa: false,
 					pdf: false,
-					game: true,
+					game: false,
 					openai: false,
 					simi: false,
 					lastsimi: false,
@@ -1022,6 +1022,14 @@ export async function handler(chatUpdate) {
 					fail('premium', m, this)
 					continue
 				}
+				if (plugin.nsfw && m.isGroup && !db.data.chats[m.chat].nsfw) {
+					fail('nsfw', m, this)
+					continue
+				}
+				if (plugin.game && m.isGroup && !db.data.chats[m.chat].game) {
+					fail('game', m, this)
+					continue
+				}
 				if (plugin.group && !m.isGroup) { // Group Only
 					fail('group', m, this)
 					continue
@@ -1244,7 +1252,8 @@ global.dfail = (type, m, conn) => {
 		group: `*「GROUP ONLY」*`,
 		private: `*「PRIVATE CHAT ONLY」*`,
 		admin: `*「ADMIN GROUP ONLY」*`,
-		nsfw: `*NSFW GAK AKTIF*`,
+		nsfw: `[ *NSFW GAK AKTIF* ]`,
+		game: '```「 aktifkan mode game! 」```',
 		botAdmin: `*「BOT HARUS JADI ADMIN」*`,
 		unreg: 'Silahkan daftar untuk menggunakan fitur ini dengan cara mengetik:\n\n*#daftar nama.umur*\n\nContoh: *#daftar Manusia.16*',
 		restrict: 'Fitur ini di *disable*!'

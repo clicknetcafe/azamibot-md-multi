@@ -10,7 +10,7 @@ let handler = async (m, { conn, command }) => {
 
 handler.menuowner = ['pinchat','unpinchat']
 handler.tagsowner = ['ownerr']
-handler.command = /^((un)?pin(chats?)?)$/i
+handler.command = /^((un)?pin(chats?))$/i
 
 handler.rowner = true
 

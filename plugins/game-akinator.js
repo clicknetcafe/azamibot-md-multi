@@ -2,7 +2,6 @@ import db from '../lib/database.js'
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, usedPrefix, command, text }) => {
-	if (m.isGroup && !db.data.chats[m.chat].game) return
 	let aki = db.data.users[m.sender].akinator
 	if (text == 'end') {
 		if (!aki.sesi) return m.reply('Anda tidak sedang dalam sesi Akinator')
@@ -45,5 +44,6 @@ handler.tagsfun = ['game']
 handler.command = /^(akinator)$/i
 
 handler.limit = true
+handler.game = true
 
 export default handler

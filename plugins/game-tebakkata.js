@@ -4,15 +4,15 @@ import { tebakkata } from '@bochilteam/scraper'
 let timeout = 120000
 let poin = 3499
 let handler = async (m, { conn, usedPrefix, isPrems }) => {
-	if (m.isGroup && !db.data.chats[m.chat].game) return
 	conn.tebakkata = conn.tebakkata ? conn.tebakkata : {}
 	let id = m.chat
 	if (id in conn.tebakkata) {
 		conn.reply(m.chat, 'Masih ada soal belum terjawab di chat ini', conn.tebakkata[id][0])
 		throw false
 	}
-	if (db.data.users[m.sender].limit < 1 && db.data.users[m.sender].money > 50000 && !isPrems) throw `Beli limit dulu lah, duid lu banyak kan 😏`
-	else if (db.data.users[m.sender].limit > 0 && !isPrems) db.data.users[m.sender].limit -= 1
+	let usr = db.data.users[m.sender]
+	if (usr.limit < 1 && usr.money > 50000 && !isPrems) throw `Beli limit dulu lah, duid lu banyak kan 😏`
+	else if (usr.limit > 0 && !isPrems) usr.limit -= 1
 	const json = await tebakkata()
 	let caption = `
 🎮 *Tebak Kata* 🎮
@@ -38,5 +38,6 @@ handler.tagsfun = ['game']
 handler.command = /^(tebakkata)$/i
 
 handler.premium = true
+handler.game = true
 
 export default handler

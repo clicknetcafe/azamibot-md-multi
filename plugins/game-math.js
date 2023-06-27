@@ -2,9 +2,9 @@ import Connection from '../lib/connection.js'
 import db from '../lib/database.js'
 
 let handler = async (m, { conn, args, text, usedPrefix, command, isPrems }) => {
-	if (m.isGroup && !db.data.chats[m.chat].game) return
-	if (db.data.users[m.sender].limit < 1 && db.data.users[m.sender].money > 50000 && !isPrems) throw `Beli limit dulu lah, duid lu banyak kan 😏`
-	else if (db.data.users[m.sender].limit > 0 && !isPrems) db.data.users[m.sender].limit -= 1
+	let usr = db.data.users[m.sender]
+	if (usr.limit < 1 && usr.money > 50000 && !isPrems) throw `Beli limit dulu lah, duid lu banyak kan 😏`
+	else if (usr.limit > 0 && !isPrems) usr.limit -= 1
 	conn.math = conn.math ? conn.math : {}
 	const buttons = Object.keys(modes).map(v => [v, `${usedPrefix}${command} ${v}`])
 	if (args.length < 1) return conn.reply(m.chat, `
@@ -41,6 +41,7 @@ handler.tagsfun = ['game']
 handler.command = /^(math)$/i
 
 handler.premium = true
+handler.game = true
 
 let modes = {
 	noob: [-3, 3, -3, 3, '+-', 15000, 10],

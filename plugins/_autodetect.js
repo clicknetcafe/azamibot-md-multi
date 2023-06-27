@@ -32,6 +32,7 @@ export async function before(m) {
 		let user = m.messageStubParameters[0]
 		let id = m.chat
 		let chat = db.data.chats[m.chat]
+		if (!chat.welcome) return !1
 		let groupMetadata = await Connection.store.fetchGroupMetadata(id, this.groupMetadata)
 		await this.reply(m.chat, (m.messageStubType == 27 ? (chat.sWelcome || this.welcome || Connection.conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(m.chat)).replace('@desc', groupMetadata.desc?.toString() || 'unknown') :
 				(chat.sBye || this.bye || Connection.conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0]), fkontak, { mentions: [user] })
