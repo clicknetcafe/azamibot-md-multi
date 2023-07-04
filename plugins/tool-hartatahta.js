@@ -1,3 +1,5 @@
+import Helper from '../lib/helper.js'
+
 let handler = async (m, { conn, usedPrefix, command, text }) => {
 	if (!text) throw `Example : ${usedPrefix + command} celana`
 	conn.hartatahta = conn.hartatahta ? conn.hartatahta : {}
@@ -24,7 +26,7 @@ import { spawn } from 'child_process'
 import { readdirSync, readFileSync, unlinkSync } from 'fs'
 import { join } from 'path'
 
-let __dirname = global.__dirname(import.meta.url)
+let __dirname = Helper.__dirname(import.meta)
 let src = join(__dirname, '../src/')
 let tmp = join(__dirname, '../tmp/')
 let _font = join(src, 'font')
