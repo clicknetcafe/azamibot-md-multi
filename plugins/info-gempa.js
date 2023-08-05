@@ -4,8 +4,7 @@ const link = 'https://data.bmkg.go.id/DataMKG/TEWS/'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	try {
-		let res = await fetch(link+'autogempa.json')
-		let anu = await res.json()
+		let anu = await (await fetch(link+'autogempa.json')).json()
 		anu = anu.Infogempa.gempa
 		let txt = `*${anu.Wilayah}*\n\n`
 		txt += `Tanggal : ${anu.Tanggal}\n`
@@ -19,8 +18,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	} catch (e) {
 		console.log(e)
 		try {
-			let res = await fetch(`https://api.lolhuman.xyz/api/infogempa?apikey=${apilol}`)
-			let anu = await res.json()
+			let anu = await (await fetch(`https://api.lolhuman.xyz/api/infogempa?apikey=${apilol}`)).json()
 			anu = anu.result
 			let txt = `*${anu.lokasi}*\n\n`
 			txt += `Waktu : ${anu.waktu}\n`

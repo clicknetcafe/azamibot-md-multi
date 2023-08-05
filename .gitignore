@@ -6,7 +6,7 @@ tmp/*
 node_modules/
 
 # punya orang
-plugins/New folder/
+plugins/_allbutton.zip
 
 # ntar aja bang bagi-bagi pluginnya :v
 lib/scraperpro.js
@@ -119,8 +119,10 @@ plugins/info-mlstalk.js
 plugins/info-nik.js
 plugins/info-readbarcode.js
 plugins/info-readqr.js
+plugins/info-searchplace.js
 plugins/info-ssweb.js
 plugins/info-translate.js
+plugins/info-urbandictionary.js
 plugins/info-whatmusic.js
 plugins/info-wikipedia.js
 plugins/kerang-apakah.js
@@ -156,6 +158,7 @@ plugins/random-people.js
 plugins/random-quotenime.js
 plugins/search-apk.js
 plugins/search-bing.js
+plugins/search-danbooru.js
 plugins/search-gimage.js
 plugins/search-google.js
 plugins/search-happymod.js

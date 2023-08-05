@@ -888,7 +888,7 @@ export async function handler(chatUpdate) {
 			await this.msgqueque.waitQueue(id)
 		}
 
-		if (m.isBaileys && m.fromMe)
+		if (m.isBaileys)
 			return
 		m.exp += Math.ceil(Math.random() * 10)
 
@@ -997,9 +997,9 @@ export async function handler(chatUpdate) {
 				if (m.chat in db.data.chats || m.sender in db.data.users) {
 					let chat = db.data.chats[m.chat]
 					let user = db.data.users[m.sender]
-					if (name != 'owner-unbanchat.js' && chat?.isBanned)
+					if (name != 'unbanchat.js' && chat?.isBanned)
 						return // Except this
-					if (name != 'owner-unbanuser.js' && user?.banned)
+					if (name != 'unbanuser.js' && user?.banned)
 						return
 				}
 				if (plugin.rowner && plugin.owner && !(isROwner || isOwner)) { // Both Owner

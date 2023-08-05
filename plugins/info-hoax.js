@@ -9,7 +9,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 		let txt = '*Info Hoax :*'
 		for (var x of get_result) {
 			txt += `\n\nTitle : *${x.title}*\n`
-			txt += `Link : ${x.link}\n`
+			txt += `Link : ${decodeURIComponent(x.link)}\n`
 			txt += `Posted : ${x.posted}\n`
 			txt += `Description : ${x.desc}\n`
 			txt += `───────────────────`
