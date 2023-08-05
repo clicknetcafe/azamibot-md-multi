@@ -7,16 +7,16 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 		let anu = await fetch(`https://api.lolhuman.xyz/api/cocofun?apikey=${apilol}&url=${text}`)
 		let json = await anu.json()
 		let txt = `*${json.result.title}*\n\nuploader : *${json.result.uploader}*\ntag : ${json.result.tag}\nviews : ${json.result.views}`
-		await conn.sendMsg(m.chat, { video: { url: json.result.withwm }, caption: txt }, { quoted: m })
+		await conn.sendMsg(m.chat, { video: { url: json.result[/funwm/.test(command) ? 'withwm' : 'nowm'] }, caption: txt }, { quoted: m })
 	} catch (e) {
 		console.log(e)
 		m.reply(`Invalid cocofun url.`)
 	}
 }
 
-handler.menudownload = ['cocofun <url>']
+handler.menudownload = ['cocofun <url>','cocofunwm <url>']
 handler.tagsdownload = ['search']
-handler.command = /^(cocofun(wm)?)$/i
+handler.command = /^(cocofun((no)?wm)?)$/i
 
 handler.premium = true
 handler.limit = true

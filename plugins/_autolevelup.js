@@ -299,12 +299,14 @@ export async function before(m) {
 
 	if (before !== user.level) {
 		let name = await this.getName(m.sender)
+		let txt = `Selamat 🥳, anda telah naik level!\n\n• 🧬 *Level Up : ${before} -> ${user.level}*\n_semakin sering berinteraksi dengan bot Semakin Tinggi level kamu_`
 		try {
 			let img = await levelup(`🥳 ${name.replaceAll('\n','')} naik 🧬level`, user.level)
-			await this.sendFile(m.chat, img, 'levelup.jpg', `Selamat 🥳, anda telah naik level!\n\n• 🧬 *Level Up : ${before} -> ${user.level}*\n_semakin sering berinteraksi dengan bot Semakin Tinggi level kamu_`, m)
+			await this.sendFile(m.chat, img, 'levelup.jpg', txt, m)
 		} catch {
 			await this.reply(m.chat, txt, fkontak)
 		}
 	}
 }
+
 export const disabled = false

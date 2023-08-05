@@ -1,6 +1,7 @@
 import { youtubeSearch, youtubedl } from '@bochilteam/scraper-sosmed'
 import fetch from 'node-fetch'
 import xa from 'xfarr-api'
+import { somematch } from '../lib/others.js'
 
 let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 	if (!text) throw `Example: ${usedPrefix + command} Sia Unstopable`
@@ -106,11 +107,38 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 		}
 	}
 	if (!url) return
-	let res = await youtubedl(url)
-	let data = res.audio[Object.keys(res.audio)[0]]
-	let url = await data.download()
-	if (data.fileSize > 400000) return
-	await conn.sendMsg(m.chat, { audio: { url: url }, mimetype: 'audio/mp4' }, { quoted : m })
+	try {
+		let res = await youtubedl(url)
+		let data = res.audio[Object.keys(res.audio)[0]]
+		let site = await data.download()
+		if (data.fileSize > 400000) return m.reply(`Filesize: ${data.fileSizeH}\nTidak dapat mengirim, maksimal file 400 MB`)
+		await conn.sendMsg(m.chat, { audio: { url: site }, mimetype: 'audio/mp4' }, { quoted : m })
+	} catch {
+		try {
+			let res = await fetch(`https://api.lolhuman.xyz/api/ytaudio?apikey=${apilol}&url=${url}`)
+			let anu = await res.json()
+			anu = anu.result
+			let vsize = anu.link.size.slice(-2)
+			if (vsize == "GB") return
+			if (!somematch(['kB','KB'], vsize) && parseInt(anu.link.size.replace(" MB", "")) > 400) return
+			if (!anu.link.link) throw new Error('Error')
+			await conn.sendFAudio(m.chat, { [/mp3/g.test(command) ? 'document' : 'audio']: { url: anu.link.link }, mimetype: 'audio/mpeg', fileName: `${anu.title}.mp3` }, m, anu.title, anu.thumbnail, args[0])
+		} catch (e) {
+			console.log(e)
+			try {
+				let res = await fetch(`https://api.lolhuman.xyz/api/ytaudio2?apikey=${apilol}&url=${url}`)
+				let anu = await res.json()
+				anu = anu.result
+				let vsize = anu.size.slice(-2)
+				if (vsize == "GB") return
+				if (!somematch(['kB','KB'], vsize) && parseInt(anu.size.replace(" MB", "")) > 400) return
+				if (!anu.link) throw new Error('Error')
+				await conn.sendFAudio(m.chat, { [/mp3/g.test(command) ? 'document' : 'audio']: { url: anu.link }, mimetype: 'audio/mpeg', fileName: `${anu.title}.mp3` }, m, anu.title, anu.thumbnail, args[0])
+			} catch (e) {
+				console.log(e)
+			}
+		}
+	} 
 }
 
 handler.menudownload = ['ytplay <teks> / <url>']

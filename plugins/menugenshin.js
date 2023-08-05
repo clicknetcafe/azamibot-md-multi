@@ -10,7 +10,7 @@ let tagsgenshin = {
 }
 const defaultMenu = {
 	before: `
-Genshin Impact JSON data with a robust searching API! Updated to version 2.8. Sources from the fandom wiki and GenshinData repo.
+Genshin Impact JSON data with a robust searching API! Updated to version 3.8. Sources from the fandom wiki and GenshinData repo.
 
 ━ ━ *[ 🐳 GENSHIN COMMAND ]* ━ ━
 `.trimStart(),

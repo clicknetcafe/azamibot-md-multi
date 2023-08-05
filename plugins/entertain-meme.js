@@ -7,7 +7,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 			let fimg = await fetch(json.data[Math.floor(Math.random() * json.data.length)].url)
 			let fimgb = Buffer.from(await fimg.arrayBuffer())
 			if (Buffer.byteLength(fimgb) < 22000) throw Error()
-			await conn.sendMsg(m.chat, { image: fimgb, caption: `_© meme cringe_` }, { quoted: m })
+			await conn.sendMsg(m.chat, { image: fimgb, caption: `_© meme receh_` }, { quoted: m })
 	} catch (e) {
 		try {
 			let anu = await fetch(`https://candaan-api.vercel.app/api/image/random`)
@@ -15,13 +15,13 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 			let fimg = await fetch(json.data.url)
 			let fimgb = Buffer.from(await fimg.arrayBuffer())
 			if (Buffer.byteLength(fimgb) < 22000) throw Error()
-			await conn.sendMsg(m.chat, { image: fimgb, caption: `_© meme cringe_` }, { quoted: m })
+			await conn.sendMsg(m.chat, { image: fimgb, caption: `_© meme receh_` }, { quoted: m })
 		} catch (e) {
 			try {
 				let fimg = await fetch(`https://api.lolhuman.xyz/api/meme/memeindo?apikey=${apilol}`)
 				let fimgb = Buffer.from(await fimg.arrayBuffer())
 				if (Buffer.byteLength(fimgb) < 22000) throw Error()
-				await conn.sendMsg(m.chat, { image: fimgb, caption: `_© meme cringe_` }, { quoted: m })
+				await conn.sendMsg(m.chat, { image: fimgb, caption: `_© meme receh_` }, { quoted: m })
 			} catch (e) {
 				m.reply(`Terjadi kesalahan, coba lagi nanti.`)
 			}

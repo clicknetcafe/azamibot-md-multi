@@ -3,20 +3,22 @@ import fetch from 'node-fetch'
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `*Usage : ${usedPrefix + command} url*\n\nExample: ${usedPrefix + command} https://open.spotify.com/track/0ZEYRVISCaqz5yamWZWzaA\n\n*Tips :* Untuk mencari link spotify, bisa juga dengan command *${usedPrefix}spotsearch*`
 	if (!(text.includes('http://') || text.includes('https://'))) throw `url invalid, please input a valid url. Try with add http:// or https://`
-	let res = await fetch(`https://api.lolhuman.xyz/api/spotify?apikey=${apilol}&url=${text}`)
-	if (!res.ok) throw `Invalid Spotify url / terjadi kesalahan.`
-	let json = await res.json()
-	if (json.status != '200') throw `Terjadi kesalahan, coba lagi nanti.`
-	let get_result = json.result
-	let txt = `Found : ${text}\n\n`
-	txt += `Title : *${get_result.title}*\n`
-	txt += `Artists : ${get_result.artists}\n`
-	txt += `Duration : ${get_result.duration}\n`
-	txt += `Popularity : ${get_result.popularity}\n`
-	txt += `${get_result.preview_url ? `Preview : ${get_result.preview_url}\n` : ''}`
-	await conn.sendMsg(m.chat, { image: { url: get_result.thumbnail }, caption: txt }, { quoted : m })
-	if (/mp3/g.test(command)) await conn.sendMsg(m.chat, {document: { url: get_result.link }, mimetype: 'audio/mpeg', fileName: `${get_result.artists} - ${get_result.title}.mp3`}, { quoted : m })
-	else await conn.sendMsg(m.chat, { audio: { url: get_result.link }, mimetype: 'audio/mp4' }, { quoted : m })
+	try {
+		let anu = await (await fetch(`https://api.lolhuman.xyz/api/spotify?apikey=${apilol}&url=${text}`)).json()
+		if (anu.status != 200) throw Error(anu.message)
+		anu = anu.result
+		let txt = `Found : ${text}\n\n`
+		txt += `Title : *${anu.title}*\n`
+		txt += `Artists : ${anu.artists}\n`
+		txt += `Duration : ${anu.duration}\n`
+		txt += `Popularity : ${anu.popularity}\n`
+		txt += `${anu.preview_url ? `Preview : ${anu.preview_url}\n` : ''}`
+		await conn.sendMsg(m.chat, { image: { url: anu.thumbnail }, caption: txt }, { quoted : m })
+		await conn.sendMsg(m.chat, { [/mp3/.test(command) ? 'document' : 'audio']: { url: anu.link }, mimetype: 'audio/mpeg', fileName: `${anu.artists} - ${anu.title}.mp3`}, { quoted : m })
+	} catch (e) {
+		console.log(e)
+		throw 'invalid url / server down.'
+	}
 }
 
 handler.menudownload = ['spotify <url>']

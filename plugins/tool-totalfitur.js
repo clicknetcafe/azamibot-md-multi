@@ -1,6 +1,6 @@
 import { plugins } from '../lib/plugins.js'
 
-const all = ['help', ...['anime','download','ephoto','editor','fun','genshin','group','nsfw','owner','oxy','store','textpro'].map(v => 'menu' + v)]
+const all = ['help', ...['ai','anime','download','ephoto','editor','fun','genshin','group','nsfw','owner','oxy','store','textpro'].map(v => 'menu' + v)]
 
 let handler = async (m) => {
 	let count = 0

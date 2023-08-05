@@ -18,7 +18,7 @@ let handler = async(m, { conn, text, usedPrefix, command, isPrems }) => {
 		}
 		for (let x of anu) {
 			if (c == 0) await conn.sendMsg(m.chat, { image: { url: x }, caption: `Mengirim 1 dari ${anu.length} slide gambar.\n_(Sisanya akan dikirim via chat pribadi.)_` }, { quoted : m })
-			else await conn.sendMsg(m.sender, { image: { url: x } }, { quoted : m })
+			else await conn.sendMsg(m.sender, { image: { url: x } })
 			c += 1
 			await delay(isPrems ? ranNumb(700, 1000) : ranNumb(800, 1500))
 		}
