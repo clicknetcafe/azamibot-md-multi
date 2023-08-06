@@ -8,7 +8,7 @@ let handler = async (m, { conn, text, usedPrefix, command, participants }) => {
 	let mime = (q.msg || q).mimetype || q.mediaType || q.mtype || ''
 	if (mime) img = await q.download?.()
 	conn.reply(m.chat, `_Mengirim pesan broadcast ke ${groups.length} chat_`, m)
-	let teks = command.includes('meme') ? `${text}\n\n_*「 BroadCast-Bot 」*_` : `_*「 BroadCast-Bot 」*_\n\n${text}`
+	let teks = `_*「 BroadCast-Bot 」*_${text ? ('\n\n'+text) : ''}`
 	for (let x of groups) {
 		let bot = x.participants.filter(x => x.id == conn.user.jid)
 		if (x.restrict && bot[0].admin != 'admin') {}
@@ -21,9 +21,9 @@ let handler = async (m, { conn, text, usedPrefix, command, participants }) => {
 	await m.reply('Selesai Broadcast All Group Chat :)')
 }
 
-handler.menuowner = ['bcgroup', 'bcgroupmeme']
+handler.menuowner = ['bcgroup']
 handler.tagsowner = ['owner']
-handler.command = /^((bc|broadcast)(gc|gro?ups?)(meme)?)$/i
+handler.command = /^((bc|broadcast)(gc|gro?ups?))$/i
 
 handler.owner = true
 

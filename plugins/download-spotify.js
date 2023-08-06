@@ -1,29 +1,42 @@
 import fetch from 'node-fetch'
+import { isValidUrl } from '../lib/others.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-	if (!text) throw `*Usage : ${usedPrefix + command} url*\n\nExample: ${usedPrefix + command} https://open.spotify.com/track/0ZEYRVISCaqz5yamWZWzaA\n\n*Tips :* Untuk mencari link spotify, bisa juga dengan command *${usedPrefix}spotsearch*`
-	if (!(text.includes('http://') || text.includes('https://'))) throw `url invalid, please input a valid url. Try with add http:// or https://`
-	try {
-		let anu = await (await fetch(`https://api.lolhuman.xyz/api/spotify?apikey=${apilol}&url=${text}`)).json()
-		if (anu.status != 200) throw Error(anu.message)
-		anu = anu.result
-		let txt = `Found : ${text}\n\n`
-		txt += `Title : *${anu.title}*\n`
-		txt += `Artists : ${anu.artists}\n`
-		txt += `Duration : ${anu.duration}\n`
-		txt += `Popularity : ${anu.popularity}\n`
-		txt += `${anu.preview_url ? `Preview : ${anu.preview_url}\n` : ''}`
-		await conn.sendMsg(m.chat, { image: { url: anu.thumbnail }, caption: txt }, { quoted : m })
-		await conn.sendMsg(m.chat, { [/mp3/.test(command) ? 'document' : 'audio']: { url: anu.link }, mimetype: 'audio/mpeg', fileName: `${anu.artists} - ${anu.title}.mp3`}, { quoted : m })
-	} catch (e) {
-		console.log(e)
-		throw 'invalid url / server down.'
+	if (!text) throw `Example: ${usedPrefix + command} Melukis Senja`
+	if (isValidUrl(text)) {
+		try {
+			let anu = await (await fetch(`https://api.botcahx.live/api/download/spotify?url=${text}&apikey=${apilol}`)).json()
+			anu = anu.result.data
+			let txt = `*${anu.title}*\n\n`
+			txt += `*id :* ${anu.artist.id}\n`
+			txt += `*name :* ${anu.artist.name}\n`
+			txt += `*duration :* ${anu.duration}\n`
+			txt += `*artist :* _${anu.artist.external_urls.spotify}_`
+			await conn.sendMsg(m.chat, { image: { url: anu.thumbnail }, caption: txt }, { quoted : m })
+			await conn.sendMsg(m.chat, { [/mp3/.test(command) ? 'document' : 'audio']: { url: anu.url }, mimetype: 'audio/mpeg', fileName: `${anu.title}.mp3`}, { quoted : m })
+		} catch (e) {
+			console.log(e)
+			throw 'invalid url / server down.'
+		}
+	} else {
+		let anu = await (await fetch(`https://api.lolhuman.xyz/api/spotifysearch?apikey=${apilol}&query=${text}`)).json()
+		if (!anu.status) throw Error(anu.message)
+		let txt = `Found : *${text}*`
+		for (var x of anu.result) {
+			txt += `\n\n*Title : ${x.title}*\n`
+			txt += `Artists : ${x.artists}\n`
+			txt += `Duration : ${x.duration}\n`
+			txt += `Link : ${x.link}\n`
+			txt += `${x.preview_url ? `Preview : ${x.preview_url}\n` : ''}`
+			txt += `───────────────────`
+		}
+		m.reply(txt)
 	}
 }
 
-handler.menudownload = ['spotify <url>']
+handler.menudownload = ['spotify <teks>','spotifydl <url>']
 handler.tagsdownload = ['search']
-handler.command = /^(spotify(a(audio)?|mp3)?)$/i
+handler.command = /^(spot(ify)?(mp3|audio)?(dl|search)?)$/i
 
 handler.premium = true
 handler.limit = true

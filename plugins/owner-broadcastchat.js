@@ -8,7 +8,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `teks nya mana ?`
 	if (mime) img = await q.download?.()
 	conn.reply(m.chat, `_Mengirim pesan broadcast ke ${chats.length} chat_`, m)
-	let teks = command.includes('meme') ? `${text}\n\n_*「 BroadCast-Bot 」*_` : `_*「 BroadCast-Bot 」*_\n\n${text}`
+	let teks = `_*「 BroadCast-Bot 」*_${text ? ('\n\n'+text) : ''}`
 	for (let id of chats) {
 		try {
 			if (/image|video|viewOnce/g.test(mime)) await conn.sendFile(id, img, '', teks)
@@ -21,9 +21,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	await m.reply('Selesai Broadcast All Private Chat :)')
 }
 
-handler.menuowner = ['bcprivate', 'bcprivatememe']
+handler.menuowner = ['bcprivate']
 handler.tagsowner = ['owner']
-handler.command = /^((bc|broadcast)(c|chats?|pc|private)(meme)?)$/i
+handler.command = /^((bc|broadcast)(c|chats?|pc|private))$/i
 
 handler.owner = true
 

@@ -18,8 +18,8 @@ let handler = async (m, { text }) => {
 	}
 }
 
-handler.help = ['cekapi']
+handler.help = ['cekapilol']
 handler.tags = ['information']
-handler.command = /^(ch?ec?kapi(key)?(lol(human)?)?)$/i
+handler.command = /^(ch?ec?kapi(key)?lol(human)?)$/i
 
 export default handler

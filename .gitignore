@@ -10,16 +10,15 @@ plugins/_allbutton.zip
 
 # ntar aja bang bagi-bagi pluginnya :v
 lib/scraperpro.js
-plugins/_detectgempa.js
-plugins/_openai.js
-plugins/_openaipc.js
 plugins/ai-beautyplus.js
 plugins/ai-enhance.js
+plugins/ai-esrgan.js
 plugins/ai-filter.js
 plugins/ai-jadianime.js
 plugins/ai-nsfwcheck.js
 plugins/ai-openai.js
 plugins/ai-openaidalle.js
+plugins/ai-stablediffusion.js
 plugins/ai-txt2img.js
 plugins/anime-anime.js
 plugins/anime-chara.js
@@ -135,8 +134,6 @@ plugins/nsfw-cosplay.js
 plugins/nsfw-doujindesu.js
 plugins/nsfw-nekopoi.js
 plugins/nsfw-nhentai.js
-plugins/nsfw-nhentaipdf.js
-plugins/nsfw-phub.js
 plugins/nsfw-pornhub.js
 plugins/nsfw-ran-hmfull.js
 plugins/nsfw-ran-lolapi.js

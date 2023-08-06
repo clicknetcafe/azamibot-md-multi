@@ -428,7 +428,7 @@ export async function handler(chatUpdate) {
 					if (!('pelabuhanname' in user))
 						user.pelabuhanname = ''
 					if (!('openaitxt' in user))
-						user.openaitxt = ''
+						user.openaitxt = []
 					if (!isNumber(user.rumahsakitexp))
 						user.rumahsakitexp = 0
 					if (!isNumber(user.restoranexp))
@@ -650,7 +650,7 @@ export async function handler(chatUpdate) {
 					pabrikname: '',
 					tambangname: '',
 					pelabuhanname: '',
-					openaitxt: '',
+					openaitxt: [],
 					rumahsakitexp: 0,
 					restoranexp: 0,
 					pabrikexp: 0,
@@ -689,7 +689,7 @@ export async function handler(chatUpdate) {
 					if (!('sDemote' in chat))
 						chat.sDemote = ''
 					if (!('openaitxt' in chat))
-						chat.openaitxt = ''
+						chat.openaitxt = []
 					if (!('delete' in chat))
 						chat.delete = true
 					if (!('antiLink' in chat))
@@ -698,14 +698,10 @@ export async function handler(chatUpdate) {
 						chat.antivirus = false
 					if (!('nsfw' in chat))
 						chat.nsfw = false
-					if (!('infogempa' in chat))
-						chat.infogempa = false
 					if (!('pdf' in chat))
 						chat.pdf = false
 					if (!('game' in chat))
 						chat.game = false
-					if (!('openai' in chat))
-						chat.openai = false
 					if (!('simi' in chat))
 						chat.simi = false
 					if (!('lastsimi' in chat))
@@ -736,15 +732,13 @@ export async function handler(chatUpdate) {
 					sBye: '',
 					sPromote: '',
 					sDemote: '',
-					openaitxt: '',
+					openaitxt: [],
 					delete: true,
 					antiLink: false,
 					antivirus: false,
 					nsfw: false,
-					infogempa: false,
 					pdf: false,
 					game: false,
-					openai: false,
 					simi: false,
 					lastsimi: false,
 					viewonce: false,
@@ -808,14 +802,11 @@ export async function handler(chatUpdate) {
 				if (!('packname' in datas)) datas.packname = ''
 				if (!('author' in datas)) datas.author = ''
 				if (!('linkgc' in datas)) datas.linkgc = ''
-				if (!('api' in datas)) datas.api = ''
 				if (!('imgbb' in datas)) datas.imgbb = ''
-				if (!('wgempa' in datas)) datas.wgempa = ''
 				if (!('spamcountreset' in datas)) datas.spamcountreset = 0
 				if (!('spamcountgcreset' in datas)) datas.spamcountgcreset = 0
 				if (!('spamlistmsg' in datas)) datas.spamlistmsg = null
 				if (!('spamlistgcmsg' in datas)) datas.spamlistgcmsg = null
-				if (!('openaipc' in datas)) datas.openaipc = false
 				if (!('anticall' in datas)) datas.anticall = false
 				if (!('teksdonasi' in datas)) datas.teksdonasi = ''
 				if (!('tekssewa' in datas)) datas.tekssewa = ''
@@ -823,6 +814,7 @@ export async function handler(chatUpdate) {
 				if (!('tekstopup' in datas)) datas.tekstopup = ''
 				if (!('linkgc' in datas)) datas.linkgc = ''
 				if (!('prems' in datas)) datas.prems = [{user: '', date: 0}]
+				if (!('api' in datas)) datas.api = []
 				if (!('rowner' in datas)) datas.rowner = []
 				if (!('owner' in datas)) datas.owner = []
 				if (!('store' in datas)) datas.store = []
@@ -836,20 +828,19 @@ export async function handler(chatUpdate) {
 				packname: '',
 				author: '',
 				linkgc: '',
-				api: '',
 				imgbb: '',
 				wgempa: '',
 				spamcountreset: 0,
 				spamcountgcreset: 0,
 				spamlistmsg : null,
 				spamlistgcmsg: null,
-				openaipc: false,
 				anticall: false,
 				teksdonasi: '',
 				tekssewa: '',
 				teksjadibot: '',
 				tekstopup: '',
 				prems: [{user: '', date: 0}],
+				api: [],
 				rowner: [],
 				owner: [],
 				store: [],
@@ -997,9 +988,9 @@ export async function handler(chatUpdate) {
 				if (m.chat in db.data.chats || m.sender in db.data.users) {
 					let chat = db.data.chats[m.chat]
 					let user = db.data.users[m.sender]
-					if (name != 'unbanchat.js' && chat?.isBanned)
+					if (name != 'plugins\\owner-unbanchat.js' && chat?.isBanned)
 						return // Except this
-					if (name != 'unbanuser.js' && user?.banned)
+					if (name != 'plugins\\owner-unbanuser.js'.replace('/','\\') && user?.banned)
 						return
 				}
 				if (plugin.rowner && plugin.owner && !(isROwner || isOwner)) { // Both Owner

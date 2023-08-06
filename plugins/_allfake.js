@@ -5,14 +5,15 @@ let handler = m => m
 	handler.all = async function (m) {
 	let d = new Date(new Date + 3600000)
 	let timeh = `🕰️ ${d.toLocaleTimeString('id', { hour: 'numeric', minute: 'numeric', second: 'numeric' }).replaceAll('.',':')}`
-	
-	global.packname = db.data.datas.packname
-	global.author = db.data.datas.author
-	global.pauthor = db.data.datas.packname + ' - ' + db.data.datas.author
-	global.apilol = db.data.datas.api	// https://api.lolhuman.xyz/docs
-	global.imgbb = db.data.datas.imgbb	// https://api.imgbb.com/
-
-	global.ephemeral = '86400' // 86400 = 24jam, kalo ingin di hilangkan ganti '86400' jadi 'null' atau ''
+	let datas = db.data.datas
+	global.packname = datas.packname
+	global.author = datas.author
+	global.pauthor = datas.packname + ' - ' + datas.author
+	// datas.api is array like ['apikey1','apikey2','etc']
+	global.apilol = datas.api[0] || ''
+	global.api2 = datas.api[1] || ''
+	global.imgbb = datas.imgbb	// https://api.imgbb.com/
+	global.ephemeral = '86400' // 86400 = 24jam, kalo ingin di hilangkan ganti jadi 'null' atau ''
 	global.timeh = `🕰️ ${d.toLocaleTimeString('id', { hour: 'numeric', minute: 'numeric', second: 'numeric' }).replace(/./,':')}`
 	
 	//fake troli
