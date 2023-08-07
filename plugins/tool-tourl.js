@@ -4,7 +4,7 @@ import uploadFile from '../lib/uploadFile.js'
 let handler = async (m, { usedPrefix, command }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || q.mtype || ''
-	if (!mime) throw 'apa yang mau di upload ?'
+	if (!mime || mime == 'conversation') throw 'apa yang mau di upload ?'
 	let img = await q.download?.()
 	let out
 	try {

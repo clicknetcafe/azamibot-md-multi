@@ -20,7 +20,7 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
 			if (duo) out = duo.data.file.url.short
 			else return m.reply('Failed generate Url')
 		}
-	} else return m.reply(`Kirim Gambar atau URL dengan caption *${usedPrefix + command}*`)
+	} else return m.reply(`Kirim Media atau URL dengan caption *${usedPrefix + command}*`)
 	let url = {
 		'tinyurl': 'shortlink',
 		'shrtco': 'shortlink2',
