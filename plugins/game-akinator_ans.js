@@ -5,18 +5,17 @@ import { somematch } from '../lib/others.js'
 const teks = '0 - Ya\n1 - Tidak\n2 - Saya Tidak Tau\n3 - Mungkin\n4 - Mungkin Tidak\n5 - Kembali ke pertanyaan sebelumnya'
 
 export async function before(m) {
-	if (db.data.users[m.sender].banned) return
-	if (!m.quoted || !m.quoted.fromMe || !m.quoted.isBaileys || !m.text) return !0
-	let aki = db.data.users[m.sender].akinator
+	if (!m.quoted || !m.quoted.fromMe || !m.quoted.isBaileys || !m.text) return !1
+	let user = db.data.users[m.sender]
+	let aki = m.isGroup ? db.data.chats[m.chat].akinator : user.akinator
 	if (!aki.sesi || m.quoted.id != aki.soal.key.id) return
 	if (!somematch(['0','1','2','3','4','5'], m.text)) return this.reply(m.chat, `[!] Jawab dengan angka 1, 2, 3, 4, atau 5\n\n${teks}`, aki.soal)
 	let { server, frontaddr, session, signature, question, progression, step } = aki
 	if (step == '0' && m.text == '5') return m.reply('Anda telah mencapai pertanyaan pertama')
 	try {
-		db.data.users[m.sender].spamcount += 2
-		let res = await fetch(`https://api.lolhuman.xyz/api/akinator/${m.text == '5' ? 'back' : 'answer'}?apikey=${apilol}&server=${server}${m.text == '5' ? `&session=${session}&signature=${signature}&step=${step}` : `&frontaddr=${frontaddr}&session=${session}&signature=${signature}&step=${step}&answer=${m.text}`}`)
-		let anu = await res.json()
-		if (anu.status != '200') {
+		user.spamcount += 1
+		let anu = await (await fetch(`https://api.lolhuman.xyz/api/akinator/${m.text == '5' ? 'back' : 'answer'}?apikey=${apilol}&server=${server}${m.text == '5' ? `&session=${session}&signature=${signature}&step=${step}` : `&frontaddr=${frontaddr}&session=${session}&signature=${signature}&step=${step}&answer=${m.text}`}`)).json()
+		if (anu.status != 200) {
 			aki.sesi = false
 			aki.soal = null
 			return m.reply(anu.message)

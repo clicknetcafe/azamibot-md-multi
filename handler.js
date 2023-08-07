@@ -773,8 +773,41 @@ export async function handler(chatUpdate) {
 					akinator.step = null
 				if (!('soal' in akinator))
 					akinator.soal = null
-			} else
-				db.data.users[m.sender].akinator = {
+			} else db.data.users[m.sender].akinator = {
+				sesi: false,
+				server: null,
+				frontaddr: null,
+				session: null,
+				signature: null,
+				question: null,
+				progression: null,
+				step: null, 
+				soal: null
+			}
+			if (m.chat.endsWith('@g.us')) {
+				let akinator = db.data.chats[m.chat].akinator
+				if (typeof akinator !== 'object')
+					db.data.chats[m.chat].akinator = {}
+				if (akinator) {
+					if (!('sesi' in akinator))
+						akinator.sesi = false
+					if (!('server' in akinator))
+						akinator.server = null
+					if (!('frontaddr' in akinator))
+						akinator.frontaddr = null
+					if (!('session' in akinator))
+						akinator.session = null
+					if (!('signature' in akinator))
+						akinator.signature = null
+					if (!('question' in akinator))
+						akinator.question = null
+					if (!('progression' in akinator))
+						akinator.progression = null
+					if (!('step' in akinator))
+						akinator.step = null
+					if (!('soal' in akinator))
+						akinator.soal = null
+				} else db.data.chats[m.chat].akinator = {
 					sesi: false,
 					server: null,
 					frontaddr: null,
@@ -785,6 +818,7 @@ export async function handler(chatUpdate) {
 					step: null, 
 					soal: null
 				}
+			}
 			let settings = db.data.settings[this.user.jid]
 			if (typeof settings !== 'object') db.data.settings[this.user.jid] = {}
 			if (settings) {
@@ -990,7 +1024,7 @@ export async function handler(chatUpdate) {
 					let user = db.data.users[m.sender]
 					if (name != 'plugins\\owner-unbanchat.js' && chat?.isBanned)
 						return // Except this
-					if (name != 'plugins\\owner-unbanuser.js'.replace('/','\\') && user?.banned)
+					if (name != 'plugins\\owner-unbanuser.js' && user?.banned)
 						return
 				}
 				if (plugin.rowner && plugin.owner && !(isROwner || isOwner)) { // Both Owner

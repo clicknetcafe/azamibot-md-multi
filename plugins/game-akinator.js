@@ -2,18 +2,17 @@ import db from '../lib/database.js'
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, usedPrefix, command, text }) => {
-	let aki = db.data.users[m.sender].akinator
+	let aki = m.isGroup ? db.data.chats[m.chat].akinator : db.data.users[m.sender].akinator
 	if (text == 'end') {
-		if (!aki.sesi) return m.reply('Anda tidak sedang dalam sesi Akinator')
+		if (!aki.sesi) return m.reply('Tidak sedang dalam sesi Akinator')
 		aki.sesi = false
 		aki.soal = null
 		m.reply('Berhasil keluar dari sesi Akinator.')
 	} else {
-		if (aki.sesi) return conn.reply(m.chat, `Anda masih berada dalam sesi Akinator\n*${usedPrefix + command} end* untuk keluar dari sesi Akinator`, aki.soal)
+		if (aki.sesi) return conn.reply(m.chat, `Masih berada dalam sesi Akinator\n*${usedPrefix + command} end* untuk keluar dari sesi Akinator`, aki.soal)
 		try {
-			let res = await fetch(`https://api.lolhuman.xyz/api/akinator/start?apikey=${apilol}`)
-			let anu = await res.json()
-			if (anu.status !== 200) throw Error()
+			let anu = await (await fetch(`https://api.lolhuman.xyz/api/akinator/start?apikey=${apilol}`)).json()
+			if (anu.status != 200) throw Error(anu.message)
 			let { server, frontaddr, session, signature, question, progression, step } = anu.result
 			aki.sesi = true
 			aki.server = server

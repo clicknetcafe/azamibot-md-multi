@@ -11,15 +11,19 @@ plugins/_allbutton.zip
 # ntar aja bang bagi-bagi pluginnya :v
 lib/scraperpro.js
 plugins/ai-beautyplus.js
+plugins/ai-diffusion.js
 plugins/ai-enhance.js
 plugins/ai-esrgan.js
 plugins/ai-filter.js
 plugins/ai-jadianime.js
+plugins/ai-moderation.js
 plugins/ai-nsfwcheck.js
 plugins/ai-openai.js
 plugins/ai-openaidalle.js
+plugins/ai-remini.js
 plugins/ai-stablediffusion.js
 plugins/ai-txt2img.js
+plugins/ai-whisper.js
 plugins/anime-anime.js
 plugins/anime-chara.js
 plugins/anime-kitsu.js
