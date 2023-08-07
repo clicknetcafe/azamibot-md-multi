@@ -5,16 +5,12 @@ let handler = async (m, { usedPrefix, command }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || q.mtype || ''
 	if (!mime || mime == 'conversation') throw 'apa yang mau di upload ?'
-	let img = await q.download?.()
-	let out
+	let out, img = await q.download?.()
 	try {
-		let anu = await uploadImage(img)
-		if (!anu) throw Error()
-		out = anu
-	} catch (e) {
-		console.log(e)
-		let anu = await uploadFile(img)
-		out = anu
+		out = await uploadImage(img)
+		if (!out) throw Error()
+	} catch {
+		out = await uploadFile(img)
 	}
 	if (!out) return m.reply('error uploading file')
 	if (typeof out === 'string' || out instanceof String) m.reply(`[ LINK ]\n${out}`)

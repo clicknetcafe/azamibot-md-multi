@@ -14,10 +14,9 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
 		try {
 			out = await uploadImage(img)
 			if (!out) throw Error()
-		} catch (e) {
-			console.log(e)
-			let duo = await uploadFile(img)
-			if (duo) out = duo.data.file.url.short
+		} catch {
+			out = await uploadFile(img)
+			if (out) out = out.data.file.url.short
 			else return m.reply('Failed generate Url')
 		}
 	} else return m.reply(`Kirim Media atau URL dengan caption *${usedPrefix + command}*`)
