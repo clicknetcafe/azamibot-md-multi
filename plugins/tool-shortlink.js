@@ -1,34 +1,40 @@
 import uploadImage from '../lib/uploadImage.js'
 import uploadFile from '../lib/uploadFile.js'
 import fetch from 'node-fetch'
+import { isValidUrl } from '../lib/others.js'
 
 let handler = async (m, { conn, args, usedPrefix, text, command }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || q.mtype || ''
-	if (text || /image|video|sticker|webp|viewOnce/g.test(mime)) {
-		let out, img
+	let img, out
+	if (isValidUrl(text || '')) {
+		out = text
+	} else if (mime && mime != 'conversation') {
+		img = await q.download?.()
 		try {
-			if (/image|video|sticker|webp|viewOnce/g.test(mime)) {
-				img = await q.download?.()
-				try { out = await uploadImage(img) }
-				catch { out = await uploadFile(img) }
-			} else out = text
-			let res = await fetch(`https://api.lolhuman.xyz/api/${/ouo/.test(command) ? 'ouoshortlink' : /tiny/.test(command) ? 'shortlink' : /shrtco/.test(command) ? 'shortlink2' : /tiny2/.test(command) ? 'shortlink4' : 'shortlink3'}?apikey=${apilol}&url=${out}`)
-			if (!res.ok) throw Error(res.message)
-			let anu = await res.json()
-			m.reply(`[ LINK ]\n${anu.result}`)
+			out = await uploadImage(img)
+			if (!out) throw Error()
 		} catch (e) {
 			console.log(e)
-			m.reply(`[ LINK ]\n=> invalid source`)
+			let duo = await uploadFile(img)
+			if (duo) out = duo.data.file.url.short
+			else return m.reply('Failed generate Url')
 		}
-	} else {
-		m.reply(`Kirim Teks URL atau gambar dengan caption *${usedPrefix + command}* atau tag gambar yang sudah dikirim`)
+	} else return m.reply(`Kirim Gambar atau URL dengan caption *${usedPrefix + command}*`)
+	let url = {
+		'tinyurl': 'shortlink',
+		'shrtco': 'shortlink2',
+		'cuttly': 'shortlink3',
+		'tinycc': 'shortlink4'
 	}
+	let anu = await (await fetch(`https://api.lolhuman.xyz/api/${url[/short/.test(command) ? Object.keys(url).getRandom() : command]}?apikey=${apilol}&url=${out}`)).json()
+	if (anu.status != 200) return m.reply('Internal server error.')
+	m.reply(`*Original Url :*\n_${out}_\n\n*Shortlink :*\n_${anu.result}_`)
 }
 
-handler.help = ['ouo','tinyurl','tiny2url','shrtco','cuttly']
+handler.help = ['shortlink','tinyurl','shrtco','cuttly','tinycc']
 handler.tags = ['tools']
-handler.command = /^((ouo|tiny|tiny2|shrtco|cuttly)((short)?link)?(url)?)$/i
+handler.command = /^(short(link)?|tinyurl|tinycc|cuttly|shrtco)$/i
 
 handler.limit = true
 

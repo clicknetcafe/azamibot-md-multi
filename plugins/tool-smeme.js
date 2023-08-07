@@ -1,5 +1,4 @@
 import uploadImage from '../lib/uploadImage.js'
-import uploadFile from '../lib/uploadFile.js'
 import fs from 'fs'
 import { Sticker, StickerTypes } from 'wa-sticker-formatter'
 
@@ -12,9 +11,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!l) l = '-'
 	if (!r) r = '-'
 	let ztick = fs.readFileSync(`./media/sticker/bronya.webp`)
-	let out, img = await q.download?.()
-	try { out = await uploadImage(img) }
-	catch { out = await uploadFile(img) }
+	let img = await q.download?.()
+	let out = await uploadImage(img)
 	try {
 		let res = `https://api.memegen.link/images/custom/${encodeURIComponent(l)}/${encodeURIComponent(r)}.png?background=${out}`
 		let sticker = new Sticker(res, { pack: packname, author: author, type: StickerTypes.FULL })
