@@ -1,35 +1,30 @@
 import uploadImage from '../lib/uploadImage.js'
 import uploadFile from '../lib/uploadFile.js'
+import { niceBytes } from '../lib/others.js'
 
 let handler = async (m, { usedPrefix, command }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || q.mtype || ''
 	if (!mime || mime == 'conversation') throw 'apa yang mau di upload ?'
-	let out, img = await q.download?.()
-	try {
-		out = await uploadImage(img)
-		if (!out) throw Error()
-	} catch {
-		out = await uploadFile(img)
-	}
-	if (!out) return m.reply('error uploading file')
+	let img = await q.download?.()
+	let out = await uploadImage(img, true)
+	if (!out) out = await uploadFile(img, true)
+	if (!out) throw 'Gagal upload media.'
 	if (typeof out === 'string' || out instanceof String) m.reply(`[ LINK ]\n${out}`)
 	else {
-		out = out.data.file
-		let meta = out.metadata
+		out = out.result
 		let txt = `*[ File Uploaded ]*\n`
-		+ `\n*id :* ${meta.id}`
-		+ `\n*name :* ${meta.name}`
-		+ `\n*size :* ${meta.size.readable}`
-		+ `\n*url_short :* _${out.url.short}_`
-		+ `\n*url_full :* _${out.url.full}_`
+		+ `\n*host :* ${out.host}`
+		+ `\n*file_name :* ${out.filename}`
+		+ `\n*file_size :* ${isNaN(out.filesize) ? out.filesize : niceBytes(out.filesize)}`
+		+ `\n*file_url :* _${out.url}_`
 		m.reply(txt)
 	}
 }
 
-handler.help = ['tourl']
+handler.help = ['tourl','upload']
 handler.tags = ['tools']
-handler.command = /^(to(url|link))$/i
+handler.command = /^(to(url|link)|upload)$/i
 
 handler.limit = true
 

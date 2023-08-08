@@ -11,14 +11,9 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
 		out = text
 	} else if (mime && mime != 'conversation') {
 		img = await q.download?.()
-		try {
-			out = await uploadImage(img)
-			if (!out) throw Error()
-		} catch {
-			out = await uploadFile(img)
-			if (out) out = out.data.file.url.short
-			else return m.reply('Failed generate Url')
-		}
+		out = await uploadImage(img)
+		if (!out) out = await uploadFile(img)
+		if (!out) return m.reply('Failed upload media.')
 	} else return m.reply(`Kirim Media atau URL dengan caption *${usedPrefix + command}*`)
 	let url = {
 		'tinyurl': 'shortlink',
