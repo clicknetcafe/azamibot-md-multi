@@ -1,18 +1,16 @@
 import db from '../lib/database.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-	text = text.split('|')
-	if (!text[1]) return m.reply(`Format : ${usedPrefix + command} nomor|nama`)
-	let who = m.quoted ? m.quoted.sender : (m.mentionedJid && m.mentionedJid[0]) ? m.mentionedJid[0] : text[0] ? (text[0].replace(/[@ .+-]/g, '') + '@s.whatsapp.net') : ''
-	if (!who) throw `tag atau ketik nomornya!`
+	text = (text || '').split('|')
+	let who = text[1] ? (text[1].replace(/[@ .+-]/g, '') + '@s.whatsapp.net') : m.quoted ? m.quoted.sender : (m.mentionedJid && m.mentionedJid[0]) ? m.mentionedJid[0] : ''
+	if (!who) return m.reply(`Format : ${usedPrefix + command} nama | <tag / quote / ketik nmr nya>`)
 	let meh = await conn.onWhatsApp(who)
 	if (meh.length == 0) return m.reply(`[!] Failed, @${(who.split('@')[0] || '')} bukan pengguna WhatsApp.`, null, { mentions: [who] })
-	who = meh[0].jid.split('@')[0]
-	if (meh[0].jid == conn.user.jid) return m.reply(`[ ! ] Nomor Bot sudah otomatis menjadi real owner.`)
-	if (db.data.datas.rowner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(meh[0].jid)) return m.reply('[ ! ] Dia sudah jadi real owner.')
-	if (db.data.datas.owner.map(([number]) => number).map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(meh[0].jid)) return m.reply('[ ! ] Dia sudah ada di list owner.')
-	db.data.datas.rowner.push([who, text[1], true])
-	await conn.reply(m.chat, `Sukses menjadikan @${(who || '').replace(/@s\.whatsapp\.net/g, '')} sebagai *real owner*.`, m, { mentions: [meh[0].jid] })
+	if (who == conn.user.jid) return m.reply(`[ ! ] Nomor Bot sudah otomatis menjadi real owner.`)
+	if (db.data.datas.owner.map(([number]) => number).includes(who.split('@')[0])) return m.reply('[ ! ] Dia sudah jadi owner.')
+	if (db.data.datas.rowner.map(([number]) => number).includes(who.split('@')[0])) return m.reply('[ ! ] Dia sudah jadi real owner.')
+	db.data.datas.rowner.push([who.split('@')[0], text[0], true])
+	await conn.reply(m.chat, `Sukses menjadikan @${who.split('@')[0]} sebagai *real owner*.`, m, { mentions: [who] })
 }
 
 handler.menuowner = ['addrealowner']
@@ -22,4 +20,3 @@ handler.command = /^(addr(eal)?owner)$/i
 handler.rowner = true
 
 export default handler
-

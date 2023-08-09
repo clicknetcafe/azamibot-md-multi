@@ -17,7 +17,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 
 handler.menudownload = ['sharechat <url>']
 handler.tagsdownload = ['search']
-handler.command = /^(sharechat(dl)?|ig(dl)?)$/i
+handler.command = /^(sharechat(dl)?)$/i
 
 handler.premium = true
 handler.limit = true
