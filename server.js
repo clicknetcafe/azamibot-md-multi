@@ -3,7 +3,6 @@ import path from 'path'
 import { createServer } from 'http'
 import { Server } from 'socket.io'
 import { toBuffer } from 'qrcode'
-import fetch from 'node-fetch'
 import Helper from './lib/helper.js'
 
 function connect(conn, PORT) {

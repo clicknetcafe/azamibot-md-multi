@@ -10,12 +10,9 @@ import printMessage from './lib/print.js'
 import Helper from './lib/helper.js'
 import db, { loadDatabase } from './lib/database.js'
 import Queque from './lib/queque.js'
-import fetch from 'node-fetch'
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
 
 /** @type {import('@whiskeysockets/baileys')} */
-const { getContentType, proto } = (await import('@whiskeysockets/baileys')).default
+const { getContentType } = (await import('@whiskeysockets/baileys')).default
 
 const isNumber = x => typeof x === 'number' && !isNaN(x)
 /**
@@ -1016,13 +1013,13 @@ export async function handler(chatUpdate) {
 
 				if (!isAccept)
 					continue
-				m.plugin = name
+				m.plugin = name.replace('plugins\\','')
 				if (m.chat in db.data.chats || m.sender in db.data.users) {
 					let chat = db.data.chats[m.chat]
 					let user = db.data.users[m.sender]
-					if (name != 'plugins\\owner-unbanchat.js' && chat?.isBanned)
+					if (m.plugin != 'owner\\unbanchat.js' && chat?.isBanned)
 						return // Except this
-					if (name != 'plugins\\owner-unbanuser.js' && user?.banned)
+					if (m.plugin != 'owner\\unbanuser.js' && user?.banned)
 						return
 				}
 				if (plugin.rowner && plugin.owner && !(isROwner || isOwner)) { // Both Owner

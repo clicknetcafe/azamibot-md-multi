@@ -48,7 +48,7 @@ const conn = Object.defineProperty(Connection, 'conn', {
 // load plugins
 loadPluginFiles(pluginFolder, pluginFilter, {
 	logger: conn.logger,
-	recursiveRead: false
+	recursiveRead: true
 }).then(_ => console.log(Object.keys(plugins)))
 	.catch(console.error)
 
