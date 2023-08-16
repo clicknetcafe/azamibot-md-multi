@@ -1,4 +1,4 @@
-import { delay, ranNumb } from '../../lib/others.js'
+import { delay, ranNumb } from '../../lib/func.js'
 
 let handler = async(m, { conn, text, usedPrefix, command, isPrems }) => {
 	if (!text) return m.reply(`*Usage : ${usedPrefix + command} query*\n\nExample :\n${usedPrefix + command} mountain`)

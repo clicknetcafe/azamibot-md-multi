@@ -1,8 +1,8 @@
-import { isValidUrl } from '../../lib/others.js'
+import { isUrl } from '../../lib/func.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `Example: ${usedPrefix + command} Melukis Senja`
-	if (isValidUrl(text)) {
+	if (isUrl(text)) {
 		try {
 			let anu = await (await fetch(`https://api.botcahx.live/api/download/spotify?url=${text}&apikey=${apilol}`)).json()
 			anu = anu.result.data

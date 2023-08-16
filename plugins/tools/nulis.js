@@ -1,6 +1,6 @@
 import { format } from 'util'
 import { spawn } from 'child_process'
-import { delay } from '../../lib/others.js'
+import { delay } from '../../lib/func.js'
 
 const fontPath = 'src/font/Zahraaa.ttf'
 

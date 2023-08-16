@@ -2,7 +2,7 @@ import db from '../../lib/database.js'
 import { canLevelUp, xpRange } from '../../lib/levelling.js'
 import { levelup } from '../../lib/canvas.js'
 import uploadImage from '../../lib/uploadImage.js'
-import { ranNumb, padLead } from '../../lib/others.js'
+import { ranNumb, padLead } from '../../lib/func.js'
 
 let handler = async (m, { conn }) => {
 	let user = db.data.users[m.sender]

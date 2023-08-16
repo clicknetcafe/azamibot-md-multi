@@ -1,5 +1,5 @@
 import db from '../../lib/database.js'
-import { readMore, ranNumb, padLead } from '../../lib/others.js'
+import { readMore, ranNumb, padLead } from '../../lib/func.js'
 import { plugins } from '../../lib/plugins.js'
 import { promises } from 'fs'
 import { join } from 'path'

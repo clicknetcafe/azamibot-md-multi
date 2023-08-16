@@ -1,5 +1,5 @@
 import Connection from '../../lib/connection.js'
-import { delay } from '../../lib/others.js'
+import { delay } from '../../lib/func.js'
 
 let handler = async (m, { conn, args, command }) => {
 	let chat = Object.keys(Connection.store.chats).filter(v => v.endsWith('g.us'))

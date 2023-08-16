@@ -1,4 +1,4 @@
-import { delay, ranNumb } from '../../lib/others.js'
+import { delay, ranNumb } from '../../lib/func.js'
 
 let handler = async (m, { conn, text, usedPrefix, command, participants }) => {
 	let groups

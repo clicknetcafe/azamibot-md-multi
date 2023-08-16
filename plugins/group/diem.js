@@ -1,5 +1,5 @@
 import db from '../../lib/database.js'
-import { isNumber, somematch } from '../../lib/others.js'
+import { isNumber, somematch } from '../../lib/func.js'
 
 const cooldown = 60000
 

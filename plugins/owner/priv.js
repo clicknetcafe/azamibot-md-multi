@@ -1,4 +1,4 @@
-import { somematch } from '../../lib/others.js'
+import { somematch } from '../../lib/func.js'
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
 	let x = args[0], y = args[1]

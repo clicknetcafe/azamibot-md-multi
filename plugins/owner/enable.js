@@ -1,5 +1,5 @@
 import db from '../../lib/database.js'
-import { somematch } from '../../lib/others.js'
+import { somematch } from '../../lib/func.js'
 
 let handler = async (m, { conn, usedPrefix, command, isOwner, args }) => {
 	if (isOwner && m.isGroup) {

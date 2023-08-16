@@ -1,4 +1,4 @@
-import { somematch, pickRandom } from '../../lib/others.js'
+import { somematch, pickRandom } from '../../lib/func.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (text) text = text.toLowerCase()

@@ -1,4 +1,4 @@
-import { styletext } from '../../lib/others.js'
+import { styletext } from '../../lib/scrape.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	let teks = text ? text : m.quoted?.text ? m.quoted.text : ''

@@ -1,13 +1,12 @@
 import uploadImage from '../../lib/uploadImage.js'
-import { isValidUrl, someincludes } from '../../lib/others.js'
+import { isUrl, someincludes } from '../../lib/func.js'
 import db from '../../lib/database.js'
-
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''
 	let img, out, custom
-	if (isValidUrl(args[0] || '')) {
+	if (isUrl(args[0] || '')) {
 		out = args[0]
 		if (args[1]) custom = args[1]
 	} else if (mime && mime != 'conversation') {

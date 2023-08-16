@@ -1,5 +1,5 @@
 import db from '../../lib/database.js'
-import { ranNumb } from '../../lib/others.js'
+import { ranNumb } from '../../lib/func.js'
 import fs from 'fs'
 
 const cooldown = 864000000

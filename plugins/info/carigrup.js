@@ -1,4 +1,4 @@
-import { linkwa } from '../../lib/others.js'
+import { linkwa } from '../../lib/scrape.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `[!] Mau nyari grup apa ?\n\nContoh:\n*${usedPrefix + command} mabar*`

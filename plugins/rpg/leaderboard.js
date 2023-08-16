@@ -1,4 +1,4 @@
-import { isNumber } from '../../lib/others.js'
+import { isNumber } from '../../lib/func.js'
 import { areJidsSameUser } from '@whiskeysockets/baileys'
 import db from '../../lib/database.js'
 

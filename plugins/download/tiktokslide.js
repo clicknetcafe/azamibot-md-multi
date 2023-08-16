@@ -1,4 +1,4 @@
-import { delay,ranNumb } from '../../lib/others.js'
+import { delay,ranNumb } from '../../lib/func.js'
 
 let handler = async(m, { conn, text, usedPrefix, command, isPrems }) => {
 	if (!text) throw `Example: ${usedPrefix + command} https://vt.tiktok.com/ZS81qJD5v/`

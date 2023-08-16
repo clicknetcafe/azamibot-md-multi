@@ -1,4 +1,4 @@
-import { delay } from '../../lib/others.js'
+import { delay } from '../../lib/func.js'
 import fs from 'fs'
 import { Sticker, StickerTypes } from 'wa-sticker-formatter'
 

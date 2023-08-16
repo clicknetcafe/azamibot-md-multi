@@ -1,5 +1,5 @@
 import db from '../../lib/database.js'
-import { isNumber, somematch } from '../../lib/others.js'
+import { isNumber, somematch } from '../../lib/func.js'
 
 let handler = async (m, { conn, command, usedPrefix, args }) => {
 	let user = db.data.users[m.sender]

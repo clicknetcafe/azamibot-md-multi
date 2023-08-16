@@ -1,5 +1,5 @@
 import { parsePhoneNumber } from 'awesome-phonenumber'
-import { someincludes } from '../../lib/others.js'
+import { someincludes } from '../../lib/func.js'
 
 let handler = async (m, { conn, args }) => {
 	let response = await conn.groupRequestParticipantsList(m.chat)

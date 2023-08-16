@@ -1,5 +1,5 @@
 import db from '../../lib/database.js'
-import { isNumber, somematch } from '../../lib/others.js'
+import { isNumber, somematch } from '../../lib/func.js'
 
 let handler = async (m, { conn, args, command, usedPrefix }) => {
 	const item = (args[0] || '').toLowerCase()

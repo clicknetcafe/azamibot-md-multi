@@ -1,5 +1,5 @@
 import uploadImage from '../../lib/uploadImage.js'
-import { niceBytes } from '../../lib/others.js'
+import { niceBytes } from '../../lib/func.js'
 
 let handler = async (m, { usedPrefix, command }) => {
 	let q = m.quoted ? m.quoted : m

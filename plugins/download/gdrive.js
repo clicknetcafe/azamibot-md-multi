@@ -1,4 +1,5 @@
-import { someincludes, GDriveDl } from '../../lib/others.js'
+import { someincludes } from '../../lib/func.js'
+import { GDriveDl } from '../../lib/scrape.js'
 
 let handler = async (m, { conn, args }) => {
 	if (!(args[0] || '').match(/([\w-]){33}|([\w-]){19}/)) throw '[!] Input GoogleDrive URL'

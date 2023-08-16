@@ -1,5 +1,5 @@
 import db from '../../lib/database.js'
-import { somematch } from '../../lib/others.js'
+import { somematch } from '../../lib/func.js'
 
 const teks = '0 - Ya\n1 - Tidak\n2 - Saya Tidak Tau\n3 - Mungkin\n4 - Mungkin Tidak\n5 - Kembali ke pertanyaan sebelumnya'
 

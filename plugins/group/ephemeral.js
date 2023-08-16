@@ -1,4 +1,4 @@
-import { someincludes, somematch } from '../../lib/others.js'
+import { someincludes, somematch } from '../../lib/func.js'
 import pkg from '@whiskeysockets/baileys';
 const { WA_DEFAULT_EPHEMERAL, groupToggleEphemeral } = pkg;
 

@@ -1,4 +1,4 @@
-import { pickRandom } from '../../lib/others.js'
+import { pickRandom } from '../../lib/func.js'
 import { sticker } from '../../lib/sticker.js'
 
 let handler = async (m, { conn, usedPrefix, command }) => {

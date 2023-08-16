@@ -1,5 +1,5 @@
 import db from '../../lib/database.js'
-import { isNumber } from '../../lib/others.js'
+import { isNumber } from '../../lib/func.js'
 
 const cooldown = 1200000 // 10 masakan
 const cooldownn = 300000 // 10 masakan

@@ -1,5 +1,5 @@
 import { youtubedl } from '@bochilteam/scraper-sosmed'
-import { somematch } from '../../lib/others.js'
+import { somematch } from '../../lib/func.js'
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
 	if (!args[0]) throw `Example: ${usedPrefix + command} https://youtu.be/zcRGPmEawmk`

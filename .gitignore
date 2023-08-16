@@ -9,7 +9,7 @@ node_modules/
 plugins/_allbutton.zip
 
 # ntar aja bang bagi/bagi pluginnya :v
-lib/scraperpro.js
+lib/scrapepro.js
 plugins/ai/
 plugins/anime/anime.js
 plugins/anime/chara.js
@@ -46,7 +46,6 @@ plugins/download/mediafire.js
 plugins/download/pinterest.js
 plugins/download/pinterestimage.js
 plugins/download/pinterestvideo.js
-plugins/download/soundcloud.js
 plugins/download/subscene.js
 plugins/download/tiktok.js
 plugins/download/tiktokaudio.js
@@ -95,7 +94,6 @@ plugins/gi/weapon.js
 plugins/group/muteall.js
 plugins/info/beasiswa.js
 plugins/info/cekusia.js
-plugins/info/chord.js
 plugins/info/createbarcode.js
 plugins/info/createqr.js
 plugins/info/cuaca.js
@@ -118,7 +116,6 @@ plugins/info/searchplace.js
 plugins/info/ssweb.js
 plugins/info/translate.js
 plugins/info/urbandictionary.js
-plugins/info/whatmusic.js
 plugins/info/wikipedia.js
 plugins/menu/ai.js
 plugins/menu/store.js
@@ -138,8 +135,6 @@ plugins/nsfw/ranwaifupics.js
 plugins/nsfw/xhamster.js
 plugins/nsfw/xnxx.js
 plugins/others/keranggpt.js
-plugins/others/primbonjodoh.js
-plugins/others/primbonnama.js
 plugins/others/primbontebakumur.js
 plugins/owner/broadcastptvgc.js
 plugins/search/apk.js

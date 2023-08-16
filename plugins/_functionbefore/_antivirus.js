@@ -1,5 +1,5 @@
 import db from '../../lib/database.js'
-import { delay } from '../../lib/others.js'
+import { delay } from '../../lib/func.js'
 
 export async function before(m, { isBotAdmin }) {
 	if (m.text.length < 45000) return !0

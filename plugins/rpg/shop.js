@@ -1,5 +1,5 @@
 import db from '../../lib/database.js'
-import { isNumber, readMore, somematch } from '../../lib/others.js'
+import { isNumber, readMore, somematch } from '../../lib/func.js'
 
 const items = {
 	buy: {

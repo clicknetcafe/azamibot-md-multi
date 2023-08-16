@@ -4,7 +4,7 @@
 //const cooldown = 86400000 // 1 hari
 //const cooldown = 2592000000 // 1 bulan
 import db from '../../lib/database.js'
-import { ranNumb } from '../../lib/others.js'
+import { ranNumb } from '../../lib/func.js'
 
 const cooldown = 900000
 

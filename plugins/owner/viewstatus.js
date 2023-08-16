@@ -1,6 +1,6 @@
 // fitur buat bikin status orang yang ditag bakal diteruskan ke nomor ROwner
 import db from '../../lib/database.js'
-import { somematch } from '../../lib/others.js'
+import { somematch } from '../../lib/func.js'
 
 const one = ['true','enable','on','turnon','false','disable','off','turnoff']
 

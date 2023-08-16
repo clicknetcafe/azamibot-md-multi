@@ -1,8 +1,8 @@
-import { isValidUrl } from '../../lib/others.js'
+import { isUrl } from '../../lib/func.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `Just type query what u need :\nUsage : *${usedPrefix + command} step mother*\n\nFor show info / download link :\nUsage : *${usedPrefix + command} xvideos_url*`
-	if (isValidUrl(text)) {
+	if (isUrl(text)) {
 		try {
 			let anu = await (await fetch(`https://oni-chan.my.id/api/adults/xvideos-download?link=${text}&apikey=kurumi-tosaka`)).json()
 			if (!anu.status) throw Error()

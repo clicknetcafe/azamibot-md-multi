@@ -1,6 +1,6 @@
 import db from '../../lib/database.js'
 import { sticker } from '../../lib/sticker.js'
-import { somematch } from '../../lib/others.js'
+import { somematch } from '../../lib/func.js'
 
 let handler = async (m, { conn, text, participants }) => {
 	if (db.data.settings[conn.user.jid].restrict) {

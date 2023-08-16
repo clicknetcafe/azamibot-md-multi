@@ -1,4 +1,4 @@
-import { Primbon } from '../../lib/others.js'
+import { Primbon } from '../../lib/scrape.js'
 
 const primbon = new Primbon()
 

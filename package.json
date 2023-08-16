@@ -45,6 +45,7 @@
 		"@whiskeysockets/baileys": "^6.4.0",
 		"awesome-phonenumber": "^5.10.0",
 		"axios": "^1.4.0",
+		"bing-scraper": "^1.4.11",
 		"brainly-scraper-v2": "^2.2.8",
 		"capture-website": "^3.2.0",
 		"cfonts": "^3.2.0",
@@ -57,7 +58,7 @@
 		"file-type": "^18.5.0",
 		"fluent-ffmpeg": "^2.1.2",
 		"formdata-node": "^5.0.1",
-		"genshin-db": "^4.3.11",
+		"genshin-db": "^4.3.13",
 		"google-it": "^1.6.4",
 		"got": "^13.0.0",
 		"got-scraping": "^3.2.15",
@@ -65,7 +66,7 @@
 		"human-readable": "^0.2.1",
 		"imagemaker.js": "^2.0.4",
 		"jsdom": "^22.1.0",
-		"link-preview-js": "^3.0.4",
+		"link-preview-js": "^3.0.5",
 		"lodash": "^4.17.21",
 		"lowdb": "^5.1.0",
 		"moment-timezone": "^0.5.43",
@@ -90,9 +91,8 @@
 		"tesseract.js": "^4.1.0",
 		"tinycolor2": "^1.6.0",
 		"translate-google-api": "^1.0.4",
-		"url-regex-safe": "^3.0.0",
+		"url-regex-safe": "^4.0.0",
 		"wa-sticker-formatter": "^4.4.4",
-		"xfarr-api": "^2.0.0",
 		"yargs": "^17.7.2"
 	}
 }

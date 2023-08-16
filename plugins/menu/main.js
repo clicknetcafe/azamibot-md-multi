@@ -1,6 +1,6 @@
 import db from '../../lib/database.js'
 import { plugins } from '../../lib/plugins.js'
-import { readMore, ranNumb, padLead, runtimes } from '../../lib/others.js'
+import { readMore, ranNumb, padLead, runtimes } from '../../lib/func.js'
 import { promises } from 'fs'
 import { join } from 'path'
 import os from 'os'
@@ -8,7 +8,6 @@ import os from 'os'
 let tags = {
 	'submenu': '🎪 *SUB MENU*',
 	'searching': '🔎 *SEARCHING*',
-	'randomtext': '♻️ *RANDOM TEXT*',
 	'information': '🤖 *INFORMATION*',
 	'entertainment': '🎡 *ENTERTAINMENT*',
 	'primbon': '🎆 *PRIMBON*',

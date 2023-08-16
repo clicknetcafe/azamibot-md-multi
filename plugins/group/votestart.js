@@ -1,4 +1,4 @@
-import { delay } from '../../lib/others.js'
+import { delay } from '../../lib/func.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	conn.vote = conn.vote ? conn.vote : {}

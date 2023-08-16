@@ -1,6 +1,6 @@
 import db from '../../lib/database.js'
 import { parsePhoneNumber } from 'awesome-phonenumber'
-import { ranNumb, delay, somematch } from '../../lib/others.js'
+import { ranNumb, delay, somematch } from '../../lib/func.js'
 
 const cooldown = 60000
 const meiko = ['6287724795484','6288221508560','6283863274997'].map(v => v + '@s.whatsapp.net')

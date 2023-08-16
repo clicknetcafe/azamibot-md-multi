@@ -3,7 +3,7 @@ import { cpus as _cpus, totalmem, freemem } from 'os'
 import os from 'os'
 import { performance } from 'perf_hooks'
 import { sizeFormatter } from 'human-readable'
-import { runtime } from '../../lib/others.js'
+import { runtime } from '../../lib/func.js'
 
 let format = sizeFormatter({
 	std: 'JEDEC', // 'SI' (default) | 'IEC' | 'JEDEC'
