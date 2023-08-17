@@ -62,7 +62,7 @@ if (!opts['test']) {
 			//clearTmp()
 		])
 		Connection.store.writeToFile(Connection.storeFile)
-	}, 120 * 1000)
+	}, 1000 * 60 * 5) // save every 5 minute
 }
 if (opts['server']) (await import('./server.js')).default(conn, PORT)
 
