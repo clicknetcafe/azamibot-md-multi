@@ -13,7 +13,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 		txt += `⭔ Watch : ${args[0]}\n`
 		txt += `⭔ Resolution : ${data.quality}\n`
 		txt += `⭔ Size : ${data.fileSizeH}`
-		//await conn.sendMsg(m.chat, { video: { url: url }, caption: txt }, { quoted: m })
+		await conn.sendFile(m.chat, url, `${anu.title}.mp4`, txt, m)
 	} catch (e) {
 		console.log(e)
 		m.reply(`[!] ${za}p tidak tersedia / terjadi kesalahan.`)

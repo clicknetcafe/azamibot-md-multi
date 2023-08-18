@@ -21,7 +21,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 				} else ch = 0
 				buffer = await (ch > 1 ? addExif(await video2webp(img, isNaN(fps) ? 15 : fps), packname, author) : ch > 0 ? sticker(img, false, packname, author) : /webp/g.test(mime) ? addExif(img, packname, author) : createSticker(img, { pack: packname, author: author, type: StickerTypes.FULL }))
 				await conn.sendFile(m.chat, buffer, '', '', m)
-			} else throw `Kirim Gambar/Video Dengan Caption *${usedPrefix + c}*\nDurasi Video 1-9 Detik`
+			} else return m.reply(`Kirim Gambar/Video Dengan Caption *${usedPrefix + c}*\nDurasi Video 1-9 Detik`)
 		}
 	} catch (e) {
 		console.log(e)

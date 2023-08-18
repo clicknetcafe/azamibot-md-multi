@@ -159,6 +159,7 @@ plugins/store/
 plugins/tools/dashboard.js
 plugins/tools/ptv.js
 plugins/tools/ringtone.js
+plugins/tools/savekontak.js
 
 # data-single-auth
 session.data.json
