@@ -13,13 +13,13 @@ export async function before(m) {
 		return
 	if (m.quoted.id == this.tebakbendera[id][0].id) {
 		let json = JSON.parse(JSON.stringify(this.tebakbendera[id][1]))
-		if (m.text.toLowerCase() == json.result.name.toLowerCase().trim()) {
+		if (m.text.toLowerCase() == json.nama.toLowerCase().trim()) {
 			user.exp += this.tebakbendera[id][2]
 			user.spamcount += 2
 			this.reply(m.chat, `*Benar!* 🎉\n\n+${this.tebakbendera[id][2]} Exp`, m)
 			clearTimeout(this.tebakbendera[id][3])
 			delete this.tebakbendera[id]
-		} else if (similarity(m.text.toLowerCase(), json.result.name.toLowerCase().trim()) >= threshold)
+		} else if (similarity(m.text.toLowerCase(), json.nama.toLowerCase().trim()) >= threshold)
 			m.reply(`*Dikit Lagi!*`)
 		else
 			m.reply(`*Salah!*`)

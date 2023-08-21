@@ -1,6 +1,7 @@
+import { getDevice } from '@whiskeysockets/baileys'
+
 let handler = async (m) => {
-	let q = m.quoted ? m.quoted : m
-	m.reply(q.device)
+	m.reply(await getDevice(m.quoted ? m.quoted.id : m.key.id))
 }
 
 handler.help = ['device']

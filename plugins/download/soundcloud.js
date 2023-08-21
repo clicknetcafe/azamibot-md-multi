@@ -9,8 +9,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 		txt += `⭔ Duration : ${anu.duration}\n`
 		txt += `⭔ Quality : *${anu.quality}*`
 		if (anu.download != undefined) await conn.sendMsg(m.chat, { image: { url: anu.thumbnail }, caption: txt }, { quoted : m })
-		if (command.includes('mp3')) await conn.sendMsg(m.chat, { document: { url: anu.download }, mimetype: 'audio/mpeg', fileName: `${anu.title}.mp3` }, { quoted : m })
-		else await conn.sendMsg(m.chat, { audio: { url: anu.download }, mimetype: 'audio/mp4' }, { quoted : m })
+		await conn.sendFile(m.chat, anu.download, `${anu.title}.mp3`, '', m, false, /mp3/.test(command) ? { asDocument: true } : {})
 	} catch (e) {
 		console.log(e)
 		m.reply(`Invalid Soundcloud URL / terjadi kesalahan.`)

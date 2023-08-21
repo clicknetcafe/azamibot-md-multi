@@ -31,7 +31,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isB
 		for (let x of array) {
 			if (somematch(differflat, x)) {
 				for (let y of batch) {
-					if (somematch(y.numbers, x)) batch[y].status = true
+					if (somematch(y.numbers, x)) y.status = true
 				}
 			} else {
 				u = user[x]

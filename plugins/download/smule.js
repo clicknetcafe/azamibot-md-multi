@@ -6,7 +6,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 		if (anu.status != 200) throw Error(anu.message)
 		anu = anu.result
 		if (/v/.test(command)) await conn.sendMsg(m.chat, { video: { url: anu.video }, caption: anu.title }, { quoted : m })
-		else await conn.sendMsg(m.chat, { [/mp3/.test(command) ? 'document' : 'audio']: { url: anu.audio }, mimetype: 'audio/mpeg', fileName: `${anu.title}.mp3`}, { quoted : m })
+		else await conn.sendFile(m.chat, anu.audio, `${anu.title}.mp3`, '', m, false, /mp3/.test(command) ? { asDocument: true } : {})
 	} catch (e) {
 		console.log(e)
 		throw 'invalid url / server down'

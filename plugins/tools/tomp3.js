@@ -6,12 +6,12 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 	if (/audio|video/.test(mime)) {
 		let media = await q.download?.()
 		if (/video/.test(mime)) media = await toAudio(media, 'mp4').then((data) => data.toBuffer())
-		await conn.sendMsg(m.chat, /toa/.test(command) ? { audio: media, mimetype: 'audio/mp4' } : { document: media, mimetype: 'audio/mpeg', fileName: 'Convert by AzamiBot.mp3' }, { quoted: m })
+		await conn.sendFile(m.chat, media, `Convert by ${packname}.mp3`, '', m, /vn/.test(command) ? true : false, /mp3/.test(command) ? { asDocument: true } : {})
 	} else throw `Reply video/audio with caption *${usedPrefix + command}*`
 }
 
-handler.help = ['tomp3']
+handler.help = ['toaudio','tomp3','tovn'].map(v => v+' (reply)')
 handler.tags = ['tools']
-handler.command = /^(to(mp3|a(udio)?))$/i
+handler.command = /^(to(vn|a(udio)?|mp3))$/i
 
 export default handler

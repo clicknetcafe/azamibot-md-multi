@@ -1,35 +1,52 @@
 import { isUrl } from '../../lib/func.js'
+import SpottyDL from 'spottydl'
+import fs from 'fs'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `Example: ${usedPrefix + command} Melukis Senja`
 	if (isUrl(text)) {
-		try {
-			let anu = await (await fetch(`https://api.botcahx.live/api/download/spotify?url=${text}&apikey=${apilol}`)).json()
-			anu = anu.result.data
-			let txt = `*${anu.title}*\n\n`
-			txt += `*id :* ${anu.artist.id}\n`
-			txt += `*name :* ${anu.artist.name}\n`
-			txt += `*duration :* ${anu.duration}\n`
-			txt += `*artist :* _${anu.artist.external_urls.spotify}_`
-			await conn.sendMsg(m.chat, { image: { url: anu.thumbnail }, caption: txt }, { quoted : m })
-			await conn.sendMsg(m.chat, { [/mp3/.test(command) ? 'document' : 'audio']: { url: anu.url }, mimetype: 'audio/mpeg', fileName: `${anu.title}.mp3`}, { quoted : m })
-		} catch (e) {
-			console.log(e)
-			throw 'invalid url / server down.'
+		if (/\/track\//.test(text)) {
+			let res = await SpottyDL.getTrack(text)
+			if (typeof res !== 'object') throw 'invalid spotify track url'
+			let ttl = `./tmp/${res.title}.mp3`
+			fs.closeSync(fs.openSync(ttl, 'w'))
+			let anu = await SpottyDL.downloadTrack(res, './tmp')
+			await conn.sendFAudio(m.chat, { [/mp3/g.test(command) ? 'document' : 'audio']: { url: ttl }, mimetype: 'audio/mpeg', fileName: `${res.title}.mp3` }, m, res.title, 'https://telegra.ph/file/2e15408ac5e72fc90bc3f.jpg', text)
+		} else if (/\/album\//.test(text)) {
+			let anu = await SpottyDL.getAlbum(text)
+			anu = anu.tracks
+			if (typeof anu !== 'object' || anu.length == 0) throw 'invalid spotify album url'
+			let txt = `*Found ${anu.length} Result*`
+			for (let x of anu) {
+				txt += `\n\n*name :* ${x.name}\n`
+				+ `*track number :* ${x.trackNumber}\n`
+				+ `https://www.youtube.com/watch?v=${x.id}\n`
+				+ `───────────────────`
+			}
+			m.reply(txt)
 		}
 	} else {
-		let anu = await (await fetch(`https://api.lolhuman.xyz/api/spotifysearch?apikey=${apilol}&query=${text}`)).json()
-		if (!anu.status) throw Error(anu.message)
+		let bearer = (await (await fetch('https://accounts.spotify.com/api/token', {
+			method: 'POST',
+			body: new URLSearchParams({
+				grant_type: 'client_credentials',
+				client_id: '6efa7eefe8b84b68962d9b4f93c05d5d',
+				client_secret: '368c159b66d34f01a076b73d361471f4'
+			})
+		})).json()).access_token
+		let anu = await (await fetch(`https://api.spotify.com/v1/search?q=${text}&type=track&limit=15&include_external=audio&access_token=${bearer}`)).json()
+		anu = anu.tracks.items
+		if (anu.length == 0) throw 'judul tidak ditemukan.'
 		let txt = `Found : *${text}*`
-		for (var x of anu.result) {
-			txt += `\n\n*Title : ${x.title}*\n`
-			txt += `Artists : ${x.artists}\n`
-			txt += `Duration : ${x.duration}\n`
-			txt += `Link : ${x.link}\n`
-			txt += `${x.preview_url ? `Preview : ${x.preview_url}\n` : ''}`
-			txt += `───────────────────`
+		for (let x of anu) {
+			txt += `\n\n*Title :* ${x.name}\n`
+			+ `*Artists :* ${x.album.artists[0].name}\n`
+			+ `*Release :* ${x.album.release_date}\n`
+			+ `*Link Spotify:*\n${x.external_urls.spotify}\n`
+			+ `${x.preview_url ? `*Link Preview :*\n${x.preview_url}\n` : ''}`
+			+ `───────────────────`
 		}
-		m.reply(txt)
+		await conn.sendFile(m.chat, anu[0].album.images[0].url, '', txt, m)
 	}
 }
 
