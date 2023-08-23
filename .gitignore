@@ -109,13 +109,11 @@ plugins/info/kanji.js
 plugins/info/kodearea.js
 plugins/info/kodepos.js
 plugins/info/lirik.js
-plugins/info/mlstalk.js
 plugins/info/nik.js
 plugins/info/people.js
 plugins/info/readbarcode.js
 plugins/info/readqr.js
 plugins/info/searchplace.js
-plugins/info/ssweb.js
 plugins/info/steam.js
 plugins/info/translate.js
 plugins/info/urbandictionary.js
