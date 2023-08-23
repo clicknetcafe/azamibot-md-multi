@@ -2,8 +2,8 @@ import db from '../../lib/database.js'
 import PhoneNumber from 'awesome-phonenumber'
 import { xpRange } from '../../lib/levelling.js'
 
-let handler = async (m, { conn, isPrems }) => {
-	let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
+let handler = async (m, { conn, isPrems, text }) => {
+	let who = text ? (text.replace(/[@ .+-]/g, '') + '@s.whatsapp.net') : m.quoted ? m.quoted.sender : (m.mentionedJid && m.mentionedJid[0]) ? m.mentionedJid[0] : m.sender
 	try {
 		let pp, user = await db.data.users
 		if (!isPrems && (user[m.sender].level < user[who].level)) return m.reply(`[!] Gagal, level target lebih tinggi.`)
@@ -25,7 +25,8 @@ let handler = async (m, { conn, isPrems }) => {
 		str += `*EXP :* ${exp} (${exp - min} / ${xp})\n`
 		str += `*Money :* ${money}\n`
 		let who2 = who.split`@`[0]
-		str += `*Limit :* ${(db.data.datas.prems.some(v=>who2.includes(v)) || db.data.datas.rowner.map(v => v[0]).some(x=>who2.includes(x)) || db.data.datas.owner.map(v => v[0]).some(x=>who2.includes(x))) ? '~ Infinity ~' : limit}\n`
+		let list = [...db.data.datas.prems.filter(v => v.user !== '').map(v => v.user), ...db.data.datas.rowner.map(v => v[0]+'@s.whatsapp.net'), ...db.data.datas.owner.map(v => v[0]+'@s.whatsapp.net'), conn.user.jid]
+		str += `*Limit :* ${list.includes(who) ? '~ Infinity ~' : limit}\n`
 		str += `${lastclaim > 0 ? `\n*Last Claim :* ${new Date(lastclaim)}` : ''}`
 		await conn.sendMsg(m.chat, { image: { url: pp, fileName: 'pp.jpg'}, caption: str, mentions: [who]}, { quoted: m})
 	} catch (e) {

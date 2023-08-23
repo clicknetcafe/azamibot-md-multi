@@ -1,23 +1,24 @@
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) return m.reply(`Example : ${usedPrefix + command} Avengers`)
 	try {
-		let res = await fetch(`https://api.popcat.xyz/imdb?q=${encodeURIComponent(text)}`)
-		let anu = await res.json()
+		let anu = await (await fetch(`https://api.popcat.xyz/imdb?q=${encodeURIComponent(text)}`)).json()
+		if (anu.error) throw Error()
 		let txt = `*${anu.title}*\n\n`
-		txt += `_"${anu.plot}"_\n`
-		txt += `_${anu.imdburl}_\n\n`
-		txt += `*Rating :*\n`
+		+ `_${anu.imdburl}_\n\n`
+		+ `*Rating :*\n`
 		for (let x of anu.ratings) {
 			txt += `━ ${x.value} _( ${x.source} )_\n`
 		}
-		txt += `\nReleased : ${anu.released}\n`
-		txt += `Rated : *${anu.rated}*\n`
-		txt += `Genres : ${anu.genres}\n`
-		txt += `Languages : ${anu.languages}\n`
-		txt += `Released : ${anu.released}\n`
-		txt += `Director : ${anu.director}\n`
-		txt += `Writer : ${anu.writer}\n`
-		txt += `Actor : ${anu.actors}\n`
+		txt += `\n*released :* ${anu.released}\n`
+		+ `*rated : ${anu.rated}*\n`
+		+ `*runtime :* ${anu.runtime}\n`
+		+ `*genres :* ${anu.genres}\n`
+		+ `*languages :* ${anu.languages}\n`
+		+ `*released :* ${anu.released}\n`
+		+ `*director :* ${anu.director}\n`
+		+ `*writer :* ${anu.writer}\n`
+		+ `*actor :* ${anu.actors}\n\n`
+		+ `*plot :*\n_"${anu.plot.trim()}"_`
 		await conn.sendMsg(m.chat, { image: { url: anu.poster }, caption: txt }, { quoted: m })
 	} catch (e) {
 		console.log(e)

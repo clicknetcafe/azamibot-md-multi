@@ -22,6 +22,7 @@ plugins/anime/mynimeku.js
 plugins/anime/noveltoon.js
 plugins/anime/otakudesu.js
 plugins/anime/ranlolapi.js
+plugins/anime/rannekoslife.js
 plugins/anime/ranscrape.js
 plugins/anime/ranwaifuim.js
 plugins/anime/ranwaifupics.js
@@ -62,6 +63,7 @@ plugins/entertainment/menfess_ans.js
 plugins/entertainment/menfesschat_ans.js
 plugins/entertainment/menfesschat_timer.js
 plugins/entertainment/openai.js
+plugins/entertainment/pickupline.js
 plugins/entertainment/quotenime.js
 plugins/entertainment/randomanimal.js
 plugins/entertainment/randomanimal2.js
@@ -100,6 +102,7 @@ plugins/info/fakta.js
 plugins/info/gsmarena.js
 plugins/info/hero.js
 plugins/info/heroml.js
+plugins/info/itunes.js
 plugins/info/jadwalbola.js
 plugins/info/jadwaltv.js
 plugins/info/kanji.js
@@ -113,6 +116,7 @@ plugins/info/readbarcode.js
 plugins/info/readqr.js
 plugins/info/searchplace.js
 plugins/info/ssweb.js
+plugins/info/steam.js
 plugins/info/translate.js
 plugins/info/urbandictionary.js
 plugins/info/wikipedia.js
