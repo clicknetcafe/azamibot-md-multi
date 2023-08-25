@@ -13,7 +13,7 @@ let handler = async (m, { usedPrefix, command }) => {
 			console.log(e)
 			try {
 				let out = await uploadImage(img)
-				let res = await fetch(`https://api.lolhuman.xyz/api/ocr?apikey=${apilol}&img=${out}`)
+				let res = await fetch(`https://api.lolhuman.xyz/api/ocr?apikey=${api.lol}&img=${out}`)
 				let json = await res.json()
 				if (json.status != '200') throw `Gagal medeteksi teks pada gambar.`
 				let get_result = json.result

@@ -1,6 +1,6 @@
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	try {
-		let res = await fetch(`https://api.lolhuman.xyz/api/jadwaltv/now?apikey=${apilol}`)
+		let res = await fetch(`https://api.lolhuman.xyz/api/jadwaltv/now?apikey=${api.lol}`)
 		let json = await res.json()
 		let get_result = json.result
 		let txt = `*Jadwal TV Now :*`

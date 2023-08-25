@@ -13,7 +13,7 @@ export async function before(m) {
 	if (step == '0' && m.text == '5') return m.reply('Anda telah mencapai pertanyaan pertama')
 	try {
 		user.spamcount += 1
-		let anu = await (await fetch(`https://api.lolhuman.xyz/api/akinator/${m.text == '5' ? 'back' : 'answer'}?apikey=${apilol}&server=${server}${m.text == '5' ? `&session=${session}&signature=${signature}&step=${step}` : `&frontaddr=${frontaddr}&session=${session}&signature=${signature}&step=${step}&answer=${m.text}`}`)).json()
+		let anu = await (await fetch(`https://api.lolhuman.xyz/api/akinator/${m.text == '5' ? 'back' : 'answer'}?apikey=${api.lol}&server=${server}${m.text == '5' ? `&session=${session}&signature=${signature}&step=${step}` : `&frontaddr=${frontaddr}&session=${session}&signature=${signature}&step=${step}&answer=${m.text}`}`)).json()
 		if (anu.status != 200) {
 			aki.sesi = false
 			aki.soal = null

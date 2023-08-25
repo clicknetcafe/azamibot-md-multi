@@ -16,7 +16,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	} catch (e) {
 		console.log(e)
 		try {
-			let anu = await (await fetch(`https://api.lolhuman.xyz/api/infogempa?apikey=${apilol}`)).json()
+			let anu = await (await fetch(`https://api.lolhuman.xyz/api/infogempa?apikey=${api.lol}`)).json()
 			anu = anu.result
 			let txt = `*${anu.lokasi}*\n\n`
 			txt += `Waktu : ${anu.waktu}\n`

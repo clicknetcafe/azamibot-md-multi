@@ -140,11 +140,10 @@ plugins/others/primbontebakumur.js
 plugins/owner/broadcastptvgc.js
 plugins/search/apk.js
 plugins/search/bing.js
-plugins/search/danbooru.js
+plugins/search/booru.js
 plugins/search/gimage.js
 plugins/search/google.js
 plugins/search/happymod.js
-plugins/search/konachan.js
 plugins/search/mirror.js
 plugins/search/pinterest.js
 plugins/search/pixiv.js

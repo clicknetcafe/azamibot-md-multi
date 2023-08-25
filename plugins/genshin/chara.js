@@ -21,7 +21,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 			+ `*Affiliation :* ${anu.affiliation}`
 		await conn.sendMsg(m.chat, { image: { url: anu.images.cover1 }, caption: txt }, { quoted: m })
 		try {
-			let anu3 = await fetch(`https://api.lolhuman.xyz/api/genshin/${name}?apikey=${apilol}`)
+			let anu3 = await fetch(`https://api.lolhuman.xyz/api/genshin/${name}?apikey=${api.lol}`)
 			cv = await anu3.json()
 			cv = cv.result.cv
 			if (cv) {

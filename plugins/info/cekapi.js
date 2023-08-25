@@ -1,6 +1,6 @@
 let handler = async (m, { text }) => {
 	try {
-		let res = await fetch(`https://api.lolhuman.xyz/api/checkapikey?apikey=${text ? text.trim() : apilol}`)
+		let res = await fetch(`https://api.lolhuman.xyz/api/checkapikey?apikey=${text ? text.trim() : api.lol}`)
 		let anu = await res.json()
 		if (anu.status != '200') return m.reply(anu.message)
 		anu = anu.result

@@ -16,7 +16,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 			await conn.sendMsg(m.chat, { image: fimgb, caption: `_© meme receh_` }, { quoted: m })
 		} catch (e) {
 			try {
-				let fimg = await fetch(`https://api.lolhuman.xyz/api/meme/memeindo?apikey=${apilol}`)
+				let fimg = await fetch(`https://api.lolhuman.xyz/api/meme/memeindo?apikey=${api.lol}`)
 				let fimgb = Buffer.from(await fimg.arrayBuffer())
 				if (Buffer.byteLength(fimgb) < 22000) throw Error()
 				await conn.sendMsg(m.chat, { image: fimgb, caption: `_© meme receh_` }, { quoted: m })

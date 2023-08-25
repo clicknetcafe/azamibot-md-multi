@@ -831,7 +831,6 @@ export async function handler(chatUpdate) {
 				if (!('packname' in datas)) datas.packname = ''
 				if (!('author' in datas)) datas.author = ''
 				if (!('linkgc' in datas)) datas.linkgc = ''
-				if (!('imgbb' in datas)) datas.imgbb = ''
 				if (!('spamcountreset' in datas)) datas.spamcountreset = 0
 				if (!('spamcountgcreset' in datas)) datas.spamcountgcreset = 0
 				if (!('spamlistmsg' in datas)) datas.spamlistmsg = null
@@ -843,7 +842,7 @@ export async function handler(chatUpdate) {
 				if (!('tekstopup' in datas)) datas.tekstopup = ''
 				if (!('linkgc' in datas)) datas.linkgc = ''
 				if (!('prems' in datas)) datas.prems = [{user: '', date: 0}]
-				if (!('api' in datas)) datas.api = []
+				if (!('api' in datas)) datas.api = {}
 				if (!('rowner' in datas)) datas.rowner = []
 				if (!('owner' in datas)) datas.owner = []
 				if (!('store' in datas)) datas.store = []
@@ -857,7 +856,6 @@ export async function handler(chatUpdate) {
 				packname: '',
 				author: '',
 				linkgc: '',
-				imgbb: '',
 				wgempa: '',
 				spamcountreset: 0,
 				spamcountgcreset: 0,
@@ -869,7 +867,7 @@ export async function handler(chatUpdate) {
 				teksjadibot: '',
 				tekstopup: '',
 				prems: [{user: '', date: 0}],
-				api: [],
+				api: {},
 				rowner: [],
 				owner: [],
 				store: [],

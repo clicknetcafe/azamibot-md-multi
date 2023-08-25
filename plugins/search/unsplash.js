@@ -3,7 +3,7 @@ import { delay, ranNumb } from '../../lib/func.js'
 let handler = async(m, { conn, text, usedPrefix, command, isPrems }) => {
 	if (!text) return m.reply(`*Usage : ${usedPrefix + command} query*\n\nExample :\n${usedPrefix + command} mountain`)
 	try {
-		let anu = await (await fetch(`https://api.lolhuman.xyz/api/unsplash?apikey=${apilol}&query=${text}`)).json()
+		let anu = await (await fetch(`https://api.lolhuman.xyz/api/unsplash?apikey=${api.lol}&query=${text}`)).json()
 		if (anu.status != 200) return m.reply(anu.message)
 		let c = 0, d = anu.result
 		if (!isPrems && d.length > 7) {

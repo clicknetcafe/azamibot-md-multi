@@ -2,7 +2,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `*Usage : ${usedPrefix + command} smule_url_media*\n\nExample :\n${usedPrefix + command} https://www.smule.com/recording/lewis-capaldi-someone-you-loved/2027750707_2937753991`
 	if (!(text.includes('http://') || text.includes('https://'))) throw `url invalid, please input a valid url. Try with add http:// or https://`
 	try {
-		let anu = await (await fetch(`https://api.lolhuman.xyz/api/smule?apikey=${apilol}&url=${text}`)).json()
+		let anu = await (await fetch(`https://api.lolhuman.xyz/api/smule?apikey=${api.lol}&url=${text}`)).json()
 		if (anu.status != 200) throw Error(anu.message)
 		anu = anu.result
 		if (/v/.test(command)) await conn.sendMsg(m.chat, { video: { url: anu.video }, caption: anu.title }, { quoted : m })

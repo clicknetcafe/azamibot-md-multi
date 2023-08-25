@@ -7,7 +7,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 		try {
 			let img = await q.download?.()
 			let out = await uploadImage(img)
-			let res = await fetch(`https://api.lolhuman.xyz/api/nsfwcheck?apikey=${apilol}&img=${out}`)
+			let res = await fetch(`https://api.lolhuman.xyz/api/nsfwcheck?apikey=${api.lol}&img=${out}`)
 			let json = await res.json()
 			if (json.status != '200') throw `Fitur Error!`
 			let get_result = json.result

@@ -9,7 +9,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 		m.reply(`_${json.hasil.quotes}_\n\n*― ${json.hasil.author}*`)
 	} catch (e) {
 		try {
-			let res = await fetch(`https://api.lolhuman.xyz/api/random/quotes?apikey=${apilol}`)
+			let res = await fetch(`https://api.lolhuman.xyz/api/random/quotes?apikey=${api.lol}`)
 			let json = await res.json()
 			m.reply(`_${json.result.quote}_\n\n*― ${json.result.by}*`)
 		} catch (e) {

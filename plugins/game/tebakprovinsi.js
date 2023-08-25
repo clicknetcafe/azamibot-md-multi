@@ -12,7 +12,7 @@ let handler = async (m, { conn, usedPrefix, isPrems }) => {
 	let usr = db.data.users[m.sender]
 	if (usr.limit < 1 && usr.money > 50000 && !isPrems) throw `Beli limit dulu lah, duid lu banyak kan 😏`
 	else if (usr.limit > 0 && !isPrems) usr.limit -= 1
-	let res = await fetch(`https://api.lolhuman.xyz/api/tebak/provinsi?apikey=${apilol}`)
+	let res = await fetch(`https://api.lolhuman.xyz/api/tebak/provinsi?apikey=${api.lol}`)
 	if (!res.ok) throw 'Fitur Error!'
 	const json = await res.json()
 	let caption = `

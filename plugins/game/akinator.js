@@ -10,7 +10,7 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
 	} else {
 		if (aki.sesi) return conn.reply(m.chat, `Masih berada dalam sesi Akinator\n*${usedPrefix + command} end* untuk keluar dari sesi Akinator`, aki.soal)
 		try {
-			let anu = await (await fetch(`https://api.lolhuman.xyz/api/akinator/start?apikey=${apilol}`)).json()
+			let anu = await (await fetch(`https://api.lolhuman.xyz/api/akinator/start?apikey=${api.lol}`)).json()
 			if (anu.status != 200) throw Error(anu.message)
 			let { server, frontaddr, session, signature, question, progression, step } = anu.result
 			aki.sesi = true

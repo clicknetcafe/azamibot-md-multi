@@ -9,10 +9,8 @@ let handler = m => m
 	global.packname = datas.packname
 	global.author = datas.author
 	global.pauthor = datas.packname + ' - ' + datas.author
-	// datas.api is array like ['apikey1','apikey2','etc']
+	// use .addapi to add or .cekapi to check
 	global.api = datas.api
-	global.apilol = datas.api[0] || ''
-	global.imgbb = datas.imgbb	// https://api.imgbb.com/
 	global.ephemeral = '86400' // 86400 = 24jam, kalo ingin di hilangkan ganti jadi 'null' atau ''
 	global.timeh = `🕰️ ${d.toLocaleTimeString('id', { hour: 'numeric', minute: 'numeric', second: 'numeric' }).replace(/./,':')}`
 	

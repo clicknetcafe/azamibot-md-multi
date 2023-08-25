@@ -7,7 +7,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 		try {
 			let img = await q.download?.()
 			let out = await uploadImage(img)
-			let anu = await fetch(`https://api.lolhuman.xyz/api/facedetect?apikey=${apilol}&img=${out}`)
+			let anu = await fetch(`https://api.lolhuman.xyz/api/facedetect?apikey=${api.lol}&img=${out}`)
 			if (anu.status != 200) throw Error(anu.message)
 			await conn.sendMsg(m.chat, { image: Buffer.from(await anu.arrayBuffer()) }, { quoted: m })
 		} catch (e) {

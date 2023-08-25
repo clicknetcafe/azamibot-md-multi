@@ -6,7 +6,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
 	if (/image\/(jpe?g|png)/.test(mime) && !/webp/.test(mime)) {
 		let img = await q.download()
 		let out = await uploadImage(img)
-		let anu = await (await fetch(`https://api.lolhuman.xyz/api/reverseyandex?apikey=${apilol}&img=${out}`)).json()
+		let anu = await (await fetch(`https://api.lolhuman.xyz/api/reverseyandex?apikey=${api.lol}&img=${out}`)).json()
 		if (anu.status !== 200) return m.reply('Internal server error.')
 		m.reply(`[ YANDEX REVERSE SEARCH ]\n\n_${anu.result}_`)
 	} else throw `Kirim Gambar Dengan Caption *${usedPrefix + command}*`

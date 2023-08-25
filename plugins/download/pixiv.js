@@ -3,7 +3,7 @@ import { delay, ranNumb } from '../../lib/func.js'
 let handler = async(m, { conn, text, usedPrefix, command, isPrems }) => {
 	if (!text) return m.reply(`*Usage : ${usedPrefix + command} id*\n\nExample :\n${usedPrefix + command} 63456028`)
 	try {
-		let anu = await (await fetch(`https://api.lolhuman.xyz/api/pixivdl/${text.trim()}?apikey=${apilol}`)).json()
+		let anu = await (await fetch(`https://api.lolhuman.xyz/api/pixivdl/${text.trim()}?apikey=${api.lol}`)).json()
 		if (anu.status != 200) return m.reply(anu.message)
 		anu = anu.result
 		let tit = `${anu.title}\n( id : ${anu.id} )`

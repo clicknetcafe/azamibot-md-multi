@@ -3,7 +3,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 	if (!(text.includes('http://') || text.includes('https://'))) return m.reply(`url invalid, please input a valid url. Try with add http:// or https://`)
 	if (!text.includes('sharechat.com')) return m.reply(`Invalid Sharechat URL.`)
 	try {
-		let anu = await (await fetch(`https://api.lolhuman.xyz/api/sharechat?apikey=${apilol}&url=${text}`)).json()
+		let anu = await (await fetch(`https://api.lolhuman.xyz/api/sharechat?apikey=${api.lol}&url=${text}`)).json()
 		if (anu.status != 200) throw Error(anu.message)
 		anu = anu.result
 		await conn.sendMsg(m.chat, { video: { url: anu.link_dl }, caption: anu.title }, { quoted: m })

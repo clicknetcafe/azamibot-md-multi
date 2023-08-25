@@ -1,7 +1,7 @@
 let handler = async (m, { conn, command, text, usedPrefix }) => {
 	if (!text) return m.reply(`Example: *${usedPrefix + command} heartbeat*`)
 	if (text == 'ongoing') {
-		let anu = await (await fetch(`https://api.lolhuman.xyz/api/drakorongoing?apikey=${apilol}`)).json()
+		let anu = await (await fetch(`https://api.lolhuman.xyz/api/drakorongoing?apikey=${api.lol}`)).json()
 		if (anu.status != 200) return m.reply('Internal server error')
 		anu = anu.result
 		let txt = `*Found ${anu.length} Result*`

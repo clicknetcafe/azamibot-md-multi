@@ -14,7 +14,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 		} else {
 			if (!text || text == 'random') {
 				try {
-					let fimg = await fetch(`https://api.lolhuman.xyz/api/random/cecan?apikey=${apilol}`)
+					let fimg = await fetch(`https://api.lolhuman.xyz/api/random/cecan?apikey=${api.lol}`)
 					let fimgb = Buffer.from(await fimg.arrayBuffer())
 					if (Buffer.byteLength(fimgb) < 22000) throw Error('[!] Error : No Buffer.')
 					await conn.sendFile(m.chat, fimgb, '', `_Random pic: cecan_`, m)

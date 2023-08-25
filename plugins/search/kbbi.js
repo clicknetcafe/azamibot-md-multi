@@ -1,7 +1,7 @@
 let handler = async (m, { conn, command, text, usedPrefix }) => {
 	if (!text) return m.reply(`Usage : ${usedPrefix + command} berenang`)
 	try {
-		let anu = await (await fetch(`https://api.lolhuman.xyz/api/kbbi?apikey=${apilol}&query=${text.trim()}`)).json()
+		let anu = await (await fetch(`https://api.lolhuman.xyz/api/kbbi?apikey=${api.lol}&query=${text.trim()}`)).json()
 		if (anu.status != 200) throw Error(anu.message)
 		anu = anu.result[0]
 		let txt = `*nama : ${anu.nama}*\n\n`

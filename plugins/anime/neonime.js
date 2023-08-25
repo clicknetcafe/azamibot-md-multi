@@ -1,6 +1,6 @@
 let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 	try {
-		let res = await fetch(`https://api.lolhuman.xyz/api/neonimelatest?apikey=${apilol}`)
+		let res = await fetch(`https://api.lolhuman.xyz/api/neonimelatest?apikey=${api.lol}`)
 		let get_result = await res.json()
 		let txt = `*Latest Anime :*`
 		for (let x of get_result.result) {

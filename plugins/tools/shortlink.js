@@ -14,9 +14,8 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 		if (args[0]) custom = args[0]
 		if (!out) throw 'Failed upload media.'
 	} else throw `Kirim Media atau URL dengan caption *${usedPrefix + command}*`
-	let apikey = db.data.datas.api
 	if (/short/.test(command)) command = ['cuttly','tinyurl','tinycc'].getRandom()
-	let anu = await shortlink(apikey, command.replace('link', ''), out, custom)
+	let anu = await shortlink(api, command.replace('link', ''), out, custom)
 	m.reply(`*[ link shortener ]*\n\n${anu}`)
 }
 
@@ -57,7 +56,7 @@ async function shortlink(apikey, command, out, custom) {
 			if (anu.error) return anu.message
 			url = anu.id
 		} else if (/cuttly/.test(command)) {
-			anu = await (await fetch(`https://cutt.ly/api/api.php?key=${apikey[2]}&short=${out}&name=${custom || ''}`)).json()
+			anu = await (await fetch(`https://cutt.ly/api/api.php?key=${apikey.cuttly}&short=${out}&name=${custom || ''}`)).json()
 			anu = anu.url
 			if (!anu.shortLink) return `error code ${anu.status == 3 ? ' 3 : alias already used' : anu.status}`
 			url = anu.shortLink
@@ -65,7 +64,7 @@ async function shortlink(apikey, command, out, custom) {
 			anu = await (await fetch('https://api.tinyurl.com/create', {
 				method: 'POST',
 				headers: {
-					'Authorization': `Bearer ${apikey[3]}`,
+					'Authorization': `Bearer ${apikey.tinyurl}`,
 					'accept': 'application/json',
 					'Content-Type': 'application/json'
 				},
@@ -82,7 +81,7 @@ async function shortlink(apikey, command, out, custom) {
 			anu = await (await fetch('https://tiny.cc/tiny/api/3/urls/', {
 				method: 'POST',
 				headers: {
-					'Authorization': `Basic ${apikey[4]}`,
+					'Authorization': `Basic ${apikey.tinycc}`,
 					'accept': 'application/json',
 					'Content-Type': 'application/json'
 				},

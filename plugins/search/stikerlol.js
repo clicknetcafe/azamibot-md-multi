@@ -7,11 +7,11 @@ const bete = 'https://api.lolhuman.xyz/api/sticker'
 let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 	let res
 	if (command.includes('gura')) {
-		res = `${bete}/gawrgura?apikey=${apilol}`
+		res = `${bete}/gawrgura?apikey=${api.lol}`
 	} else if (command.includes('patrick') || command.includes('patrik')) {
-		res = `${bete}/patrick?apikey=${apilol}`
+		res = `${bete}/patrick?apikey=${api.lol}`
 	} else {
-		res = `${bete}/${command.replace(/s(tic?ker)?/, '')}?apikey=${apilol}`
+		res = `${bete}/${command.replace(/s(tic?ker)?/, '')}?apikey=${api.lol}`
 	}
 	let ztick = fs.readFileSync(`./media/sticker/bronya.webp`)
 	try {
