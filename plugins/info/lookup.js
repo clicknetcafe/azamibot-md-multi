@@ -5,7 +5,7 @@ async function lookup(url) {
 			headers: { 'X-Api-Key': 'E4/gdcfciJHSQdy4+9+Ryw==JHciNFemGqOVIbyv' },
 			contentType: 'application/json'
 		}).then(v => v.text())
-		return JSON.stringify(JSON.parse(anu), null, 4)
+		return JSON.stringify(JSON.parse(anu), null, 2)
 	} catch (e) {
 		console.log(e)
 		anu = await fetch(`https://api.hackertarget.com/dnslookup/?q=${url}`).then(v => v.text())

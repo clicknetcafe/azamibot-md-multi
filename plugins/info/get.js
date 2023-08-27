@@ -9,7 +9,7 @@ let handler = async (m, { conn, text }) => {
 	if (!/text|json/.test(res.headers.get('content-type'))) return await conn.sendFile(m.chat, url, '', text, m)
 	let txt = Buffer.from(await res.arrayBuffer())
 	try {
-		txt = format(JSON.parse(txt + ''))
+		txt = JSON.stringify(JSON.parse(txt + ''), null, 2)
 	} catch {
 		txt = txt + ''
 	}

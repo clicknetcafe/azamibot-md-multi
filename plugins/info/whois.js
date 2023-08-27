@@ -9,7 +9,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 		}
 		let response = await fetch(`https://whoisjson.com/api/v1/whois?domain=${text.replace(/^https?:\/\//, '')}`, options)
 		let data = await response.json()
-		m.reply(JSON.stringify(data, null, 4))
+		m.reply(JSON.stringify(data, null, 2))
 	} catch (e) {
 		console.log(e)
 	}
