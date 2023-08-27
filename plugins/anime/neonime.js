@@ -1,26 +1,64 @@
-let handler = async (m, { conn, args, text, usedPrefix, command }) => {
+import { isUrl } from '../../lib/func.js'
+import { neonimeEpisode, neonimeSearch, neonimeTvshow } from '../../lib/scrape.js'
+
+let handler = async (m, { conn, text, usedPrefix, command }) => {
 	try {
-		let res = await fetch(`https://api.lolhuman.xyz/api/neonimelatest?apikey=${api.lol}`)
-		let get_result = await res.json()
-		let txt = `*Latest Anime :*`
-		for (let x of get_result.result) {
-			txt += `\n\n*${x.title}*\n`
-			txt += `Episode : ${x.episode}\n`
-			txt += `Date : ${x.episode}\n`
-			txt += `Link : ${x.link}\n\n`
-			txt += `_"${x.desc}"_\n`
-			txt += `───────────────────`
+		if (isUrl(text)) {
+			if (text.includes('/batch/')) {
+				m.reply('maintenance for batch link')
+			} else if (text.includes('/tvshows/')) {
+				let anu = await neonimeTvshow(text)
+				let txt = ''
+				for (let x of Object.keys(anu).filter(v => !/epis|thumb/.test(v))) {
+					txt += `*${x} :* ${anu[x]}\n`
+				}
+				txt += `\n*[ LIST EPISODES ]*\n`
+				for (let x of anu.episodes) {
+					for (let y of (Object.keys(x))) {
+						txt += `\n*${y} :* ${x[y]}`
+					}
+					txt += `\n───────────────────\n`
+				}
+				await conn.sendFile(m.chat, anu.thumbnail, '', txt, m)
+			} else {
+				let anu = await neonimeEpisode(text)
+				let url = anu.thumbnail
+				let txt = ''
+				for (let x of Object.keys(anu).filter(v => !/down|thumb/.test(v))) {
+					txt += `*${x} :* ${anu[x]}\n`
+				}
+				txt += `\n*[ LIST DOWNLOAD ]*\n`
+				anu = anu.download
+				for (let x of Object.keys(anu)) {
+					for (let y of (Object.keys(anu[x]))) {
+						txt += `\n*${y} :* ${anu[x][y]}`
+					}
+					txt += `\n───────────────────\n`
+				}
+				await conn.sendFile(m.chat, url, '', txt, m)
+			}
+		} else {
+			let anu = await neonimeSearch(text)
+			if (!anu.status) throw Error()
+			anu = anu.result
+			let txt = `*Found ${anu.length} Result :*\n`
+			for (let x of anu) {
+				for (let y of Object.keys(x).filter(v => !/thumb/.test(v))) {
+					txt += `\n*${y} :* ${x[y]}`
+				}
+				txt += `\n───────────────────`
+			}
+			await conn.sendFile(m.chat, anu[0].thumbnail, '', txt, m)
 		}
-		await conn.sendMsg(m.chat, { image: { url: get_result.result[0].thumbnail }, caption: txt }, { quoted: m })
 	} catch (e) {
 		console.log(e)
-		m.reply(`Tidak ditemukan hasil.`)
+		throw 'not found.'
 	}
 }
 
-handler.menuanime = ['neonimelatest']
+handler.menuanime = ['neonime']
 handler.tagsanime = ['search']
-handler.command = /^(neonime( latest|latest)?)$/i
+handler.command = /^(neonime(web|search)?)$/i
 
 handler.premium = true
 handler.limit = true

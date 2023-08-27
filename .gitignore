@@ -17,13 +17,9 @@ plugins/anime/kitsu.js
 plugins/anime/komiku.js
 plugins/anime/kusonime.js
 plugins/anime/manga.js
-plugins/anime/mangatoons.js
 plugins/anime/mynimeku.js
-plugins/anime/noveltoon.js
 plugins/anime/otakudesu.js
-plugins/anime/ranlolapi.js
 plugins/anime/rannekoslife.js
-plugins/anime/ranscrape.js
 plugins/anime/ranwaifuim.js
 plugins/anime/ranwaifupics.js
 plugins/anime/saucenao.js
@@ -44,6 +40,7 @@ plugins/download/fb.js
 plugins/download/ig.js
 plugins/download/joox.js
 plugins/download/mediafire.js
+plugins/download/moewalls.js
 plugins/download/pinterest.js
 plugins/download/pinterestimage.js
 plugins/download/pinterestvideo.js
