@@ -2,7 +2,7 @@
 	"name": "azamibot-md-multi",
 	"version": "6.0.0",
 	"description": "WhatsApp Bot - Recoded by Zerenity",
-	"main": "index.js",
+	"main": "main.js",
 	"type": "module",
 	"directories": {
 		"lib": "lib",
@@ -41,7 +41,7 @@
 	"dependencies": {
 		"@adiwajshing/keyed-db": "^0.2.4",
 		"@bochilteam/scraper": "^4.2.4",
-		"@whiskeysockets/baileys": "^6.4.0",
+		"@whiskeysockets/baileys": "^6.4.1",
 		"awesome-phonenumber": "^5.10.0",
 		"axios": "^1.5.0",
 		"brainly-scraper-v2": "^2.2.8",
@@ -69,6 +69,7 @@
 		"mongoose": "^7.4.5",
 		"node-gtts": "^2.0.2",
 		"node-webpmux": "^3.1.8",
+		"open": "^9.1.0",
 		"perf_hooks": "^0.0.1",
 		"pino": "^8.15.0",
 		"pino-pretty": "^10.2.0",

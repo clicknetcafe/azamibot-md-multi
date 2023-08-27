@@ -2,10 +2,10 @@ let handler = async (m, { conn, command }) => {
 	conn.reply(m.chat, `*「 RECODED BY ZERENITY 」*
 
 *⭔ Multi Auth ( multiple file session )*
-_https://github.com/clicknetcafe/azamibot-md-multi_
+https://github.com/clicknetcafe/azamibot-md-multi
 
 *⭔ Azami node_modules*
-_https://cutt.ly/azamibot-md-modules_`, m)
+https://cutt.ly/zeren-node-modules`, m)
 }
 
 handler.command = /^(sc|sourcecode)$/i

@@ -8,7 +8,7 @@ let handler = async (m, { conn }) => {
 		await conn.sendFile(m.chat, buffer, '', txt, null, false, { mentions: conn.parseMention(txt), quoted: m })
 	} catch (e) {
 		console.log(e)
-		throw 'opened by owner'
+		throw 'already opened'
 	}
 }
 

@@ -16,7 +16,7 @@ This Script is for everyone, original base by [`BochilGaming`](https://github.co
       <img src="https://i.ibb.co/DR4vjVN/nother.jpg" width="55%" style="margin-left: auto;margin-right: auto;display: block;">
 </p>
 
-If you want to add Node Modules manually, download here : [`node_modules`](https://cutt.ly/azamibot-md-modules)
+If you want to add Node Modules manually, download here : [`node_modules`](https://cutt.ly/zeren-node-modules)
 
 This is Script of WhatsApp multi device, working with [`@whiskeysockets/baileys`](https://github.com/whiskeysockets/baileys)
 
@@ -47,12 +47,13 @@ $ git clone https://github.com/clicknetcafe/azamibot-md-multi
 $ cd azamibot-md-multi
 $ npm i 
 ```
-If error try using yarn instead of npm, see [here](https://github.com/clicknetcafe/azamibot-md-multi/tree/multi-device#if-npm-install-failed--try--using-yarn-instead-of-npm)
+If error try using yarn instead of npm, see [here](https://github.com/BochilGaming/games-wabot/tree/multi-device#if-npm-install-failed--try--using-yarn-instead-of-npm)
 ```sh
 $ node .
 ```
 2. Wait for bot starting...
 3. Scan QR code from 2nd device. (Go to whatsapp > Linked Devices > Click on `link a device`)
+   NOTE : use node `node . --pairing` if you want to link device with phone number
 4. Now your bot is ready to rock n roll.
 
 #### If npm install failed, try using yarn instead of npm
@@ -125,17 +126,25 @@ node .
 
 ## Arguments `node . [--options] [<session name>]`
 
+### `--pairing`
+
+Link a device with phone number
+
 ### `--self`
 
-Activate self mode (Ignores other)
+Link a device with mobile captcha (prons to ban)
+
+### `--self`
+
+Activate self mode (Ignores other except bot and rowner)
 
 ### `--pconly`
 
-If that chat not from private bot, bot will ignore
+If that chat not from private bot, bot will ignore (except premium user)
 
 ### `--gconly`
 
-If that chat not from group, bot will ignore
+If that chat not from group, bot will ignore (except premium user)
 
 ### `--swonly`
 
@@ -180,14 +189,10 @@ No bot, just print received messages and add users to database
 
 pass mongodb url or cloud url to connect to database, by the default it will connect to database.json
 
-### `--singleauth`
-
-you can convert single file auth to multiple file auth using this argument, it will convert if you have single file auth and folder multi auth is empty (creds.json is not exist)
-
 ---------
 
 ## FAQ
-### How to send button image?
+### How to send button image? (not working anymore)
 ```js
 // Syntax
 conn.sendButton(

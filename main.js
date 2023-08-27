@@ -2,18 +2,17 @@ process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 process.on('uncaughtException', console.error)
 
 import './config.js'
+import cfonts from 'cfonts'
 import Connection from './lib/connection.js'
 import Helper from './lib/helper.js'
 import db from './lib/database.js'
-import clearTmp from './lib/clearTmp.js';
+import clearTmp from './lib/clearTmp.js'
 import clearSessions from './lib/clearSessions.js'
-import {
-	spawn
-} from 'child_process'
-import {
-	protoType,
-	serialize
-} from './lib/simple.js'
+import { createRequire } from 'module'
+import { fileURLToPath } from 'url'
+import { join, dirname } from 'path'
+import { spawn } from 'child_process'
+import { protoType, serialize } from './lib/simple.js'
 import {
 	plugins,
 	loadPluginFiles,
@@ -22,7 +21,29 @@ import {
 	pluginFilter
 } from './lib/plugins.js'
 
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const require = createRequire(__dirname) // Bring in the ability to create the 'require' method
+const args = [join(__dirname, 'main.js'), ...process.argv.slice(2)]
 const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
+const { say } = cfonts
+const { name, author } = require(join(__dirname, './package.json')) // https://www.stefanjudis.com/snippets/how-to-import-json-files-in-es-modules-node-js/
+
+say('Lightweight\nWhatsApp Bot', {
+	font: 'chrome',
+	align: 'center',
+	gradient: ['red', 'magenta']
+})
+say(`'${name}' By @${author.name || author}`, {
+	font: 'console',
+	align: 'center',
+	gradient: ['red', 'magenta']
+})
+
+say([process.argv[0], ...args].join(' '), {
+	font: 'console',
+	align: 'center',
+	gradient: ['red', 'magenta']
+})
 
 protoType()
 serialize()
