@@ -30,11 +30,17 @@ export async function before(m) {
 	} else if (m.messageStubType == 32 || m.messageStubType == 27) {
 		let user = m.messageStubParameters[0]
 		let id = m.chat
-		let chat = db.data.chats[m.chat]
+		let chat = db.data.chats[id]
 		if (!chat.welcome) return !1
-		let groupMetadata = await Connection.store.fetchGroupMetadata(id, this.groupMetadata)
-		await this.reply(m.chat, (m.messageStubType == 27 ? (chat.sWelcome || this.welcome || Connection.conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(m.chat)).replace('@desc', groupMetadata.desc?.toString() || 'unknown') :
-				(chat.sBye || this.bye || Connection.conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0]), fkontak, { mentions: [user] })
+		let meta = await Connection.store.fetchGroupMetadata(id, this.groupMetadata)
+		let bg = await (await fetch('https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/menus.json')).json().then(v => v.getRandom())
+		let name = await this.getName(user)
+		let namegc = await this.getName(id)
+		let pp = await this.profilePictureUrl(user, 'image').catch(_ => 'https://i.ibb.co/VHXK4kV/avatar-contact.png')
+		let ppgc = await this.profilePictureUrl(id, 'image').catch(_ => 'https://i.ibb.co/VHXK4kV/avatar-contact.png')
+		let text = (m.messageStubType == 27 ? (chat.sWelcome || this.welcome || Connection.conn.welcome || 'Welcome, @user!').replace('@subject', namegc).replace('@desc', meta.desc?.toString() || '~') : (chat.sBye || this.bye || Connection.conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
+		await this.sendFile(id, pp, '', text, fkontak, false, { mentions: [user] })
+		//await this.reply(id, text, fkontak, { mentions: [user] })
 	} else {
 		console.log({
 			messageStubType: m.messageStubType,

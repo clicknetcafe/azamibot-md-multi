@@ -1,10 +1,14 @@
 import Helper from './lib/helper.js'
+import { fileURLToPath } from 'url'
+import { join, dirname } from 'path'
 import { setupMaster, fork } from 'cluster'
 import { watchFile, unwatchFile } from 'fs'
 import { createInterface } from 'readline'
 
 // https://stackoverflow.com/a/50052194
 const rl = createInterface(process.stdin, process.stdout)
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const args = [join(__dirname, 'main.js'), ...process.argv.slice(2)]
 
 var isRunning = false
 /**

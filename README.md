@@ -130,7 +130,7 @@ node .
 
 Link a device with phone number
 
-### `--self`
+### `--mobile`
 
 Link a device with mobile captcha (prons to ban)
 
