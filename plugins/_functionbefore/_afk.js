@@ -11,7 +11,8 @@ export async function before(m) {
 	let jids = [...new Set([...(m.mentionedJid || []), ...(m.quoted ? [m.quoted.sender] : [])])]
 	for (let jid of jids) {
 		let user = db.data.users[jid]
-		if (user.afk > -1) m.reply(`  Jangan tag dia!\n  Dia sedang AFK${user.afkReason ? ` dengan alasan ${user.afkReason}` : ''}\n  Selama ${clockString(new Date - user.afk)}`)
+		if (!user?.afk) continue
+		if (user.afk > -1) m.reply(`  Jangan tag dia!\n  Dia sedang AFK${user?.afkReason ? ` dengan alasan ${user.afkReason}` : ''}\n  Selama ${clockString(new Date - user.afk)}`)
 	}
 	return !0
 }

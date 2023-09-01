@@ -33,7 +33,7 @@ let handler = async (m, { conn, text, args, participants }) => {
 			}))
 		})
 		const pp = await conn.profilePictureUrl(m.chat).catch(_ => null)
-		const jpegThumbnail = pp ? await (await fetch(pp)).buffer() : Buffer.alloc(0)
+		const jpegThumbnail = pp ? await (await fetch(pp)).arrayBuffer() : Buffer.alloc(0)
 		const add = getBinaryNodeChild(response, 'add')
 		const participant = getBinaryNodeChildren(add, 'participant')
 		for (const user of participant.filter(item => item.attrs.error == 403)) {
