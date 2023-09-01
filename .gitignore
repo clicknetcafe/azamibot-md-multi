@@ -1,5 +1,5 @@
 # Ignore everything in this directory
-!tmp/.file
+tmp/*
 
 # Dependency directories
 .git/
