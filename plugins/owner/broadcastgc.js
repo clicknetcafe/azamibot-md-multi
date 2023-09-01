@@ -1,9 +1,9 @@
 import { delay, ranNumb } from '../../lib/func.js'
 import db from '../../lib/database.js'
 
-let handler = async (m, { conn, text, usedPrefix, command, participants }) => {
+let handler = async (m, { conn, text, usedPrefix, command }) => {
 	let groups
-	try { groups = Object.keys(await conn.groupFetchAllParticipating()) }
+	try { groups = Object.values(await conn.groupFetchAllParticipating()) }
 	catch { return }
 	let img, thumb, q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || q.mediaType || ''
@@ -13,9 +13,10 @@ let handler = async (m, { conn, text, usedPrefix, command, participants }) => {
 	if (/audio/.test(mime)) thumb = await (await fetch('https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/menus.json')).json().then(v => v.getRandom())
 	for (let x of groups) {
 		try {
-			if (/image|video/g.test(mime) && !/webp/.test(mime)) await conn.sendMsg(x, { [/image/.test(mime) ? 'image' : 'video']: img, caption: teks }, { quoted: fkontak })
-			else if (/audio/.test(mime)) await conn.sendFAudio(x, { audio: img, mimetype: 'audio/mpeg', ptt: true }, fkontak, text || pauthor, thumb, db.data.datas.linkgc)
-			else await conn.reply(x, teks, fkontak)
+			let tag = /tag/.test(command) ? x.participants.map(v => v.id) : []
+			if (/image|video/g.test(mime) && !/webp/.test(mime)) await conn.sendMsg(x.id, { [/image/.test(mime) ? 'image' : 'video']: img, caption: teks }, { quoted: fkontak, mentions: tag })
+			else if (/audio/.test(mime)) await conn.sendFAudio(x.id, { audio: img, mimetype: 'audio/mpeg', ptt: true }, fkontak, text || pauthor, thumb, db.data.datas.linkgc)
+			else await conn.reply(x.id, teks, fkontak, { mentions: tag })
 			await delay(ranNumb(2000, 5500))
 		} catch (e) {
 			console.log(e)
@@ -26,7 +27,7 @@ let handler = async (m, { conn, text, usedPrefix, command, participants }) => {
 
 handler.menuowner = ['bcgroup']
 handler.tagsowner = ['owner']
-handler.command = /^((bc|broadcast)(gc|gro?ups?))$/i
+handler.command = /^((bc|broadcast)(gc|gro?ups?)((hide)?tag)?)$/i
 
 handler.owner = true
 
