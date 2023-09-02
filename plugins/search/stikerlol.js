@@ -11,7 +11,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 	} else if (command.includes('patrick') || command.includes('patrik')) {
 		res = `${bete}/patrick?apikey=${api.lol}`
 	} else {
-		res = `${bete}/${command.replace(/s(tic?ker)?/, '')}?apikey=${api.lol}`
+		res = `${bete}/${command.replace(/s(tic?ker)?/, '').replace('bucin', 'bucinstick')}?apikey=${api.lol}`
 	}
 	let ztick = fs.readFileSync(`./media/sticker/bronya.webp`)
 	try {

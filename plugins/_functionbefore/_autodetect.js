@@ -28,6 +28,7 @@ export async function before(m) {
 	} else if (m.messageStubType == 123) {
 		await this.reply(m.chat, `${edtr} *menonaktifkan* pesan sementara.`, fkontak, { mentions: [m.sender] })
 	} else if (m.messageStubType == 32 || m.messageStubType == 27) {
+		let add = m.messageStubType == 27 ? true : false
 		let user = m.messageStubParameters[0]
 		let id = m.chat
 		let chat = db.data.chats[id]
@@ -38,10 +39,15 @@ export async function before(m) {
 		let namegc = await this.getName(id)
 		let pp = await this.profilePictureUrl(user, 'image').catch(_ => 'https://i.ibb.co/VHXK4kV/avatar-contact.png')
 		let ppgc = await this.profilePictureUrl(id, 'image').catch(_ => 'https://i.ibb.co/VHXK4kV/avatar-contact.png')
-		let text = (m.messageStubType == 27 ? (chat.sWelcome || this.welcome || Connection.conn.welcome || 'Welcome, @user!').replace('@subject', namegc).replace('@desc', meta.desc?.toString() || '~') : (chat.sBye || this.bye || Connection.conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
-		//pp = `https://api.lolhuman.xyz/api/base/${m.messageStubType == 27 ? 'welcome' : 'leave'}?apikey=${api.lol}&img1=${pp}&img2=${ppgc}&background=${bg}&username=${name}&member=${meta.participants.length}&groupname=${namegc}`
-		//await this.sendFile(id, pp, '', text, fkontak, false, { mentions: [user] })
-		await this.reply(id, text, fkontak, { mentions: [user] })
+		let text = (add ? (chat.sWelcome || this.welcome || Connection.conn.welcome || 'Welcome, @user!').replace('@subject', namegc).replace('@desc', meta.desc?.toString() || '~') : (chat.sBye || this.bye || Connection.conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
+		try {
+			const can = await import('knights-canvas')
+			pp = await (await (add ? new can.Welcome() : new can.Goodbye()).setUsername(name).setGuildName(namegc).setGuildIcon(ppgc).setMemberCount(meta.participants.length).setAvatar(pp).setBackground(bg).toAttachment()).toBuffer()
+			await this.sendFile(id, pp, '', text, fkontak, false, { mentions: [user] })
+		} catch (e) {
+			console.log(e)
+			await this.reply(id, text, fkontak, { mentions: [user] })
+		}
 	} else {
 		console.log({
 			messageStubType: m.messageStubType,

@@ -1,20 +1,22 @@
-import { smsg } from './lib/simple.js'
-import { plugins } from './lib/plugins.js'
-import { format } from 'util'
-import { fileURLToPath } from 'url'
-import path, { join } from 'path'
-import fs, { unwatchFile, watchFile } from 'fs'
+import * as os from 'os'
 import chalk from 'chalk'
-import Connection from './lib/connection.js'
-import printMessage from './lib/print.js'
-import Helper from './lib/helper.js'
 import db, { loadDatabase } from './lib/database.js'
+import Connection from './lib/connection.js'
+import fs, { unwatchFile, watchFile } from 'fs'
+import Helper from './lib/helper.js'
+import path, { join } from 'path'
+import printMessage from './lib/print.js'
 import Queque from './lib/queque.js'
+import { fileURLToPath } from 'url'
+import { format } from 'util'
+import { plugins } from './lib/plugins.js'
+import { smsg } from './lib/simple.js'
 
 /** @type {import('@whiskeysockets/baileys')} */
 const { getContentType } = (await import('@whiskeysockets/baileys')).default
 
 const isNumber = x => typeof x === 'number' && !isNaN(x)
+const isLinux = (os.platform() === 'win32') ? false : true
 /**
  * Handle messages upsert
  * @this {import('./lib/connection').Socket}
@@ -1011,13 +1013,15 @@ export async function handler(chatUpdate) {
 
 				if (!isAccept)
 					continue
-				m.plugin = name.replace('plugins\\','')
+				m.plugin = name.replace(isLinux ? 'plugins/' : 'plugins\\','')
 				if (m.chat in db.data.chats || m.sender in db.data.users) {
 					let chat = db.data.chats[m.chat]
 					let user = db.data.users[m.sender]
-					if (m.plugin != 'owner\\unbanchat.js' && chat?.isBanned)
+					let ubc = isLinux ? 'owner/unbanchat.js' : 'owner\\unbanchat.js'
+					let ubu = isLinux ? 'owner/unbanuser.js' : 'owner\\unbanuser.js'
+					if (m.plugin != ubc && chat?.isBanned)
 						return // Except this
-					if (m.plugin != 'owner\\unbanuser.js' && user?.banned)
+					if (m.plugin != ubu && user?.banned)
 						return
 				}
 				if (plugin.rowner && plugin.owner && !(isROwner || isOwner)) { // Both Owner

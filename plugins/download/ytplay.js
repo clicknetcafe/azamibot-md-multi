@@ -1,3 +1,4 @@
+import yts from 'yt-search'
 import { youtubeSearch, youtubedl } from '@bochilteam/scraper-sosmed'
 import { somematch, isUrl } from '../../lib/func.js'
 
@@ -10,36 +11,45 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 			let anu = await youtubeSearch(text)
 			anu = anu.video[0]
 			let txt = `📌 *${anu.title}*\n\n`
-			txt += `🪶 *Author :* ${anu.authorName}\n`
-			txt += `⏲️ *Published :* ${anu.publishedTime}\n`
-			txt += `⌚ *Duration :* ${anu.durationH}\n`
-			txt += `👁️ *Views :* ${anu.viewH}\n`
-			txt += `🌀 *Url :* ${anu.url}`
+			+ `🪶 *Author :* ${anu.authorName}\n`
+			+ `⏲️ *Published :* ${anu.publishedTime}\n`
+			+ `⌚ *Duration :* ${anu.durationH}\n`
+			+ `👁️ *Views :* ${anu.viewH}\n`
+			+ `🌀 *Url :* ${anu.url}`
 			await conn.sendMsg(m.chat, { image: { url: anu.thumbnail.split("?")[0] }, caption: txt }, { quoted: m })
 		} catch (e) {
 			console.log(e)
-			m.reply(`Tidak ditemukan hasil.`)
+			return m.reply('invalid url')
 		}
 	} else {
 		try {
-			let anu = await youtubeSearch(text)
-			if (anu.video.length >= 2) {
-				var x = Math.floor(Math.random() * 3)
-			} else {
-				var x = 0
-			}
-			anu = anu.video[x]
+			let anu = await yts(text)
+			anu = anu.all[0]
 			url = anu.url
 			let txt = `📌 *${anu.title}*\n\n`
-			txt += `🪶 *Author :* ${anu.authorName}\n`
-			txt += `⏲️ *Published :* ${anu.publishedTime}\n`
-			txt += `⌚ *Duration :* ${anu.durationH}\n`
-			txt += `👁️ *Views :* ${anu.viewH}\n`
-			txt += `🌀 *Url :* ${url}`
-			await conn.sendMsg(m.chat, { image: { url: anu.thumbnail.split("?")[0] }, caption: txt }, { quoted: m })
+			+ `🪶 *Author :* ${anu.author.name}\n`
+			+ `⏲️ *Published :* ${anu.ago}\n`
+			+ `${(anu.duration && anu.duration.timestamp) ? `⌚ *Duration :* ${anu.duration.timestamp}\n` : ''}`
+			+ `👁️ *Views :* ${anu.views}\n`
+			+ `🌀 *Url :* ${url}`
+			await conn.sendMsg(m.chat, { image: { url: anu.thumbnail }, caption: txt }, { quoted: m })
 		} catch (e) {
 			console.log(e)
-			m.reply(`Tidak ditemukan hasil.`)
+			try {
+				let anu = await youtubeSearch(text)
+				anu = anu.video[0]
+				url = anu.url
+				let txt = `📌 *${anu.title}*\n\n`
+				+ `🪶 *Author :* ${anu.authorName}\n`
+				+ `⏲️ *Published :* ${anu.publishedTime}\n`
+				+ `⌚ *Duration :* ${anu.durationH}\n`
+				+ `👁️ *Views :* ${anu.viewH}\n`
+				+ `🌀 *Url :* ${url}`
+				await conn.sendMsg(m.chat, { image: { url: anu.thumbnail.split("?")[0] }, caption: txt }, { quoted: m })
+			} catch (e) {
+				console.log(e)
+				return m.reply(`Tidak ditemukan hasil.`)
+			}
 		}
 	}
 	if (!url) return
