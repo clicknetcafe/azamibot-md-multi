@@ -1,5 +1,5 @@
 import db from '../../lib/database.js'
-import { canLevelUp, setRole, xpRange } from '../../lib/levelling.js'
+import { canLevelUp, xpRange } from '../../lib/levelling.js'
 import { levelup } from '../../lib/canvas.js'
 import uploadImage from '../../lib/uploadImage.js'
 import { ranNumb, padLead } from '../../lib/func.js'
@@ -22,7 +22,7 @@ let handler = async (m, { conn }) => {
 	} else {
 		let before = user.level * 1
 		while (canLevelUp(user.level, user.exp, global.multiplier)) user.level++
-		user.role = await setRole(user.level)
+		user.role = await global.rpg.role(user.level).name
 		if (before !== user.level) {
 			let img, txt = `Selamat 🥳, anda telah naik level!\n\n• 🧬 *Level Up : ${before} -> ${user.level}*\n_semakin sering berinteraksi dengan bot Semakin Tinggi level kamu_`
 			try {
