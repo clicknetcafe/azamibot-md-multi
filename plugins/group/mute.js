@@ -4,7 +4,7 @@ import { isNumber } from '../../lib/func.js'
 const cooldown = 60000
 
 let handler = async (m, { conn, args, usedPrefix, command, isPrems, isAdmin, isOwner, participants }) => {
-	if (m.chat.includes('120363041604217979') && !isOwner) throw `[ hehe ]`
+	if (m.chat.includes('120363168931452636') && !isOwner) throw `[ hehe ]`
 	if (!args[0]) throw `Format : ${usedPrefix + command} <timer>\n1 = 1 menit\n5 = 5 menit ... dst.\n\nContoh : *${usedPrefix + command} 10*`
 	if (isPrems || isAdmin || isOwner) {
 		const total = Math.floor(isNumber(args[0]) ? Math.min(Math.max(parseInt(args[0]), 1), Number.MAX_SAFE_INTEGER) : 1) * 1

@@ -3,7 +3,7 @@ import db from '../../lib/database.js'
 export async function before(m) {
 	if (!m.isGroup) return !1
 	let user = db.data.users[m.sender]
-	if (user.afk > 0) {
+	if (user?.afk > 0) {
 		m.reply(`  Kamu berhenti AFK${user.afkReason ? ` setelah ${user.afkReason}` : ''}\n  Selama ${clockString(new Date - user.afk)}`)
 		user.afk = -1
 		user.afkReason = ''

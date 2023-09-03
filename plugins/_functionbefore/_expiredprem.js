@@ -2,7 +2,7 @@ import db from '../../lib/database.js'
 
 export async function all(m) {
 	let chats = db.data.users[m.sender]
-	if (!chats.expired)
+	if (!chats || !chats.expired)
 		return !0
 	if (+new Date() > chats.expired) {
 		try {

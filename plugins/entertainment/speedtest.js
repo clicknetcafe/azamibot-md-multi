@@ -6,7 +6,7 @@ let handler = async (m) => {
 	m.reply(`_testing speed . . ._`)
 	let o
 	try {
-		o = await exec('py speed.py')
+		o = await exec('py speed.py') // py / python / python3
 	} catch (e) {
 		o = e
 	} finally {
