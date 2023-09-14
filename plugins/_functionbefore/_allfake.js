@@ -1,6 +1,8 @@
 import db from '../../lib/database.js'
 import fs from 'fs'
 
+const nol = '0@s.whatsapp.net'
+
 let handler = m => m
 	handler.all = async function (m) {
 	let d = new Date(new Date + 3600000)
@@ -15,12 +17,13 @@ let handler = m => m
 	global.timeh = `🕰️ ${d.toLocaleTimeString('id', { hour: 'numeric', minute: 'numeric', second: 'numeric' }).replace(/./,':')}`
 	
 	//fake troli
-	global.ftroli = { key: {participant : '0@s.whatsapp.net'}, message: { orderMessage: { itemCount: 2023, status: 1, surface: 1, message: timeh, ordertitle: pauthor, sellerJid: '0@s.whatsapp.net' } } }
+	global.ftroli = { key: { participant : nol }, message: { orderMessage: { itemCount: 2023, status: 1, surface: 1, message: timeh, ordertitle: pauthor, sellerJid: nol } } }
 	// fake kontak
-	global.fkontak = { key: {participant : '0@s.whatsapp.net'}, message: { 'contactMessage': { 'displayName': this.getName(this.user.jid), 'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;${pauthor},;;;\nFN:${pauthor},\nitem1.TEL;waid=${this.user.jid.split('@')[0]}:${this.user.jid.split('@')[0]}\nitem1.X-ABLabell:Ponsel\nEND:VCARD`, jpegThumbnail: fs.readFileSync('./media/thumbnail.jpg'), thumbnail: fs.readFileSync('./media/thumbnail.jpg'),sendEphemeral: true}}}
+	global.fkontak = { key: { remoteJid: 'status@broadcast' }, message: { contactMessage: { displayName: await this.getName(m.sender.replace(/\n/g, '')), vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${pauthor};;;\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` } }, participant: nol }
+	global.fkontakbot = { key: { remoteJid: 'status@broadcast' }, message: { contactMessage: { displayName: await this.getName(this.user.jid.replace(/\n/g, '')), vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${pauthor};;;\nitem1.TEL;waid=${this.user.jid.split('@')[0]}:${this.user.jid.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` } }, participant: nol }
 	// fake vn
 	global.fvn = {
-		key: { participant : '0@s.whatsapp.net'},
+		key: { participant : nol},
 		message: { 
 			audioMessage: {
 				mimetype: 'audio/ogg; codecs=opus',
@@ -31,12 +34,12 @@ let handler = m => m
 	}
 	// fake video
 	global.fvid = {
-		key: { participant : '0@s.whatsapp.net'},
+		key: { participant : nol},
 		message: { videoMessage: { title: pauthor, h: 'Hmm',seconds: '12345', caption: timeh, jpegThumbnail: fs.readFileSync('./media/thumbnail.jpg')}}
 	}
 	// fake centang hijau
 	global.ftextt = {
-		key: { participant : '0@s.whatsapp.net'},
+		key: { participant : nol},
 		message: {
 			extendedTextMessage: {
 				text: pauthor,
@@ -58,7 +61,7 @@ let handler = m => m
 	}
 	// fake location
 	global.fliveLoc = {
-	key: { participant : '0@s.whatsapp.net'},
+	key: { participant : nol},
 		message: {
 			liveLocationMessage: {
 				caption: pauthor,
@@ -69,7 +72,7 @@ let handler = m => m
 	}
 	// fake TEXT location
 	global.fliveLoc2 = {
-		key: { participant : '0@s.whatsapp.net'},
+		key: { participant : nol},
 		message: { liveLocationMessage: {
 			title: pauthor,
 			h: timeh,
@@ -78,7 +81,7 @@ let handler = m => m
 	}
 	// fake toko
 	global.ftoko = {
-		key: { participant : '0@s.whatsapp.net'},
+		key: { participant : nol},
 		message: {
 			productMessage: {
 				product: {
@@ -93,13 +96,13 @@ let handler = m => m
 					retailerId: 'Ghost',
 					productImageCount: 1
 				},
-				businessOwnerJid: `0@s.whatsapp.net`
+				businessOwnerJid: nol
 			}
 		}
 	}
 	//fake document
 	global.fdocs = {
-		key : { participant : '0@s.whatsapp.net'},
+		key : { participant : nol},
 		message: {
 			documentMessage: {
 				title: pauthor, 
@@ -109,7 +112,7 @@ let handler = m => m
 	}
 	// fake gif
 	global.fgif = {
-		key: { participant : '0@s.whatsapp.net'},
+		key: { participant : nol},
 		message: { 
 			videoMessage: {
 				title: pauthor,
@@ -124,7 +127,7 @@ let handler = m => m
 	//fake troli2
 	global.ftrol = {
 		key : {
-		participant : '0@s.whatsapp.net'
+		participant : nol
 		},
 		message: {
 			orderMessage: {
@@ -134,7 +137,7 @@ let handler = m => m
 				message: pauthor,
 				//orderTitle: `anulah`,
 				thumbnail: fs.readFileSync('./media/anime.jpg'),
-				sellerJid: '0@s.whatsapp.net' 
+				sellerJid: nol 
 			}
 		}
 	}

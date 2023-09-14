@@ -14,9 +14,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	for (let x of groups) {
 		try {
 			let tag = /tag/.test(command) ? x.participants.map(v => v.id) : []
-			if (/image|video/g.test(mime) && !/webp/.test(mime)) await conn.sendMsg(x.id, { [/image/.test(mime) ? 'image' : 'video']: img, caption: teks }, { quoted: fkontak, mentions: tag })
-			else if (/audio/.test(mime)) await conn.sendFAudio(x.id, { audio: img, mimetype: 'audio/mpeg', ptt: true }, fkontak, text || pauthor, thumb, db.data.datas.linkgc)
-			else await conn.reply(x.id, teks, fkontak, { mentions: tag })
+			if (/image|video/g.test(mime) && !/webp/.test(mime)) await conn.sendMsg(x.id, { [/image/.test(mime) ? 'image' : 'video']: img, caption: teks }, { quoted: fkontakbot, mentions: tag })
+			else if (/audio/.test(mime)) await conn.sendFAudio(x.id, { audio: img, mimetype: 'audio/mpeg', ptt: true }, fkontakbot, text || pauthor, thumb, db.data.datas.linkgc)
+			else await conn.reply(x.id, teks, fkontakbot, { mentions: tag })
 			await delay(ranNumb(2000, 5500))
 		} catch (e) {
 			console.log(e)

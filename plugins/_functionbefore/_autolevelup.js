@@ -3,9 +3,10 @@ import { canLevelUp } from '../../lib/levelling.js'
 import { levelup } from '../../lib/canvas.js'
 
 export async function before(m) {
-	if (process.uptime() < 1200) return !1 // won't respond in 20 minutes (60x20), avoid spam while LoadMessages
+	if (process.uptime() < 600) return !1 // won't respond in 10 minutes (60x10), avoid spam while LoadMessages
 	let user = db.data.users[m.sender]
 	if (!user.autolevelup) return !1
+	if (m.isGroup && !db.data.chats[m.chat].autolevelup) return !1
 	let before = user.level * 1
 	while (canLevelUp(user.level, user.exp, global.multiplier)) user.level++
 	user.role = await global.rpg.role(user.level).name
@@ -26,6 +27,7 @@ export async function before(m) {
 			}
 		}
 	}
+	return !0
 }
 
 export const disabled = false

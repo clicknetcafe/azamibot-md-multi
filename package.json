@@ -10,7 +10,7 @@
 		"plugins": "plugins"
 	},
 	"scripts": {
-		"start": "node index.js",
+		"start": "node main.js",
 		"test": "node test.js",
 		"test2": "nodemon index.js"
 	},
@@ -66,12 +66,12 @@
 		"lodash": "^4.17.21",
 		"lowdb": "^5.1.0",
 		"moment-timezone": "^0.5.43",
-		"mongoose": "^7.4.5",
+		"mongoose": "^7.5.1",
 		"node-gtts": "^2.0.2",
 		"node-webpmux": "^3.1.8",
 		"open": "^9.1.0",
 		"perf_hooks": "^0.0.1",
-		"pino": "^8.15.0",
+		"pino": "^8.15.1",
 		"pino-pretty": "^10.2.0",
 		"qrcode": "^1.5.3",
 		"qrcode-terminal": "^0.12.0",
@@ -82,7 +82,7 @@
 		"spottydl": "^0.2.2",
 		"syntax-error": "^1.4.0",
 		"terminal-image": "^2.0.0",
-		"tesseract.js": "^4.1.0",
+		"tesseract.js": "^4.1.2",
 		"url-regex-safe": "^4.0.0",
 		"wa-sticker-formatter": "^4.4.4",
 		"yargs": "^17.7.2",
@@ -92,8 +92,8 @@
 	"optionalDependencies": {
 		"@vitalets/google-translate-api": "^9.2.0",
 		"bing-scraper": "^1.4.11",
-		"knights-canvas": "^1.3.7-a",
 		"hmfull": "^2.4.3",
+		"knights-canvas": "^1.3.7-a",
 		"rembg-node": "^2.0.1",
 		"sagiri": "^3.4.0",
 		"scathach-api": "^1.0.16",

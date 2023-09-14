@@ -1,3 +1,4 @@
+import ytdl from 'ytdl-core'
 import yts from 'yt-search'
 import { youtubeSearch, youtubedl } from '@bochilteam/scraper-sosmed'
 import { somematch, isUrl } from '../../lib/func.js'
@@ -8,18 +9,30 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 	if (isUrl(text)) {
 		url = text
 		try {
-			let anu = await youtubeSearch(text)
-			anu = anu.video[0]
+			let anu = await yts( { videoId: await ytdl.getURLVideoID(url) } )
 			let txt = `📌 *${anu.title}*\n\n`
-			+ `🪶 *Author :* ${anu.authorName}\n`
-			+ `⏲️ *Published :* ${anu.publishedTime}\n`
-			+ `⌚ *Duration :* ${anu.durationH}\n`
-			+ `👁️ *Views :* ${anu.viewH}\n`
-			+ `🌀 *Url :* ${anu.url}`
-			await conn.sendMsg(m.chat, { image: { url: anu.thumbnail.split("?")[0] }, caption: txt }, { quoted: m })
+			+ `🪶 *Author :* ${anu.author.name}\n`
+			+ `⏲️ *Published :* ${anu.ago}\n`
+			+ `⌚ *Duration :* ${anu.duration.timestamp}\n`
+			+ `👁️ *Views :* ${anu.views}\n`
+			+ `🌀 *Url :* ${url}`
+			await conn.sendMsg(m.chat, { image: { url: anu.thumbnail }, caption: txt }, { quoted: m })
 		} catch (e) {
 			console.log(e)
-			return m.reply('invalid url')
+			try {
+				let anu = await youtubeSearch(url)
+				anu = anu.video[0]
+				let txt = `📌 *${anu.title}*\n\n`
+				+ `🪶 *Author :* ${anu.authorName}\n`
+				+ `⏲️ *Published :* ${anu.publishedTime}\n`
+				+ `⌚ *Duration :* ${anu.durationH}\n`
+				+ `👁️ *Views :* ${anu.viewH}\n`
+				+ `🌀 *Url :* ${anu.url}`
+				await conn.sendMsg(m.chat, { image: { url: anu.thumbnail.split("?")[0] }, caption: txt }, { quoted: m })
+			} catch (e) {
+				console.log(e)
+				return m.reply('invalid url')
+			}
 		}
 	} else {
 		try {

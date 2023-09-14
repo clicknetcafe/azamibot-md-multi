@@ -1,17 +1,29 @@
-import { isUrl } from '../../lib/func.js'
-import SpottyDL from 'spottydl'
 import fs from 'fs'
+import path from 'path'
+import SpottyDL from 'spottydl'
+import { youtubedl } from '@bochilteam/scraper-sosmed'
+import { isUrl } from '../../lib/func.js'
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
+let handler = async (m, { conn, text, usedPrefix, command, __dirname }) => {
 	if (!text) throw `Example: ${usedPrefix + command} Melukis Senja`
 	if (isUrl(text)) {
 		if (/\/track\//.test(text)) {
-			let res = await SpottyDL.getTrack(text)
-			if (typeof res !== 'object') throw 'invalid spotify track url'
-			let ttl = `./tmp/${res.title}.mp3`
-			fs.closeSync(fs.openSync(ttl, 'w'))
-			let anu = await SpottyDL.downloadTrack(res, './tmp')
-			await conn.sendFAudio(m.chat, { [/mp3/g.test(command) ? 'document' : 'audio']: { url: ttl }, mimetype: 'audio/mpeg', fileName: `${res.title}.mp3` }, m, res.title, 'https://telegra.ph/file/2e15408ac5e72fc90bc3f.jpg', text)
+			try {
+				let res = await SpottyDL.getTrack(text)
+				if (typeof res !== 'object') throw 'invalid spotify track url'
+				let tmp = path.join(__dirname, '../tmp')
+				let ttl = tmp+`/${res.title}.mp3`
+				fs.closeSync(fs.openSync(ttl, 'w'))
+				let anu = await SpottyDL.downloadTrack(res, tmp)
+				await conn.sendFAudio(m.chat, { [/mp3/g.test(command) ? 'document' : 'audio']: { url: ttl }, mimetype: 'audio/mpeg', fileName: `${res.title}.mp3` }, m, res.title, 'https://telegra.ph/file/2e15408ac5e72fc90bc3f.jpg', text)
+			} catch (e) {
+				console.log(e)
+				let res = await SpottyDL.getTrack(text)
+				let anu = await youtubedl('https://youtu.be/'+res.id)
+				let data = anu.audio[Object.keys(anu.audio)[0]]
+				let url = await data.download()
+				await conn.sendFAudio(m.chat, { [/mp3/g.test(command) ? 'document' : 'audio']: { url: url }, mimetype: 'audio/mpeg', fileName: `${anu.title}.mp3` }, m, anu.title, anu.thumbnail, text)
+			}
 		} else if (/\/album\//.test(text)) {
 			let anu = await SpottyDL.getAlbum(text)
 			anu = anu.tracks

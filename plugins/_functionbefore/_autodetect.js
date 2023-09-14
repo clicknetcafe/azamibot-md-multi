@@ -3,7 +3,8 @@ import Connection from '../../lib/connection.js'
 import db from '../../lib/database.js'
 
 export async function before(m) {
-	if (!m.messageStubType || !m.isGroup) return;
+	if (!m.messageStubType || !m.isGroup) return !1
+	//if (m.chat == '120363045913621594@g.us' || m.chat == '120363024788895179@g.us') return !1
 	let edtr = `@${m.sender.split`@`[0]}`
 	if (m.messageStubType == 21) {
 		await this.reply(m.chat, `${edtr} mengubah Subject Grup menjadi :\n*${m.messageStubParameters[0]}*`, fkontak, { mentions: [m.sender] })
@@ -28,6 +29,7 @@ export async function before(m) {
 	} else if (m.messageStubType == 123) {
 		await this.reply(m.chat, `${edtr} *menonaktifkan* pesan sementara.`, fkontak, { mentions: [m.sender] })
 	} else if (m.messageStubType == 32 || m.messageStubType == 27) {
+		if (process.uptime() < 300) return !1 // won't respond in 5 minutes (60x5), avoid spam while LoadMessages
 		let add = m.messageStubType == 27 ? true : false
 		let user = m.messageStubParameters[0]
 		let id = m.chat
@@ -55,6 +57,7 @@ export async function before(m) {
 			type: WAMessageStubType[m.messageStubType],
 		});
 	}
+	return !0
 }
 
 export const disabled = false

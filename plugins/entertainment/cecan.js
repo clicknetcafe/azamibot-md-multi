@@ -8,7 +8,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 			let anu = pickRandom(await res.json())
 			await conn.sendFile(m.chat, anu, '', `${command} > ${text}`, m)
 		} else if (somematch(['china','vietnam','thailand','indonesia','korea','japan','malaysia'], text)) {
-			let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/Databasee/main/Cecan/${text}.json`)
+			let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/Databasee/main/cecan/${text}.json`)
 			let anu = pickRandom(await res.json())
 			await conn.sendFile(m.chat, anu, '', `${command} > ${text}`, m)
 		} else {
@@ -20,7 +20,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 					await conn.sendFile(m.chat, fimgb, '', `_Random pic: cecan_`, m)
 				} catch (e) {
 					console.log(e)
-					let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/Databasee/main/${pickRandom(['Cecan/cecan','Cecan/cecan2'])}.json`)
+					let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/Databasee/main/${pickRandom(['cecan/cecan','cecan/cecan2'])}.json`)
 					let anu = pickRandom(await res.json())
 					await conn.sendFile(m.chat, anu, '', `${command} > random`, m)
 				}

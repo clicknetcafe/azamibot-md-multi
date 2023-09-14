@@ -11,8 +11,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	let teks = `_*「 BroadCast-Bot 」*_${text ? ('\n\n'+text) : ''}`
 	for (let id of chats) {
 		try {
-			if (/image|video/g.test(mime)) await conn.sendFile(id, img, '', teks, fkontak)
-			else await conn.reply(id, teks, fkontak)
+			if (/image|video/g.test(mime)) await conn.sendFile(id, img, '', teks, fkontakbot)
+			else await conn.reply(id, teks, fkontakbot)
 		} catch (e) {
 			console.log(e)
 		}

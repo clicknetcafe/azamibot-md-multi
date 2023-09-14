@@ -1,4 +1,4 @@
-import fs, { unlinkSync, readFileSync } from 'fs'
+import fs from 'fs'
 import { join } from 'path'
 import { exec } from 'child_process'
 
@@ -24,9 +24,9 @@ let handler = async (m, { conn, args, __dirname, usedPrefix, command }) => {
 			let media = dir + getRandom('.mp3')
 			fs.writeFileSync(media, await q.download(), function (err) { if (err) throw err })
 			exec(`ffmpeg -i ${media} ${set} ${filename}`, async (err, stderr, stdout) => {
-				await unlinkSync(media)
+				await fs.unlinkSync(media)
 				if (err) throw err
-				let buff = await readFileSync(filename)
+				let buff = await fs.readFileSync(filename)
 				await conn.sendFile(m.chat, buff, '', '', m, true)
 			})
 		} else throw `Reply / tag audio!`

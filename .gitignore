@@ -3,6 +3,7 @@ tmp/*
 
 # Dependency directories
 .git/
+cosplay/
 node_modules/
 
 # punya orang
@@ -10,6 +11,7 @@ plugins/_allbutton.zip
 
 # ntar aja bang bagi/bagi pluginnya :v
 lib/scrapepro.js
+plugins/_functionbefore/_autodetectazm.js
 plugins/ai/
 plugins/anime/anime.js
 plugins/anime/chara.js
@@ -80,15 +82,15 @@ plugins/game/tebaklagu.js
 plugins/game/tebaklagu_ans.js
 plugins/game/tekateki.js
 plugins/game/tekateki_ans.js
-plugins/gi/arte.js
-plugins/gi/chara.js
-plugins/gi/constellation.js
-plugins/gi/domain.js
-plugins/gi/element.js
-plugins/gi/enemy.js
-plugins/gi/material.js
-plugins/gi/talent.js
-plugins/gi/weapon.js
+plugins/genshin/arte.js
+plugins/genshin/chara.js
+plugins/genshin/constellation.js
+plugins/genshin/domain.js
+plugins/genshin/element.js
+plugins/genshin/enemy.js
+plugins/genshin/material.js
+plugins/genshin/talent.js
+plugins/genshin/weapon.js
 plugins/group/muteall.js
 plugins/info/beasiswa.js
 plugins/info/cekusia.js

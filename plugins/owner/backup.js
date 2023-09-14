@@ -3,13 +3,11 @@ import fs from 'fs'
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	m.reply(`_[!] Wait, sending database. . ._`)
 	try {
-		let database = await fs.readFileSync(`./database.json`)
-		let session = await fs.readFileSync(`./sessions/creds.json`)
-		await conn.sendFile(m.sender, database, `database.json`, '', m, false, { asDocument: true, mimetype: 'application/json' })
-		await conn.sendFile(m.sender, session, `creds.json`, '', m, false, { asDocument: true, mimetype: 'application/json' })
+		await conn.sendMessage(m.sender, { document: fs.readFileSync('./database.json'), fileName: 'database.json', mimetype: 'application/json' }, { quoted: m })
+		await conn.sendMessage(m.sender, { document: await fs.readFileSync('./sessions/creds.json'), fileName: 'creds.json', mimetype: 'application/json' }, { quoted: m })
 	} catch (e) {
 		console.log(e)
-		m.reply(`Terjadi kesalahan, coba lagi.`)
+		m.reply('terjadi kesalahan, cek logs.')
 	}
 }
 

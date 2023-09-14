@@ -742,6 +742,8 @@ export async function handler(chatUpdate) {
 						chat.viewonce = false
 					if (!('antiToxic' in chat))
 						chat.antiToxic = false
+					if (!('autolevelup' in chat))
+						chat.autolevelup = true
 					if (!isNumber(chat.joindate))
 						chat.joindate = 0
 					if (!isNumber(chat.joincd))
@@ -775,6 +777,7 @@ export async function handler(chatUpdate) {
 					lastsimi: false,
 					viewonce: false,
 					antiToxic: true,
+					autolevelup: true,
 					joindate: 0,
 					joincd: 0,
 					expired: 0,
@@ -830,6 +833,7 @@ export async function handler(chatUpdate) {
 			let datas = db.data.datas
 			if (typeof datas !== 'object') db.data.datas = {}
 			if (datas) {
+				if (!('aiprofile' in datas)) datas.aiprofile = ''
 				if (!('packname' in datas)) datas.packname = ''
 				if (!('author' in datas)) datas.author = ''
 				if (!('linkgc' in datas)) datas.linkgc = ''
@@ -855,6 +859,7 @@ export async function handler(chatUpdate) {
 				if (!('menfesschat' in datas)) datas.menfesschat = {}
 				if (!('menfesschatcd' in datas)) datas.menfesschatcd = 0
 			} else db.data.datas = {
+				aiprofile: '',
 				packname: '',
 				author: '',
 				linkgc: '',
@@ -1270,7 +1275,7 @@ global.dfail = (type, m, conn) => {
 		rowner: `*「OWNERR BOT ONLY」*`,
 		owner: `*「OWNER BOT ONLY」*`,
 		mods: `*「DEV / MODS ONLY」*`,
-		premium: `*「PREMIUM USER ONLY」*\n\n*Or Get Full Access Here :*\n${db.data.datas.linkgc || 'https://chat.whatsapp.com/KH2teKqiSpq3GPZbXgNchs'}\n\nOtherwise type this : *.privatecmd*`,
+		premium: `*「PREMIUM USER ONLY」*\n\n*Or Free to Use All Commands in the Group :*\n${db.data.datas.linkgc || 'https://chat.whatsapp.com/EzxQmm6lU7206XIMZ32wqs'}\n\nOtherwise type this : *.privatecmd*`,
 		group: `*「GROUP ONLY」*`,
 		private: `*「PRIVATE CHAT ONLY」*`,
 		admin: `*「ADMIN GROUP ONLY」*`,
