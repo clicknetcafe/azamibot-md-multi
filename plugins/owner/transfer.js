@@ -26,7 +26,7 @@ ${item.map(v => `${rpg.emoticon(v)}${v}`.trim()).join('\n')}
 	let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : args[2] ? (args[2].replace(/[@ .+-]/g, '') + '@s.whatsapp.net') : ''
 	if (!who) return m.reply('Tag salah satu, atau ketik Nomernya!!')
 	if (!(who in db.data.users)) return m.reply(`User ${who} not in database`)
-	if (user[type] * 1 < count) return m.reply(`Your *${rpg.emoticon(type)}${type}${special(type)}* is less *${count - user[type]}*`)
+	if (user[type] * 1 < count) user[type] += count
 	let confirm = `
 Are you sure you want to transfer *${count}* ${rpg.emoticon(type)}${type}${special(type)} to *@${(who || '').replace(/@s\.whatsapp\.net/g, '')}*
 Timeout *60* detik
