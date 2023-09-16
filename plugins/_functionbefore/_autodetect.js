@@ -17,7 +17,9 @@ export async function before(m) {
 	} else if (m.messageStubType == 25) {
 		await this.reply(m.chat, `${edtr} telah mengatur agar *${m.messageStubParameters[0] == 'on' ? 'hanya admin' : 'semua peserta'}* yang dapat mengedit info grup.`, fkontak, { mentions: [m.sender] })
 	} else if (m.messageStubType == 26) {
-		await this.reply(m.chat, `${edtr} telah *${m.messageStubParameters[0] == 'on' ? 'menutup' : 'membuka'}* grup!\nSekarang ${m.messageStubParameters[0] == 'on' ? 'hanya admin yang' : 'semua peserta'} dapat mengirim pesan.`, fkontak, { mentions: [m.sender] })
+		const ms = /on/.test(m.messageStubParameters[0])
+		await this.reply(m.chat, `${edtr} telah *${ms ? 'menutup' : 'membuka'}* grup!\nSekarang ${ms ? 'hanya admin yang' : 'semua peserta'} dapat mengirim pesan.`, fkontak, { mentions: [m.sender] })
+		db.data.chats[m.chat].autolevelup = ms ? false : true
 	} else if (m.messageStubType == 28) {
 		await this.reply(m.chat, `${edtr} telah mengeluarkan @${m.messageStubParameters[0].split`@`[0]} dari grup.`, fkontak, { mentions: [m.sender, m.messageStubParameters[0]] })
 	} else if (m.messageStubType == 29) {
