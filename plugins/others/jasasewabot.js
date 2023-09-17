@@ -5,8 +5,8 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 	if (!p) throw `[ ! ] Belum di set oleh owner.\n\nCommand *${usedPrefix}settekssewa* untuk menambahkan teks ${command}`
 	await conn.relayMessage(m.chat,  {
 		requestPaymentMessage: {
-			currencyCodeIso4217: 'USD',
-			amount1000: command.includes('prem') ? '0670' : command.includes('sewa') ? 1010 : 1680,
+			currencyCodeIso4217: 'IDR',
+			amount1000: (command.includes('prem') ? 10000 : 15000) * 1000,
 			requestFrom: '0@s.whatsapp.net',
 			noteMessage: {
 				extendedTextMessage: {

@@ -21,7 +21,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
 handler.help = ['artimimpi <teks>']
 handler.tags = ['primbon']
-handler.command = /^(tafsir|arti)mimpi$/i
+handler.command = /^((tafsir|arti)mimpi)$/i
 
 handler.premium = true
 handler.limit = true

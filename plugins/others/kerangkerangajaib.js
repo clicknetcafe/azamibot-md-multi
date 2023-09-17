@@ -14,6 +14,6 @@ let handler = async (m, { text, command, usedPrefix }) => {
 handler.menufun = ['kerang', 'kerangajaib'].map(v => v + ' <teks>')
 handler.tagsfun = ['kerang']
 
-handler.command = /^(kulit)?kerang(ajaib)?$/i
+handler.command = /^((kulit)?kerang(ajaib)?)$/i
 
 export default handler

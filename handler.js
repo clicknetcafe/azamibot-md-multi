@@ -709,7 +709,7 @@ export async function handler(chatUpdate) {
 					if (!('permaBan' in chat))
 						chat.permaBan = false
 					if (!('welcome' in chat))
-						chat.welcome = true
+						chat.welcome = false
 					if (!('detect' in chat))
 						chat.detect = false
 					if (!('sWelcome' in chat))
@@ -743,7 +743,7 @@ export async function handler(chatUpdate) {
 					if (!('antiToxic' in chat))
 						chat.antiToxic = false
 					if (!('autolevelup' in chat))
-						chat.autolevelup = true
+						chat.autolevelup = false
 					if (!isNumber(chat.joindate))
 						chat.joindate = 0
 					if (!isNumber(chat.joincd))
@@ -760,7 +760,7 @@ export async function handler(chatUpdate) {
 					presence: false,
 					isBanned: false,
 					permaBan: false,
-					welcome: true,
+					welcome: false,
 					detect: false,
 					sWelcome: '',
 					sBye: '',
@@ -777,7 +777,7 @@ export async function handler(chatUpdate) {
 					lastsimi: false,
 					viewonce: false,
 					antiToxic: true,
-					autolevelup: true,
+					autolevelup: false,
 					joindate: 0,
 					joincd: 0,
 					expired: 0,

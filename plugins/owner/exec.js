@@ -43,7 +43,7 @@ let handler = async (m, _2) => {
 
 handler.menuowner = ['> ', '=> ']
 handler.tagsowner = ['mods']
-handler.customPrefix = /^=?> /
+handler.customPrefix = /^(=?> )/
 handler.command = /(?:)/i
 
 handler.mods = true

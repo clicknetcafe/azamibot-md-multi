@@ -12,7 +12,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 
 handler.menutextpro = ['bpink <text>']
 handler.tagstextpro = ['search']
-handler.command = /^bpink$/i
+handler.command = /^(bpink)$/i
 
 handler.premium = true
 handler.limit = true

@@ -19,7 +19,7 @@ export async function before(m) {
 	} else if (m.messageStubType == 26) {
 		const ms = /on/.test(m.messageStubParameters[0])
 		await this.reply(m.chat, `${edtr} telah *${ms ? 'menutup' : 'membuka'}* grup!\nSekarang ${ms ? 'hanya admin yang' : 'semua peserta'} dapat mengirim pesan.`, fkontak, { mentions: [m.sender] })
-		db.data.chats[m.chat].autolevelup = ms ? false : true
+		db.data.chats[m.chat].autolevelup = false
 	} else if (m.messageStubType == 28) {
 		await this.reply(m.chat, `${edtr} telah mengeluarkan @${m.messageStubParameters[0].split`@`[0]} dari grup.`, fkontak, { mentions: [m.sender, m.messageStubParameters[0]] })
 	} else if (m.messageStubType == 29) {

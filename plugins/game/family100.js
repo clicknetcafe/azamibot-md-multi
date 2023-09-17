@@ -31,7 +31,7 @@ Terdapat *${json.jawaban.length}* jawaban${json.jawaban.find(v => v.includes(' '
 
 handler.menufun = ['family100']
 handler.tagsfun = ['game']
-handler.command = /^family100$/i
+handler.command = /^(family100)$/i
 
 handler.premium = true
 handler.game = true

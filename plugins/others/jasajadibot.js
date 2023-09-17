@@ -34,8 +34,8 @@ wa.me/6282337245566
 	//m.reply(txt)
 	conn.relayMessage(m.chat,  {
 		requestPaymentMessage: {
-			currencyCodeIso4217: 'USD',
-			amount1000: command.includes('prem') ? '0670' : command.includes('sewa') ? 1010 : 1680,
+			currencyCodeIso4217: 'IDR',
+			amount1000: 25000 * 1000,
 			requestFrom: '0@s.whatsapp.net',
 			noteMessage: {
 				extendedTextMessage: {

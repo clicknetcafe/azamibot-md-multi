@@ -1,9 +1,10 @@
+import db from '../../lib/database.js'
 import { areJidsSameUser } from '@whiskeysockets/baileys'
 
 let handler = async (m, { conn, args }) => {
 	let group = m.chat
 	if (/^[0-9]{5,16}-?[0-9]+@g\.us$/.test(args[0])) group = args[0]
-	if (!/^[0-9]{5,16}-?[0-9]+@g\.us$/.test(group)) throw 'Hanya bisa dibuka di grup'
+	if (!/^[0-9]{5,16}-?[0-9]+@g\.us$/.test(group)) throw db.data.datas.linkgc || 'https://chat.whatsapp.com/EzxQmm6lU7206XIMZ32wqs'
 	let groupMetadata = await conn.groupMetadata(group)
 	if (!groupMetadata) throw 'groupMetadata is undefined :\\'
 	if (!('participants' in groupMetadata)) throw 'participants is not defined :('
@@ -15,9 +16,6 @@ let handler = async (m, { conn, args }) => {
 
 handler.menugroup = ['linkgroup']
 handler.tagsgroup = ['group']
-handler.command = /^(link(gc|gro?up)|(gc|gro?up)link)$/i
-
-handler.botAdmin = true
-handler.group = true
+handler.command = /^(link(gc|gro?up)?|(gc|gro?up)link)$/i
 
 export default handler
