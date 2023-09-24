@@ -12,12 +12,20 @@ let handler = async (m, { conn, usedPrefix, command, args }) => {
 		if (m.isGroup) meta = await Connection.store.fetchGroupMetadata(m.chat, conn.groupMetadata)
 		let text = (add ? (chat?.sWelcome || conn.welcome || Connection.conn.welcome || 'Welcome, @user!').replace('@subject', namegc).replace('@desc', meta?.desc?.toString() || '~group deskripsi') : (chat?.sBye || conn.bye || Connection.conn.bye || 'Bye, @user!')).replace('@user', '@' + m.sender.split('@')[0])
 		try {
-			const can = await import('knights-canvasx')
 			let bg = await (await fetch('https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/menus.json')).json().then(v => v.getRandom())
 			let name = await conn.getName(m.sender)
 			let pp = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://i.ibb.co/VHXK4kV/avatar-contact.png')
 			let ppgc = await conn.profilePictureUrl(m.chat, 'image').catch(_ => 'https://i.ibb.co/VHXK4kV/avatar-contact.png')
-			pp = await (await (add ? new can.Welcome() : new can.Goodbye()).setUsername(name).setGuildName(namegc).setGuildIcon(ppgc).setMemberCount(meta.participants.length).setAvatar(pp).setBackground(bg).toAttachment()).toBuffer()
+			const can = await (await import('canvafy')).default
+			pp = await new can.WelcomeLeave()
+				.setAvatar(pp)
+				.setBackground('image', bg)
+				.setTitle(add ? 'Welcome' : 'Goodbye', add ? '#3495eb' : '#eb4034')
+				.setDescription(`${add ? 'Hello' : 'Sayonara'} ${name} | ${add ? 'Welcome to' : 'Leaving from'} ${namegc}`, '#34eb7d')
+				.setBorder("#2a2e35")
+				.setAvatarBorder("#2a2e35")
+				.setOverlayOpacity(0.6)
+				.build()
 			await conn.sendFile(m.chat, pp, '', text, fkontak, false, { mentions: [m.sender] })
 		} catch (e) {
 			console.log(e)

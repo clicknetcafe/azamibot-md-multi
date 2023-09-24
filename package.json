@@ -92,8 +92,8 @@
 	"optionalDependencies": {
 		"@vitalets/google-translate-api": "^9.2.0",
 		"bing-scraper": "^1.4.11",
+		"canvafy": "^7.0.4",
 		"hmfull": "^2.4.3",
-		"knights-canvas": "^1.3.7-a",
 		"rembg-node": "^2.0.1",
 		"sagiri": "^3.4.0",
 		"scathach-api": "^1.0.16",

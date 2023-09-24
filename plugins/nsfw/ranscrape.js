@@ -16,9 +16,9 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 	}
 }
 
-handler.menunsfw = ['eba','foot','gifs','hentaivid','jahy','manga2nsfw','neko2','nekonimensfw','nsfwloli','nsfwmanga','nsfwneko','panties','zettai']
+handler.menunsfw = ['eba','foot','gifs','jahy','manga2nsfw','neko2','nekonimensfw','nsfwloli','nsfwmanga','nsfwneko','panties','zettai']
 handler.tagsnsfw = ['randompic']
-handler.command = /^(eba|foot|gifs|hentaivid|jahy|manga2nsfw|neko2|nekonimensfw|nsfwloli|nsfwmanga|nsfwneko|panties|zettai)$/i
+handler.command = /^(eba|foot|gifs|jahy|manga2nsfw|neko2|nekonimensfw|nsfwloli|nsfwmanga|nsfwneko|panties|zettai)$/i
 
 handler.premium = true
 handler.limit = true

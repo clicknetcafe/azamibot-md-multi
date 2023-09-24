@@ -5,8 +5,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	let stiker = false
 	try {
 		let [pack, aut] = text.split('|')
-		pack = packname || '-'
-		aut = author || '-'
+		pack = pack || '-'
+		aut = aut || '-'
 		let mime = m.quoted.mimetype || ''
 		if (!/webp/.test(mime)) throw `Reply / Tag Stiker Sesuai Format :\n*${usedPrefix + command} <packname>|<author>*`
 		let img = await m.quoted.download()

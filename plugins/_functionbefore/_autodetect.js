@@ -4,7 +4,7 @@ import db from '../../lib/database.js'
 
 export async function before(m) {
 	if (!m.messageStubType || !m.isGroup) return !1
-	//if (m.chat == '120363045913621594@g.us' || m.chat == '120363024788895179@g.us') return !1
+	//if (/120363045913621594|120363024788895179/.test(m.chat)) return !1
 	let edtr = `@${m.sender.split`@`[0]}`
 	if (m.messageStubType == 21) {
 		await this.reply(m.chat, `${edtr} mengubah Subject Grup menjadi :\n*${m.messageStubParameters[0]}*`, fkontak, { mentions: [m.sender] })
@@ -45,8 +45,16 @@ export async function before(m) {
 		let ppgc = await this.profilePictureUrl(id, 'image').catch(_ => 'https://i.ibb.co/VHXK4kV/avatar-contact.png')
 		let text = (add ? (chat.sWelcome || this.welcome || Connection.conn.welcome || 'Welcome, @user!').replace('@subject', namegc).replace('@desc', meta.desc?.toString() || '~') : (chat.sBye || this.bye || Connection.conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
 		try {
-			const can = await import('knights-canvas')
-			pp = await (await (add ? new can.Welcome() : new can.Goodbye()).setUsername(name).setGuildName(namegc).setGuildIcon(ppgc).setMemberCount(meta.participants.length).setAvatar(pp).setBackground(bg).toAttachment()).toBuffer()
+			const can = await (await import('canvafy')).default
+			pp = await new can.WelcomeLeave()
+				.setAvatar(pp)
+				.setBackground('image', bg)
+				.setTitle(add ? 'Welcome' : 'Goodbye', add ? '#3495eb' : '#eb4034')
+				.setDescription(`${add ? 'Hello' : 'Sayonara'} ${name} | ${add ? 'Welcome to' : 'Leaving from'} ${namegc}`, '#34eb7d')
+				.setBorder("#2a2e35")
+				.setAvatarBorder("#2a2e35")
+				.setOverlayOpacity(0.6)
+				.build()
 			await this.sendFile(id, pp, '', text, fkontak, false, { mentions: [user] })
 		} catch (e) {
 			console.log(e)

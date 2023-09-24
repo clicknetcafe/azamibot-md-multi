@@ -7,16 +7,28 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 	if (isUrl(text)) {
 		try {
 			let anu = await youtubeSearch(text)
-			let txt = `📌 *${anu.video[0].title}*\n\n`
-			+ `🪶 *Author :* ${anu.video[0].authorName}\n`
-			+ `⏲️ *Published :* ${anu.video[0].publishedTime}\n`
-			+ `⌚ *Duration :* ${anu.video[0].durationH}\n`
-			+ `👁️ *Views :* ${anu.video[0].viewH}\n`
-			+ `🌀 *Url :* ${anu.video[0].url}`
-			await conn.sendMsg(m.chat, { image: { url: anu.video[0].thumbnail.split("?")[0] }, caption: txt }, { quoted: m })
+			anu = anu.video[0]
+			let txt = `📌 *${anu.title}*\n\n`
+			+ `🪶 *Author :* ${anu.authorName}\n`
+			+ `⏲️ *Published :* ${anu.publishedTime}\n`
+			+ `⌚ *Duration :* ${anu.durationH}\n`
+			+ `👁️ *Views :* ${anu.viewH}\n`
+			+ `🌀 *Url :* ${anu.url}`
+			await conn.sendMsg(m.chat, { image: { url: anu.thumbnail.split("?")[0] }, caption: txt }, { quoted: m })
 		} catch (e) {
 			console.log(e)
-			m.reply(`Invalid url / server down.`)
+			try {
+				let anu = await (await fetch(`https://api.akuari.my.id/downloader/yt1?link=${args[0]}`)).json()
+				let txt = `📌 *${anu.info.title}*\n\n`
+				+ `🪶 *Author :* ${anu.info.channel}\n`
+				+ `⏲️ *Published :* ${anu.info.uploadDate}\n`
+				+ `👁️ *Views :* ${anu.info.views}\n`
+				+ `🌀 *Url :* ${text}`
+				await conn.sendMsg(m.chat, { image: { url: anu.info.thumbnail }, caption: txt }, { quoted: m })
+			} catch (e) {
+				console.log(e)
+				throw 'invalid url / internal server error.'
+			}
 		}
 	} else {
 		try {
@@ -49,7 +61,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 				await conn.sendMsg(m.chat, { image: { url: anu.video[0].thumbnail.split("?")[0] }, caption: txt }, { quoted : m })
 			} catch (e) {
 				console.log(e)
-				m.reply(`Tidak ditemukan hasil.`)
+				throw 'not found / internal server error.'
 			}
 		}
 	}

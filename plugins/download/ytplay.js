@@ -1,7 +1,7 @@
 import ytdl from 'ytdl-core'
 import yts from 'yt-search'
 import { youtubeSearch, youtubedl } from '@bochilteam/scraper-sosmed'
-import { somematch, isUrl } from '../../lib/func.js'
+import { somematch, isUrl, niceBytes } from '../../lib/func.js'
 
 let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 	if (!text) throw `Example: ${usedPrefix + command} Sia Unstopable`
@@ -71,10 +71,20 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 		let data = res.audio[Object.keys(res.audio)[0]]
 		let site = await data.download()
 		if (data.fileSize > 400000) return m.reply(`Filesize: ${data.fileSizeH}\nTidak dapat mengirim, maksimal file 400 MB`)
-		await conn.sendMsg(m.chat, { audio: { url: site }, mimetype: 'audio/mp4' }, { quoted : m })
+		await conn.sendMsg(m.chat, { audio: { url: site }, mimetype: 'audio/mpeg' }, { quoted : m })
 	} catch (e) {
 		console.log(e)
-	} 
+		try {
+			let res = await ytdl.getURLVideoID(url)
+			let anu = await ytdl.getInfo(res)
+			anu = anu.formats.filter(v => v.mimeType.includes('audio/mp4'))[0]
+			let size = parseInt(anu.contentLength)
+			if (size > 400000000) return m.reply(`Filesize: ${niceBytes(size)}\nTidak dapat mengirim, maksimal file 400 MB`)
+			await conn.sendMsg(m.chat, { audio: { url: anu.url }, mimetype: 'audio/mpeg' }, { quoted : m })
+		} catch (e) {
+			console.log(e)
+		}
+	}
 }
 
 handler.menudownload = ['ytplay <teks> / <url>']

@@ -22,7 +22,6 @@ let handler = async (m, { conn, command, usedPrefix }) => {
 					}
 				]
 			})
-			m.reply(`Sukses mengganti Icon Group!`)
 		} catch (e) {
 			console.log(e)
 			m.reply(`Terjadi kesalahan, coba lagi nanti.`)

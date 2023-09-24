@@ -2,9 +2,9 @@ import db from '../../lib/database.js'
 
 export async function before(m, { isAdmin, isBotAdmin }) {
 	let user = db.data.users[m.sender]
-	if (!user || user.permaban) return !0
-	if (user.bannedcd == 0) return !0
-	if (new Date - user.lastbanned <= user.bannedcd) return !0
+	if (!user) return !1
+	if (user.permaban || user.bannedcd == 0) return !1
+	if (new Date - user.lastbanned <= user.bannedcd) return !1
 	user.lastbanned = 0
 	user.bannedcd = 0
 	user.banned = false

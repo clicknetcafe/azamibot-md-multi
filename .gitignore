@@ -5,6 +5,7 @@ tmp/*
 .git/
 cosplay/
 node_modules/
+tes.js
 
 # punya orang
 plugins/_allbutton.zip
@@ -91,6 +92,7 @@ plugins/genshin/enemy.js
 plugins/genshin/material.js
 plugins/genshin/talent.js
 plugins/genshin/weapon.js
+plugins/group/listrequest.js
 plugins/group/muteall.js
 plugins/info/beasiswa.js
 plugins/info/cekusia.js

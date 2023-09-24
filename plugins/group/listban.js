@@ -18,7 +18,7 @@ let handler = async (m, { conn, usedPrefix, command, isOwner, text }) => {
 		else {
 			if (groups.includes(x)) name = await conn.getName(x)
 			else name = 'Unknown ( Bot Leave )'
-			sisa = gc[x].permaBan ? 'Status : Permanent Banned Group' : isNaN(timer) ? 'Status : Soft Banned' : `Mute : ${timer.toTimeString()}`
+			sisa = gc[x].permaBan ? 'Status : Permanent Banned' : isNaN(timer) ? 'Status : Soft Banned' : `Mute : ${timer.toTimeString()}`
 			txt += `\n*[${z}] ${name.replace(/\n/g, '').trim()}*\n`
 			txt += '┗⊱ '+sisa
 			z++
