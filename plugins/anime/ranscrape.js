@@ -1,15 +1,15 @@
-import { pickRandom } from '../../lib/func.js'
 import { sticker } from '../../lib/sticker.js'
 
-let handler = async (m, { conn, usedPrefix, command }) => {
+let handler = async (m, { conn, text, usedPrefix, command }) => {
 	try {
-		let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/Databasee/main/anime/${command}.json`)
-		let anu = pickRandom(await res.json())
+		let anu = await (await fetch(`https://raw.githubusercontent.com/clicknetcafe/Databasee/main/anime/${command}.json`)).json()
+		if (command == 'loli' && text == 'mp4') anu = anu.filter(v => v.endsWith('raw=true')).getRandom()
+		else anu = anu.getRandom()
 		if (!anu) throw Error('error : no url')
 		if (anu.split('.').pop() == 'gif') {
 			let buffer = await sticker(false, anu, packname, author)
 			await conn.sendFile(m.chat, buffer, '', '', m)
-		} else await conn.sendMsg(m.chat, { image: { url: anu }, caption: `_Random pic: ${command}_` }, { quoted: m })
+		} else await conn.sendFile(m.chat, anu, '', `_Random pic: ${command}_`, m)
 	} catch (e) {
 		console.log(e)
 		m.reply('scrape failed')

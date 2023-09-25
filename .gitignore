@@ -12,6 +12,7 @@ plugins/_allbutton.zip
 
 # ntar aja bang bagi/bagi pluginnya :v
 lib/scrapepro.js
+plugins/_functionbefore/_autoai.js
 plugins/_functionbefore/_autodetectazm.js
 plugins/ai/
 plugins/anime/anime.js
@@ -160,6 +161,7 @@ plugins/tools/dashboard.js
 plugins/tools/ptv.js
 plugins/tools/ringtone.js
 plugins/tools/savekontak.js
+plugins/tools/ttstiktok.js
 
 # data-single-auth
 session.data.json

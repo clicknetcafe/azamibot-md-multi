@@ -6,6 +6,6 @@ let handler = async (m, { conn, command }) => {
 
 handler.menugroup = ['linkgcbot']
 handler.tagsgroup = ['group']
-handler.command = /^(link(gc|gro?up)bot)$/i
+handler.command = /^((link)?(gc|gro?up)bot)$/i
 
 export default handler
