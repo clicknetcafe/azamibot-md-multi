@@ -12,6 +12,7 @@ plugins/_allbutton.zip
 
 # ntar aja bang bagi/bagi pluginnya :v
 lib/scrapepro.js
+lib/werewolf.js
 plugins/_functionbefore/_autoai.js
 plugins/_functionbefore/_autodetectazm.js
 plugins/ai/
@@ -74,6 +75,8 @@ plugins/entertainment/stalk.js
 plugins/entertainment/zodiak.js
 plugins/game/sambungkata.js
 plugins/game/sambungkata_ans.js
+plugins/game/tebakanime.js
+plugins/game/tebakanime_ans.js
 plugins/game/tebakchara.js
 plugins/game/tebakchara_ans.js
 plugins/game/tebakkabupaten.js
@@ -82,6 +85,10 @@ plugins/game/tebakkimia.js
 plugins/game/tebakkimia_ans.js
 plugins/game/tebaklagu.js
 plugins/game/tebaklagu_ans.js
+plugins/game/tebakmanga.js
+plugins/game/tebakmanga_ans.js
+plugins/game/ww.js
+plugins/game/wwpc.js
 plugins/game/tekateki.js
 plugins/game/tekateki_ans.js
 plugins/genshin/arte.js
@@ -157,6 +164,7 @@ plugins/search/wallpaper.js
 plugins/search/wattpad.js
 plugins/search/wikimedia.js
 plugins/store/
+plugins/tools/cekip.js
 plugins/tools/dashboard.js
 plugins/tools/ptv.js
 plugins/tools/ringtone.js

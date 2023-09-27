@@ -1,42 +1,30 @@
-import { somematch, pickRandom } from '../../lib/func.js'
+import { somematch } from '../../lib/func.js'
+
+const cecan = ['cecan2','china','cogan','indonesia','japan','korea','malaysia','thailand','vietnam']
+const dosa = ['anony','bocil','harley','hijaber']
+const random = ['blackpink','justina','kpop','rose','ryujin']
+const join = ['random', ...cecan, ...dosa, ...random]
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-	if (text) text = text.toLowerCase()
+	text = text.toLowerCase()
+	if (text && !join.some(v => v === text)) throw `Cecan *${text}* tidak tersedia, list cecan :\n\n${join.join(' | ')}`
+	if (!text) text = join.getRandom()
+	if (command !== 'cecan') text = command
 	try {
-		if (somematch(['justina','ryujin','rose','blackpink','kpop'], text)) {
-			let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/Databasee/main/Random%20Image/${text}.json`)
-			let anu = pickRandom(await res.json())
-			await conn.sendFile(m.chat, anu, '', `${command} > ${text}`, m)
-		} else if (somematch(['china','vietnam','thailand','indonesia','korea','japan','malaysia'], text)) {
-			let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/Databasee/main/cecan/${text}.json`)
-			let anu = pickRandom(await res.json())
-			await conn.sendFile(m.chat, anu, '', `${command} > ${text}`, m)
-		} else {
-			if (!text || text == 'random') {
-				try {
-					let fimg = await fetch(`https://api.lolhuman.xyz/api/random/cecan?apikey=${api.lol}`)
-					let fimgb = Buffer.from(await fimg.arrayBuffer())
-					if (Buffer.byteLength(fimgb) < 22000) throw Error('[!] Error : No Buffer.')
-					await conn.sendFile(m.chat, fimgb, '', `_Random pic: cecan_`, m)
-				} catch (e) {
-					console.log(e)
-					let res = await fetch(`https://raw.githubusercontent.com/clicknetcafe/Databasee/main/${pickRandom(['cecan/cecan','cecan/cecan2'])}.json`)
-					let anu = pickRandom(await res.json())
-					await conn.sendFile(m.chat, anu, '', `${command} > random`, m)
-				}
-			} else {
-				m.reply(`Mode tersedia :\nrandom | blackpink | china | indonesia | japan | justina | korea | kpop | malaysia | rose | ryujin | thailand | vietnam\n\nContoh penggunaan: *${usedPrefix + command} random*`)
-			}
-		}
+		let folder
+		if (text == 'random') folder = ['cecan','dosa'].getRandom()
+		else folder = somematch(cecan, text) ? 'cecan' : somematch(dosa, text) ? 'dosa' : 'image'
+		let anu = await (await fetch(`https://raw.githubusercontent.com/clicknetcafe/Databasee/main/${folder}/${text.replace('random','cecan')}.json`)).json()
+		await conn.sendFile(m.chat, anu.getRandom(), '', `Cecan > ${text}`, m)
 	} catch (e) {
 		console.log(e)
 		m.reply(`Cecan *${text}* sedang turu.`)
 	}
 }
 
-handler.help = ['cecan <option>']
+handler.help = ['cecan <option>','cecan2','anony','bocil','china','harley','hijaber','indonesia','japan','korea','malaysia','thailand','vietnam']
 handler.tags = ['entertainment']
-handler.command = /^(cecan)$/i
+handler.command = /^(cecan2?|anony|bocil|china|harley|hijaber|indonesia|japan|korea|malaysia|thailand|vietnam)$/i
 
 handler.premium = true
 handler.limit = true

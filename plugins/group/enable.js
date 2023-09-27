@@ -130,6 +130,19 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			}
 			chat.viewonce = isEnable
 			break
+		case 'autoai':
+			if (!m.isGroup) {
+				global.dfail('group', m, conn)
+				throw false
+			} else if (!isAdmin) {
+				global.dfail('admin', m, conn)
+				throw false
+			} else if (!isBotAdmin) {
+				global.dfail('botAdmin', m, conn)
+				throw false
+			}
+			chat.autoai = isEnable
+			break
 		case 'anticall':
 		case 'autoreject':
 		case 'autorejectcall':
@@ -139,6 +152,14 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 				throw false
 			}
 			datas.anticall = isEnable
+			break
+		case 'autoaipc':
+			isAll = true
+			if (!isROwner) {
+				global.dfail('rowner', m, conn)
+				throw false
+			}
+			datas.autoai = isEnable
 			break
 		case 'autolevelup':
 			if (!m.isGroup) {
@@ -220,7 +241,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			}
 			break
 		default:
-			if (!/[01]/.test(command)) return m.reply(`*List option :*\n| presence | welcome | delete | antidelete | autolevelup | ephemeral | nsfw | game | anticall | antilink | antivirtex | antiviewonce | public | self | restrict | autoread | pconly | gconly |
+			if (!/[01]/.test(command)) return m.reply(`*List option :*\n| presence | welcome | delete | antidelete | autolevelup | ephemeral | nsfw | game | anticall | antilink | antivirtex | antiviewonce | autoai | autoaipc | public | self | restrict | autoread | pconly | gconly |
 
 Example :
 *${usedPrefix + command} welcome*

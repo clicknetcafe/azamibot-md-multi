@@ -744,6 +744,8 @@ export async function handler(chatUpdate) {
 						chat.antiToxic = false
 					if (!('autolevelup' in chat))
 						chat.autolevelup = false
+					if (!('autoai' in chat))
+						chat.autoai = false
 					if (!isNumber(chat.joindate))
 						chat.joindate = 0
 					if (!isNumber(chat.joincd))
@@ -778,6 +780,7 @@ export async function handler(chatUpdate) {
 					viewonce: false,
 					antiToxic: true,
 					autolevelup: false,
+					autoai: false,
 					joindate: 0,
 					joincd: 0,
 					expired: 0,
@@ -833,6 +836,7 @@ export async function handler(chatUpdate) {
 			let datas = db.data.datas
 			if (typeof datas !== 'object') db.data.datas = {}
 			if (datas) {
+				if (!('maingroupname' in datas)) datas.maingroupname = ''
 				if (!('aiprofile' in datas)) datas.aiprofile = ''
 				if (!('packname' in datas)) datas.packname = ''
 				if (!('author' in datas)) datas.author = ''
@@ -842,6 +846,7 @@ export async function handler(chatUpdate) {
 				if (!('spamlistmsg' in datas)) datas.spamlistmsg = null
 				if (!('spamlistgcmsg' in datas)) datas.spamlistgcmsg = null
 				if (!('anticall' in datas)) datas.anticall = false
+				if (!('autoai' in datas)) datas.autoai = true
 				if (!('teksdonasi' in datas)) datas.teksdonasi = ''
 				if (!('tekssewa' in datas)) datas.tekssewa = ''
 				if (!('teksjadibot' in datas)) datas.teksjadibot = ''
@@ -859,6 +864,7 @@ export async function handler(chatUpdate) {
 				if (!('menfesschat' in datas)) datas.menfesschat = {}
 				if (!('menfesschatcd' in datas)) datas.menfesschatcd = 0
 			} else db.data.datas = {
+				maingroupname: '',
 				aiprofile: '',
 				packname: '',
 				author: '',
@@ -869,6 +875,7 @@ export async function handler(chatUpdate) {
 				spamlistmsg : null,
 				spamlistgcmsg: null,
 				anticall: false,
+				autoai: true,
 				teksdonasi: '',
 				tekssewa: '',
 				teksjadibot: '',

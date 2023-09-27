@@ -16,9 +16,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	}
 }
 
-handler.menuanime = ['akira','akiyama','ana','asuna','ayuzawa','boruto','chitanda','chitoge','deidara','doraemon','elaina','emilia','erza','gremory','hestia','hinata','husbu','icon','inori','isuzu','itachi','itori','kaga','kagura','kakasih','kaneki','kaori','keneki','kosaki','kotori','kuriyama','kuroha','kurumi','loli','madara','mikasa','miku','minato','naruto','natsukawa','nekonime','nezuko','nishimiya','onepiece','pokemon','rem','rize','sagiri','sakura','sasuke','shina','shinka','shizuka','shota','tomori','toukachan','tsunade','waifu2','yatogami','yuki']
+handler.menuanime = handler.command = ['akira','akiyama','ana','asuna','ayuzawa','boruto','chitanda','chitoge','deidara','doraemon','elaina','emilia','erza','gremory','hestia','hinata','husbu','icon','inori','isuzu','itachi','itori','kaga','kagura','kakasih','kaneki','kaori','keneki','kosaki','kotori','kuriyama','kuroha','kurumi','loli','madara','mikasa','miku','minato','naruto','natsukawa','nekonime','nezuko','nishimiya','onepiece','pokemon','rem','rize','sagiri','sakura','sasuke','shina','shinka','shizuka','shota','tomori','toukachan','tsunade','waifu2','yatogami','yuki']
 handler.tagsanime = ['randompic']
-handler.command = /^(akira|akiyama|ana|asuna|ayuzawa|boruto|chitanda|chitoge|deidara|doraemon|elaina|emilia|erza|gremory|hestia|hinata|husbu|icon|inori|isuzu|itachi|itori|kaga|kagura|kakasih|kaneki|kaori|keneki|kosaki|kotori|kuriyama|kuroha|kurumi|loli|madara|mikasa|miku|minato|naruto|natsukawa|nekonime|nezuko|nishimiya|onepiece|pokemon|rem|rize|sagiri|sakura|sasuke|shina|shinka|shizuka|shota|tomori|toukachan|tsunade|waifu2|yatogami|yuki)$/i
 
 handler.premium = true
 handler.limit = true
