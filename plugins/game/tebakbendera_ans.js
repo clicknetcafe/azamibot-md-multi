@@ -4,7 +4,7 @@ const threshold = 0.72
 
 export async function before(m) {
 	let user = db.data.users[m.sender]
-	if (user.banned) return null
+	if (!user || user.banned) return !1
 	let id = m.chat
 	if (!m.quoted || !m.quoted.fromMe || !m.quoted.isBaileys || !m.text)
 		return !0
