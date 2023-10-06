@@ -17,7 +17,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 	await conn.reply(m.chat, `@${who.split('@')[0]} Menjadi User Premium.\n\n*Durasi : ${durasi} hari*`, m, { mentions: [who] })
 }
 
-handler.mengroup = ['addprem <day> <@tag>']
+handler.menuowner = ['addprem <day> <@tag>']
 handler.tagsowner = ['owner']
 handler.command = /^(addprem(ium)?)$/i
 

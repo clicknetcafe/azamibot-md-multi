@@ -6,7 +6,7 @@ let handler = async (m, { conn }) => {
 	await conn.reply(m.chat, `Sisa Waktu Sewa :\n\n*${((chat.joindate + chat.joincd) - new Date()).toTimeString()}*`, m)
 }
 
-handler.mengroup = ['durasisewa']
+handler.menugroup = ['durasisewa']
 handler.tagsgroup = ['group']
 handler.command = /^((cek)?(durasi|info)(sewa|join)(bot)?)$/i
 

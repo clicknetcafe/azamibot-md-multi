@@ -16,73 +16,120 @@ let handler = m => m
 	global.ephemeral = '86400' // 86400 = 24jam, kalo ingin di hilangkan ganti jadi 'null' atau ''
 	global.timeh = `🕰️ ${d.toLocaleTimeString('id', { hour: 'numeric', minute: 'numeric', second: 'numeric' }).replace(/./,':')}`
 	
-	//fake troli
-	global.ftroli = { key: { participant : nol }, message: { orderMessage: { itemCount: 2023, status: 1, surface: 1, message: timeh, ordertitle: pauthor, sellerJid: nol } } }
 	// fake kontak
-	global.fkontak = { key: { remoteJid: 'status@broadcast' }, message: { contactMessage: { displayName: await this.getName(m.sender.replace(/\n/g, '')), vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${pauthor};;;\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` } }, participant: nol }
-	global.fkontakbot = { key: { remoteJid: 'status@broadcast' }, message: { contactMessage: { displayName: await this.getName(this.user.jid.replace(/\n/g, '')), vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${pauthor};;;\nitem1.TEL;waid=${this.user.jid.split('@')[0]}:${this.user.jid.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` } }, participant: nol }
+	const fake = async (remoteJid, jid) => {
+		const pure = {
+			key: {
+				remoteJid,
+				fromMe: true,
+				id: 'BAE5AB0B84194996'
+			},
+			message: {
+				contactMessage: {
+					displayName: await this.getName(jid),
+					vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;${pauthor};;;\nFN:${pauthor}\nTEL;type=CELL;type=VOICE;waid=${jid.split('@')[0]}:${jid.split('@')[0]}\nEND:VCARD`
+				}
+			},
+			status: 'PENDING',
+			messageTimestamp: '1696595373'
+		}
+		return pure
+	}
+	const extras = { messageTimestamp: '1696603624', broadcast: false, pushName: pauthor }
+	const key = { remoteJid: this.user.jid, fromMe: false, id: '97AA99F78F1C398AE87C26055FEB5AB1' }
+	global.fkontak = await fake(nol, m.sender)
+	global.fkontakbot = await fake(nol, this.user.jid)
 	// fake vn
 	global.fvn = {
-		key: { participant : nol},
-		message: { 
+		key, message: { 
 			audioMessage: {
 				mimetype: 'audio/ogg; codecs=opus',
-				seconds: 1000000000,
+				seconds: 10,
 				ptt: true
 			}
-		}
+		},
+		...extras
 	}
 	// fake video
 	global.fvid = {
-		key: { participant : nol},
-		message: { videoMessage: { title: pauthor, h: 'Hmm',seconds: '12345', caption: timeh, jpegThumbnail: fs.readFileSync('./media/thumbnail.jpg')}}
-	}
-	// fake centang hijau
-	global.ftextt = {
-		key: { participant : nol},
-		message: {
-			extendedTextMessage: {
-				text: pauthor,
-				title: timeh,
+		key, message: {
+			videoMessage: {
+				title: pauthor,
+				h: 'Hmm',
+				seconds: '12345',
+				caption: timeh,
 				jpegThumbnail: fs.readFileSync('./media/thumbnail.jpg')
 			}
-		}
-	}
-	// fake open AI
-	global.fopenai = {
-		key: { participant : this.user.jid},
-		message: {
-			extendedTextMessage: {
-				text: '⚗️ Automatic Chatbot by Open AI',
-				title: timeh,
-				jpegThumbnail: fs.readFileSync('./media/thumbnail.jpg')
-			}
-		}
+		},
+		...extras
 	}
 	// fake location
 	global.fliveLoc = {
-	key: { participant : nol},
-		message: {
+		key, message: {
 			liveLocationMessage: {
-				caption: pauthor,
+				caption: pauthor, // title: pauthor, // see the differences
 				h: timeh,
 				jpegThumbnail: fs.readFileSync('./media/thumbnail.jpg')
 			}
-		}
+		},
+		...extras
 	}
-	// fake TEXT location
-	global.fliveLoc2 = {
-		key: { participant : nol},
-		message: { liveLocationMessage: {
-			title: pauthor,
-			h: timeh,
-			jpegThumbnail: fs.readFileSync('./media/thumbnail.jpg')
-		}}
+	//fake document
+	global.fdocs = {
+		key, message: {
+			documentMessage: {
+				title: pauthor, 
+				jpegThumbnail: fs.readFileSync('./media/thumbnail.jpg')
+			}
+		},
+		...extras
+	}
+	// fake gif
+	global.fgif = {
+		key, message: { 
+			videoMessage: {
+				title: pauthor,
+				h: 'Hmm',
+				seconds: '999999999', 
+				gifPlayback: 'true', 
+				caption: timeh,
+				jpegThumbnail: fs.readFileSync('./media/thumbnail.jpg')
+			}
+		},
+		...extras
+	}
+	//fake troli
+	global.ftroli = {
+		key, message: {
+			orderMessage: {
+				itemCount: 1000,
+				status: 1,
+				surface: 1,
+				message: timeh,
+				ordertitle: pauthor,
+				sellerJid: nol
+			}
+		},
+		...extras
+	}
+	//fake troli2
+	global.ftrol = {
+		key, message: {
+			orderMessage: {
+				itemCount : 1000,
+				//status: 1,
+				//surface : 1,
+				message: pauthor,
+				//orderTitle: `anulah`,
+				thumbnail: fs.readFileSync('./media/anime.jpg'),
+				sellerJid: nol 
+			}
+		},
+		...extras
 	}
 	// fake toko
 	global.ftoko = {
-		key: { participant : nol},
-		message: {
+		key, message: {
 			productMessage: {
 				product: {
 					productImage: {
@@ -92,54 +139,14 @@ let handler = m => m
 					title: pauthor,
 					description: timeh, 
 					currencyCode: 'USD',
-					priceAmount1000: 20000000,
+					priceAmount1000: 15000000,
 					retailerId: 'Ghost',
 					productImageCount: 1
 				},
 				businessOwnerJid: nol
 			}
-		}
-	}
-	//fake document
-	global.fdocs = {
-		key : { participant : nol},
-		message: {
-			documentMessage: {
-				title: pauthor, 
-				jpegThumbnail: fs.readFileSync('./media/thumbnail.jpg')
-			}
-		}
-	}
-	// fake gif
-	global.fgif = {
-		key: { participant : nol},
-		message: { 
-			videoMessage: {
-				title: pauthor,
-				h: 'Hmm',
-				seconds: '999999999', 
-				gifPlayback: 'true', 
-				caption: timeh,
-				jpegThumbnail: fs.readFileSync('./media/thumbnail.jpg')
-			}
-		}
-	}
-	//fake troli2
-	global.ftrol = {
-		key : {
-		participant : nol
 		},
-		message: {
-			orderMessage: {
-				itemCount : 841,
-				//status: 1,
-				//surface : 1,
-				message: pauthor,
-				//orderTitle: `anulah`,
-				thumbnail: fs.readFileSync('./media/anime.jpg'),
-				sellerJid: nol 
-			}
-		}
+		...extras
 	}
 }
 

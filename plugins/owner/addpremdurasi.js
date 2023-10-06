@@ -27,7 +27,7 @@ let handler = async (m, { conn, command, args }) => {
 	await conn.reply(m.chat, `${(command.includes('min') || command.includes('kurang')) ? 'Mengurangi' : 'Menambah'} durasi premium @${(who || '').replace(/@s\.whatsapp\.net/g, '')} sebanyak *${durasi} hari*`, m, { mentions: [who] })
 }
 
-handler.mengroup = ['addpremdurasi <@tag>']
+handler.menuowner = ['addpremdurasi <@tag>']
 handler.tagsowner = ['owner']
 handler.command = /^(((t|n)ambah|add|plus|min|kurang)(prem(ium)?dura(si|tion)|dura(si|tion)prem(ium)?))$/i
 

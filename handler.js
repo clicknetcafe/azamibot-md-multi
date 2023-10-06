@@ -920,7 +920,7 @@ export async function handler(chatUpdate) {
 			await this.msgqueque.waitQueue(id)
 		}
 
-		if (m.fromMe && m.isBaileys) return
+		if (m.isBaileys) return
 		m.exp += Math.ceil(Math.random() * 10)
 
 		let usedPrefix
