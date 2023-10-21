@@ -138,8 +138,8 @@ let handler = m => m
 					},
 					title: pauthor,
 					description: timeh, 
-					currencyCode: 'USD',
-					priceAmount1000: 15000000,
+					currencyCode: 'IDR',
+					priceAmount1000: 25000000,
 					retailerId: 'Ghost',
 					productImageCount: 1
 				},

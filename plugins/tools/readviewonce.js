@@ -5,7 +5,8 @@ let handler = async (m, { conn }) => {
 	try {
 		let txt = (q.message[type].caption) || ''
 		let buffer = await q.download()
-		await conn.sendFile(m.chat, buffer, '', txt, null, false, { mentions: conn.parseMention(txt), quoted: m })
+		if (/audio/.test(type)) await conn.sendMsg(m.chat, { audio: buffer, ptt: true }, { quoted: m })
+		else await conn.sendFile(m.chat, buffer, '', txt, null, false, { mentions: conn.parseMention(txt), quoted: m })
 	} catch (e) {
 		console.log(e)
 		throw 'already opened'

@@ -1,7 +1,7 @@
 import { format } from 'util'
 import { isUrl } from '../../lib/func.js'
 
-let handler = async (m, { conn, text }) => {
+let handler = async (m, { conn, text, isOwner }) => {
 	if (!isUrl(text)) throw 'url invalid, please input a valid url. Try with add http:// or https://'
 	let { href: url, origin } = new URL(text)
 	let res = await fetch(url, { headers: { 'referer': origin }})
@@ -13,6 +13,8 @@ let handler = async (m, { conn, text }) => {
 	} catch {
 		txt = txt + ''
 	}
+	// only owner can see the ip address (both ip v4 and v6)
+	if (!isOwner) txt = txt.replace(/\b(?:\d{1,3}\.){3}\d{1,3}\b|[A-Fa-f0-9]{1,4}(?::[A-Fa-f0-9]{1,4}){7}/g, "#hidden")
 	m.reply(txt.trim().slice(0, 65536) + '')
 }
 
