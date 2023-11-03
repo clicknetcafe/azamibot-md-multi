@@ -10,7 +10,6 @@ handler.menugroup = ['durasisewa']
 handler.tagsgroup = ['group']
 handler.command = /^((cek)?(durasi|info)(sewa|join)(bot)?)$/i
 
-handler.owner = true
 handler.group = true
 
 export default handler
