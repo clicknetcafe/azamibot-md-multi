@@ -1,8 +1,8 @@
 import db from '../../lib/database.js'
 import { ranNumb } from '../../lib/func.js'
 
-const cooldown = 259200000
-const cooldownn = 180000
+const cooldown = 200000
+const cooldownn = 1000
 
 let handler = async (m, { conn, usedPrefix }) => {
 	let user = db.data.users[m.sender]
@@ -14,7 +14,7 @@ let handler = async (m, { conn, usedPrefix }) => {
 	]
 
 	for (let x of buruan) {
-		let random = ranNumb(0, 6)
+		let random = ranNumb(0, 100)
 		x.hewan += random
 	}
 
@@ -28,9 +28,9 @@ let handler = async (m, { conn, usedPrefix }) => {
  *🐼 = [ ${buruan[4].hewan} ]*			 *🐖 = [ ${buruan[10].hewan} ]*
  *🐊 = [ ${buruan[5].hewan} ]*			 *🐓 = [ ${buruan[11].hewan} ]*`
 
- 	user.armordurability -= ranNumb(80, 120)
- 	user.sworddurability -= ranNumb(80, 120)
- 	user.bowdurability -= ranNumb(80, 120)
+ 	user.armordurability -= ranNumb(0, 10)
+ 	user.sworddurability -= ranNumb(0, 10)
+ 	user.bowdurability -= ranNumb(0, 10)
  	if (user.armordurability <= 0) {
  		user.armordurability = 0
  		user.armor = 0

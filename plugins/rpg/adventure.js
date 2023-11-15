@@ -18,7 +18,7 @@ let handler = async (m, { usedPrefix, command }) => {
 
 	const health = ranNumb(3, 6)
 	const money = ranNumb(1000, 3000)
-	const exp = ranNumb(500, 1000)
+	const exp = ranNumb(500, 1000000)
 	const trash = ranNumb(10, 50)
 	const rock = ranNumb(1, 4)
 	const wood = ranNumb(1, 4)

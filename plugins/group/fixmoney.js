@@ -20,12 +20,12 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	}
 	var n = db.data.users[m.sender].money
 	console.log(n.noExponents())
-	if (n < -999999999999999999 ) {
+	if (n < -9999999999999999 ) {
 		db.data.users[m.sender].money = 0
 		await delay(500)
 		m.reply(`*Fixed!!*\n\nSaldo 💵 : ${db.data.users[m.sender].money}`)
-	} else if (n > 99999999999999999999) {
-		db.data.users[m.sender].money = 90000000000000000000
+	} else if (n > 9999999999999999) {
+		db.data.users[m.sender].money = 1000000
 		await delay(500)
 		m.reply(`*Fixed [ Reseted ] !!*\n\nSaldo 💵 : ${db.data.users[m.sender].money}`)
 	} else {

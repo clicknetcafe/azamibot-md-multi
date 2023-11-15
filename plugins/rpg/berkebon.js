@@ -1,8 +1,8 @@
 import db from '../../lib/database.js'
 import { ranNumb } from '../../lib/func.js'
 
-const cooldown = 4500000
-const cooldownn = 120000
+const cooldown = 100000
+const cooldownn = 1000
 
 const need = 100
 

@@ -1,8 +1,8 @@
 import db from '../../lib/database.js'
 import { ranNumb } from '../../lib/func.js'
 
-const cooldown = 43200000
-const cooldownn = 180000
+const cooldown = 100000
+const cooldownn = 1000
 
 let handler = async (m, { conn, command, usedPrefix }) => {
 	let user = db.data.users[m.sender]
@@ -14,7 +14,7 @@ let handler = async (m, { conn, command, usedPrefix }) => {
 	]
 
 	for (let x of mancing) {
-		let random = ranNumb(0, 2)
+		let random = ranNumb(0, 30)
 		x.ikan += random
 	}
 
@@ -29,7 +29,7 @@ let handler = async (m, { conn, command, usedPrefix }) => {
  *🐟 = [ ${mancing[5].ikan} ]*			 *🦑 = [ ${mancing[11].ikan} ]*
  *🦐 = [ ${mancing[12].ikan} ]*`
 
-	user.fishingroddurability -= ranNumb(80, 120)
+	user.fishingroddurability -= ranNumb(0, 10)
  	if (user.fishingroddurability <= 0) {
  		user.fishingroddurability = 0
  		user.fishingrod = 0

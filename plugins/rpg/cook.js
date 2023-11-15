@@ -1,8 +1,8 @@
 import db from '../../lib/database.js'
 import { isNumber } from '../../lib/func.js'
 
-const cooldown = 1200000 // 10 masakan
-const cooldownn = 300000 // 10 masakan
+const cooldown = 100000 // 10 masakan
+const cooldownn = 1000 // 10 masakan
 
 let handler = async (m, { command, usedPrefix, args }) => {
 	let user = db.data.users[m.sender]

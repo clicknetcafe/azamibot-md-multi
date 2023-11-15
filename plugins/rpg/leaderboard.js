@@ -49,7 +49,7 @@ ${rpg.emoticon(v)}${v}
 • *${rpg.emoticon(type)}${type} Leaderboard page ${page} of ${getPage(type)}* •
 You: *${userItem.indexOf(m.sender) + 1}* of *${userItem.length}*
 
-${await sortedItem.slice(page * 25, page * 25 + 25).map((user, i) => `*[${i + 1}]* ${participants.some(p => areJidsSameUser(user.jid, p.id)) ? `(${conn.getName(user.jid).replaceAll('\n',' ')}) wa.me/` : '@'}${user.jid.split`@`[0]}\n┗⊱ *${type == 'limit' && prems.some(sub=>user.jid.split`@`[0].includes(sub)) ? '~ Infinity ~' : user[type]} ${rpg.emoticon(type)}${type}*`).join`\n`}
+${await sortedItem.slice(page * 25, page * 25 + 25).map((user, i) => `*[${i + 1}]* ${participants.some(p => areJidsSameUser(user.jid, p.id)) ? `(${conn.getName(user.jid).replaceAll('\n',' ')}) wa.me/` : '@'}${user.jid.split`@`[0]}\n┗⊱ *${type == 'limit' && prems.some(sub=>user.jid.split`@`[0].includes(sub)) ? '~ Infinity ~' : user[type]} ${rpg.emoticon(type)}${type}*\n`).join`\n`}
 `.trim()
   await m.reply(text, null, {
 	mentions: [...userItem.slice(page * 25, page * 25 + 25)].filter(v => !participants.some(p => areJidsSameUser(v, p.id)))
