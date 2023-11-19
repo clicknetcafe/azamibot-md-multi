@@ -64,7 +64,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 		const pp = await conn.profilePictureUrl(conn.user.jid).catch(_ => './src/avatar_contact.png')
 		await conn.sendFThumb(m.chat, db.data.datas.maingroupname, text.replace(`<nuke_code>`, `<nuke_code>${readMore}`).trim(), nais, db.data.datas.linkgc, m)
 	} catch (e) {
-		throw e
+		console.log(e)
 	}
 }
 

@@ -24,10 +24,6 @@ This is Script of WhatsApp multi device, working with [`@whiskeysockets/baileys`
 [![Grup WhatsApp](https://img.shields.io/badge/WhatsApp%20Group-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://tinyurl.com/azamilaifu2)
 **MAX BOT : 4**
 
-
-#### - Support deploy to Heroku (Thx to Ibeng)
-#### - Should work with Railway (Thx to Ibeng)
-
 #### Heroku Buildpack
 | BuildPack | LINK |
 |--------|--------|
