@@ -20,7 +20,7 @@ const getGroupAdmins = (participants) => {
 		const groupAdmins = getGroupAdmins(participants)
 		const owner = groupMetadata.owner || groupAdmins.find(p => p.admin === 'superadmin')?.id || m.chat.split`-`[0] + '@s.whatsapp.net' || 'Unknown'
 		let listAdmin = groupAdmins.map((v, i) => `${i + 1}. @${v.split('@')[0]}`).join('\n')
-		let teks = `*「 TAG ADMIN 」*\n\n${text ? `[ PESAN ]\n" ${text} "\n\n` : ''}*Group Owner :* @${owner.replace(/@s\.whatsapp\.net/g, '')}\n*Group Admins :*\n${listAdmin}`.trim()
+		let teks = `*「 TAG ADMIN 」*\n\n${text ? `[ PESAN ]\n" ${text} "\n\n` : m.quoted?.text ? `[ PESAN ]\n" ${m.quoted.text} "\n\n` : ''}*Group Owner :* @${owner.replace(/@s\.whatsapp\.net/g, '')}\n*Group Admins :*\n${listAdmin}`.trim()
 		let ownernya = [owner]
 		let mentionedJid = groupAdmins.concat(ownernya)
 		conn.sendFile(m.key.remoteJid, pp, 'pp.jpg', teks, m, false, { contextInfo: { mentionedJid } })

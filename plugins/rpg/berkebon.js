@@ -15,7 +15,7 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
 		let random = ranNumb(80, 100)
 		x.buah += random
 	}
-	let gmkeb = `https://i.ibb.co/XpyTNc6/pickebon.jpg`
+	let gmkeb = 'https://api.duniagames.co.id/api/content//upload/file/10260322551663927589.jpg'
 	if (user.bibitmangga > need - 1 && user.bibitapel > need - 1 && user.bibitpisang > need - 1 && user.bibitjeruk > need - 1 && user.bibitanggur > need - 1) {
 		user.bibitmangga -= need
 		user.bibitapel   -= need

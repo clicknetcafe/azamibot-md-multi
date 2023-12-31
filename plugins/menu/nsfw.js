@@ -21,7 +21,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 	try {
 		let chat = db.data.chats[m.chat]
 		let meh = padLead(ranNumb(23), 3)
-		let nais = (m.isGroup && !chat.nsfw) ? 'https://i.ibb.co/0QfCNxj/nsfwoff.jpg' : await (await fetch('https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/nsfw.json')).json().then(v => v.getRandom())
+		let nais = (m.isGroup && !chat.nsfw) ? 'https://imagesupload.net/images/hUsBy.jpeg' : await (await fetch('https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/nsfw.json')).json().then(v => v.getRandom())
 		let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
 		let menunsfw = Object.values(plugins).filter(plugin => !plugin.disabled).map(plugin => {
 			return {

@@ -4,6 +4,7 @@ import db from '../../lib/database.js'
 
 export async function before(m) {
 	if (!m.messageStubType || !m.isGroup) return !1
+	if (db.data.chats[m.chat].isBanned) return !1
 	//if (/120363045913621594|120363024788895179|120363025272391108/.test(m.chat)) return !1
 	let edtr = `@${m.sender.split`@`[0]}`
 	if (m.messageStubType == 21) {
