@@ -8,7 +8,9 @@ let handler = async (m, { args }) => {
 	chat.isBanned = true
 	chat.permaBan = true
 	chat.spamcount = 0
-	m.reply('Bot dalam mode nyimak.')
+	chat.lastmute = 0
+	chat.mutecd = 0
+	await m.reply('Bot dalam mode nyimak.')
 }
 
 handler.menuowner = ['banchat']

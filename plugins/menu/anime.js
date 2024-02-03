@@ -20,7 +20,7 @@ const defaultMenu = {
 let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 	try {
 		let meh = padLead(ranNumb(43), 3)
-		let nais = await (await fetch('https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/menus.json')).json().then(v => v.getRandom())
+		let nais = `https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/picbot/menus/menus_${meh}.jpg`
 		let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
 		let menuanime = Object.values(plugins).filter(plugin => !plugin.disabled).map(plugin => {
 			return {

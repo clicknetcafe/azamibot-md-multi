@@ -14,8 +14,8 @@ let handler = async (m, { conn, usedPrefix, command, args }) => {
 		try {
 			let bg = await (await fetch('https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/menus.json')).json().then(v => v.getRandom())
 			let name = await conn.getName(m.sender)
-			let pp = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://i.ibb.co/VHXK4kV/avatar-contact.png')
-			let ppgc = await conn.profilePictureUrl(m.chat, 'image').catch(_ => 'https://i.ibb.co/VHXK4kV/avatar-contact.png')
+			let pp = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/avatar_contact.jpg')
+			let ppgc = await conn.profilePictureUrl(m.chat, 'image').catch(_ => 'https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/avatar_contact.jpg')
 			const can = await (await import('canvafy')).default
 			pp = await new can.WelcomeLeave()
 				.setAvatar(pp)

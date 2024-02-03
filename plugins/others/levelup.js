@@ -12,7 +12,7 @@ let handler = async (m, { conn }) => {
 		let txt = `Level *${user.level} (${user.exp - min}/${xp})*\nKurang *${max - user.exp}* lagi!`
 		try {
 			const can = await import('knights-canvas')
-			let pp = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://i.ibb.co/VHXK4kV/avatar-contact.png')
+			let pp = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/avatar_contact.jpg')
 			let bg = await (await fetch('https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/menus.json')).json().then(v => v.getRandom())
 			let img = await (await new can.Rank().setAvatar(pp).setUsername(await conn.getName(m.sender)).setBg(bg).setNeedxp(xp).setCurrxp(`${user.exp - min}`).setLevel(user.level).setRank('https://i.ibb.co/Wn9cvnv/FABLED.png').toAttachment()).toBuffer()
 			await conn.sendFile(m.chat, img, '', txt, m)
@@ -27,7 +27,7 @@ let handler = async (m, { conn }) => {
 			let img, txt = `Selamat 🥳, anda telah naik level!\n\n• 🧬 *Level Up : ${before} -> ${user.level}*\n_semakin sering berinteraksi dengan bot Semakin Tinggi level kamu_`
 			try {
 				const can = await import('knights-canvas')
-				let pp = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://i.ibb.co/VHXK4kV/avatar-contact.png')
+				let pp = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/avatar_contact.jpg')
 				img = await (await new can.Up().setAvatar(pp).toAttachment()).toBuffer()
 				await conn.sendFile(m.chat, img, '', txt, m)
 			} catch {

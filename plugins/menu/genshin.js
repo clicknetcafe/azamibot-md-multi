@@ -20,7 +20,7 @@ Genshin Impact JSON data with a robust searching API! Updated to version 3.8. So
 let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 	try {
 		let meh = padLead(ranNumb(39), 3)
-		let nais = await (await fetch('https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/genshin.json')).json().then(v => v.getRandom())
+		let nais = `https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/picbot/genshin/genshin_${meh}.jpg`
 		let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
 		let menugenshin = Object.values(plugins).filter(plugin => !plugin.disabled).map(plugin => {
 			return {

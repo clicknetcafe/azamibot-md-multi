@@ -842,6 +842,7 @@ export async function handler(chatUpdate) {
 				if (!('packname' in datas)) datas.packname = ''
 				if (!('author' in datas)) datas.author = ''
 				if (!('linkgc' in datas)) datas.linkgc = ''
+				if (!('idcai' in datas)) datas.idcai = ''
 				if (!('spamcountreset' in datas)) datas.spamcountreset = 0
 				if (!('spamcountgcreset' in datas)) datas.spamcountgcreset = 0
 				if (!('spamlistmsg' in datas)) datas.spamlistmsg = null
@@ -870,6 +871,7 @@ export async function handler(chatUpdate) {
 				packname: '',
 				author: '',
 				linkgc: '',
+				idcai: '',
 				wgempa: '',
 				spamcountreset: 0,
 				spamcountgcreset: 0,

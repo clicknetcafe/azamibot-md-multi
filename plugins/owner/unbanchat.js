@@ -7,8 +7,6 @@ let handler = async (m, { text }) => {
 		let chat = db.data.chats[id]
 		chat.isBanned = false
 		chat.permaBan = false
-		chat.lastmute = 0
-		chat.mutecd = 0
 		m.reply('Bot dapat digunakan kembali.')
 	} catch (e) {
 		console.log(e)

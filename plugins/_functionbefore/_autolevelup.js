@@ -15,7 +15,7 @@ export async function before(m) {
 		let txt = `Selamat 🥳, anda telah naik level!\n\n• 🧬 *Level Up : ${before} -> ${user.level}*\n_semakin sering berinteraksi dengan bot Semakin Tinggi level kamu_`
 		try {
 			const can = await import('knights-canvas')
-			let pp = await this.profilePictureUrl(m.sender, 'image').catch(_ => 'https://i.ibb.co/VHXK4kV/avatar-contact.png')
+			let pp = await this.profilePictureUrl(m.sender, 'image').catch(_ => 'https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/avatar_contact.jpg')
 			img = await (await new can.Up().setAvatar(pp).toAttachment()).toBuffer()
 			await this.sendFile(m.chat, img, '', txt, m)
 		} catch {

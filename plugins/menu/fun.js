@@ -21,7 +21,7 @@ const defaultMenu = {
 }
 let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 	try {
-		let nais = 'https://i.ibb.co/r5kygNx/anime.jpg'
+		let nais = 'https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/anime.jpg'
 		let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
 		let menufun = Object.values(plugins).filter(plugin => !plugin.disabled).map(plugin => {
 			return {

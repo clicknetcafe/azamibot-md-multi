@@ -1,11 +1,10 @@
 import { WAMessageStubType } from '@whiskeysockets/baileys'
 import Connection from '../../lib/connection.js'
 import db from '../../lib/database.js'
+import { ranNumb, padLead } from '../../lib/func.js'
 
 export async function before(m) {
 	if (!m.messageStubType || !m.isGroup) return !1
-	if (db.data.chats[m.chat].isBanned) return !1
-	//if (/120363045913621594|120363024788895179|120363025272391108/.test(m.chat)) return !1
 	let edtr = `@${m.sender.split`@`[0]}`
 	if (m.messageStubType == 21) {
 		await this.reply(m.chat, `${edtr} mengubah Subject Grup menjadi :\n*${m.messageStubParameters[0]}*`, fkontak, { mentions: [m.sender] })
@@ -31,7 +30,10 @@ export async function before(m) {
 		await this.reply(m.chat, `${edtr} mengubah durasi pesan sementara menjadi *@${m.messageStubParameters[0]}*`, fkontak, { mentions: [m.sender] })
 	} else if (m.messageStubType == 123) {
 		await this.reply(m.chat, `${edtr} *menonaktifkan* pesan sementara.`, fkontak, { mentions: [m.sender] })
-	} else if (m.messageStubType == 32 || m.messageStubType == 27) {
+	} else if (m.messageStubType == 145) {
+		const ms = /on/.test(m.messageStubParameters[0])
+		await this.reply(m.chat, `${edtr} *${ms ? 'mengaktifkan' : 'menonaktifkan'}* 'MEMBERSHIP_JOIN_APPROVAL_MODE'.`, fkontak, { mentions: [m.sender] })
+	}else if (m.messageStubType == 32 || m.messageStubType == 27) {
 		if (process.uptime() < 300) return !1 // won't respond in 5 minutes (60x5), avoid spam while LoadMessages
 		let add = m.messageStubType == 27 ? true : false
 		let user = m.messageStubParameters[0]
@@ -39,12 +41,13 @@ export async function before(m) {
 		let chat = db.data.chats[id]
 		if (!chat.welcome) return !1
 		let meta = await Connection.store.fetchGroupMetadata(id, this.groupMetadata)
-		let bg = await (await fetch('https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/menus.json')).json().then(v => v.getRandom())
+		let bg = `https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/picbot/menus/menus_${padLead(ranNumb(43), 3)}.jpg`
 		let name = await this.getName(user)
 		let namegc = await this.getName(id)
-		let pp = await this.profilePictureUrl(user, 'image').catch(_ => 'https://i.ibb.co/VHXK4kV/avatar-contact.png')
-		let ppgc = await this.profilePictureUrl(id, 'image').catch(_ => 'https://i.ibb.co/VHXK4kV/avatar-contact.png')
-		let text = (add ? (chat.sWelcome || this.welcome || Connection.conn.welcome || 'Welcome, @user!').replace('@subject', namegc).replace('@desc', meta.desc?.toString() || '~') : (chat.sBye || this.bye || Connection.conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
+		let ava_cont = 'https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/avatar_contact.jpg'
+		let pp = await this.profilePictureUrl(user, 'image').catch(_ => ava_cont)
+		let ppgc = await this.profilePictureUrl(id, 'image').catch(_ => ava_cont)
+		let text = (add ? (chat.sWelcome || this.welcome || Connection.conn.welcome || 'Welcome, @user!').replace('@subject', namegc).replace('@desc', chat.isBanned ? `${chat.lastmute > 0 ? `Bot sedang di mute selama :\n${(chat.mutecd - (new Date - chat.lastmute)).toTimeString()}` : `Bot lagi dalam mode nyimak ya, tunggu ownernya nyalain.`}` : (meta.desc?.toString() || '~')) : (chat.sBye || this.bye || Connection.conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
 		try {
 			const can = await (await import('canvafy')).default
 			pp = await new can.WelcomeLeave()

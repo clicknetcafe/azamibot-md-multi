@@ -76,6 +76,19 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			}
 			chat.nsfw = isEnable
 			break
+		case 'simi':
+			if (!m.isGroup) {
+				global.dfail('group', m, conn)
+				throw false
+			} else if (!isAdmin) {
+				global.dfail('admin', m, conn)
+				throw false
+			} else if (!isBotAdmin) {
+				global.dfail('botAdmin', m, conn)
+				throw false
+			}
+			chat.simi = isEnable
+			break
 		case 'game':
 			if (!m.isGroup) {
 				global.dfail('group', m, conn)
@@ -241,7 +254,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			}
 			break
 		default:
-			if (!/[01]/.test(command)) return m.reply(`*List option :*\n| presence | welcome | delete | antidelete | autolevelup | ephemeral | nsfw | game | anticall | antilink | antivirtex | antiviewonce | autoai | autoaipc | public | self | restrict | autoread | pconly | gconly |
+			if (!/[01]/.test(command)) return m.reply(`*List option :*\n| presence | welcome | delete | antidelete | autolevelup | ephemeral | nsfw | simi | game | anticall | antilink | antivirtex | antiviewonce | autoai | autoaipc | public | self | restrict | autoread | pconly | gconly |
 
 Example :
 *${usedPrefix + command} welcome*
