@@ -1271,7 +1271,7 @@ export async function deleteUpdate(message) {
 			}
 
 			const participant = msg.participant || msg.key.participant || msg.key.remoteJid
-			await this.reply(key.remoteJid, `Terdeteksi @${participant.split`@`[0]} telah menghapus pesan\nUntuk mematikan fitur ini, ketik\n*.off antidelete*`, msg, { mentions: [participant] })
+			await this.reply(key.remoteJid, `@${participant.split`@`[0]} telah menghapus pesan\n*.off antidelete* untuk menonaktifkan`, msg, { mentions: [participant] })
 			return await this.copyNForward(key.remoteJid, msg).catch(e => console.log(e, msg))
 		}))
 		tasks.map(t => t.status === 'rejected' && console.error(t.reason))

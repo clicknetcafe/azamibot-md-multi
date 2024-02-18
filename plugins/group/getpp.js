@@ -14,6 +14,6 @@ let handler = async(m, { conn }) => {
 
 handler.menugroup = ['getprofile @tag']
 handler.tagsgroup = ['group']
-handler.command = /^(get(pp|profile)(user)?)$/i
+handler.command = /^(get(pp|profile)(user)?|ava)$/i
 
 export default handler

@@ -1,6 +1,9 @@
 import uploadImage from '../../lib/uploadImage.js'
 import db from '../../lib/database.js'
 import Connection from '../../lib/connection.js'
+import { padLead, ranNumb } from '../../lib/func.js'
+
+const thumb = 'https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/avatar_contact.jpg'
 
 let handler = async (m, { conn, usedPrefix, command, args }) => {
 	let tx = (args[0] || '').toLowerCase()
@@ -12,10 +15,11 @@ let handler = async (m, { conn, usedPrefix, command, args }) => {
 		if (m.isGroup) meta = await Connection.store.fetchGroupMetadata(m.chat, conn.groupMetadata)
 		let text = (add ? (chat?.sWelcome || conn.welcome || Connection.conn.welcome || 'Welcome, @user!').replace('@subject', namegc).replace('@desc', meta?.desc?.toString() || '~group deskripsi') : (chat?.sBye || conn.bye || Connection.conn.bye || 'Bye, @user!')).replace('@user', '@' + m.sender.split('@')[0])
 		try {
-			let bg = await (await fetch('https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/menus.json')).json().then(v => v.getRandom())
+			let meh = padLead(ranNumb(43), 3)
+			let bg = `https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/picbot/menus/menus_${meh}.jpg`
 			let name = await conn.getName(m.sender)
-			let pp = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/avatar_contact.jpg')
-			let ppgc = await conn.profilePictureUrl(m.chat, 'image').catch(_ => 'https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/avatar_contact.jpg')
+			let pp = await conn.profilePictureUrl(m.sender, 'image').catch(_ => thumb)
+			let ppgc = await conn.profilePictureUrl(m.chat, 'image').catch(_ => thumb)
 			const can = await (await import('canvafy')).default
 			pp = await new can.WelcomeLeave()
 				.setAvatar(pp)

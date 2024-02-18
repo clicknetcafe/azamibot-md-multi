@@ -12,7 +12,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 		txt += `Kedalaman : ${anu.Kedalaman}\n`
 		txt += `Koordinat : ${anu.Coordinates}${anu.Dirasakan.length > 3 ? `\nDirasakan : ${anu.Dirasakan}` : ''}`
 		let msg  = await conn.sendMsg(m.chat, { location: { degreesLatitude: anu.Coordinates.split(',')[0], degreesLongitude: anu.Coordinates.split(',')[1] } }, { ephemeralExpiration: 604800 })
-		await conn.reply(m.chat, txt.replaceAll('%p','```'), msg)
+		await conn.sendFile(m.chat, link+anu.Shakemap, '', txt.replaceAll('%p','```'), msg)
 	} catch (e) {
 		console.log(e)
 		try {
@@ -34,7 +34,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
 handler.help = ['infogempa']
 handler.tags = ['information']
-handler.command = /^(infogempa)$/i
+handler.command = /^((info)?gempa)$/i
 
 handler.premium = true
 handler.limit = true

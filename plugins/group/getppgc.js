@@ -10,7 +10,7 @@ let handler = async(m, { conn }) => {
 
 handler.menugroup = ['getppgc']
 handler.tagsgroup = ['group']
-handler.command = /^(getpp(gc|gro?up))$/i
+handler.command = /^((getpp|ava)(gc|gro?up))$/i
 
 handler.group = true
 
