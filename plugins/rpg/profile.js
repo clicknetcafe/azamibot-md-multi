@@ -3,7 +3,7 @@ import PhoneNumber from 'awesome-phonenumber'
 import { xpRange } from '../../lib/levelling.js'
 
 let handler = async (m, { conn, isPrems, text }) => {
-	let who = text ? (text.replace(/[@ .+-]/g, '') + '@s.whatsapp.net') : m.quoted ? m.quoted.sender : (m.mentionedJid && m.mentionedJid[0]) ? m.mentionedJid[0] : m.sender
+	let who = text ? (text.replace(/[@ .+-]/g, '') + '@s.whatsapp.net') : m.quoted ? m.quoted.sender : m.mentionedJid?.[0] ? m.mentionedJid[0] : m.sender
 	try {
 		let pp, user = await db.data.users
 		if (!isPrems && (user[m.sender].level < user[who].level)) return m.reply(`[!] Gagal, level target lebih tinggi.`)

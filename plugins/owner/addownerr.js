@@ -2,7 +2,7 @@ import db from '../../lib/database.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	text = (text || '').split('|')
-	let who = text[1] ? (text[1].replace(/\D/g, '') + '@s.whatsapp.net') : m.quoted ? m.quoted.sender : (m.mentionedJid && m.mentionedJid[0]) ? m.mentionedJid[0] : ''
+	let who = text[1] ? (text[1].replace(/\D/g, '') + '@s.whatsapp.net') : m.quoted ? m.quoted.sender : m.mentionedJid?.[0] ? m.mentionedJid[0] : ''
 	if (!who) return m.reply(`Format : ${usedPrefix + command} nama | <tag / quote / ketik nmr nya>`)
 	let meh = await conn.onWhatsApp(who)
 	if (meh.length == 0) return m.reply(`[!] Failed, @${(who.split('@')[0] || '')} bukan pengguna WhatsApp.`, null, { mentions: [who] })

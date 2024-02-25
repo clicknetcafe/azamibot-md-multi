@@ -13,7 +13,7 @@ let handler = async (m, { conn, args, command, usedPrefix }) => {
 	txt += `- emerald\n`
 	txt += `- diamond\n`
 	txt += `- gold`
-	let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : args[2] ? (args[2].replace(/[@ .+-]/g, '') + '@s.whatsapp.net') : m.quoted ? m.quoted.sender : ''
+	let who = m.mentionedJid?.[0] ? m.mentionedJid[0] : args[2] ? (args[2].replace(/[@ .+-]/g, '') + '@s.whatsapp.net') : m.quoted ? m.quoted.sender : ''
 	if (!who) return m.reply(txt)
 	let user = db.data.users
 	if (!(who in user)) return m.reply(`User ${who} not in database`)

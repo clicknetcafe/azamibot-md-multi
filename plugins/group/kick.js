@@ -13,7 +13,7 @@ let handler = async (m, { conn, text, participants }) => {
 			await conn.sendFile(m.chat, buffer, '', '', m)
 		} catch { throw `[ RESTRICT ENABLED ]` }
 	} else {
-		let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : text ? (text.replace(/\D/g, '') + '@s.whatsapp.net') : ''
+		let who = m.quoted ? m.quoted.sender : m.mentionedJid?.[0] ? m.mentionedJid[0] : text ? (text.replace(/\D/g, '') + '@s.whatsapp.net') : ''
 		if (!who || who == m.sender) throw '*Quote / tag* target yang ingin di kick!!'
 		if (participants.filter(v => v.id == who).length == 0) throw `Target tidak berada dalam Grup !`
 		if (somematch([conn.user.jid, ...global.mods.map(v => v + '@s.whatsapp.net')], who)) throw 'Jangan gitu ama Owner'

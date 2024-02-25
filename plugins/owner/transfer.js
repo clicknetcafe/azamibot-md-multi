@@ -23,7 +23,7 @@ ${item.map(v => `${rpg.emoticon(v)}${v}`.trim()).join('\n')}
 	//const count = Math.min(Number.MAX_SAFE_INTEGER, Math.max(1, (isNumber(args[1]) ? parseInt(args[1]) : 1))) * 1
 	const count = parseInt(args[1])
 	console.log(count)
-	let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : args[2] ? (args[2].replace(/[@ .+-]/g, '') + '@s.whatsapp.net') : ''
+	let who = m.mentionedJid?.[0] ? m.mentionedJid[0] : args[2] ? (args[2].replace(/[@ .+-]/g, '') + '@s.whatsapp.net') : ''
 	if (!who) return m.reply('Tag salah satu, atau ketik Nomernya!!')
 	if (!(who in db.data.users)) return m.reply(`User ${who} not in database`)
 	if (user[type] * 1 < count) user[type] += count
