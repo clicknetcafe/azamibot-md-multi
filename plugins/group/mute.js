@@ -4,8 +4,8 @@ import { isNumber } from '../../lib/func.js'
 const cooldown = 60000
 
 let handler = async (m, { conn, args, usedPrefix, command, isPrems, isAdmin, isOwner, participants }) => {
-	if (m.chat.includes('120363168931452636') && !isOwner) throw `[ hehe ]`
-	if (!args[0]) throw `Format : ${usedPrefix + command} <timer>\n1 = 1 menit\n5 = 5 menit ... dst.\n\nContoh : *${usedPrefix + command} 10*`
+	if (m.chat.includes('120363217780015387') && !isOwner) throw `[ hehe ]`
+	if (isNaN(args[0] || 'p')) throw `Format : ${usedPrefix + command} <timer>\n1 = 1 menit\n5 = 5 menit ... dst.\n\nContoh : *${usedPrefix + command} 10*`
 	if (isPrems || isAdmin || isOwner) {
 		const total = Math.floor(isNumber(args[0]) ? Math.min(Math.max(parseInt(args[0]), 1), Number.MAX_SAFE_INTEGER) : 1) * 1
 		if (total > 200 && !isPrems) throw `_... >> not premium ..._\n[!] Maksimal ${command} : 200 menit.`

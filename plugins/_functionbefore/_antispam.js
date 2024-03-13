@@ -3,6 +3,7 @@ import db from '../../lib/database.js'
 export async function all(m) {
 	if (!m.message) return
 	this.spam = this.spam ? this.spam : {}
+	if (!db.data.users[m.sender]) return !1
 	if (m.sender in this.spam) {
 		this.spam[m.sender].count++
 		if (m.messageTimestamp.toNumber() - this.spam[m.sender].lastspam > 10) {
