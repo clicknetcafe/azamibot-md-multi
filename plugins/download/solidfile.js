@@ -10,7 +10,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 	} catch (e) {
 		console.log(e)
 		try {
-			let res = await fetch(`https://api.akuari.my.id/downloader/sfiledl?link=${text}`)
+			let res = await fetch(`https://rest-api.akuari.my.id/downloader/sfiledl?link=${text}`)
 			let anu = await res.json()
 			if (anu.size.slice(-2) == "GB") return m.reply(`Ngotak dong.\nMana bisa ngirim file ${anu.size}`)
 			if (anu.size.slice(-2) != "KB" && parseInt(anu.size) > 300) return m.reply(`Filesize: ${anu.size}\nTidak dapat mengirim, maksimal file 300 MB`)

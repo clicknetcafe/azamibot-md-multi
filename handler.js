@@ -848,7 +848,7 @@ export async function handler(chatUpdate) {
 				if (!('spamlistmsg' in datas)) datas.spamlistmsg = null
 				if (!('spamlistgcmsg' in datas)) datas.spamlistgcmsg = null
 				if (!('anticall' in datas)) datas.anticall = false
-				if (!('autoai' in datas)) datas.autoai = true
+				if (!('autoai' in datas)) datas.autoai = false
 				if (!('teksdonasi' in datas)) datas.teksdonasi = ''
 				if (!('tekssewa' in datas)) datas.tekssewa = ''
 				if (!('teksjadibot' in datas)) datas.teksjadibot = ''
@@ -878,7 +878,7 @@ export async function handler(chatUpdate) {
 				spamlistmsg : null,
 				spamlistgcmsg: null,
 				anticall: false,
-				autoai: true,
+				autoai: false,
 				teksdonasi: '',
 				tekssewa: '',
 				teksjadibot: '',

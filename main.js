@@ -78,11 +78,10 @@ if (!opts['test']) {
 	setInterval(async () => {
 		await Promise.allSettled([
 			db.data ? db.write() : Promise.reject('db.data is null'),
-			(opts['autocleartmp'] || opts['cleartmp']) ? clearTmp() : Promise.resolve(),
-			(opts['autoclearsessions'] || opts['clearsessions']) ? clearSessions() : Promise.resolve()
-			//clearTmp()
+			clearTmp(),
+			clearSessions()
 		])
-		Connection.store.writeToFile(Connection.storeFile)
+		//Connection.store.writeToFile(Connection.storeFile)
 	}, 1000 * 60 * 5) // save every 5 minute
 }
 if (opts['server']) (await import('./server.js')).default(conn, PORT)

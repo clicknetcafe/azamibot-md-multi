@@ -1,6 +1,6 @@
 let handler = async (m, { conn, usedPrefix, command }) => {
 	try {
-		let anu = await (await fetch(`https://api.akuari.my.id/randomimage/ppcouple`)).json()
+		let anu = await (await fetch(`https://rest-api.akuari.my.id/randomimage/ppcouple`)).json()
 		anu = anu.hasil
 		await conn.sendMsg(m.chat, { image: { url: anu.cowok }, caption: `male` }, { quoted: m })
 		await conn.sendMsg(m.chat, { image: { url: anu.cewek }, caption: `female` }, { quoted: m })

@@ -3,7 +3,7 @@ import { delay } from '../../lib/func.js'
 let handler = async (m, { conn, usedPrefix, command }) => {
 	await delay(2000)
 	try {
-		let res = await fetch(`https://api.akuari.my.id/randomtext/katabijak`)
+		let res = await fetch(`https://rest-api.akuari.my.id/randomtext/katabijak`)
 		let json = await res.json()
 		if (json.hasil.quotes == undefined) throw new(e)
 		m.reply(`_${json.hasil.quotes}_\n\n*― ${json.hasil.author}*`)

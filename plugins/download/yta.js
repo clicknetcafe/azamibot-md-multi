@@ -23,7 +23,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 		} catch (e) {
 			console.log(e)
 			try {
-				let anu = await (await fetch(`https://api.akuari.my.id/downloader/yt1?link=${args[0]}`)).json()
+				let anu = await (await fetch(`https://rest-api.akuari.my.id/downloader/yt1?link=${args[0]}`)).json()
 				let size = anu.urldl_audio.size
 				let vs = parseInt(size)
 				if (isNaN(vs)) vs = 1

@@ -1,6 +1,8 @@
+import got from 'got'
 import { WAMessageStubType } from '@whiskeysockets/baileys'
 import Connection from '../../lib/connection.js'
 import db from '../../lib/database.js'
+import uploadImage from '../../lib/uploadImage.js'
 import { ranNumb, padLead } from '../../lib/func.js'
 
 export async function before(m) {
@@ -62,7 +64,9 @@ export async function before(m) {
 			await this.sendFile(id, pp, '', text, fkontak, false, { mentions: [user] })
 		} catch (e) {
 			console.log(e)
-			await this.reply(id, text, fkontak, { mentions: [user] })
+			let ana = await uploadImage(await got(pp).buffer())
+			let anu = await uploadImage(await got(ppgc).buffer())
+			await this.sendMsg(id, { image: { url: `https://aemt.me/${add ? 'welcome' : 'goodbye'}?name=${name}&gcname=${namegc}&ppgc=${anu}&member=${meta.participants.length}&pp=${ana}&bg=${bg}` }, caption: text, mentions: [user] }, { quoted: fkontak }).catch(_ => this.reply(id, text, fkontak, { mentions: [user] }))
 		}
 	} else {
 		console.log({

@@ -18,7 +18,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 		} catch (e) {
 			console.log(e)
 			try {
-				let anu = await (await fetch(`https://api.akuari.my.id/downloader/yt1?link=${args[0]}`)).json()
+				let anu = await (await fetch(`https://rest-api.akuari.my.id/downloader/yt1?link=${args[0]}`)).json()
 				let txt = `📌 *${anu.info.title}*\n\n`
 				+ `🪶 *Author :* ${anu.info.channel}\n`
 				+ `⏲️ *Published :* ${anu.info.uploadDate}\n`
