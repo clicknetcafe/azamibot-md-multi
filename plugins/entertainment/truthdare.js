@@ -1,8 +1,13 @@
 import { truth, dare } from '@bochilteam/scraper'
 
 let handler = async (m, { conn, usedPrefix, command }) => {
-	let anu = await (/dare/g.test(command) ? dare : truth)()
-	m.reply(anu)
+	try {
+		let anu = await (/dare/g.test(command) ? dare : truth)()
+		m.reply(anu)
+	} catch (e) {
+		console.log(e)
+		m.reply('try again')
+	}
 }
 
 handler.help = ['truth','dare']

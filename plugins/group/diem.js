@@ -21,6 +21,7 @@ let handler = async (m, { conn, participants, usedPrefix, command, args, isOwner
 		if (!users) throw `User tidak ada dalam database.`
 		if (users.permaban) throw `[!] Tidak perlu *${command}* karena sudah di *ban*`
 		if (users.banned) return m.reply(`Dia sudah di *mute* sebelumnya.`)
+		await conn.sendMsg(m.chat, { react: { text: '👍🏻', key: m.key } })
 		users.banned = true
 		users.lastbanned = new Date * 1
 		users.bannedcd = cooldown * total

@@ -5,7 +5,7 @@ const cooldown = 7200000
 
 let handler = async (m, { conn, text }) => {
 	let who = m.mentionedJid[0]
-	if (!who) return m.reply('Tag salah satu yang kamu ingin ajak berdagang')
+	if (!who || m.sender == who) return m.reply('Tag salah satu yang kamu ingin ajak berdagang')
 	if (typeof db.data.users[who] == 'undefined') return m.reply('Pengguna tidak ada didalam data base')
 	let user = db.data.users[m.sender]
 	let user2 = db.data.users[who]

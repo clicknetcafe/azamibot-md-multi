@@ -5,9 +5,8 @@ import { somematch } from '../../lib/func.js'
 let handler = async (m, { conn, text, participants }) => {
 	if (db.data.settings[conn.user.jid].restrict) {
 		try {
-			let res = await fetch(`https://api.waifu.pics/sfw/kick`)
-			let anu = await res.json()
-			anu = anu.url
+			let anu = await (await fetch(`https://nekos.best/api/v2/kick`)).json()
+			anu = anu.results[0].url
 			if (!anu) throw Error('error : no url')
 			let buffer = await sticker(false, anu, packname, author)
 			await conn.sendFile(m.chat, buffer, '', '', m)

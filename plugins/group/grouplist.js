@@ -1,11 +1,15 @@
 import db from '../../lib/database.js'
 
 let handler = async (m, { conn, usedPrefix, command, text, isBotAdmin }) => {
-	text = text.split('|')
 	let gc, groups, dt = db.data.chats
 	try {
 		gc = await conn.groupFetchAllParticipating()
-		groups = Object.values(await conn.groupFetchAllParticipating()).map(v => v.id)
+		if (/f(ilter)?/i.test(text)) { // community not included
+			for (let x of Object.keys(gc))
+				if (gc[x].isCommunity || gc[x].isCommunityAnnounce)
+					delete gc[x]
+		}
+		groups = Object.values(gc).map(v => v.id)
 	} catch { return }
 	let x, y, timer, name, sisa, array = []
 	let txt = `*LIST GROUP : ${groups.length}*`
