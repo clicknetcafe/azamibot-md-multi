@@ -467,7 +467,7 @@ let handler = async (m, { command, usedPrefix, args, isPrems }) => {
 		if (somematch(['horse', 'cat', 'fox', 'dog', 'wolf', 'centaur', 'phoenix', 'dragon', 'rumahsakit', 'restoran', 'pabrik', 'tambang', 'pelabuhan'], args[0].toLowerCase())) {
 			if (user[`${item}`] == 0) {
 				if (total > 1) return m.reply(`Kamu belum memiliki *${global.rpg.emoticon(item)}${item}*, hanya dapat beli 1`)
-				if (user[paymentMethod] < listItems[item][paymentMethod] * total) return m.reply(`Kamu tidak memiliki cukup ${paymentMethod} untuk membeli *${total} ${global.rpg.emoticon(item)}${item}*.\nDibutuhkan *${(listItems[item][paymentMethod] * total) - user[paymentMethod]} ${global.rpg.emoticon(paymentMethod)} ${paymentMethod}* untuk dapat membeli.`)
+				if (user[paymentMethod] < listItems[item][paymentMethod] * total) return m.reply(`Kamu tidak memiliki cukup ${paymentMethod} untuk membeli *${total} ${global.rpg.emoticon(item)}${item}*.\nKurang *${(listItems[item][paymentMethod] * total) - user[paymentMethod]} ${global.rpg.emoticon(paymentMethod)} ${paymentMethod}* untuk dapat membeli.`)
 				user[paymentMethod] -= listItems[item][paymentMethod] * total
 				user[item] += total
 				user[`${item}lvl`] += 1
@@ -475,13 +475,13 @@ let handler = async (m, { command, usedPrefix, args, isPrems }) => {
 			} else {
 				if (user[`${item}`] + total > 2 * user[`${item}lvl`]) return m.reply(`Perlu upgrade ${global.rpg.emoticon(item)} ${item} ke level ${2 * user[`${item}lvl`]} terlebih dahulu.`)
 				let harga = listItems[item][paymentMethod] * total * user[`${item}`] * user[`${item}lvl`]
-				if (user[paymentMethod] < listItems[item][paymentMethod] * total) return m.reply(`Kamu tidak memiliki cukup ${paymentMethod} untuk membeli *${total} ${global.rpg.emoticon(item)}${item} level ${user[`${item}lvl`]}*.\nDibutuhkan *${(listItems[item][paymentMethod] * total) - user[paymentMethod]} ${global.rpg.emoticon(paymentMethod)} ${paymentMethod}* untuk dapat membeli.`)
+				if (user[paymentMethod] < listItems[item][paymentMethod] * total) return m.reply(`Kamu tidak memiliki cukup ${paymentMethod} untuk membeli *${total} ${global.rpg.emoticon(item)}${item} level ${user[`${item}lvl`]}*.\nKurang *${(listItems[item][paymentMethod] * total) - user[paymentMethod]} ${global.rpg.emoticon(paymentMethod)} ${paymentMethod}* untuk dapat membeli.`)
 				user[paymentMethod] -= harga
 				user[item] += total
 				return m.reply(`Membeli *${total} ${global.rpg.emoticon(item)}${item}* seharga *${harga} ${global.rpg.emoticon(paymentMethod)} ${paymentMethod}*`)
 			}
 		} else {
-			if (user[paymentMethod] < listItems[item][paymentMethod] * total) return m.reply(`Kamu tidak memiliki cukup ${paymentMethod} untuk membeli *${total}* ${global.rpg.emoticon(item)}${item}.\nDibutuhkan ${global.rpg.emoticon(paymentMethod)} *${(listItems[item][paymentMethod] * total) - user[paymentMethod]} ${paymentMethod}* untuk dapat membeli.`)
+			if (user[paymentMethod] < listItems[item][paymentMethod] * total) return m.reply(`Kamu tidak memiliki cukup ${paymentMethod} untuk membeli *${total}* ${global.rpg.emoticon(item)}${item}.\nKurang ${global.rpg.emoticon(paymentMethod)} *${(listItems[item][paymentMethod] * total) - user[paymentMethod]} ${paymentMethod}* untuk dapat membeli.`)
 			user[paymentMethod] -= listItems[item][paymentMethod] * total
 			user[item] += total
 			return m.reply(`Membeli *${total} ${global.rpg.emoticon(item)}${item}* seharga *${listItems[item][paymentMethod] * total} ${global.rpg.emoticon(paymentMethod)} ${paymentMethod}*`)

@@ -13,7 +13,10 @@ const getGroupAdmins = (participants) => {
 	if (!isAdmin && (text.length <= 11 || args.length < 4)) throw `Kependekan oi, kalo gak penting mending gausah`
 	let pp = './src/avatar_contact.png'
 	try {
-		pp = await conn.profilePictureUrl(m.chat, 'image')
+		let q = m.quoted ? m.quoted : m
+		let mime = (q.msg || q).mimetype || q.mediaType || ''
+		if (/video|image/g.test(mime) && !/webp/g.test(mime)) pp = await q.download()
+		else pp = await conn.profilePictureUrl(m.chat, 'image')
 	} catch (e) {
 	} finally {
 		let { isBanned, welcome, detect, sWelcome, sBye, sPromote, sDemote, antiLink } = db.data.chats[m.chat]
@@ -23,7 +26,7 @@ const getGroupAdmins = (participants) => {
 		let teks = `*「 TAG ADMIN 」*\n\n${text ? `[ PESAN ]\n" ${text} "\n\n` : m.quoted?.text ? `[ PESAN ]\n" ${m.quoted.text} "\n\n` : ''}*Group Owner :* @${owner.replace(/@s\.whatsapp\.net/g, '')}\n*Group Admins :*\n${listAdmin}`.trim()
 		let ownernya = [owner]
 		let mentionedJid = groupAdmins.concat(ownernya)
-		conn.sendFile(m.key.remoteJid, pp, 'pp.jpg', teks, m, false, { contextInfo: { mentionedJid } })
+		await conn.sendFile(m.key.remoteJid, pp, 'pp.jpg', teks, m, false, { contextInfo: { mentionedJid } })
 	}
 }
 
