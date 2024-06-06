@@ -1,6 +1,8 @@
 import db from '../../lib/database.js'
 import { plugins } from '../../lib/plugins.js'
 import { readMore, ranNumb, padLead, runtimes } from '../../lib/func.js'
+import { xpRange } from '../../lib/levelling.js'
+import { getDevice } from '@whiskeysockets/baileys'
 import { promises } from 'fs'
 import { join } from 'path'
 import os from 'os'
@@ -35,12 +37,13 @@ const defaultMenu = {
 	body: '│ • %cmd',
 	footer: '╰────\n',
 }
-let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems }) => {
+let handler = async (m, { conn, usedPrefix: _p, __dirname, command, isPrems }) => {
 	try {
 		let meh = padLead(ranNumb(43), 3)
 		let nais = `https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/picbot/menus/menus_${meh}.jpg`
 		let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
-		let { limit, role } = db.data.users[m.sender]
+		let { limit, role, level, exp, maxexp, money, totalexp } = db.data.users[m.sender]
+		let { min, xp, max } = xpRange(level, global.multiplier)
 		let name = await conn.getName(m.sender).replaceAll('\n','')
 		let uptime = runtimes(process.uptime())
 		let osuptime = runtimes(os.uptime())
@@ -89,13 +92,40 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, isPrems }) => {
 			readmore: readMore
 		}
 		text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
-		await conn.sendFThumb(m.chat, db.data.datas.maingroupname, text.trim(), nais, db.data.datas.linkgc, m)
+		//list button not shown on ios
+		if (!/all/.test(command) && await getDevice(m.key.id) == 'android') {
+			const txtList = `⦿ 🧱 Limit : *${limit}*\n⦿ 🦸🏼‍♂️ Role : *${role}*\n⦿ 🔼 Level : *${level} (${exp} / ${xp})*\n⦿ 💵 Money : *${money}*\n⦿ 💫 Total XP : ${exp - min} ✨\n\n⦿ 📊 Database : ${Object.keys(db.data.users).length} User\n⦿ 📈 Runtime : *${uptime}*`
+			const sections = [
+				[
+					'━ ━ ━ ━ 『 MAIN 』 ━ ━ ━ ━', [
+						['⚡ PREMIUM', '.sewa', 'Premium, Sewabot, Jadibot, Jasa Run Bot'],
+						['🎫 OWNER', '.owner', 'Chat P tidak dibalas'],
+						['📁 Source Code', '.sc', 'Original Base']
+				]], [
+					'━ ━ ━ ━ 『 SUB MENU 』 ━ ━ ━ ━', [
+						['🎪 ALL MENU', '.allmenu', '● Menampilkan Semua Menu'],
+						['🪙 STORE', '.mstore', '🛒 Bot Store : List Items'],
+						['🪷 OWNER', '.mowner', '◉ Owner, ROwner, Mods Privilages'],
+						['🎎 ANIME', '.manime', '◉ Cari Manga, Anime, Random Pic'],
+						['⌛ DOWNLOAD', '.mdownload', '◎ Youtube, Facebook, Tiktok, Dll...'],
+						['🎮 GAMES & FUN', '.mfun', '⊛ RPG, Kuis, Anonymous'],
+						['🐳 GENSHIN IMPACT', '.mgenshin', '⊜ genshin.dev API'],
+						['🔞 NSFW', '.mnsfw', '◓ Fitur Afakah Ini ?'],
+						['👥 GROUP', '.mgroup', '◒ Command Dalam Grup'],
+						['🗺 EDITOR', '.meditor', 'ⓞ Kreasi Foto'],
+						['💫 EPHOTO 360', '.mephoto', '⦿ Edit Foto Kamu'],
+						['👼🏻 PHOTO OXY', '.moxy', '◐ Edit Photos by Oxy'],
+						['🎨 TEXT PRO ME', '.mtextpro', '◑ Kreasi Teks Efek'],
+				]],
+			]
+			await conn.sendList(m.chat, 'Hello '+name, txtList, pauthor, 'LIST MENU', nais, sections, m)
+		} else await conn.sendFThumb(m.chat, db.data.datas.maingroupname, text.trim(), nais, db.data.datas.linkgc, m)
 	} catch (e) {
 		console.log(e)
 	}
 }
 
-handler.command = /^((m(enu)?|help)(list)?|\?)$/i
+handler.command = /^((all)?m(enu)?|help|\?)$/i
 
 handler.exp = 3
 

@@ -13,13 +13,13 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 			let fimg = await fetch(json.data.url)
 			let fimgb = Buffer.from(await fimg.arrayBuffer())
 			if (Buffer.byteLength(fimgb) < 22000) throw Error()
-			await conn.sendMsg(m.chat, { image: fimgb, caption: `_© meme receh_` }, { quoted: m })
+			await conn.sendButton(m.chat, `_© meme receh_`, pauthor, fimgb, [[command, usedPrefix+command]], m)
 		} catch (e) {
 			try {
 				let fimg = await fetch(`https://api.lolhuman.xyz/api/meme/memeindo?apikey=${api.lol}`)
 				let fimgb = Buffer.from(await fimg.arrayBuffer())
 				if (Buffer.byteLength(fimgb) < 22000) throw Error()
-				await conn.sendMsg(m.chat, { image: fimgb, caption: `_© meme receh_` }, { quoted: m })
+				await conn.sendButton(m.chat, `_© meme receh_`, pauthor, fimgb, [[command, usedPrefix+command]], m)
 			} catch (e) {
 				m.reply(`Terjadi kesalahan, coba lagi nanti.`)
 			}

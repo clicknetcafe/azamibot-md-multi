@@ -2,7 +2,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 	try {
 		let res = await fetch(`https://api.popcat.xyz/car`)
 		let json = await res.json()
-		await conn.sendMsg(m.chat, { image: { url: json.image }, caption: `_Random pic : car_\n${json.title}` }, { quoted: m })
+		await conn.sendButton(m.chat, '_Random pic : car_\n'+json.title, pauthor, json.image, [[command, usedPrefix+command]], m)
 	} catch (e) {
 		console.log(e)
 		m.reply(`Command ${command} sedang gangguan.`)

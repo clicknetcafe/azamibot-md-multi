@@ -8,7 +8,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 		if (anu.url.toLowerCase().split('.').pop() == 'gif') {
 			let buffer = await sticker(false, anu.url, packname, author)
 			await conn.sendFile(m.chat, buffer, '', '', m)
-		} else await conn.sendFile(m.chat, anu.url, '', `_Random pic: ${command}_\n${anu.anime_name ?? anu.source_url}`, m)
+		} else await conn.sendButton(m.chat, `_Random pic: ${command}_\n${anu.anime_name ?? anu.source_url}`, pauthor, anu.url, [[command, usedPrefix+command]], m) 
 	} catch (e) {
 		console.log(e)
 		throw 'Internal server error.'

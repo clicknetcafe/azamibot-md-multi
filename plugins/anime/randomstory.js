@@ -4,7 +4,7 @@ let handler = async (m, { conn, command }) => {
 		let fimg = await fetch(res.url)
 		let fimgb = Buffer.from(await fimg.arrayBuffer())
 		if (Buffer.byteLength(fimgb) < 100000) throw new Error()
-		await conn.sendMsg(m.chat, { video: fimgb, caption: `_Random Story ${command.replace('story','')}_` }, { quoted: m })
+		await conn.sendButton(m.chat, `_Random Story ${command.replace('story','')}_`, pauthor, fimgb, [[command, usedPrefix+command]], m)
 	} catch (e) {
 		console.log(e)
 		m.reply(e.message || 'internal server error.')

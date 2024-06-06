@@ -9,7 +9,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 		if (anu.toLowerCase().split('.').pop() == 'gif') {
 			let buffer = await sticker(false, anu, packname, author)
 			await conn.sendFile(m.chat, buffer, '', '', m)
-		} else await conn.sendFile(m.chat, anu, '', `_Random pic: ${command}_`, m)
+		} else await conn.sendButton(m.chat, `_Random pic : ${command}_`, pauthor, anu, [[command, usedPrefix+command]], m)
 	} catch (e) {
 		console.log(e)
 		m.reply('scrape failed')
