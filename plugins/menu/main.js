@@ -94,15 +94,16 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, command, isPrems }) =
 		text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
 		//list button not shown on ios
 		if (!/all/.test(command) && await getDevice(m.key.id) == 'android') {
-			const txtList = `⦿ 🧱 Limit : *${limit}*\n⦿ 🦸🏼‍♂️ Role : *${role}*\n⦿ 🔼 Level : *${level} (${exp} / ${xp})*\n⦿ 💵 Money : *${money}*\n⦿ 💫 Total XP : ${exp - min} ✨\n\n⦿ 📊 Database : ${Object.keys(db.data.users).length} User\n⦿ 📈 Runtime : *${uptime}*`
+			const txtList = `⦿ 🧱 Limit : *${isPrems ? '~ Infinity ~' : limit}*\n⦿ 🦸🏼‍♂️ Role : *${role}*\n⦿ 🔼 Level : *${level}* (${exp - min} / ${xp})\n⦿ 💵 Money : *${money}*\n⦿ 💫 Total XP : ${exp} ✨\n\n⦿ 📊 Database : ${Object.keys(db.data.users).length} User\n⦿ 📈 Runtime : *${uptime}*`
 			const sections = [
 				[
 					'━ ━ ━ ━ 『 MAIN 』 ━ ━ ━ ━', [
-						['⚡ PREMIUM', '.sewa', 'Premium, Sewabot, Jadibot, Jasa Run Bot'],
+						['📁 Source Code', '.sc', 'Original Base'],
 						['🎫 OWNER', '.owner', 'Chat P tidak dibalas'],
-						['📁 Source Code', '.sc', 'Original Base']
-				]], [
+						['⚡ PREMIUM', '.sewa', 'Premium, Sewabot, Jadibot, Jasa Run Bot']
+				], 'Free Bot'], [
 					'━ ━ ━ ━ 『 SUB MENU 』 ━ ━ ━ ━', [
+						['🤖 A.I', '.mai', '● AI and problem-solving'],
 						['🎪 ALL MENU', '.allmenu', '● Menampilkan Semua Menu'],
 						['🪙 STORE', '.mstore', '🛒 Bot Store : List Items'],
 						['🪷 OWNER', '.mowner', '◉ Owner, ROwner, Mods Privilages'],
@@ -116,9 +117,10 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, command, isPrems }) =
 						['💫 EPHOTO 360', '.mephoto', '⦿ Edit Foto Kamu'],
 						['👼🏻 PHOTO OXY', '.moxy', '◐ Edit Photos by Oxy'],
 						['🎨 TEXT PRO ME', '.mtextpro', '◑ Kreasi Teks Efek'],
-				]],
+				], 'Special Feature']
 			]
 			await conn.sendList(m.chat, 'Hello '+name, txtList, pauthor, 'LIST MENU', nais, sections, m)
+			//await conn.sendList(m.chat, 'Hello '+name, txtList, pauthor, 'LIST MENU', nais, sections, m, [['neko', '.neko', 'quick_reply'], ['copy ini', 'https://cerdas.com', 'cta_copy'], ['owner', 'https://wa.me/6282337245566', 'cta_url']])
 		} else await conn.sendFThumb(m.chat, db.data.datas.maingroupname, text.trim(), nais, db.data.datas.linkgc, m)
 	} catch (e) {
 		console.log(e)

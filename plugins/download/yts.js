@@ -4,6 +4,7 @@ import { isUrl } from '../../lib/func.js'
 
 let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 	if (!text) throw `Example: ${usedPrefix + command} Sia Unstopable`
+	await conn.sendMsg(m.chat, { react: { text: '🔍', key: m.key } })
 	if (isUrl(text)) {
 		try {
 			let anu = await youtubeSearch(text)
@@ -33,17 +34,17 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 	} else {
 		try {
 			let anu = await yts(text)
-			let txt = `*Hasil : ${text}*`
-			for (let i of anu.all) {
-				txt += `\n\n🎯 *${i.title}*\n`
-				+ `🪶 Author : ${i.author.name}\n`
+			let push = [];
+			for (let i of anu.all.filter(v => v.url?.includes('watch?'))) {
+				let info = `🪶 Author : ${i.author?.name}\n`
 				+ `${(i.duration && i.duration.timestamp) ? `⏰ *Duration :* ${i.duration.timestamp}\n` : ''}`
 				+ `🚀 Published : ${i.ago}\n`
 				+ `😎 View : ${i.views}\n`
 				+ `🌀 Url : ${i.url}\n`
 				+ `───────────────────`
+				push.push([info, 'yt-search', `🎯 *${i.title}*`, i.thumbnail, [['📽️ Video',`.ytv ${i.url}`,'cta_copy'],['🎧 Audio',`.yta ${i.url}`,'cta_copy']]])
 			}
-			await conn.sendMsg(m.chat, { image: { url: anu.all[0].thumbnail }, caption: txt }, { quoted : m })
+			await conn.sendSlide(m.chat, `*Hasil : ${text}*`, pauthor, push, m)
 		} catch (e) {
 			console.log(e)
 			try {
