@@ -10,7 +10,8 @@ let handler = async (m, { conn, text, usedPrefix, command, isPrems }) => {
 		let random = [
 			['OWNER',`https://wa.me/${db.data.datas.rowner[0]?.[0] || '6282337245566'}`,'cta_url'],
 			['SCRIPT','https://github.com/clicknetcafe/azamibot-md-multi','cta_url'],
-			['💬 Chat Bot',`https://wa.me/${conn.user.jid.split('@')[0]}`,'cta_url']]
+			['💬 Chat Bot',`https://wa.me/${conn.user.jid.split('@')[0]}`,'cta_url'],
+			['Group','https://cutt.ly/azamilaifu2','cta_url']]
 		let push = [];
 		for (let x of anu.sort(() => Math.random() - 0.5))
 			push.push([x.title || 'Untitled', 'pinterest search', '', x.image, [random.getRandom()]])
