@@ -1,6 +1,6 @@
 import uploadImage from '../../lib/uploadImage.js'
 import fs from 'fs'
-import { Sticker, StickerTypes } from 'wa-sticker-formatter'
+import { sticker } from '../../lib/sticker.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	let q = m.quoted ? m.quoted : m
@@ -15,8 +15,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	let out = await uploadImage(img)
 	try {
 		let res = `https://api.memegen.link/images/custom/${encodeURIComponent(l)}/${encodeURIComponent(r)}.png?background=${out}`
-		let sticker = new Sticker(res, { pack: packname, author: author, type: StickerTypes.FULL })
-		ztick = await sticker.toBuffer()
+		ztick = await sticker(false, res, packname, author)
 		await conn.sendFile(m.chat, ztick, '', '', m)
 	} catch (e) {
 		console.log(e)

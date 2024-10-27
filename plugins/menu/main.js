@@ -93,7 +93,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, command, isPrems }) =
 		}
 		text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
 		//list button not shown on ios
-		if (!/all/.test(command) && await getDevice(m.key.id) == 'android') {
+		/*if (!/all/.test(command) && await getDevice(m.key.id) == 'android') {
 			const txtList = `⦿ 🧱 Limit : *${isPrems ? '~ Infinity ~' : limit}*\n⦿ 🦸🏼‍♂️ Role : *${role}*\n⦿ 🔼 Level : *${level}* (${exp - min} / ${xp})\n⦿ 💵 Money : *${money}*\n⦿ 💫 Total XP : ${exp} ✨\n\n⦿ 📊 Database : ${Object.keys(db.data.users).length} User\n⦿ 📈 Runtime : *${uptime}*`
 			const sections = [
 				[
@@ -121,7 +121,8 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, command, isPrems }) =
 			]
 			await conn.sendList(m.chat, 'Hello '+name, txtList, pauthor, 'LIST MENU', nais, sections, m)
 			//await conn.sendList(m.chat, 'Hello '+name, txtList, pauthor, 'LIST MENU', nais, sections, m, [['neko', '.neko', 'quick_reply'], ['copy ini', 'https://cerdas.com', 'cta_copy'], ['owner', 'https://wa.me/6282337245566', 'cta_url']])
-		} else await conn.sendFThumb(m.chat, db.data.datas.maingroupname, text.trim(), nais, db.data.datas.linkgc, m)
+		} else await conn.sendFThumb(m.chat, db.data.datas.maingroupname, text.trim(), nais, db.data.datas.linkgc, m)*/
+		await conn.sendFThumb(m.chat, db.data.datas.maingroupname, text.trim(), nais, db.data.datas.linkgc, m)
 	} catch (e) {
 		console.log(e)
 	}

@@ -1,5 +1,4 @@
 import db from '../../lib/database.js'
-import { caklontong } from '@bochilteam/scraper'
 
 let timeout = 120000
 let poin = 1999
@@ -13,7 +12,8 @@ let handler = async (m, { conn, usedPrefix, isPrems }) => {
 	let usr = db.data.users[m.sender]
 	if (usr.limit < 1 && usr.money > 50000 && !isPrems) throw `Beli limit dulu lah, duid lu banyak kan 😏`
 	else if (usr.limit > 0 && !isPrems) usr.limit -= 1
-	const json = await caklontong()
+	let json = await (await fetch('https://raw.githubusercontent.com/BochilTeam/database/master/games/caklontong.json')).json()
+	json = json.getRandom()
 	let caption = `
 🎮 *Cak Lontong* 🎮
 

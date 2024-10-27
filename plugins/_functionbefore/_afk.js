@@ -2,6 +2,7 @@ import db from '../../lib/database.js'
 
 export async function before(m) {
 	if (!m.isGroup) return !1
+	if (m.fromMe) return !1
 	if (db.data.chats[m.chat].isBanned) return !1
 	let user = db.data.users[m.sender]
 	if (user?.afk > 0) {

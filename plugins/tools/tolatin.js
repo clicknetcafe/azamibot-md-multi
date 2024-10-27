@@ -1,4 +1,4 @@
-import { aksaraToLatin } from '@bochilteam/scraper'
+import { aksaraToLatin } from '../../lib/scrape.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `Ubah Aksara Jawa ke Latin\n\nContoh :\n*${usedPrefix + command} ꦲꦭ꧀ꦭꦺꦴ​ꦫꦺꦏ꧀*`

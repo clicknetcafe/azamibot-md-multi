@@ -1,5 +1,5 @@
 import yts from 'yt-search'
-import { youtubeSearch } from '@bochilteam/scraper-sosmed'
+import { youtubeSearch } from '../../lib/scrape.js'
 import { isUrl } from '../../lib/func.js'
 
 let handler = async (m, { conn, text, args, usedPrefix, command }) => {
@@ -10,7 +10,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 			let anu = await youtubeSearch(text)
 			anu = anu.video[0]
 			let txt = `📌 *${anu.title}*\n\n`
-			+ `🪶 *Author :* ${anu.authorName}\n`
+			+ `🪶 *Author :* ${anu.channelName}\n`
 			+ `⏲️ *Published :* ${anu.publishedTime}\n`
 			+ `⌚ *Duration :* ${anu.durationH}\n`
 			+ `👁️ *Views :* ${anu.viewH}\n`

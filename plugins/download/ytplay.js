@@ -1,7 +1,6 @@
-import ytdl from 'ytdl-core'
 import yts from 'yt-search'
-import { youtubeSearch, youtubedl } from '@bochilteam/scraper-sosmed'
-import { isUrl, niceBytes } from '../../lib/func.js'
+import { isUrl } from '../../lib/func.js'
+import { ytdl, ytdl2, youtubeSearch } from '../../lib/scrape.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `Example: ${usedPrefix + command} Sia Unstopable`
@@ -28,24 +27,18 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	} else url = text
 	if (!url) return
 	try {
-		let res = await youtubedl(url)
-		let data = res.audio[Object.keys(res.audio)[0]]
-		let site = await data.download()
-		if (data.fileSize > 400000) return m.reply(`Filesize: ${data.fileSizeH}\nTidak dapat mengirim, maksimal file 400 MB`)
-		await conn.sendFAudio(m.chat, { audio: { url: site }, mimetype: 'audio/mpeg', fileName: `${res.title}.mp3` }, m, res.title, res.thumbnail, url)
+		const anu = await ytdl2.audio(url);
+		if (!anu.status) throw Error(anu.msg)
+		await conn.sendFAudio(m.chat, { [/mp3/g.test(command) ? 'document' : 'audio']: { url: anu.media }, mimetype: 'audio/mpeg', fileName: `${anu.title}.mp3` }, m, anu.title, anu.thumbnail, url)
 	} catch (e) {
 		console.log(e)
 		try {
-			let res = await ytdl.getURLVideoID(url)
-			let anu = await ytdl.getInfo(res)
-			let det = anu.videoDetails
-			anu = anu.formats.filter(v => v.mimeType.includes('audio/mp4'))[0]
-			let size = parseInt(anu.contentLength)
-			if (size > 400000000) return m.reply(`Filesize: ${niceBytes(size)}\nTidak dapat mengirim, maksimal file 400 MB`)
-			await conn.sendFAudio(m.chat, { audio: { url: anu.url }, mimetype: 'audio/mpeg', fileName: `${det.title}.mp3` }, m, det.title, det.thumbnails.pop().url, url)
+			const anu = await ytdl(url);
+			let aud = anu.resultUrl.audio[0]
+			await conn.sendFAudio(m.chat, { [/mp3/g.test(command) ? 'document' : 'audio']: { url: await aud.download() }, mimetype: 'audio/mpeg', fileName: `${anu.result.title}.mp3` }, m, anu.result.title, 'https://i.ibb.co.com/txJrWCZ/images-8.jpg', url)
 		} catch (e) {
 			console.log(e)
-			m.reply('tidak ditemukan hasil.')
+			m.reply(e.message)
 		}
 	}
 }

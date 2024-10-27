@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import SpottyDL from 'spottydl'
-import { youtubedl } from '@bochilteam/scraper-sosmed'
+import { ytdl, ytdl2 } from '../../lib/scrape.js'
 import { isUrl } from '../../lib/func.js'
 
 let handler = async (m, { conn, text, usedPrefix, command, __dirname }) => {
@@ -19,10 +19,22 @@ let handler = async (m, { conn, text, usedPrefix, command, __dirname }) => {
 			} catch (e) {
 				console.log(e)
 				let res = await SpottyDL.getTrack(text)
-				let anu = await youtubedl('https://youtu.be/'+res.id)
-				let data = anu.audio[Object.keys(anu.audio)[0]]
-				let url = await data.download()
-				await conn.sendFAudio(m.chat, { [/mp3/g.test(command) ? 'document' : 'audio']: { url: url }, mimetype: 'audio/mpeg', fileName: `${anu.title}.mp3` }, m, anu.title, anu.thumbnail, text)
+				let args = 'https://youtu.be/'+res.id
+				try {
+					const anu = await ytdl2.audio(args);
+					if (!anu.status) throw Error(anu.msg)
+					await conn.sendFAudio(m.chat, { [/mp3/g.test(command) ? 'document' : 'audio']: { url: anu.media }, mimetype: 'audio/mpeg', fileName: `${anu.title}.mp3` }, m, anu.title, anu.thumbnail, args)
+				} catch (e) {
+					console.log(e)
+					try {
+						const anu = await ytdl(args);
+						let aud = anu.resultUrl.audio[0]
+						await conn.sendFAudio(m.chat, { [/mp3/g.test(command) ? 'document' : 'audio']: { url: await aud.download() }, mimetype: 'audio/mpeg', fileName: `${anu.result.title}.mp3` }, m, anu.result.title, 'https://telegra.ph/file/2e15408ac5e72fc90bc3f.jpg', args)
+					} catch (e) {
+						console.log(e)
+						m.reply(e.message)
+					}
+				}
 			}
 		} else if (/\/album\//.test(text)) {
 			let anu = await SpottyDL.getAlbum(text)

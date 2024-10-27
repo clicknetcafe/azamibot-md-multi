@@ -8,10 +8,8 @@ let handler = async (m, { conn, usedPrefix, command, args }) => {
 		api[args[0]] = args[1] || 'undefined'
 		m.reply(`Add APIKEY '${args[0]}' success :\n*${args[1]}*\n\n*${usedPrefix}cekapi* to check.`)
 	} else if (/cek/.test(command)) {
-		if (m.isGroup) m.reply('_open your private chat_')
 		await conn.reply(m.sender, `*YOUR APIKEY LIST :*\n\n${jstring}`, m)
 	} else {
-		if (m.isGroup) throw '[ PRIVATE CHAT ONLY ]'
 		if(Object.keys(api).length == 0) throw `[!] No apikey, please *${usedPrefix}addapi* first`
 		let tx = 'Remove'
 		let txt = jstring
@@ -33,6 +31,7 @@ handler.menuowner = ['add','cek','edit','delete'].map(v => v+'api')
 handler.tagsowner = ['ownerr']
 handler.command = /^((add|cek|edit|del(ete)?)(api(key)?))$/i
 
+handler.private = true
 handler.rowner = true
 
 export default handler

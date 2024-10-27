@@ -1,5 +1,4 @@
 import db from '../../lib/database.js'
-import { tebakgambar } from '@bochilteam/scraper'
 
 let timeout = 120000
 let poin = 3499
@@ -14,7 +13,8 @@ let handler = async (m, { conn, usedPrefix, isPrems }) => {
 	if (usr.limit < 1 && usr.money > 50000 && !isPrems) throw `Beli limit dulu lah, duid lu banyak kan 😏`
 	else if (usr.limit > 0 && !isPrems) usr.limit -= 1
 	try {
-		const json = await tebakgambar()
+		let json = await (await fetch('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakgambar.json')).json()
+		json = json.getRandom()
 		let caption = `
 🎮 *Tebak Gambar* 🎮
 

@@ -15,7 +15,8 @@ let handler = async (m, { conn, text, participants }) => {
 		let who = m.quoted ? m.quoted.sender : m.mentionedJid?.[0] ? m.mentionedJid[0] : text ? (text.replace(/\D/g, '') + '@s.whatsapp.net') : ''
 		if (!who || who == m.sender) throw '*Quote / tag* target yang ingin di kick!!'
 		if (participants.filter(v => v.id == who).length == 0) throw `Target tidak berada dalam Grup !`
-		if (somematch([conn.user.jid, ...global.mods.map(v => v + '@s.whatsapp.net')], who)) throw 'Jangan gitu ama Owner'
+		let oww = [...global.mods, ...db.data.datas.rowner.map(v => v[0]), ...db.data.datas.owner.map(v => v[0])].map(v => v + '@s.whatsapp.net')
+		if (somematch([conn.user.jid, ...oww], who)) throw 'Jangan gitu ama Owner'
 		await conn.groupParticipantsUpdate(m.chat, [who], 'remove')
 	}
 }

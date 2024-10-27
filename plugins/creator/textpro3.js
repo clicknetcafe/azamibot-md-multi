@@ -1,5 +1,5 @@
 import formData from 'form-data'
-import cheerio from 'cheerio'
+import * as cheerio from 'cheerio'
 import axios from 'axios'
 
 let split = '|'

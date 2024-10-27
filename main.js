@@ -27,6 +27,7 @@ const args = [join(__dirname, 'main.js'), ...process.argv.slice(2)]
 const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 const { say } = cfonts
 const { name, author } = require(join(__dirname, './package.json')) // https://www.stefanjudis.com/snippets/how-to-import-json-files-in-es-modules-node-js/
+//const { users, chats } = require(join(__dirname, './database.json'))
 
 say('Lightweight\nWhatsApp Bot', {
 	font: 'chrome',
@@ -56,8 +57,6 @@ Object.assign(global, {
 	}
 })
 
-// global.opts['db'] = process.env['db']
-
 /** @type {import('./lib/connection.js').Socket} */
 const conn = Object.defineProperty(Connection, 'conn', {
 	value: await Connection.conn,
@@ -81,6 +80,13 @@ if (!opts['test']) {
 			clearTmp(),
 			clearSessions()
 		])
+		/*for (let x of Object.keys(users)) {
+			if (!db.data.users[x]) {
+				db.data.users[x] = users[x]
+				console.log(`'${x}' added to database`)
+				break
+			}
+		}*/
 		//Connection.store.writeToFile(Connection.storeFile)
 	}, 1000 * 60 * 5) // save every 5 minute
 }

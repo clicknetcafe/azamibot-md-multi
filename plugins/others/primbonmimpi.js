@@ -1,4 +1,4 @@
-import { artimimpi } from '@bochilteam/scraper';
+import { artimimpi } from '../../lib/scrape.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) throw `Example: ${usedPrefix + command} Ular`

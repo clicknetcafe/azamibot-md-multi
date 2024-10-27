@@ -1,4 +1,5 @@
 import jimp_1 from 'jimp'
+import { S_WHATSAPP_NET } from '@whiskeysockets/baileys'
 
 let handler = async (m, { conn, command, usedPrefix }) => {
 	let q = m.quoted ? m.quoted : m
@@ -10,7 +11,8 @@ let handler = async (m, { conn, command, usedPrefix }) => {
 			await conn.query({
 				tag: 'iq',
 				attrs: {
-					to: m.chat,
+					target: m.chat,
+					to: S_WHATSAPP_NET,
 					type:'set',
 					xmlns: 'w:profile:picture'
 				},

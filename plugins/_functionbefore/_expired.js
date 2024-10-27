@@ -1,14 +1,17 @@
 import db from '../../lib/database.js'
+import { delay } from '../../lib/func.js'
 
-export async function all(m) {
-	if (!m.isGroup)
-		return
-	let chats = db.data.chats[m.chat]
-	if (!chats.expired)
-		return !0
-	if (+new Date() > chats.expired) {
+export async function before(m) {
+	if (!m.isGroup) return !1
+	let chat = db.data.chats[m.chat]
+	if (chat.expired == 0) return !1
+	if (+new Date() > chat.expired) {
 		await this.reply(m.chat, 'Durasi join bot telah habis.\nBye🖐 bot akan left!!')
-		await this.groupLeave(m.chat)
-		chats.expired = null
+		chat.expired = 0
+		chat.joindate = 0
+		chat.joincd = 0
+		await delay(3000)
+		await this.groupLeave(m.chat).catch(_ => console.log(_.message))
 	}
+	return !0
 }

@@ -34,6 +34,6 @@ let handler = async (m, { conn, usedPrefix, command, text, isBotAdmin }) => {
 
 handler.menugroup = ['groups', 'grouplist']
 handler.tagsgroup = ['group']
-handler.command = /^((gro?ups?|gc|sewa(bot)?)list|list(gro?ups?|gc|sewa(bot)?))$/i
+handler.command = /^((gro?ups?|gc)list|list(gro?ups?|gc))$/i
 
 export default handler
