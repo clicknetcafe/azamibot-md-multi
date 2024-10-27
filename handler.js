@@ -56,7 +56,6 @@ export async function handler(chatUpdate) {
 					if (!isNumber(user.afk)) user.afk = -1
 					if (!('afkReason' in user)) user.afkReason = ''
 					if (!('banned' in user)) user.banned = false
-					if (!('redata' in user)) user.redata = false
 					if (!('permaban' in user)) user.permaban = false
 					if (!isNumber(user.lastbanned)) user.lastbanned = 0
 					if (!isNumber(user.bannedcd)) user.bannedcd = 0
@@ -268,7 +267,6 @@ export async function handler(chatUpdate) {
 					afk: -1,
 					afkReason: '',
 					banned: false,
-					redata: false,
 					permaban: false,
 					lastbanned: 0,
 					bannedcd: 0,
@@ -524,7 +522,6 @@ export async function handler(chatUpdate) {
 					if (!('simi' in chat)) chat.simi = false
 					if (!('lastsimi' in chat)) chat.lastsimi = false
 					if (!('viewonce' in chat)) chat.viewonce = false
-					if (!('antiToxic' in chat)) chat.antiToxic = false
 					if (!('autolevelup' in chat)) chat.autolevelup = false
 					if (!('autoai' in chat)) chat.autoai = false
 					if (!isNumber(chat.joindate)) chat.joindate = 0
@@ -559,7 +556,6 @@ export async function handler(chatUpdate) {
 					simi: false,
 					lastsimi: false,
 					viewonce: false,
-					antiToxic: true,
 					autolevelup: false,
 					autoai: false,
 					joindate: 0,
