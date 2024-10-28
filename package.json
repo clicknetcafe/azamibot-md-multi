@@ -81,6 +81,7 @@
 		"socket.io": "^4.8.1",
 		"spottydl": "^0.2.6",
 		"syntax-error": "^1.4.0",
+		"telegraf": "^4.16.3",
 		"terminal-image": "^3.0.0",
 		"tesseract.js": "^5.1.0",
 		"url-regex-safe": "^4.0.0",

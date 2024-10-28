@@ -12,6 +12,8 @@ import { createRequire } from 'module'
 import { fileURLToPath } from 'url'
 import { join, dirname } from 'path'
 import { spawn } from 'child_process'
+import { Telegraf } from 'telegraf'
+import { delay, ranNumb } from './lib/func.js'
 import { protoType, serialize } from './lib/simple.js'
 import {
 	plugins,
@@ -28,6 +30,7 @@ const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 const { say } = cfonts
 const { name, author } = require(join(__dirname, './package.json')) // https://www.stefanjudis.com/snippets/how-to-import-json-files-in-es-modules-node-js/
 //const { users, chats } = require(join(__dirname, './database.json'))
+const mime = await (await fetch('https://raw.githubusercontent.com/micnic/mime.json/refs/heads/master/index.json')).json()
 
 say('Lightweight\nWhatsApp Bot', {
 	font: 'chrome',
@@ -46,8 +49,82 @@ say([process.argv[0], ...args].join(' '), {
 	gradient: ['red', 'magenta']
 })
 
+const config = {
+	tele_token: '0000000000:XXXXXXXXXXXXXXXX-ZzZzZZZZzzz', // get token from @BotFather
+	// you can add more telegramchatid, make sure your telegram bot is join the channel
+	'-1002412850168': ['xxx@g.us','zzz@s.whatsapp.net'],
+	// 'addmore': ['xxx']
+}
+
+const bot = new Telegraf(config.tele_token)
+
 protoType()
 serialize()
+bot.launch().catch(e => console.warn(e.message))
+
+// forward message telegram channel to whatsapp group
+bot.on('channel_post', async (ctx) => {
+	let msg = ctx?.update?.channel_post
+	if (!msg || !Object.keys(config).some(v => v == msg.chat.id)) return !1
+	try {
+		let obj = Object.keys(msg).filter(v => /photo|video|voice|document/.test(v))
+		let jid = conn.user.jid.split('@')[0]
+		let fconn = {
+			key: {
+				remoteJid: '0@s.whatsapp.net',
+				fromMe: true,
+				id: 'BAE5AB0B84194996'
+			},
+			message: {
+				contactMessage: {
+					displayName: await conn.getName(conn.user.jid),
+					vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;Azami Ai;;;\nTEL;type=CELL;type=VOICE;waid=${jid}:${jid}\nEND:VCARD`
+				}
+			},
+			status: 'PENDING',
+			messageTimestamp: '1696595373'
+		}
+		let i = 0,
+			x = config[msg.chat.id],
+			y = msg.media_group_id && !msg.caption,
+			txt = (msg.caption ? msg.caption : msg.text ? msg.text : '')
+			if (msg.entities) {
+				let i = 0, offset = null
+				for (let x of msg.entities.filter(v => /bold|strikethrough/.test(v.type || ''))) {
+					if (x.offset == offset) i -= 1
+					let r = txt.substring(i+x.offset, i+x.offset+x.length)
+					if (x.type == 'bold') txt = txt.replace(r, `*${r}*`)
+					else txt = txt.replace(r, `~${r}~`)
+					if (x.offset == offset) i += 3
+					else i += 2
+					offset = x.offset
+				}
+				let url = msg.entities.filter(v => v.url).map(z => z.url)
+				if (url.length > 0 && !/\d\.\d\.\d(?=\s\(current\))/gi.test(txt)) txt += '\n\n[LINK]:\n- '+url.join('\n- ')
+			}
+		if (msg.forward_origin) {
+			if (!y) {
+				let f = msg.forward_origin
+				txt = `❰ *${f.chat ? f.chat.title : f.sender_user.first_name}* ❱\n- *@${f.chat ? f.chat.username
+					: f.sender_user.username}*${txt ? '\n\n'+txt : ''}`
+			} else txt = ''
+		}
+		do {
+			if (obj.length > 0) {
+				let id = msg.photo ? msg.photo.pop().file_id : msg[obj[0]].file_id
+				let url = await ctx.telegram.getFileLink(id)
+				let fileName = msg.document?.file_name || url.pathname.split('/').pop()
+				await conn.sendFile(x[i], url.href, fileName, txt, y ? null
+					: fconn, true, { mimetype: mime[fileName.split('.').pop()], ptv: msg.video_note ? true : false })
+			} else if (msg.text) await conn.reply(x[i], txt, fconn)
+			else console.log(msg)
+			await delay(ranNumb(1500, 3000))
+			i += 1
+		} while (i > 0 && i < x.length)
+	} catch (e) {
+		console.log(e)
+	}
+});
 
 // Assign all the value in the Helper to global
 Object.assign(global, {
