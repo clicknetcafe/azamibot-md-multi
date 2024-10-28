@@ -13,7 +13,7 @@ import { fileURLToPath } from 'url'
 import { join, dirname } from 'path'
 import { spawn } from 'child_process'
 import { Telegraf } from 'telegraf'
-import { delay, ranNumb } from './lib/func.js'
+import { delay, mime, ranNumb } from './lib/func.js'
 import { protoType, serialize } from './lib/simple.js'
 import {
 	plugins,
@@ -30,7 +30,6 @@ const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 const { say } = cfonts
 const { name, author } = require(join(__dirname, './package.json')) // https://www.stefanjudis.com/snippets/how-to-import-json-files-in-es-modules-node-js/
 //const { users, chats } = require(join(__dirname, './database.json'))
-const mime = await (await fetch('https://raw.githubusercontent.com/micnic/mime.json/refs/heads/master/index.json')).json()
 
 say('Lightweight\nWhatsApp Bot', {
 	font: 'chrome',
