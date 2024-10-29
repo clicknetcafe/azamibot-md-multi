@@ -63,6 +63,7 @@ bot.launch().catch(e => console.warn(e.message))
 
 // forward message telegram channel to whatsapp group
 bot.on('channel_post', async (ctx) => {
+	if (opts['nyimak']) return !1
 	let msg = ctx?.update?.channel_post
 	if (!msg || !Object.keys(config).some(v => v == msg.chat.id)) return !1
 	try {
@@ -83,29 +84,36 @@ bot.on('channel_post', async (ctx) => {
 			status: 'PENDING',
 			messageTimestamp: '1696595373'
 		}
-		let i = 0,
+		let i = 0, arr = [],
 			x = config[msg.chat.id],
 			y = msg.media_group_id && !msg.caption,
-			txt = (msg.caption ? msg.caption : msg.text ? msg.text : '')
-			if (msg.entities) {
-				let i = 0, offset = null
-				for (let x of msg.entities.filter(v => /bold|strikethrough/.test(v.type || ''))) {
-					if (x.offset == offset) i -= 1
-					let r = txt.substring(i+x.offset, i+x.offset+x.length)
-					if (x.type == 'bold') txt = txt.replace(r, `*${r}*`)
-					else txt = txt.replace(r, `~${r}~`)
-					if (x.offset == offset) i += 3
-					else i += 2
-					offset = x.offset
-				}
-				let url = msg.entities.filter(v => v.url).map(z => z.url)
-				if (url.length > 0 && !/\d\.\d\.\d(?=\s\(current\))/gi.test(txt)) txt += '\n\n[LINK]:\n- '+url.join('\n- ')
+			txt = (msg.caption ? msg.caption : msg.text ? msg.text : ''),
+			tes = /\d\.\d\.\d(?=\s\(current\))/gi.test(txt)
+		if (msg.entities) {
+			let i = 0, offset = null
+			for (let x of msg.entities.filter(v => /bold|strikethrough/.test(v.type || ''))) {
+				if (x.offset == offset) i -= 1
+				let r = txt.substring(i+x.offset, i+x.offset+x.length)
+				if (x.type == 'bold') txt = txt.replace(r, `*${r}*`)
+				else txt = txt.replace(r, `~${r}~`)
+				if (x.offset == offset) i += 3
+				else i += 2
+				offset = x.offset
 			}
+			msg.entities.filter(v => v.url).forEach(v => { arr.push(v) })
+		}
+		if (msg.caption_entities) {
+			msg.caption_entities.filter(v => v.url).forEach(v => { arr.push(v) })
+		}
+		arr = arr.filter(v => !v.url.includes('t.me')).map(z => z.url)
+		if (arr.length > 0 && !/\d\.\d\.\d(?=\s\(current\))/gi.test(txt)) txt += '\n\n*[hyperlink] :*\n- '+arr.join('\n- ')
 		if (msg.forward_origin) {
 			if (!y) {
 				let f = msg.forward_origin
-				txt = `❰ *${f.chat ? f.chat.title : f.sender_user.first_name}* ❱\n- *@${f.chat ? f.chat.username
-					: f.sender_user.username}*${txt ? '\n\n'+txt : ''}`
+				let h = /hidden/.test(f.type)
+				txt = `❰ *${h ? f.sender_user_name : f.chat ? f.chat.title : f.sender_user.first_name}* ❱\n`
+				+ `- *${h ? 'hidden_user' : f.chat ? '@'+f.chat.username : '@'+(f.sender_user.username || 'hidden_user')}`
+				+ `*${txt ? '\n\n'+txt : ''}`
 			} else txt = ''
 		}
 		do {
