@@ -644,6 +644,7 @@ export async function handler(chatUpdate) {
 				if (!('storestatus' in datas)) datas.storestatus = {}
 				if (!('menfess' in datas)) datas.menfess = {}
 				if (!('listgc' in datas)) datas.listgc = []
+				if (!('rvo' in datas)) datas.rvo = []
 				if (!('openaikey' in datas)) datas.openaikey = []
 				if (!('menfesschat' in datas)) datas.menfesschat = {}
 				if (!('menfesschatcd' in datas)) datas.menfesschatcd = 0
@@ -673,6 +674,7 @@ export async function handler(chatUpdate) {
 				storestatus: {},
 				menfess: {},
 				listgc: [],
+				rvo: [],
 				openaikey: [],
 				menfesschat: {},
 				menfesschatcd: 0,
@@ -824,11 +826,12 @@ export async function handler(chatUpdate) {
 					let chat = db.data.chats[m.chat]
 					let user = db.data.users[m.sender]
 					let anti = /_anti(link|virus|uncheck)\.js/.test(m.plugin)
+					let zzz = /zzz/.test(m.plugin)
 					if (!/unbanchat/.test(m.plugin) && chat?.isBanned)
 						return // Except this
 					if (!/unbanuser/.test(m.plugin) && user?.banned)
 						return
-					if (!anti && chat?.adminonly && !isAdminOwner)
+					if (!anti && !zzz && chat?.adminonly && !isAdminOwner)
 						return
 					if (!isROwner && opts['self'] && !anti)
 						return
@@ -836,7 +839,7 @@ export async function handler(chatUpdate) {
 						return
 					if (opts['gconly'] && !m.chat.endsWith('g.us') && !isPrems && !/menfess/.test(m.plugin))
 						return
-					if (chat?.owneronly && !isOwner)
+					if (!zzz && chat?.owneronly && !isOwner)
 						return
 				}
 				if (plugin.rowner && plugin.owner && !(isROwner || isOwner)) { // Both Owner

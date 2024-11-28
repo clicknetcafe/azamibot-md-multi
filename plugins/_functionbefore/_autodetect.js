@@ -66,7 +66,7 @@ export async function before(m) {
 			console.log(e)
 			let ana = await uploadImage(await got(pp).buffer())
 			let anu = await uploadImage(await got(ppgc).buffer())
-			await this.sendMsg(id, { image: { url: `https://widipe.com/${add ? 'welcome' : 'goodbye'}?name=${name}&gcname=${namegc}&ppgc=${anu}&member=${meta.participants.length}&pp=${ana}&bg=${bg}` }, caption: text, mentions: [user] }, { quoted: fkontak }).catch(_ => this.reply(id, text, fkontak, { mentions: [user] }))
+			await this.sendMsg(id, { image: { url: `https://aemt.uk.to/${add ? 'welcome' : 'goodbye'}?name=${name}&gcname=${namegc}&ppgc=${anu}&member=${meta.participants.length}&pp=${ana}&bg=${bg}` }, caption: text, mentions: [user] }, { quoted: fkontak }).catch(_ => this.reply(id, text, fkontak, { mentions: [user] }))
 		}
 	} else {
 		console.log({

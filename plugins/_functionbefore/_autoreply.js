@@ -19,7 +19,7 @@ const bot = ['ada apa bro ?','apa sih','apa sayang','jangan ngagetin dong','iya'
 const ping = ['pakai prefix','command yg betul','gak btul','contoh : .ping','pake titik coba','apa coba','Kecepatan Repon = Kecepatan Cahaya','yahaha ngemlag','pakai titik\n\n.ping gitu','waktunya bayar wifi','kuota mu sekarat','Ping : 0 miliseconds','adu .testspeed ?']
 
 const sfx = [
-	'desah-prank',
+	//'desah-prank',
 	'BANG%20UDAH%20BANG',
 	'BOOM',
 	'Emang%20Boleh%20versi%20anak%20kecil',
