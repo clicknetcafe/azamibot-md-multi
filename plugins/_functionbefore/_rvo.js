@@ -1,5 +1,4 @@
 import db from '../../lib/database.js'
-import { delay } from '../../lib/func.js'
 
 export async function before(m) {
 	let rvo = db.data.datas.rvo
@@ -12,8 +11,4 @@ export async function before(m) {
 	rvo.push({ url: msg.url, mediaKey: msg.mediaKey, directPath: msg.directPath })
 	if (rvo.length > 100) db.data.datas.rvo = rvo.shift()
 	return !0
-}
-
-function isString(v) {
-	return typeof v === 'string';
 }
