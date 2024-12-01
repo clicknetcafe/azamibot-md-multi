@@ -26,7 +26,7 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const require = createRequire(__dirname) // Bring in the ability to create the 'require' method
 const args = [join(__dirname, 'main.js'), ...process.argv.slice(2)]
-const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
+const PORT = process.env.PORT || process.env.SERVER_PORT || 8443
 const { say } = cfonts
 const { name, author } = require(join(__dirname, './package.json')) // https://www.stefanjudis.com/snippets/how-to-import-json-files-in-es-modules-node-js/
 //const { users, chats } = require(join(__dirname, './database.json'))
@@ -84,27 +84,22 @@ bot.on('channel_post', async (ctx) => {
 			status: 'PENDING',
 			messageTimestamp: '1696595373'
 		}
-		let i = 0, arr = [],
+		let i = 0, arr = [], q = [],
 			x = config[msg.chat.id],
 			y = msg.media_group_id && !msg.caption,
 			txt = (msg.caption ? msg.caption : msg.text ? msg.text : ''),
 			tes = /\d\.\d\.\d(?=\s\(current\))/gi.test(txt)
 		if (msg.entities) {
-			let i = 0, offset = null
-			for (let x of msg.entities.filter(v => /bold|strikethrough/.test(v.type || ''))) {
-				if (x.offset == offset) i -= 1
-				let r = txt.substring(i+x.offset, i+x.offset+x.length)
-				if (x.type == 'bold') txt = txt.replace(r, `*${r}*`)
-				else txt = txt.replace(r, `~${r}~`)
-				if (x.offset == offset) i += 3
-				else i += 2
-				offset = x.offset
+			for (let x of msg.entities.filter(v => /bold|strikethrough/.test(v.type || ''))) 
+				q.push({ type: x.type, txt: txt.slice(x.offset, x.offset+x.length) })
+			for (let x of q) {
+				if (/bold/.test(x.type)) txt = txt.replace(x.txt, `*${x.txt}*`)
+				else txt = txt.replace(x.txt, `~${x.txt}~`)
 			}
 			msg.entities.filter(v => v.url).forEach(v => { arr.push(v) })
 		}
-		if (msg.caption_entities) {
+		if (msg.caption_entities) 
 			msg.caption_entities.filter(v => v.url).forEach(v => { arr.push(v) })
-		}
 		arr = arr.filter(v => !v.url?.includes('t.me')).map(z => z.url)
 		if (arr.length > 0 && !/\d\.\d\.\d(?=\s\(current\))/gi.test(txt)) txt += '\n\n*[embedded link] :*\n- '+arr.join('\n- ')
 		if (msg.forward_origin) {

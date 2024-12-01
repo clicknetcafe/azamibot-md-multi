@@ -9,6 +9,6 @@ export async function before(m) {
 	msg = msg[mtype]
 	if (rvo.find(v => v?.mediaKey == msg.mediaKey)) return !1
 	rvo.push({ url: msg.url, mediaKey: msg.mediaKey, directPath: msg.directPath })
-	if (rvo.length > 100) db.data.datas.rvo = rvo.shift()
+	if (rvo.length > 100) db.data.datas.rvo.shift()
 	return !0
 }
