@@ -5,7 +5,7 @@ import { padLead, ranNumb } from '../../lib/func.js'
 
 const thumb = 'https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/avatar_contact.jpg'
 
-let handler = async (m, { conn, usedPrefix, command, args }) => {
+let handler = async (m, { conn, usedPrefix, command, args, participants }) => {
 	let tx = (args[0] || '').toLowerCase()
 	let user = db.data.users[m.sender]
 	let chat = db.data.chats[m.chat]
@@ -14,12 +14,12 @@ let handler = async (m, { conn, usedPrefix, command, args }) => {
 		let namegc = m.isGroup ? await conn.getName(m.chat) : '~NamaGroup'
 		if (m.isGroup) meta = await Connection.store.fetchGroupMetadata(m.chat, conn.groupMetadata)
 		let text = (add ? (chat?.sWelcome || conn.welcome || Connection.conn.welcome || 'Welcome, @user!').replace('@subject', namegc).replace('@desc', meta?.desc?.toString() || '~group deskripsi') : (chat?.sBye || conn.bye || Connection.conn.bye || 'Bye, @user!')).replace('@user', '@' + m.sender.split('@')[0])
+		let meh = padLead(ranNumb(43), 3)
+		let bg = `https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/picbot/menus/menus_${meh}.jpg`
+		let name = await conn.getName(m.sender)
+		let pp = await conn.profilePictureUrl(m.sender, 'image').catch(_ => thumb)
+		let ppgc = await conn.profilePictureUrl(m.chat, 'image').catch(_ => thumb)
 		try {
-			let meh = padLead(ranNumb(43), 3)
-			let bg = `https://raw.githubusercontent.com/clicknetcafe/Databasee/main/azamibot/media/picbot/menus/menus_${meh}.jpg`
-			let name = await conn.getName(m.sender)
-			let pp = await conn.profilePictureUrl(m.sender, 'image').catch(_ => thumb)
-			let ppgc = await conn.profilePictureUrl(m.chat, 'image').catch(_ => thumb)
 			const can = await (await import('canvafy')).default
 			pp = await new can.WelcomeLeave()
 				.setAvatar(pp)
@@ -33,7 +33,9 @@ let handler = async (m, { conn, usedPrefix, command, args }) => {
 			await conn.sendFile(m.chat, pp, '', text, fkontak, false, { mentions: [m.sender] })
 		} catch (e) {
 			console.log(e)
-			await conn.reply(m.chat, text, fkontak, { mentions: [m.sender] })
+			let ana = await uploadImage(await got(pp).buffer())
+			let anu = await uploadImage(await got(ppgc).buffer())
+			await conn.sendMsg(m.chat, { image: { url: `https://btch.us.kg/${add ? 'welcome' : 'goodbye'}?name=${name}&gcname=${namegc}&ppgc=${anu}&member=${participants?.length || '99'}&pp=${ana}&bg=${bg}` }, caption: text, mentions: [m.sender] }, { quoted: fkontak }).catch(_ => conn.reply(m.chat, text, fkontak, { mentions: [m.sender] }))
 		}
 	} else if (/f(kontak(bot)?|troli|vn|vid|textt)/.test(tx)) {
 		await conn.reply(m.chat, `Halo @${m.sender.split('@')[0]}, ini simulasi ${tx}`, /troli/.test(tx) ? ftroli : /vn/.test(tx) ? fvn : /vid/.test(tx) ? fvid : /textt/.test(tx) ? ftextt : /bot/.test(tx) ? fkontakbot : fkontak, { mentions: [m.sender] })

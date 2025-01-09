@@ -1,8 +1,15 @@
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!text) `masukkan teks`
 	let q = m.quoted ? m.quoted : m
+	let mime = (q.msg || q).mimetype || q.mediaType || ''
 	if (!q.fromMe) throw `itu bukan pesan dari bot`
-	await conn.sendMessage(m.chat, { text: text, edit: q })
+	if (/image|video/g.test(mime) && !/webp/g.test(mime) && q.text) {
+		await conn.sendMessage(m.chat, { edit: {
+			remoteJid: conn.user.jid,
+			fromMe: true,
+			id: q.id
+		}, [/video/g.test(mime) ? 'video' : 'image']: Buffer.alloc(0), caption: text })
+	} else await conn.sendMessage(m.chat, { text: text, edit: q })
 }
 
 handler.help = ['edit']

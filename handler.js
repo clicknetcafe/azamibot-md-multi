@@ -825,8 +825,8 @@ export async function handler(chatUpdate) {
 				if (m.chat in db.data.chats || m.sender in db.data.users) {
 					let chat = db.data.chats[m.chat]
 					let user = db.data.users[m.sender]
-					let anti = /_anti(link|virus|uncheck)\.js/.test(m.plugin)
-					let zzz = /zzz/.test(m.plugin)
+					let anti = /_/.test(m.plugin)
+					let zzz = /zzz|genshin/.test(m.plugin)
 					if (!/unbanchat/.test(m.plugin) && chat?.isBanned)
 						return // Except this
 					if (!/unbanuser/.test(m.plugin) && user?.banned)
@@ -837,7 +837,7 @@ export async function handler(chatUpdate) {
 						return
 					if (opts['pconly'] && m.chat.endsWith('g.us') && !anti)
 						return
-					if (opts['gconly'] && !m.chat.endsWith('g.us') && !isPrems && !/menfess/.test(m.plugin))
+					if (opts['gconly'] && !m.chat.endsWith('g.us') && !isPrems && !/_|menfess|ww/.test(m.plugin))
 						return
 					if (!zzz && chat?.owneronly && !isOwner)
 						return
@@ -916,6 +916,7 @@ export async function handler(chatUpdate) {
 					groupMetadata,
 					user,
 					bot,
+					isMods,
 					isROwner,
 					isOwner,
 					isRAdmin,

@@ -171,15 +171,13 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			if (!m.isGroup) {
 				global.dfail('group', m, conn)
 				throw false
-			} else if (!isAdmin) {
+			} else if (isAdmin || isOwner) {
+				chat.adminonly = isEnable
+				chat.owneronly = false
+			} else {
 				global.dfail('admin', m, conn)
 				throw false
-			} else if (!isBotAdmin) {
-				global.dfail('botAdmin', m, conn)
-				throw false
 			}
-			chat.adminonly = isEnable
-			chat.owneronly = false
 			break
 		case 'antivirus':
 		case 'antivirtex':

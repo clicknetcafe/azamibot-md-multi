@@ -9,10 +9,15 @@ let handler = async (m, { conn, usedPrefix, isPrems }) => {
 		conn.reply(m.chat, 'Masih ada soal belum terjawab di chat ini', conn.tebaktebakan[id][0])
 		throw false
 	}
-	let usr = db.data.users[m.sender]
+	let json, usr = db.data.users[m.sender]
 	if (usr.limit < 1 && usr.money > 50000 && !isPrems) throw `Beli limit dulu lah, duid lu banyak kan 😏`
 	else if (usr.limit > 0 && !isPrems) usr.limit -= 1
-	let json = await (await fetch('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebaktebakan.json')).json()
+	try {
+		json = await (await fetch('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebaktebakan.json')).json()
+	} catch (e) {
+		console.log(e)
+		return m.reply(e.message)
+	}
 	json = json.getRandom()
 	let caption = `
 🎮 *Tebak-tebakan* 🎮

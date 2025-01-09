@@ -16,7 +16,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 			try {
 				if (db.data.chats[x.id].owneronly) continue
 				let msg, tag = /tag/.test(command) ? x.participants.map(v => v.id) : []
-				if (/image|video/g.test(mime) && !/webp/.test(mime)) msg = await conn.sendMsg(x.id, { [/image/.test(mime) ? 'image' : 'video']: img, caption: teks }, { quoted: fkontakbot, mentions: tag })
+				if (/image|video/g.test(mime) && !/webp/.test(mime)) msg = await conn.sendMsg(x.id, { [/image/.test(mime) ? 'image' : 'video']: img, caption: teks, mentions: tag }, { quoted: fkontakbot })
 				else if (/audio/.test(mime)) msg = await conn.sendFAudio(x.id, { audio: img, mimetype: 'audio/mpeg', ptt: true }, fkontakbot, text || pauthor, thumb, db.data.datas.linkgc)
 				else msg = await conn.reply(x.id, teks, fkontakbot, { mentions: tag })
 				if (/pin/.test(command)) await conn.sendMsg(x.id, { pin: msg.key, type: proto.PinInChat.Type.PIN_FOR_ALL, time: 86400})

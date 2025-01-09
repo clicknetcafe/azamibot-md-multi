@@ -90,13 +90,15 @@ bot.on('channel_post', async (ctx) => {
 			txt = (msg.caption ? msg.caption : msg.text ? msg.text : ''),
 			tes = /\d\.\d\.\d(?=\s\(current\))/gi.test(txt)
 		if (msg.entities) {
-			for (let x of msg.entities.filter(v => /bold|strikethrough/.test(v.type || ''))) 
-				q.push({ type: x.type, txt: txt.slice(x.offset, x.offset+x.length) })
+			for (let x of msg.entities.filter(v => /pre|bold|strikethrough/.test(v.type || '')))
+				q.push({ type: x.type, txt: txt.slice(x.offset, x.offset+x.length)?.trim() })
 			for (let x of q) {
-				if (/bold/.test(x.type)) txt = txt.replace(x.txt, `*${x.txt}*`)
+				if (/pre/.test(x.type)) txt = txt.replace(x.txt, '```'+x.txt+'```')
+				else if (/bold/.test(x.type)) txt = txt.replace(x.txt, `*${x.txt}*`)
 				else txt = txt.replace(x.txt, `~${x.txt}~`)
 			}
 			msg.entities.filter(v => v.url).forEach(v => { arr.push(v) })
+			txt = txt.replace(/\*+/g, '*').replace(/~+/g, '~')
 		}
 		if (msg.caption_entities) 
 			msg.caption_entities.filter(v => v.url).forEach(v => { arr.push(v) })
@@ -106,8 +108,8 @@ bot.on('channel_post', async (ctx) => {
 			if (!y) {
 				let f = msg.forward_origin
 				let h = /hidden/.test(f.type)
-				txt = `❰ *${h ? f.sender_user_name : f.chat ? f.chat.title : f.sender_user.first_name}* ❱\n`
-				+ `- *${h ? 'hidden_user' : f.chat ? '@'+(f.chat.username || f.chat.type) : '@'+(f.sender_user.username || 'hidden_user')}`
+				txt = `❰ *${h ? f.sender_user_name : f.chat ? f.chat.title : (f.sender_user?.first_name || f.sender_chat?.title)}* ❱\n`
+				+ `- *${h ? 'hidden_user' : f.chat ? '@'+(f.chat.username || f.chat.type) : '@'+(f.sender_user?.username || f.sender_chat?.type || `hidden_${f.type}`)}`
 				+ `*${txt ? '\n\n'+txt : ''}`
 			} else txt = ''
 		}

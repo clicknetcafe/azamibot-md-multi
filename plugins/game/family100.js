@@ -8,10 +8,15 @@ async function handler(m, { conn, usedPrefix, isPrems }) {
 		this.reply(m.chat, 'Masih ada kuis yang belum terjawab di chat ini', this.game[id].msg)
 		throw false
 	}
-	let usr = db.data.users[m.sender]
+	let json, usr = db.data.users[m.sender]
 	if (usr.limit < 1 && usr.money > 50000 && !isPrems) throw `Beli limit dulu lah, duid lu banyak kan 😏`
 	else if (usr.limit > 0 && !isPrems) usr.limit -= 1
-	let json = await (await fetch('https://raw.githubusercontent.com/BochilTeam/database/master/games/family100.json')).json()
+	try {
+		json = await (await fetch('https://raw.githubusercontent.com/BochilTeam/database/master/games/family100.json')).json()
+	} catch (e) {
+		console.log(e)
+		return m.reply(e.message)
+	}
 	json = json.getRandom()
 	let caption = `
 *Soal:* ${json.soal}

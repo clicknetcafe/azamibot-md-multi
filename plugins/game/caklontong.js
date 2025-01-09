@@ -12,7 +12,12 @@ let handler = async (m, { conn, usedPrefix, isPrems }) => {
 	let usr = db.data.users[m.sender]
 	if (usr.limit < 1 && usr.money > 50000 && !isPrems) throw `Beli limit dulu lah, duid lu banyak kan 😏`
 	else if (usr.limit > 0 && !isPrems) usr.limit -= 1
-	let json = await (await fetch('https://raw.githubusercontent.com/BochilTeam/database/master/games/caklontong.json')).json()
+	try {
+		json = await (await fetch('https://raw.githubusercontent.com/BochilTeam/database/master/games/caklontong.json')).json()
+	} catch (e) {
+		console.log(e)
+		return m.reply(e.message)
+	}
 	json = json.getRandom()
 	let caption = `
 🎮 *Cak Lontong* 🎮
