@@ -55,80 +55,121 @@ const config = {
 	// 'addmore': ['xxx']
 }
 
-const bot = new Telegraf(config.tele_token)
+const MAX_ATTEMPTS = 3
+const RETRY_DELAY = 5000
+const startTBot = (attempts = 0) => {
+	const bot = new Telegraf(config.tele_token)
+	bot.start((ctx) => ctx.reply('Welcome!'))
+	bot.on('text', (ctx) => ctx.reply('You said: ' + ctx.message.text))
+	bot.on('channel_post', async (ctx) => {
+		if (opts['nyimak']) return !1
+		let msg = ctx?.update?.channel_post
+		if (!msg || !Object.keys(config).some(v => v == msg.chat.id)) return !1
+		try {
+			let obj = Object.keys(msg).filter(v => /photo|video|voice|audio|document/.test(v))
+			let jid = conn.user.jid.split('@')[0]
+			let fconn = {
+				key: {
+					remoteJid: '0@s.whatsapp.net',
+					fromMe: true,
+					id: 'BAE5AB0B84194996'
+				},
+				message: {
+					contactMessage: {
+						displayName: await conn.getName(conn.user.jid),
+						vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;Azami Ai;;;\nTEL;type=CELL;type=VOICE;waid=${jid}:${jid}\nEND:VCARD`
+					}
+				},
+				status: 'PENDING',
+				messageTimestamp: '1696595373'
+			}
+			let i = 0, arr = [], q = [],
+				x = config[msg.chat.id],
+				y = msg.media_group_id && !msg.caption,
+				txt = (msg.caption ? msg.caption : msg.text ? msg.text : ''),
+				tes = /\d\.\d\.\d(?=\s\(current\))/gi.test(txt)
+			if (msg.entities) {
+				for (let x of msg.entities.filter(v => /pre|bold|strikethrough/.test(v.type || '')))
+					q.push({ type: x.type, txt: txt.slice(x.offset, x.offset+x.length)?.trim() })
+				for (let x of q) {
+					if (/pre/.test(x.type)) txt = txt.replace(x.txt, '```'+x.txt+'```')
+					else if (/bold/.test(x.type)) txt = txt.replace(x.txt, `*${x.txt}*`)
+					else txt = txt.replace(x.txt, `~${x.txt}~`)
+				}
+				msg.entities.filter(v => v.url).forEach(v => { arr.push(v) })
+				txt = txt.replace(/\*+/g, '*').replace(/~+/g, '~')
+			}
+			if (msg.caption_entities) 
+				msg.caption_entities.filter(v => v.url).forEach(v => { arr.push(v) })
+			arr = arr.filter(v => !v.url?.includes('t.me')).map(z => z.url)
+			if (arr.length > 0 && !/\d\.\d\.\d(?=\s\(current\))/gi.test(txt)) txt += '\n\n*[embedded link] :*\n- '+arr.join('\n- ')
+			if (msg.forward_origin) {
+				if (!y) {
+					let f = msg.forward_origin
+					let h = /hidden/.test(f.type)
+					txt = `❰ *${h ? f.sender_user_name : f.chat ? f.chat.title : (f.sender_user?.first_name || f.sender_chat?.title)}* ❱\n`
+					+ `- *${h ? 'hidden_user' : f.chat ? '@'+(f.chat.username || f.chat.type) : '@'+(f.sender_user?.username || f.sender_chat?.type || `hidden_${f.type}`)}`
+					+ `*${txt ? '\n\n'+txt : ''}`
+				} else txt = ''
+			}
+			let id = msg.photo ? msg.photo.pop().file_id : msg[obj[0]]?.file_id
+			do {
+				if (obj.length > 0) {
+					let url = await ctx.telegram.getFileLink(id)
+					let fileName = msg.document?.file_name || url.pathname.split('/').pop()
+					if (/voice|audio/.test(obj[0])) {
+						let send = await conn.sendFile(x[i], url.href, fileName, '', fconn, /voice/.test(obj[0]) ? true : false, {}, true)
+						if (msg[obj[0]]?.file_name) await conn.reply(x[i], txt ? (txt+'\n\n'+msg[obj[0]]?.file_name) : msg[obj[0]]?.file_name, send)
+					} else await conn.sendFile(x[i], url.href, fileName, txt, y ? null
+						: fconn, true, { mimetype: mime[fileName.split('.').pop()], ptv: msg.video_note ? true : false })
+				} else if (msg.text) await conn.reply(x[i], txt, fconn)
+				else console.log(msg)
+				await delay(ranNumb(1500, 3000))
+				i += 1
+			} while (i > 0 && i < x.length)
+		} catch (e) {
+			console.log(e)
+		}
+	})
+
+	bot.launch().then(() => {
+		console.log('TeleBot started successfully')
+	}).catch((err) => {
+		console.warn('TeleBot Failed to Launch:', err.message)
+		handleReconnect(attempts)
+	})
+
+	bot.on('stopping', async () => {
+		console.warn('TeleBot is stopping...')
+		await bot.stop()
+		handleReconnect(attempts)
+	})
+
+	bot.on('error', (err) => {
+		console.warn('TeleBot encountered an error:', err.message)
+		handleReconnect(attempts)
+	})
+}
+
+const handleReconnect = (attempts) => {
+	do {
+		attempts++
+		console.log(`Reconnect attempt (${attempts}/${MAX_ATTEMPTS})...`)
+		const waitForRetry = new Promise(resolve => setTimeout(resolve, RETRY_DELAY))
+		waitForRetry.then(() => {
+			if (attempts < MAX_ATTEMPTS) {
+				startTBot(attempts)
+			} else {
+				console.log('Max attempts reached. Exiting Telebot...')
+			}
+		})
+		return
+	} while (attempts < MAX_ATTEMPTS)
+}
 
 protoType()
 serialize()
-bot.launch().catch(e => console.warn(e.message))
-
-// forward message telegram channel to whatsapp group
-bot.on('channel_post', async (ctx) => {
-	if (opts['nyimak']) return !1
-	let msg = ctx?.update?.channel_post
-	if (!msg || !Object.keys(config).some(v => v == msg.chat.id)) return !1
-	try {
-		let obj = Object.keys(msg).filter(v => /photo|video|voice|document/.test(v))
-		let jid = conn.user.jid.split('@')[0]
-		let fconn = {
-			key: {
-				remoteJid: '0@s.whatsapp.net',
-				fromMe: true,
-				id: 'BAE5AB0B84194996'
-			},
-			message: {
-				contactMessage: {
-					displayName: await conn.getName(conn.user.jid),
-					vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;Azami Ai;;;\nTEL;type=CELL;type=VOICE;waid=${jid}:${jid}\nEND:VCARD`
-				}
-			},
-			status: 'PENDING',
-			messageTimestamp: '1696595373'
-		}
-		let i = 0, arr = [], q = [],
-			x = config[msg.chat.id],
-			y = msg.media_group_id && !msg.caption,
-			txt = (msg.caption ? msg.caption : msg.text ? msg.text : ''),
-			tes = /\d\.\d\.\d(?=\s\(current\))/gi.test(txt)
-		if (msg.entities) {
-			for (let x of msg.entities.filter(v => /pre|bold|strikethrough/.test(v.type || '')))
-				q.push({ type: x.type, txt: txt.slice(x.offset, x.offset+x.length)?.trim() })
-			for (let x of q) {
-				if (/pre/.test(x.type)) txt = txt.replace(x.txt, '```'+x.txt+'```')
-				else if (/bold/.test(x.type)) txt = txt.replace(x.txt, `*${x.txt}*`)
-				else txt = txt.replace(x.txt, `~${x.txt}~`)
-			}
-			msg.entities.filter(v => v.url).forEach(v => { arr.push(v) })
-			txt = txt.replace(/\*+/g, '*').replace(/~+/g, '~')
-		}
-		if (msg.caption_entities) 
-			msg.caption_entities.filter(v => v.url).forEach(v => { arr.push(v) })
-		arr = arr.filter(v => !v.url?.includes('t.me')).map(z => z.url)
-		if (arr.length > 0 && !/\d\.\d\.\d(?=\s\(current\))/gi.test(txt)) txt += '\n\n*[embedded link] :*\n- '+arr.join('\n- ')
-		if (msg.forward_origin) {
-			if (!y) {
-				let f = msg.forward_origin
-				let h = /hidden/.test(f.type)
-				txt = `❰ *${h ? f.sender_user_name : f.chat ? f.chat.title : (f.sender_user?.first_name || f.sender_chat?.title)}* ❱\n`
-				+ `- *${h ? 'hidden_user' : f.chat ? '@'+(f.chat.username || f.chat.type) : '@'+(f.sender_user?.username || f.sender_chat?.type || `hidden_${f.type}`)}`
-				+ `*${txt ? '\n\n'+txt : ''}`
-			} else txt = ''
-		}
-		let id = msg.photo ? msg.photo.pop().file_id : msg[obj[0]]?.file_id
-		do {
-			if (obj.length > 0) {
-				let url = await ctx.telegram.getFileLink(id)
-				let fileName = msg.document?.file_name || url.pathname.split('/').pop()
-				await conn.sendFile(x[i], url.href, fileName, txt, y ? null
-					: fconn, true, { mimetype: mime[fileName.split('.').pop()], ptv: msg.video_note ? true : false })
-			} else if (msg.text) await conn.reply(x[i], txt, fconn)
-			else console.log(msg)
-			await delay(ranNumb(1500, 3000))
-			i += 1
-		} while (i > 0 && i < x.length)
-	} catch (e) {
-		console.log(e)
-	}
-});
+startTBot()
 
 // Assign all the value in the Helper to global
 Object.assign(global, {

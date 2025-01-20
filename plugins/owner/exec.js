@@ -49,8 +49,6 @@ handler.tagsowner = ['mods']
 handler.customPrefix = /^(=?> )/
 handler.command = /(?:)/i
 
-handler.mods = true
-
 export default handler
 
 class CustomArray extends Array {
