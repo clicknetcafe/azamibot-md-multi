@@ -6,6 +6,7 @@ import { getDevice } from '@whiskeysockets/baileys'
 import { promises } from 'fs'
 import { join } from 'path'
 import os from 'os'
+import fs from 'fs'
 
 let tags = {
 	'submenu': '🎪 *SUB MENU*',
@@ -122,7 +123,39 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, command, isPrems }) =
 			await conn.sendList(m.chat, 'Hello '+name, txtList, pauthor, 'LIST MENU', nais, sections, m)
 			//await conn.sendList(m.chat, 'Hello '+name, txtList, pauthor, 'LIST MENU', nais, sections, m, [['neko', '.neko', 'quick_reply'], ['copy ini', 'https://cerdas.com', 'cta_copy'], ['owner', 'https://wa.me/6282337245566', 'cta_url']])
 		} else await conn.sendFThumb(m.chat, db.data.datas.maingroupname, text.trim(), nais, db.data.datas.linkgc, m)*/
-		await conn.sendFThumb(m.chat, db.data.datas.maingroupname, text.trim(), nais, db.data.datas.linkgc, m)
+		//await conn.sendFThumb(m.chat, db.data.datas.maingroupname, text.trim(), nais, db.data.datas.linkgc, m)
+		/*await conn.relayMessage(m.chat, {
+            extendedTextMessage:{
+                text: text.trim(), 
+                contextInfo: {
+                    mentionedJid: [m.sender],
+                    externalAdReply: {
+                        title: db.data.datas.maingroupname,
+                        mediaType: 1,
+                        previewType: 0,
+                        renderLargerThumbnail: true,
+                        thumbnailUrl: nais,
+                        sourceUrl: db.data.datas.linkgc
+                    }
+                }, 
+                mentions: [m.sender]
+            }
+        }, {})*/
+        await conn.sendMessage(m.chat, {
+			forward: {
+				key: { fromMe: true },
+				message: {
+					extendedTextMessage: {
+						text: text.trim(),
+						canonicalUrl: db.data.datas.linkgc,
+						matchedText: db.data.datas.linkgc,
+						title: db.data.datas.maingroupname,
+						description: 'ini adalah',
+						jpegThumbnail: fs.readFileSync('./media/anime.jpg')
+					}
+				}
+			}
+		})
 	} catch (e) {
 		console.log(e)
 	}

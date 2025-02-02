@@ -1,4 +1,3 @@
-import { format } from 'util'
 import { isUrl } from '../../lib/func.js'
 
 let handler = async (m, { conn, text, isOwner }) => {

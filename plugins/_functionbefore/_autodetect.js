@@ -66,7 +66,13 @@ export async function before(m) {
 			console.log(e)
 			let ana = await uploadImage(await got(pp).buffer())
 			let anu = await uploadImage(await got(ppgc).buffer())
-			await this.sendMsg(id, { image: { url: `https://api.tioo.eu.org/${add ? 'welcome' : 'goodbye'}?name=${name}&gcname=${namegc}&ppgc=${anu}&member=${meta.participants.length}&pp=${ana}&bg=${bg}` }, caption: text, mentions: [user] }, { quoted: fkontak }).catch(_ => this.reply(id, text, fkontak, { mentions: [user] }))
+			// let tio = `https://api.tioo.eu.org/${add ? 'welcome' : 'goodbye'}?name=${name}&gcname=${namegc}&ppgc=${anu}&member=${meta.participants.length}&pp=${ana}&bg=${bg}`
+			try {
+				await this.sendMsg(id, { image: { url: `https://api.siputzx.my.id/api/canvas/${add ? 'welcome' : 'goodbye'}v1?username=${name}&guildName=${namegc}&memberCount=${meta.participants.length}&guildIcon=${anu}&avatar=${ana}&background=${bg}` }, caption: text, mentions: [user] }, { quoted: fkontak })
+			} catch (e) {
+				console.log(e)
+				await this.sendMsg(id, { image: { url: `https://api.siputzx.my.id/api/canvas/${add ? 'welcome' : 'goodbye'}v2?username=${name}&memberCount=${meta.participants.length}&avatar=${ana}&background=${bg}` }, caption: text, mentions: [user] }, { quoted: fkontak }).catch(_ => this.reply(id, text, fkontak, { mentions: [user] }))
+			}
 		}
 	} else {
 		console.log({
