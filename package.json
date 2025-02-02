@@ -66,6 +66,7 @@
 		"lowdb": "5.1.0",
 		"moment-timezone": "^0.5.47",
 		"mongoose": "6.3.3",
+		"node-cron": "^3.0.3",
 		"node-gtts": "^2.0.2",
 		"node-webpmux": "^3.2.0",
 		"ofetch": "^1.4.0",

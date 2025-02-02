@@ -8,6 +8,7 @@ import Helper from './lib/helper.js'
 import db from './lib/database.js'
 import clearTmp from './lib/clearTmp.js'
 import clearSessions from './lib/clearSessions.js'
+import cron from 'node-cron'
 import { createRequire } from 'module'
 import { fileURLToPath } from 'url'
 import { join, dirname } from 'path'
@@ -68,21 +69,6 @@ const startTBot = (attempts = 0) => {
 		try {
 			let obj = Object.keys(msg).filter(v => /photo|video|voice|audio|document/.test(v))
 			let jid = conn.user.jid.split('@')[0]
-			let fconn = {
-				key: {
-					remoteJid: '0@s.whatsapp.net',
-					fromMe: true,
-					id: 'BAE5AB0B84194996'
-				},
-				message: {
-					contactMessage: {
-						displayName: await conn.getName(conn.user.jid),
-						vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;Azami Ai;;;\nTEL;type=CELL;type=VOICE;waid=${jid}:${jid}\nEND:VCARD`
-					}
-				},
-				status: 'PENDING',
-				messageTimestamp: '1696595373'
-			}
 			let i = 0, arr = [], q = [],
 				x = config[msg.chat.id],
 				y = msg.media_group_id && !msg.caption,
@@ -118,11 +104,11 @@ const startTBot = (attempts = 0) => {
 					let url = await ctx.telegram.getFileLink(id)
 					let fileName = msg.document?.file_name || url.pathname.split('/').pop()
 					if (/voice|audio/.test(obj[0])) {
-						let send = await conn.sendFile(x[i], url.href, fileName, '', fconn, /voice/.test(obj[0]) ? true : false, {}, true)
+						let send = await conn.sendFile(x[i], url.href, fileName, '', fkontakbot, /voice/.test(obj[0]) ? true : false, {}, true)
 						if (msg[obj[0]]?.file_name) await conn.reply(x[i], txt ? (txt+'\n\n'+msg[obj[0]]?.file_name) : msg[obj[0]]?.file_name, send)
 					} else await conn.sendFile(x[i], url.href, fileName, txt, y ? null
-						: fconn, true, { mimetype: mime[fileName.split('.').pop()], ptv: msg.video_note ? true : false })
-				} else if (msg.text) await conn.reply(x[i], txt, fconn)
+						: fkontakbot, true, { mimetype: mime[fileName.split('.').pop()], ptv: msg.video_note ? true : false })
+				} else if (msg.text) await conn.reply(x[i], txt, fkontakbot)
 				else console.log(msg)
 				await delay(ranNumb(1500, 3000))
 				i += 1
@@ -167,9 +153,43 @@ const handleReconnect = (attempts) => {
 	} while (attempts < MAX_ATTEMPTS)
 }
 
+const nsfw_on = async () => {
+	try {
+		const group = Object.values(await conn.groupFetchAllParticipating())
+			.filter(v => !v.isCommunity).filter(v => !v.isCommunityAnnounce)
+		for (let x of group) {
+			if (db.data.chats[x.id].autonsfw) {
+				db.data.chats[x.id].nsfw = true
+				await conn.reply(x.id, '*nsfw* otomatis di *nyalakan* untuk grup ini', fkontakbot)
+			}
+		}
+	} catch (e) {
+		console.log(e)
+	}
+};
+
+const nsfw_off = async () => {
+	try {
+		const group = Object.values(await conn.groupFetchAllParticipating())
+			.filter(v => !v.isCommunity).filter(v => !v.isCommunityAnnounce)
+		for (let x of group) {
+			if (db.data.chats[x.id].autonsfw) {
+				db.data.chats[x.id].nsfw = false
+				await conn.reply(x.id, '*nsfw* otomatis di *matikan* untuk grup ini', fkontakbot)
+			}
+		}
+	} catch (e) {
+		console.log(e)
+	}
+};
+
+// Schedule the task for autonsfw
+cron.schedule('30 21 * * *', nsfw_on); // Every day at 21:30
+cron.schedule('0 6 * * *', nsfw_off);  // Every day at 06:00
+
+startTBot()
 protoType()
 serialize()
-startTBot()
 
 // Assign all the value in the Helper to global
 Object.assign(global, {

@@ -76,6 +76,19 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			}
 			chat.nsfw = isEnable
 			break
+		case 'autonsfw':
+			if (!m.isGroup) {
+				global.dfail('group', m, conn)
+				throw false
+			} else if (!isAdmin) {
+				global.dfail('admin', m, conn)
+				throw false
+			} else if (!isBotAdmin) {
+				global.dfail('botAdmin', m, conn)
+				throw false
+			}
+			chat.autonsfw = isEnable
+			break
 		case 'simi':
 			if (!m.isGroup) {
 				global.dfail('group', m, conn)
@@ -325,7 +338,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			}
 			break
 		default:
-			if (!/[01]/.test(command)) return m.reply(`*List option :*\n| presence | welcome | delete | antidelete | autolevelup | ephemeral | nsfw | simi | game | anticall | antisticker | antitoxic | antilink | antilinkkick | antiuncheck | antivirtex | antiviewonce | autoai | autoaipc | public | self | restrict | autoread | adminonly | owneronly | pconly | gconly |
+			if (!/[01]/.test(command)) return m.reply(`*List option :*\n| presence | welcome | delete | antidelete | autolevelup | ephemeral | nsfw | autonsfw | simi | game | anticall | antisticker | antitoxic | antilink | antilinkkick | antiuncheck | antivirtex | antiviewonce | autoai | autoaipc | public | self | restrict | autoread | adminonly | owneronly | pconly | gconly |
 
 Example :
 *${usedPrefix + command} welcome*
@@ -333,7 +346,7 @@ Example :
 `.trim())
 			throw false
 	}
-	let msg = await conn.reply(m.chat, `*${type}* berhasil di *${isEnable ? 'nyala' : 'mati'}kan* ${isAll ? 'untuk bot ini' : isUser ? '' : 'untuk grup ini'}`, m)
+	let msg = await conn.reply(m.chat, `*${type}* berhasil di *${isEnable ? 'nyala' : 'mati'}kan* ${isAll ? 'untuk bot ini' : isUser ? '' : 'untuk grup ini'}${(isEnable && type == 'autonsfw') ? '\n\naktif pukul 21:30, nonaktif pukul 06:00 (localtime)' : ''}`, m)
 	if (type == 'self') {
 		if (datas.selfpinkey.id) {
 			await conn.sendMessage(datas.selfpinkey.remoteJid, { pin: datas.selfpinkey, type: proto.PinInChat.Type.UNPIN_FOR_ALL })
