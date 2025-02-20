@@ -531,6 +531,7 @@ export async function handler(chatUpdate) {
 					if (!isNumber(chat.lastmute)) chat.lastmute = 0
 					if (!isNumber(chat.mutecd)) chat.mutecd = 0
 					if (!isNumber(chat.spamcount)) chat.spamcount = 0
+					if (!('warn' in chat)) chat.warn = {}
 				} else db.data.chats[m.chat] = {
 					presence: false,
 					isBanned: false,
@@ -566,6 +567,7 @@ export async function handler(chatUpdate) {
 					lastmute: 0,
 					mutecd: 0,
 					spamcount: 0,
+					warn: {},
 				}
 				let akinator = db.data.chats[m.chat].akinator
 				if (typeof akinator !== 'object')

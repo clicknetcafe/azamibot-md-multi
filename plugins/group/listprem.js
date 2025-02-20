@@ -8,8 +8,7 @@ let handler = async (m, { conn, usedPrefix }) => {
 	let txt = `*[ LIST PREMIUM USER ]*\n`
 	for (let i of prems) {
 		let name = await conn.getName(i.user)
-		let pn = await parsePhoneNumber('+' + i.user.split('@')[0])
-		pn = pn.number.international
+		let pn = await parsePhoneNumber('+' + i.user.split('@')[0]).number.international
 		timer = i.date - new Date()
 		if (timer <= 0) {}
 		else {

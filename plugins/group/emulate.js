@@ -1,3 +1,4 @@
+import got from 'got'
 import uploadImage from '../../lib/uploadImage.js'
 import db from '../../lib/database.js'
 import Connection from '../../lib/connection.js'
@@ -35,7 +36,7 @@ let handler = async (m, { conn, usedPrefix, command, args, participants }) => {
 			console.log(e)
 			let ana = await uploadImage(await got(pp).buffer())
 			let anu = await uploadImage(await got(ppgc).buffer())
-			await conn.sendMsg(m.chat, { image: { url: `https://btch.us.kg/${add ? 'welcome' : 'goodbye'}?name=${name}&gcname=${namegc}&ppgc=${anu}&member=${participants?.length || '99'}&pp=${ana}&bg=${bg}` }, caption: text, mentions: [m.sender] }, { quoted: fkontak }).catch(_ => conn.reply(m.chat, text, fkontak, { mentions: [m.sender] }))
+			await conn.sendMsg(m.chat, { image: { url: `https://api.siputzx.my.id/api/canvas/${add ? 'welcome' : 'goodbye'}v1?username=${name}&guildName=${namegc}&memberCount=${participants?.length || '99'}&guildIcon=${anu}&avatar=${ana}&background=${bg}` }, caption: text, mentions: [m.sender] }, { quoted: fkontak }).catch(_ => conn.reply(m.chat, text, fkontak, { mentions: [m.sender] }))
 		}
 	} else if (/f(kontak(bot)?|troli|vn|vid|textt)/.test(tx)) {
 		await conn.reply(m.chat, `Halo @${m.sender.split('@')[0]}, ini simulasi ${tx}`, /troli/.test(tx) ? ftroli : /vn/.test(tx) ? fvn : /vid/.test(tx) ? fvid : /textt/.test(tx) ? ftextt : /bot/.test(tx) ? fkontakbot : fkontak, { mentions: [m.sender] })

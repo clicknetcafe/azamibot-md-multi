@@ -99,6 +99,7 @@ const startTBot = (attempts = 0) => {
 				} else txt = ''
 			}
 			let id = msg.photo ? msg.photo.pop().file_id : msg[obj[0]]?.file_id
+			if (txt) txt = txt.replace('\nNews Channel  - Join Discussion Group', '')
 			do {
 				if (obj.length > 0) {
 					let url = await ctx.telegram.getFileLink(id)

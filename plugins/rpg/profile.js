@@ -1,5 +1,5 @@
 import db from '../../lib/database.js'
-import PhoneNumber from 'awesome-phonenumber'
+import { parsePhoneNumber } from 'awesome-phonenumber'
 import { xpRange } from '../../lib/levelling.js'
 
 let handler = async (m, { conn, isPrems, text }) => {
@@ -18,7 +18,7 @@ let handler = async (m, { conn, isPrems, text }) => {
 		let username = await(conn.getName(who))
 		let str = `*${username ? username.replaceAll('\n','') : '-'}* (@${who.replace(/@.+/, '')})\n\n`
 		str += `${about ? `*About :* ${about.replaceAll('\n','')}\n` : ''}`
-		str += `*Number :* ${PhoneNumber('+' + who.replace('@s.whatsapp.net', '')).getNumber('international')}\n`
+		str += `*Number :* ${parsePhoneNumber('+' + who.replace('@s.whatsapp.net', '')).number.international}\n`
 		str += `*Link :* https://wa.me/${who.split`@`[0]}\n`
 		str += `*Level :* ${level}\n`
 		str += `*Role :* ${role}\n`
