@@ -18,7 +18,7 @@ let handler = async (m, { conn, isPrems, text }) => {
 		let username = await(conn.getName(who))
 		let str = `*${username ? username.replaceAll('\n','') : '-'}* (@${who.replace(/@.+/, '')})\n\n`
 		str += `${about ? `*About :* ${about.replaceAll('\n','')}\n` : ''}`
-		str += `*Number :* ${parsePhoneNumber('+' + who.replace('@s.whatsapp.net', '')).number.international}\n`
+		str += `*Number :* ${parsePhoneNumber('+'+who.replace('@s.whatsapp.net', '')).number.international}\n`
 		str += `*Link :* https://wa.me/${who.split`@`[0]}\n`
 		str += `*Level :* ${level}\n`
 		str += `*Role :* ${role}\n`

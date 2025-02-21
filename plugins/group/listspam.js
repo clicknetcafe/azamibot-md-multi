@@ -75,7 +75,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isB
 		let txt = `*[ LIST SPAM USER ]*\nLast Reset : ${new Date(data.spamcountreset)}\n`
 		for (let x of Object.keys(user)) {
 			if (!petinggi.includes(x) && user[x].spamcount > ia) {
-				let pn = await parsePhoneNumber('+' + x.split('@')[0]).number.international
+				let pn = await parsePhoneNumber('+'+x.split('@')[0]).number.international
 				y = user[x].spamcount
 				name = await conn.getName(x)
 				await array.push({ title: `*${name.replace(/\n/g, '').trim()}*${name != pn ? ` (${pn})` : ''}`, rowId: `${usedPrefix}diem ${(y + ranNumb(1, 10)) * 3} ${x}`, description: `spam count : ${y}`, user: x, count: y })

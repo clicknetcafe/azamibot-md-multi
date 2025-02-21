@@ -29,7 +29,7 @@ let handler = async (m, { conn, usedPrefix, command, isOwner, text }) => {
 		timer = pc[x].bannedcd - (new Date - pc[x].lastbanned)
 		if (!pc[x].permaban && timer <= 0) {}
 		else {
-			let pn = await parsePhoneNumber('+' + x.split('@')[0]).number.international
+			let pn = await parsePhoneNumber('+'+x.split('@')[0]).number.international
 			name = await conn.getName(x)
 			sisa = pc[x].permaban ? 'Status : Permanent Banned' : isNaN(timer) ? 'Status : Soft Banned' : `Mute : ${timer.toTimeString()}`
 			txt += `\n*[${y}] ${name.replace(/\n/g, '').trim()}*\n`
