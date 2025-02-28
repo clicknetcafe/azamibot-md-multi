@@ -9,8 +9,7 @@ export async function before(m, { isAdmin, text, isBotAdmin }) {
 	if (!m.isGroup || m.fromMe) return !1
 	let chat = db.data.chats[m.chat]
 	let danger = urls.some(v => m.text?.includes(v))
-	// cegah spamtag bocil sw
-	let newsletter = m.message?.extendedTextMessage?.contextInfo?.forwardedNewsletterMessageInfo ? true : (Object.keys(m.message || {}).length == 0) ? true : false
+	let newsletter = m.message?.extendedTextMessage?.contextInfo?.forwardedNewsletterMessageInfo ? true : false
 	const isGroupLink = linkRegex.exec(m.text) ? linkRegex.exec(m.text) : newsletter ? newsletter : danger
 	if (chat.antiLink && isGroupLink && !isAdmin) {
 		if (isBotAdmin) {
