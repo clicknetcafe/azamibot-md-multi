@@ -128,6 +128,22 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			}
 			chat.antiLink = isEnable
 			break
+		case 'antitagsw':
+		case 'antitagstatus':
+		case 'antimentionsw':
+		case 'antimentionstatus':
+			if (!m.isGroup) {
+				global.dfail('group', m, conn)
+				throw false
+			} else if (!isAdmin) {
+				global.dfail('admin', m, conn)
+				throw false
+			} else if (!isBotAdmin) {
+				global.dfail('botAdmin', m, conn)
+				throw false
+			}
+			chat.antitagsw = isEnable
+			break
 		case 'antisticker':
 			if (!m.isGroup) {
 				global.dfail('group', m, conn)
@@ -338,7 +354,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			}
 			break
 		default:
-			if (!/[01]/.test(command)) return m.reply(`*List option :*\n| presence | welcome | delete | antidelete | autolevelup | ephemeral | nsfw | autonsfw | simi | game | anticall | antisticker | antitoxic | antilink | antilinkkick | antiuncheck | antivirtex | antiviewonce | autoai | autoaipc | public | self | restrict | autoread | adminonly | owneronly | pconly | gconly |
+			if (!/[01]/.test(command)) return m.reply(`*List option :*\n| presence | welcome | delete | antidelete | autolevelup | ephemeral | nsfw | autonsfw | simi | game | anticall | antisticker | antitoxic | antilink | antilinkkick | antiuncheck | antivirtex | antiviewonce | antitagsw | autoai | autoaipc | public | self | restrict | autoread | adminonly | owneronly | pconly | gconly |
 
 Example :
 *${usedPrefix + command} welcome*

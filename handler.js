@@ -516,6 +516,7 @@ export async function handler(chatUpdate) {
 					if (!('adminonly' in chat)) chat.adminonly = false
 					if (!('owneronly' in chat)) chat.owneronly = false
 					if (!('antivirus' in chat)) chat.antivirus = false
+					if (!('antitagsw' in chat)) chat.antitagsw = false
 					if (!('nsfw' in chat)) chat.nsfw = false
 					if (!('autonsfw' in chat)) chat.autonsfw = false
 					if (!('pdf' in chat)) chat.pdf = false
@@ -552,6 +553,7 @@ export async function handler(chatUpdate) {
 					adminonly: false,
 					owneronly: false,
 					antivirus: false,
+					antitagsw: false,
 					nsfw: false,
 					autonsfw: false,
 					pdf: false,
