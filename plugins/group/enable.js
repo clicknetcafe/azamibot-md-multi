@@ -296,6 +296,17 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			}
 			global.opts['self'] = isEnable
 			break
+		case 'fkontaktele':
+			isAll = true
+			if (!isROwner) {
+				global.dfail('rowner', m, conn)
+				throw false
+			} else if (!m.isGroup) {
+				global.dfail('group', m, conn)
+				throw false
+			}
+			chat.fkontakTbot = isEnable
+			break
 		case 'restrict':
 			isAll = true
 			if (!isOwner) {
@@ -354,7 +365,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 			}
 			break
 		default:
-			if (!/[01]/.test(command)) return m.reply(`*List option :*\n| presence | welcome | delete | antidelete | autolevelup | ephemeral | nsfw | autonsfw | simi | game | anticall | antisticker | antitoxic | antilink | antilinkkick | antiuncheck | antivirtex | antiviewonce | antitagsw | autoai | autoaipc | public | self | restrict | autoread | adminonly | owneronly | pconly | gconly |
+			if (!/[01]/.test(command)) return m.reply(`*List option :*\n| adminonly | anticall | antidelete | antilink | antilinkkick | antisticker | antitagsw | antitoxic | antiuncheck | antiviewonce | antivirtex | autoai | autoaipc | autolevelup | autonsfw | autoread | delete | ephemeral | fkontaktele | game | gconly | nsfw | owneronly | pconly | presence | public | restrict | self | simi | welcome |
 
 Example :
 *${usedPrefix + command} welcome*

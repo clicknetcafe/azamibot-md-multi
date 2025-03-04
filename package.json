@@ -40,8 +40,8 @@
 	"license": "GPL-3.0-or-later",
 	"dependencies": {
 		"@adiwajshing/keyed-db": "^0.2.4",
-		"@whiskeysockets/baileys": "^6.17.16",
-		"awesome-phonenumber": "^7.3.0",
+		"@whiskeysockets/baileys": "^6.7.16",
+		"awesome-phonenumber": "^7.4.0",
 		"axios": "^1.8.1",
 		"brainly-scraper-v2": "^2.2.8",
 		"cfonts": "^3.3.0",

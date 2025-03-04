@@ -513,6 +513,7 @@ export async function handler(chatUpdate) {
 					if (!('antiToxic' in chat)) chat.antiToxic = false
 					if (!('antiUncheck' in chat)) chat.antiUncheck = false
 					if (!('antiLinkKick' in chat)) chat.antiLinkKick = false
+					if (!('fkontakTbot' in chat)) chat.fkontakTbot = false
 					if (!('adminonly' in chat)) chat.adminonly = false
 					if (!('owneronly' in chat)) chat.owneronly = false
 					if (!('antivirus' in chat)) chat.antivirus = false
@@ -550,6 +551,7 @@ export async function handler(chatUpdate) {
 					antiToxic: false,
 					antiUncheck: false,
 					antiLinkKick: false,
+					fkontakTbot: false
 					adminonly: false,
 					owneronly: false,
 					antivirus: false,

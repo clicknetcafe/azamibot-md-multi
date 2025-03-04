@@ -93,23 +93,23 @@ const startTBot = (attempts = 0) => {
 				if (!y) {
 					let f = msg.forward_origin
 					let h = /hidden/.test(f.type)
-					txt = `❰ *${h ? f.sender_user_name : f.chat ? f.chat.title : (f.sender_user?.first_name || f.sender_chat?.title)}* ❱\n`
-					+ `- *${h ? 'hidden_user' : f.chat ? '@'+(f.chat.username || f.chat.type) : '@'+(f.sender_user?.username || f.sender_chat?.type || `hidden_${f.type}`)}`
+					txt = `- *${h ? 'hidden_user' : f.chat ? (f.chat.username || f.chat.type) : (f.sender_user?.username || f.sender_chat?.type || `hidden_${f.type}`)}`
 					+ `*${txt ? '\n\n'+txt : ''}`
 				} else txt = ''
 			}
-			let id = msg.photo ? msg.photo.pop().file_id : msg[obj[0]]?.file_id
-			if (txt) txt = txt.replace('\nNews Channel  - Join Discussion Group', '')
+			let quoo, id = msg.photo ? msg.photo.pop().file_id : msg[obj[0]]?.file_id
+			if (txt) txt = txt.replace(/  +/g, ' ').replace(/\n\*?News Channel\*? \*?-\*? \*?Join Discussion Group\*?/g, '')
 			do {
+				quoo = db.data.chats[x[i]].fkontakTbot ? fkontakbot : null
 				if (obj.length > 0) {
 					let url = await ctx.telegram.getFileLink(id)
 					let fileName = msg.document?.file_name || url.pathname.split('/').pop()
 					if (/voice|audio/.test(obj[0])) {
-						let send = await conn.sendFile(x[i], url.href, fileName, '', fkontakbot, /voice/.test(obj[0]) ? true : false, {}, true)
+						let send = await conn.sendFile(x[i], url.href, fileName, '', quoo, /voice/.test(obj[0]) ? true : false, {}, true)
 						if (msg[obj[0]]?.file_name) await conn.reply(x[i], txt ? (txt+'\n\n'+msg[obj[0]]?.file_name) : msg[obj[0]]?.file_name, send)
 					} else await conn.sendFile(x[i], url.href, fileName, txt, y ? null
-						: fkontakbot, true, { mimetype: mime[fileName.split('.').pop()], ptv: msg.video_note ? true : false })
-				} else if (msg.text) await conn.reply(x[i], txt, fkontakbot)
+						: quoo, true, { mimetype: mime[fileName.split('.').pop()], ptv: msg.video_note ? true : false })
+				} else if (msg.text) await conn.reply(x[i], txt, quoo)
 				else console.log(msg)
 				await delay(ranNumb(1500, 3000))
 				i += 1
