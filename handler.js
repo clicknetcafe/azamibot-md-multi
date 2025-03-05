@@ -551,7 +551,7 @@ export async function handler(chatUpdate) {
 					antiToxic: false,
 					antiUncheck: false,
 					antiLinkKick: false,
-					fkontakTbot: false
+					fkontakTbot: false,
 					adminonly: false,
 					owneronly: false,
 					antivirus: false,
