@@ -10,7 +10,7 @@ let handler = async (m, { conn, text, usedPrefix, command, isPrems }) => {
 		await conn.sendFile(m.chat, anu.image, '', anu.title || `*Search : ${text.trim()}*`, m)
 	} catch (e) {
 		console.log(e)
-		m.reply('media tidak ditemukan')
+		await conn.sendMsg(m.chat, { image: { url: 'https://api.koboo.my.id/api/search/pinterest?query='+text }, caption: `*Search : ${text.trim()}*` }, { quoted: m }).catch(_ => m.reply('media tidak ditemukan'))
 	}
 }
 
