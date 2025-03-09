@@ -26,7 +26,7 @@ let handler = async (m, { conn, participants, usedPrefix, command, args, isOwner
 		users.banned = true
 		users.lastbanned = new Date * 1
 		users.bannedcd = cooldown * total
-		users.spamcount = 0
+		if (isOwner) users.spamcount = 0
 		await conn.reply(who, `User @${who.split('@')[0]} di *mute* selama ${total} menit.`, fliveLoc, { mentions: [who] })
 	} else {
 		m.reply(`*「ADMIN GROUP ONLY」*`)

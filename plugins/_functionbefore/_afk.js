@@ -14,6 +14,7 @@ export async function before(m, { participants }) {
 	for (let jid of jids) {
 		let user = db.data.users[jid]
 		if (!user?.afk) continue
+		if (m.isBaileys) return !1
 		if (user.afk > -1) this.reply(m.chat, `Jangan tag dia!\n  Dia sedang AFK${user?.afkReason ? ` dengan alasan ${user.afkReason}` : ''}\n  Selama ${clockString(new Date - user.afk)}`, m)
 	}
 	return !0
