@@ -11,7 +11,7 @@ export async function before(m, { isAdmin, text, isBotAdmin }) {
 				if (sw?.type == 25 || sw?.type == 0) {
 					return await this
 						.sendMsg(m.chat, { delete: { remoteJid: m.key.remoteJid, fromMe: false, id: m.key.id, participant: m.sender } })
-				} else return conn.reply('6282337245566@s.whatsapp.net', JSON.stringify(sw, null, 2))
+				}
 			}
 			if (Object.keys(m.message || {}).length === 0) {
 				if (this.cektag.user == m.key.participant) {
