@@ -11,11 +11,16 @@ let handler = async (m, { text, conn }) => {
 	chat.spamcount = 0
 	chat.lastmute = 0
 	chat.mutecd = 0
-	m.reply('Bot dapat digunakan kembali.')
-	let pin = db.data.datas.pinmsg
-	if (pin['banchat']) {
-		await conn.sendMsg(m.chat, { pin: pin['banchat'], type: proto.PinInChat.Type['UNPIN_FOR_ALL'] })
-		delete pin['banchat']
+	try {
+		await conn.reply(id, 'Bot dapat digunakan kembali.', m)
+		let pin = db.data.chats[id].pinmsg
+		if (pin['banchat']) {
+			await conn.sendMsg(id, { pin: pin['banchat'], type: proto.PinInChat.Type['UNPIN_FOR_ALL'] })
+			delete pin['banchat']
+		}
+	} catch (e) {
+		console.log(e)
+		m.reply(e.message)
 	}
 }
 

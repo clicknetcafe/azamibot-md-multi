@@ -10,7 +10,7 @@ export async function before(m, { isAdmin, isBotAdmin }) {
 		chat.mutecd = 0
 		chat.isBanned = false
 		await this.reply(m.chat, `Bot dapat digunakan kembali.`, fkontak)
-		let pin = db.data.datas.pinmsg
+		let pin = db.data.chats[m.chat].pinmsg
 		if (pin['mutegc']) {
 			await this.sendMsg(m.chat, { pin: pin['mutegc'], type: proto.PinInChat.Type['UNPIN_FOR_ALL'] })
 			delete pin['mutegc']

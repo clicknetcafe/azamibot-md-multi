@@ -20,10 +20,15 @@ let handler = async (m, { conn, args, usedPrefix, command, isPrems, isAdmin, isO
 		chat.lastmute = new Date * 1
 		chat.mutecd = cooldown * total
 		chat.spamcount = 0
-		let msg = await conn.reply(grup, `Group di *mute* selama ${total} menit.`, fliveLoc, { mentions: participants.map(a => a.id) })
-		let pin = db.data.datas.pinmsg
-		pin['mutegc'] = msg.key
-		await conn.sendMsg(m.chat, { pin: pin['mutegc'], type: proto.PinInChat.Type['PIN_FOR_ALL'], time: 86400 })
+		try {
+			let msg = await conn.reply(grup, `Group di *mute* selama ${total} menit.`, fliveLoc, { mentions: participants.map(a => a.id) })
+			let pin = db.data.chats[grup].pinmsg
+			pin['mutegc'] = msg.key
+			await conn.sendMsg(grup, { pin: pin['mutegc'], type: proto.PinInChat.Type['PIN_FOR_ALL'], time: 86400 })
+		} catch (e) {
+			console.log(e)
+			m.reply(e.message)
+		}
 	} else throw `*「ADMIN / PREM / OWNER ONLY」*`
 }
 

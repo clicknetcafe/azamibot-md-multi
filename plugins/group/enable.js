@@ -375,7 +375,7 @@ Example :
 	}
 	let msg = await conn.reply(m.chat, `*${type}* berhasil di *${isEnable ? 'nyala' : 'mati'}kan* ${isAll ? 'untuk bot ini' : isUser ? '' : 'untuk grup ini'}${(isEnable && type == 'autonsfw') ? '\n\naktif pukul 21:30, nonaktif pukul 06:00 (localtime)' : ''}`, m)
 	if (/self|admin|owner/.test(type)) {
-		let pin = db.data.datas.pinmsg
+		let pin = type == 'self' ? db.data.datas.pinmsg : db.data.chats[m.chat].pinmsg
 		if (isEnable) pin[type] = msg.key
 		if (pin[type]) await conn.sendMsg(m.chat, { pin: pin[type], type: proto.PinInChat.Type[(isEnable ? '' : 'UN')+'PIN_FOR_ALL'], time: 86400 })
 		if (!isEnable) delete pin[type]

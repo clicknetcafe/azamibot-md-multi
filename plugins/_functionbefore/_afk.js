@@ -1,12 +1,12 @@
 import db from '../../lib/database.js'
 
-export async function before(m) {
+export async function before(m, { participants }) {
 	if (!m.isGroup) return !1
 	if (m.fromMe) return !1
 	if (db.data.chats[m.chat].isBanned) return !1
 	let user = db.data.users[m.sender]
 	if (user?.afk > 0) {
-		m.reply(`Kamu berhenti AFK${user.afkReason ? ` setelah ${user.afkReason}` : ''}\n  Selama ${clockString(new Date - user.afk)}`)
+		this.reply(m.chat, `Kamu berhenti AFK${user.afkReason ? ` setelah ${user.afkReason}` : ''}\n  Selama ${clockString(new Date - user.afk)}`, m)
 		user.afk = -1
 		user.afkReason = ''
 	}
@@ -14,7 +14,7 @@ export async function before(m) {
 	for (let jid of jids) {
 		let user = db.data.users[jid]
 		if (!user?.afk) continue
-		if (user.afk > -1) m.reply(`Jangan tag dia!\n  Dia sedang AFK${user?.afkReason ? ` dengan alasan ${user.afkReason}` : ''}\n  Selama ${clockString(new Date - user.afk)}`)
+		if (user.afk > -1) this.reply(m.chat, `Jangan tag dia!\n  Dia sedang AFK${user?.afkReason ? ` dengan alasan ${user.afkReason}` : ''}\n  Selama ${clockString(new Date - user.afk)}`, m)
 	}
 	return !0
 }

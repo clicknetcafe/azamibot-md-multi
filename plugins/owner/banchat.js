@@ -11,10 +11,15 @@ let handler = async (m, { args, conn }) => {
 	chat.spamcount = 0
 	chat.lastmute = 0
 	chat.mutecd = 0
-	let msg = await m.reply('Bot dalam mode nyimak.')
-	let pin = db.data.datas.pinmsg
-	pin['banchat'] = msg.key
-	await conn.sendMsg(m.chat, { pin: pin['banchat'], type: proto.PinInChat.Type['PIN_FOR_ALL'], time: 86400 })
+	try {
+		let msg = await conn.reply(id, 'Bot dalam mode nyimak.', m)
+		let pin = db.data.chats[id].pinmsg
+		pin['banchat'] = msg.key
+		await conn.sendMsg(id, { pin: pin['banchat'], type: proto.PinInChat.Type['PIN_FOR_ALL'], time: 86400 })
+	} catch (e) {
+		console.log(e)
+		m.reply(e.message)
+	}
 }
 
 handler.menuowner = ['banchat']

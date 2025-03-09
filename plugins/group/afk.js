@@ -17,7 +17,11 @@ let handler = async (m, { conn, isAdmin, isBotAdmin, text }) => {
 	}
 	user.afk = + new Date
 	user.afkReason = text
-	m.reply(`${await conn.getName(m.sender)} is now AFK${text ? `\n  *Alasan* : ${text}` : ''}`)
+	if (user.afkReason) {
+		let tes = await conn.parseMention(user.afkReason)
+		for (let x of tes) user.afkReason = user.afkReason.replace('@'+x.split('@')[0], await conn.getName(x))
+	}
+	m.reply(`${await conn.getName(m.sender)} is now AFK${text ? `\n  *Alasan* : ${user.afkReason}` : ''}`)
 }
 
 handler.menugroup = ['afk']
