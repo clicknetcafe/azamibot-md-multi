@@ -1,5 +1,6 @@
 import db from '../../lib/database.js'
 import { isNumber } from '../../lib/func.js'
+const { proto } = await (await import('@whiskeysockets/baileys')).default
 
 const cooldown = 60000
 
@@ -19,7 +20,10 @@ let handler = async (m, { conn, args, usedPrefix, command, isPrems, isAdmin, isO
 		chat.lastmute = new Date * 1
 		chat.mutecd = cooldown * total
 		chat.spamcount = 0
-		await conn.reply(grup, `Group di *mute* selama ${total} menit.`, fliveLoc, { mentions: participants.map(a => a.id) })
+		let msg = await conn.reply(grup, `Group di *mute* selama ${total} menit.`, fliveLoc, { mentions: participants.map(a => a.id) })
+		let pin = db.data.datas.pinmsg
+		pin['mutegc'] = msg.key
+		await conn.sendMsg(m.chat, { pin: pin['mutegc'], type: proto.PinInChat.Type['PIN_FOR_ALL'], time: 86400 })
 	} else throw `*「ADMIN / PREM / OWNER ONLY」*`
 }
 

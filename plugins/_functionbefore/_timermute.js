@@ -1,5 +1,4 @@
 import db from '../../lib/database.js'
-
 const { proto } = await (await import('@whiskeysockets/baileys')).default
 
 export async function before(m, { isAdmin, isBotAdmin }) {
@@ -11,11 +10,11 @@ export async function before(m, { isAdmin, isBotAdmin }) {
 		chat.mutecd = 0
 		chat.isBanned = false
 		await this.reply(m.chat, `Bot dapat digunakan kembali.`, fkontak)
-		if (isBotAdmin && chat.mutepinkey.id) {
-			await this.sendMessage(m.chat, { pin: chat.mutepinkey, type: proto.PinInChat.Type.UNPIN_FOR_ALL })
-			chat.mutepinkey = {}
+		let pin = db.data.datas.pinmsg
+		if (pin['mutegc']) {
+			await this.sendMsg(m.chat, { pin: pin['mutegc'], type: proto.PinInChat.Type['UNPIN_FOR_ALL'] })
+			delete pin['mutegc']
 		}
-		console.log('dah')
 	}
 	return !0
 }

@@ -5,19 +5,14 @@ let handler = async (m, { conn }) => {
 	if (!q.viewOnce) throw 'Itu bukan pesan viewOnce'
 	let txt = q.caption || ''
 	try {
-		let msg = q.message?.[Object.keys(q.message)[0]] || null
-		if (msg && !msg.mediaKey) {
-			let rvo = db.data.datas.rvo
-			let tes = rvo.find(v => v?.url == msg.url)
-			if (tes) {
-				q.message[Object.keys(q.message)[0]].mediaKey = tes.mediaKey
-    			q.message[Object.keys(q.message)[0]].directPath = tes.directPath
-			}
-		}
+		let msg = q.message?.[Object.keys(q.message)[0]] || q.mediaMessage?.[Object.keys(q.mediaMessage)[0]] || null
+		let rvo = db.data.datas.rvo
+		let tes = rvo.find(v => v?.url == msg.url)
+		if (tes) q.message = tes.msg
 		await conn.sendFile(m.chat, await q.download(), '', txt, null, true, { mentions: conn.parseMention(txt), quoted: m })
 	} catch (e) {
 		console.log(e)
-		throw 'already opened'
+		m.reply('already opened')
 	}
 }
 

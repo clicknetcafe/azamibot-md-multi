@@ -1,7 +1,4 @@
-import fs from 'fs'
-import path from 'path'
 import SpottyDL from 'spottydl'
-import { ytdl, ytdl2 } from '../../lib/scrape.js'
 import { isUrl } from '../../lib/func.js'
 
 let handler = async (m, { conn, text, usedPrefix, command, __dirname }) => {
@@ -10,31 +7,25 @@ let handler = async (m, { conn, text, usedPrefix, command, __dirname }) => {
 		if (/\/track\//.test(text)) {
 			try {
 				let res = await SpottyDL.getTrack(text)
-				if (typeof res !== 'object') throw 'invalid spotify track url'
-				let tmp = path.join(__dirname, '../tmp')
-				let ttl = tmp+`/${res.title}.mp3`
-				fs.closeSync(fs.openSync(ttl, 'w'))
-				let anu = await SpottyDL.downloadTrack(res, tmp)
-				await conn.sendFAudio(m.chat, { [/mp3/g.test(command) ? 'document' : 'audio']: { url: ttl }, mimetype: 'audio/mpeg', fileName: `${res.title}.mp3` }, m, res.title, 'https://telegra.ph/file/2e15408ac5e72fc90bc3f.jpg', text)
-			} catch (e) {
-				console.log(e)
-				let res = await SpottyDL.getTrack(text)
 				let args = 'https://youtu.be/'+res.id
 				try {
-					const anu = await ytdl2.audio(args);
-					if (!anu.status) throw Error(anu.msg)
-					await conn.sendFAudio(m.chat, { [/mp3/g.test(command) ? 'document' : 'audio']: { url: anu.media }, mimetype: 'audio/mpeg', fileName: `${anu.title}.mp3` }, m, anu.title, anu.thumbnail, args)
+					let anu = await (await fetch('https://api.siputzx.my.id/api/d/ytmp3?url='+args)).json()
+					if (!anu.error) {
+						anu = anu.data
+						await conn.sendFile(m.chat, anu.dl, '', '', m)
+					} else {
+						let anu = await (await fetch('https://api.siputzx.my.id/api/dl/youtube/mp3?url='+args)).json()
+						if (!anu.error) {
+							await conn.sendFile(m.chat, anu.dl, '', '', m)
+						} else m.reply(anu.error)
+					}
 				} catch (e) {
 					console.log(e)
-					try {
-						const anu = await ytdl(args);
-						let aud = anu.resultUrl.audio[0]
-						await conn.sendFAudio(m.chat, { [/mp3/g.test(command) ? 'document' : 'audio']: { url: await aud.download() }, mimetype: 'audio/mpeg', fileName: `${anu.result.title}.mp3` }, m, anu.result.title, 'https://telegra.ph/file/2e15408ac5e72fc90bc3f.jpg', args)
-					} catch (e) {
-						console.log(e)
-						m.reply(e.message)
-					}
+					m.reply(e.message)
 				}
+			} catch (e) {
+				console.log(e)
+				m.reply(e.message)
 			}
 		} else if (/\/album\//.test(text)) {
 			let anu = await SpottyDL.getAlbum(text)

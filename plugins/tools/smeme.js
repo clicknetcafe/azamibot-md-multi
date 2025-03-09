@@ -14,7 +14,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	let img = await q.download?.()
 	let out = await uploadImage(img)
 	try {
-		let res = `https://api.memegen.link/images/custom/${encodeURIComponent(l)}/${encodeURIComponent(r)}.png?background=${out}`
+		let res = `https://api.memegen.link/images/custom/${encodeURIComponent(r)}/${encodeURIComponent(l)}.png?background=${out}`
 		ztick = await sticker(false, res, packname, author)
 		await conn.sendFile(m.chat, ztick, '', '', m)
 	} catch (e) {

@@ -513,7 +513,6 @@ export async function handler(chatUpdate) {
 					if (!('antiToxic' in chat)) chat.antiToxic = false
 					if (!('antiUncheck' in chat)) chat.antiUncheck = false
 					if (!('antiLinkKick' in chat)) chat.antiLinkKick = false
-					if (!('fkontakTbot' in chat)) chat.fkontakTbot = false
 					if (!('adminonly' in chat)) chat.adminonly = false
 					if (!('owneronly' in chat)) chat.owneronly = false
 					if (!('antivirus' in chat)) chat.antivirus = false
@@ -551,7 +550,6 @@ export async function handler(chatUpdate) {
 					antiToxic: false,
 					antiUncheck: false,
 					antiLinkKick: false,
-					fkontakTbot: false,
 					adminonly: false,
 					owneronly: false,
 					antivirus: false,
@@ -597,21 +595,6 @@ export async function handler(chatUpdate) {
 					step: null, 
 					soal: null
 				}
-				let mutepinkey = db.data.chats[m.chat].mutepinkey
-				if (typeof mutepinkey !== 'object')
-					db.data.chats[m.chat].mutepinkey = {}
-				if (mutepinkey) {
-					if (!('remoteJid' in mutepinkey))
-						mutepinkey.remoteJid = ''
-					if (!('fromMe' in mutepinkey))
-						mutepinkey.fromMe = false
-					if (!('id' in mutepinkey))
-						mutepinkey.id = ''
-				} else db.data.chats[m.chat].mutepinkey = {
-					remoteJid: '',
-					fromMe: false,
-					id: ''
-				}
 			}
 			let settings = db.data.settings[this.user.jid]
 			if (typeof settings !== 'object') db.data.settings[this.user.jid] = {}
@@ -638,6 +621,7 @@ export async function handler(chatUpdate) {
 				if (!('spamlistmsg' in datas)) datas.spamlistmsg = null
 				if (!('spamlistgcmsg' in datas)) datas.spamlistgcmsg = null
 				if (!('anticall' in datas)) datas.anticall = false
+				if (!('fkontaktele' in datas)) datas.fkontaktele = false
 				if (!('autoai' in datas)) datas.autoai = false
 				if (!('teksdonasi' in datas)) datas.teksdonasi = ''
 				if (!('tekssewa' in datas)) datas.tekssewa = ''
@@ -655,6 +639,7 @@ export async function handler(chatUpdate) {
 				if (!('rvo' in datas)) datas.rvo = []
 				if (!('openaikey' in datas)) datas.openaikey = []
 				if (!('menfesschat' in datas)) datas.menfesschat = {}
+				if (!('pinmsg' in datas)) datas.pinmsg = {}
 				if (!('menfesschatcd' in datas)) datas.menfesschatcd = 0
 			} else db.data.datas = {
 				maingroupname: '',
@@ -669,6 +654,7 @@ export async function handler(chatUpdate) {
 				spamlistmsg : null,
 				spamlistgcmsg: null,
 				anticall: false,
+				fkontaktele: false,
 				autoai: false,
 				teksdonasi: '',
 				tekssewa: '',
@@ -685,22 +671,8 @@ export async function handler(chatUpdate) {
 				rvo: [],
 				openaikey: [],
 				menfesschat: {},
+				pinmsg: {},
 				menfesschatcd: 0,
-			}
-			let selfpinkey = db.data.datas.selfpinkey
-			if (typeof selfpinkey !== 'object')
-				db.data.datas.selfpinkey = {}
-			if (selfpinkey) {
-				if (!('remoteJid' in selfpinkey))
-					selfpinkey.remoteJid = ''
-				if (!('fromMe' in selfpinkey))
-					selfpinkey.fromMe = false
-				if (!('id' in selfpinkey))
-					selfpinkey.id = ''
-			} else db.data.datas.selfpinkey = {
-				remoteJid: '',
-				fromMe: false,
-				id: ''
 			}
 		} catch (e) {
 			console.error(e)
@@ -835,9 +807,9 @@ export async function handler(chatUpdate) {
 					let user = db.data.users[m.sender]
 					let anti = /_/.test(m.plugin)
 					let zzz = /zzz|genshin/.test(m.plugin)
-					if (!/unbanchat/.test(m.plugin) && chat?.isBanned)
+					if (!/_|unbanchat/.test(m.plugin) && chat?.isBanned)
 						return // Except this
-					if (!/unbanuser/.test(m.plugin) && user?.banned)
+					if (!/_|unbanuser/.test(m.plugin) && user?.banned)
 						return
 					if (!anti && !zzz && chat?.adminonly && !isAdminOwner)
 						return
@@ -1058,7 +1030,7 @@ export async function groupsUpdate(groupsUpdate) {
 		if (groupUpdate.icon) text = (chats.sIcon || this.sIcon || Connection.conn.sIcon || '```Icon has been changed to```').replace('@icon', groupUpdate.icon)
 		if (groupUpdate.revoke) text = (chats.sRevoke || this.sRevoke || Connection.conn.sRevoke || '```Group link has been changed to```\n@revoke').replace('@revoke', groupUpdate.revoke)
 		if (!text) continue
-		await this.sendMessage(id, { text, mentions: this.parseMention(text) })
+		await this.sendMsg(id, { text, mentions: this.parseMention(text) })
 	}
 }
 

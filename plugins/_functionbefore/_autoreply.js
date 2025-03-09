@@ -4,6 +4,7 @@ import db from '../../lib/database.js'
 export async function before(m) {
 	if (!m.isGroup) return !1
 	if (db.data.users[m.sender]?.banned) return !1
+	if (db.data.chats[m.chat]?.isBanned) return !1
 	if (m.text.toLowerCase() == 'bot') {
 		if (ranNumb(1, 2) > 1) await this.reply(m.chat, bot.getRandom())
 		else await this.sendFile(m.chat,

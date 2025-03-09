@@ -305,7 +305,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isBotAdmin, 
 				global.dfail('group', m, conn)
 				throw false
 			}
-			chat.fkontakTbot = isEnable
+			datas.fkontakbot = isEnable
 			break
 		case 'restrict':
 			isAll = true
@@ -374,14 +374,11 @@ Example :
 			throw false
 	}
 	let msg = await conn.reply(m.chat, `*${type}* berhasil di *${isEnable ? 'nyala' : 'mati'}kan* ${isAll ? 'untuk bot ini' : isUser ? '' : 'untuk grup ini'}${(isEnable && type == 'autonsfw') ? '\n\naktif pukul 21:30, nonaktif pukul 06:00 (localtime)' : ''}`, m)
-	if (type == 'self') {
-		if (datas.selfpinkey.id) {
-			await conn.sendMessage(datas.selfpinkey.remoteJid, { pin: datas.selfpinkey, type: proto.PinInChat.Type.UNPIN_FOR_ALL })
-			datas.selfpinkey = {}
-		}
-		let key = Object.assign({}, msg.key)
-		await conn.sendMessage(m.chat, { pin: key, type: proto.PinInChat.Type[(isEnable ? '' : 'UN')+'PIN_FOR_ALL'], time: 86400 })
-		if (isEnable) datas.selfpinkey = key
+	if (/self|admin|owner/.test(type)) {
+		let pin = db.data.datas.pinmsg
+		if (isEnable) pin[type] = msg.key
+		if (pin[type]) await conn.sendMsg(m.chat, { pin: pin[type], type: proto.PinInChat.Type[(isEnable ? '' : 'UN')+'PIN_FOR_ALL'], time: 86400 })
+		if (!isEnable) delete pin[type]
 	}
 }
 
