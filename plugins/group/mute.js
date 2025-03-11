@@ -4,7 +4,7 @@ const { proto } = await (await import('@whiskeysockets/baileys')).default
 
 const cooldown = 60000
 
-let handler = async (m, { conn, args, usedPrefix, command, isPrems, isAdmin, isOwner, participants }) => {
+let handler = async (m, { conn, args, usedPrefix, command, isPrems, isAdmin, isOwner }) => {
 	if (m.chat.includes('120363217780015387') && !isOwner) throw `[ hehe ]`
 	if (isNaN(args[0] || 'p')) throw `Format : ${usedPrefix + command} <timer>\n1 = 1 menit\n5 = 5 menit ... dst.\n\nContoh : *${usedPrefix + command} 10*`
 	if (isPrems || isAdmin || isOwner) {
@@ -21,7 +21,7 @@ let handler = async (m, { conn, args, usedPrefix, command, isPrems, isAdmin, isO
 		chat.mutecd = cooldown * total
 		chat.spamcount = 0
 		try {
-			let msg = await conn.reply(grup, `Group di *mute* selama ${total} menit.`, fliveLoc, { mentions: participants.map(a => a.id) })
+			let msg = await conn.reply(grup, `Group di *mute* selama ${total} menit.`, m)
 			let pin = db.data.chats[grup].pinmsg
 			pin['mutegc'] = msg.key
 			await conn.sendMsg(grup, { pin: pin['mutegc'], type: proto.PinInChat.Type['PIN_FOR_ALL'], time: 86400 })

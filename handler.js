@@ -571,7 +571,7 @@ export async function handler(chatUpdate) {
 					mutecd: 0,
 					spamcount: 0,
 					warn: {},
-					pinmsg,
+					pinmsg: {},
 				}
 				let akinator = db.data.chats[m.chat].akinator
 				if (typeof akinator !== 'object')
